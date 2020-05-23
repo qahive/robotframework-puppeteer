@@ -1,5 +1,5 @@
 *** Settings ***
-Library    Puppeteer
+Library    PuppeteerLibrary
 
 *** Test Cases ***
 Control chrome browser

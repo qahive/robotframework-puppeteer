@@ -12,3 +12,6 @@ Examples/red.xml
 Examples/report.html
 Puppeteer/__pycache__/
 robotframework_puppeteer.egg-info/
+build/
+Examples/example.png
+robotframework_PuppeteerLibrary.egg-info/

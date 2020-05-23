@@ -7,12 +7,12 @@ CURDIR = dirname(abspath(__file__))
 with open("README.md", "r", encoding='utf-8') as fh:
     LONG_DESCRIPTION = fh.read()
 
-with open(join(CURDIR, 'Puppeteer', '__init__.py'), encoding='utf-8') as f:
+with open(join(CURDIR, 'PuppeteerLibrary', '__init__.py'), encoding='utf-8') as f:
     VERSION = re.search("\n__version__ = '(.*)'", f.read()).group(1)
 
 
 setup(
-    name="robotframework-puppeteer",
+    name="robotframework-PuppeteerLibrary",
     version=VERSION,
     author="QA Hive Co.,Ltd",
     author_email="support@qahive.com",
