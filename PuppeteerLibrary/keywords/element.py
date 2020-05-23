@@ -1,5 +1,3 @@
-from pyppeteer.page import Page
-
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 

@@ -3,12 +3,11 @@ from pyppeteer import launch
 from pyppeteer.browser import Browser
 from pyppeteer.page import Page
 from robot.api.deco import not_keyword
-
 from PuppeteerLibrary.base.robotlibcore import keyword
 from SeleniumLibrary.base import DynamicCore
 from PuppeteerLibrary.keywords import (
-    ElementKeywords
-)
+    ElementKeywords,
+    FormElementKeywords)
 
 
 __version__ = '0.0.1'
@@ -24,7 +23,8 @@ class PuppeteerLibrary(DynamicCore):
 
     def __init__(self):
         libraries = [
-            ElementKeywords(self)
+            ElementKeywords(self),
+            FormElementKeywords(self)
         ]
         DynamicCore.__init__(self, libraries)
 
@@ -50,7 +50,7 @@ class PuppeteerLibrary(DynamicCore):
     async def open_browser_async(self):
         self.browser = await launch(headless=False)
         self.current_page = await self.browser.newPage()
-        await self.current_page.goto('http://example.com')
+        await self.current_page.goto('https://www.w3schools.com/howto/howto_css_contact_form.asp')
         await self.current_page.screenshot({'path': 'example.png'})
 
     @not_keyword
