@@ -6,14 +6,13 @@ class FormElementKeywords(LibraryComponent):
 
     @keyword
     def input_text(self, locator, text, clear=True):
-        self.info("Typing text '%s' into text field '%s'." % (text, locator))
-        self.loop.run_until_complete(self.input_text_async(locator, text, clear))
+        locator = locator.replace('id=', '#')
+        async def input_text_async():
+            if clear:
+                await self._clear_input_text(locator)
+            await self.ctx.getCurrentPage().type(locator, text)
+        self.loop.run_until_complete(input_text_async())
 
-    async def input_text_async(self, locator, text, clear):
-        if clear:
-            await self.clear_input_text(locator)
-        await self.ctx.getCurrentPage().type('#fname', text)
-
-    async def clear_input_text(self, locator):
-        await self.ctx.getCurrentPage().click('#fname', {'clickCount': 3})
+    async def _clear_input_text(self, locator):
+        await self.ctx.getCurrentPage().click(locator, {'clickCount': 3})
         await self.ctx.getCurrentPage().keyboard.press('Backspace')
