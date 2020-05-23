@@ -1,3 +1,17 @@
 
 node_modules/.bin/botclient.js
 node_modules/
+python setup.py develop
+.idea/
+dist/
+Examples/.project
+Examples/.pydevproject
+Examples/log.html
+Examples/output.xml
+Examples/red.xml
+Examples/report.html
+Puppeteer/__pycache__/
+robotframework_puppeteer.egg-info/
+build/
+Examples/example.png
+robotframework_PuppeteerLibrary.egg-info/
