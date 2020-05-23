@@ -9,9 +9,9 @@ Control chrome browser
     Maximize Browser Window
     Input text    id=fname    Mary
     Input text    id=flast    Jane
-    
+    Click Element    input[type=submit]
+
 *** Keywords ***
 Test Teardown
     Dialogs.Pause Execution
     Close browser
-    
