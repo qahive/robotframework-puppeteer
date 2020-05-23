@@ -1,5 +1,3 @@
-from pyppeteer.page import Page
-
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 
@@ -13,18 +11,9 @@ class FormElementKeywords(LibraryComponent):
 
     async def input_text_async(self, locator, text, clear):
         if clear:
-            await self.clear(locator)
+            await self.clear_input_text(locator)
         await self.ctx.getCurrentPage().type('#fname', text)
 
-    async def clear(self, locator):
+    async def clear_input_text(self, locator):
         await self.ctx.getCurrentPage().click('#fname', {'clickCount': 3})
         await self.ctx.getCurrentPage().keyboard.press('Backspace')
-
-    '''
-    async function clear(page, selector)
-    {
-        await page.evaluate(selector= > {
-            document.querySelector(selector).value = "";
-    }, selector);
-    }
-    '''
