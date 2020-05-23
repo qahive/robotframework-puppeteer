@@ -6,10 +6,12 @@ Library    PuppeteerLibrary
 Control chrome browser
     [Teardown]    Test Teardown
     Open browser
-    Input text    id=fname    demo-user
-    Input text    id=fname    demo-usa
+    Maximize Browser Window
+    Input text    id=fname    Mary
+    Input text    id=flast    Jane
     
 *** Keywords ***
 Test Teardown
     Dialogs.Pause Execution
     Close browser
+    

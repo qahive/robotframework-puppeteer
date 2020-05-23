@@ -48,11 +48,27 @@ class PuppeteerLibrary(DynamicCore):
 
     @not_keyword
     async def open_browser_async(self):
-        self.browser = await launch(headless=False)
+        self.browser = await launch(headless=False, defaultViewport={
+            'width': 1366,
+            'height': 768
+        })
         self.current_page = await self.browser.newPage()
-        await self.current_page.goto('https://www.w3schools.com/howto/howto_css_contact_form.asp')
+        await self.current_page.goto('https://www.w3schools.com/html/html_forms.asp')
         await self.current_page.screenshot({'path': 'example.png'})
 
     @not_keyword
     async def close_browser_async(self):
         await self.browser.close()
+
+    @keyword
+    def maximize_browser_window(self):
+        """
+        Maximize view port not actual browser and set default size to 1366 x 768
+        """
+        self.loop.run_until_complete(self.maximize_browser_window_async())
+
+    async def maximize_browser_window_async(self):
+        await self.getCurrentPage().setViewport({
+            'width': 1366,
+            'height': 768
+        })
