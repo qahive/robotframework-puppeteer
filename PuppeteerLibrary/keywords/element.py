@@ -12,4 +12,4 @@ class ElementKeywords(LibraryComponent):
         print('click element')
 
     async def click_element_async(self):
-        await self.ctx._getCurrentPage().screenshot({'path': 'example2.png'})
+        await self.ctx.getCurrentPage().screenshot({'path': 'example2.png'})

@@ -2,6 +2,7 @@ import asyncio
 from pyppeteer import launch
 from pyppeteer.browser import Browser
 from pyppeteer.page import Page
+from robot.api.deco import not_keyword
 
 from PuppeteerLibrary.base.robotlibcore import keyword
 from SeleniumLibrary.base import DynamicCore
@@ -27,10 +28,12 @@ class PuppeteerLibrary(DynamicCore):
         ]
         DynamicCore.__init__(self, libraries)
 
-    def _getBrowser(self) -> Browser:
+    @not_keyword
+    def getBrowser(self) -> Browser:
         return self.browser
 
-    def _getCurrentPage(self) -> Page:
+    @not_keyword
+    def getCurrentPage(self) -> Page:
         return self.current_page
 
     @keyword
@@ -43,11 +46,13 @@ class PuppeteerLibrary(DynamicCore):
         self.loop.run_until_complete(self.close_browser_async())
         print('close')
 
+    @not_keyword
     async def open_browser_async(self):
         self.browser = await launch(headless=False)
         self.current_page = await self.browser.newPage()
         await self.current_page.goto('http://example.com')
         await self.current_page.screenshot({'path': 'example.png'})
 
+    @not_keyword
     async def close_browser_async(self):
         await self.browser.close()
