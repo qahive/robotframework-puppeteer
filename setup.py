@@ -35,7 +35,6 @@ setup(
     platforms='any',
     install_requires=[
         'robotframework>=3.2.1',
-        'asyncio>=3.4.3',
         'pyppeteer>=0.2.2'
     ],
     # python_requires='>3.5',
