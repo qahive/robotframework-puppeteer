@@ -1,4 +1,8 @@
+import asyncio
+
 class ContextAware(object):
+
+    loop = asyncio.get_event_loop()
 
     def __init__(self, ctx):
         """Base class exposing attributes from the common context.
