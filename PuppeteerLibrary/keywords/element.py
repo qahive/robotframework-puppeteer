@@ -8,5 +8,5 @@ class ElementKeywords(LibraryComponent):
     def click_element(self, locator):
         async def click_element_async():
             print('click element')
-            await self.ctx.getCurrentPage().click(locator)
+            await self.ctx.get_current_page().click(locator)
         self.loop.run_until_complete(click_element_async())

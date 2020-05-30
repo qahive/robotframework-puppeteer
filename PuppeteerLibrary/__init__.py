@@ -5,6 +5,8 @@ from pyppeteer.page import Page
 from robot.api.deco import not_keyword
 from PuppeteerLibrary.base.robotlibcore import keyword
 from SeleniumLibrary.base import DynamicCore
+
+from PuppeteerLibrary.custom_elements.SPage import SPage
 from PuppeteerLibrary.keywords import (
     ElementKeywords,
     FormElementKeywords)
@@ -29,12 +31,14 @@ class PuppeteerLibrary(DynamicCore):
         DynamicCore.__init__(self, libraries)
 
     @not_keyword
-    def getBrowser(self) -> Browser:
+    def get_browser(self) -> Browser:
         return self.browser
 
     @not_keyword
-    def getCurrentPage(self) -> Page:
-        return self.current_page
+    def get_current_page(self) -> SPage:
+        page = self.current_page
+        page.__class__ = SPage
+        return page
 
     @keyword
     def open_browser(self):
@@ -68,7 +72,7 @@ class PuppeteerLibrary(DynamicCore):
         self.loop.run_until_complete(self.maximize_browser_window_async())
 
     async def maximize_browser_window_async(self):
-        await self.getCurrentPage().setViewport({
+        await self.get_current_page().setViewport({
             'width': 1366,
             'height': 768
         })
