@@ -21,10 +21,11 @@ class SPage(Page):
     '''
 
     def _getSelector(self, selenium_selector: str) -> str:
-        selector_pair = selenium_selector.split('=')
+        selector_pair = selenium_selector.split('=', 1)
+        if len(selector_pair) != 2:
+            selector_pair = selenium_selector.split(':', 1)
         selector_type = selector_pair[0]
         selector_value = selector_pair[1]
-
         if selector_type == 'id':
             parser = IdLocatorParser()
         elif selector_type == 'xpath':
