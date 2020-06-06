@@ -5,6 +5,8 @@ from pyppeteer.page import Page
 from robot.api.deco import not_keyword
 from PuppeteerLibrary.base.robotlibcore import keyword
 from SeleniumLibrary.base import DynamicCore
+
+from PuppeteerLibrary.custom_elements.SPage import SPage
 from PuppeteerLibrary.keywords import (
     ElementKeywords,
     FormElementKeywords)
@@ -14,6 +16,24 @@ __version__ = '0.0.1'
 
 
 class PuppeteerLibrary(DynamicCore):
+    """PuppeteerLibrary is a web testing library for Robot Framework.
+    PuppeteerLibrary uses the pyppeteer library internally to
+    control a web browser.
+
+    This document explains how to use keywords provided by PuppeteerLibrary.
+
+    == Locator syntax ==
+    PuppeteerLibrary supports finding elements based on different strategies
+    such as the element id, XPath expressions, or CSS selectors same as SeleniumLibrary
+
+    Locator strategy is specified with a prefix using either syntax ``strategy:value`` or ``strategy=value``.
+
+    | = Strategy = |          = Match based on =         |         = Example =            |
+    | id           | Element ``id``.                     | ``id:example``                 |
+    | xpath        | XPath expression.                   | ``xpath://div[@id="example"]`` |
+    | css          | CSS selector.                       | ``css:div#example``            |
+
+    """
 
     ROBOT_LISTENER_API_VERSION = 3
 
@@ -29,12 +49,14 @@ class PuppeteerLibrary(DynamicCore):
         DynamicCore.__init__(self, libraries)
 
     @not_keyword
-    def getBrowser(self) -> Browser:
+    def get_browser(self) -> Browser:
         return self.browser
 
     @not_keyword
-    def getCurrentPage(self) -> Page:
-        return self.current_page
+    def get_current_page(self) -> SPage:
+        page = self.current_page
+        page.__class__ = SPage
+        return page
 
     @keyword
     def open_browser(self):
@@ -68,7 +90,7 @@ class PuppeteerLibrary(DynamicCore):
         self.loop.run_until_complete(self.maximize_browser_window_async())
 
     async def maximize_browser_window_async(self):
-        await self.getCurrentPage().setViewport({
+        await self.get_current_page().setViewport({
             'width': 1366,
             'height': 768
         })
