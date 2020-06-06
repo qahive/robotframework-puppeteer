@@ -18,7 +18,7 @@ class SelectorAbstraction:
     @staticmethod
     def is_xpath(selenium_selector: str) -> bool:
         selector_type = SelectorAbstraction._get_selector_pair(selenium_selector)[0]
-        if selector_type == 'xpath':
+        if selector_type == 'xpath' or selector_type == 'partial link':
             return True
         else:
             return False

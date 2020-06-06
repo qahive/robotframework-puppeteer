@@ -4,4 +4,4 @@ from PuppeteerLibrary.locators.LocatorParserImplementation import LocatorParserI
 class PartialLinkLocatorParser(LocatorParserImplementation):
 
     def parse(self, strategy_value: str) -> str:
-        return f'//a[contains(text()="{strategy_value}")]'
+        return f'//a[contains(string(),"{strategy_value}")]'
