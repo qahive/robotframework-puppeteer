@@ -11,6 +11,8 @@ class SelectorAbstraction:
         selector_pair = selenium_selector.split('=', 1)
         if len(selector_pair) != 2:
             selector_pair = selenium_selector.split(':', 1)
+        if len(selector_pair) != 2:
+            raise Exception('selector not valid '+selenium_selector)
         selector_type = selector_pair[0].lower().strip()
         selector_value = selector_pair[1].strip()
         parser = SelectorAbstraction._get_locator_parser(selector_type)
@@ -26,4 +28,4 @@ class SelectorAbstraction:
         elif selector_type == 'css':
             return CssLocatorParser()
         else:
-            raise Exception('selenium_selector = ' + selector_type)
+            raise Exception('not support selector ' + selector_type)

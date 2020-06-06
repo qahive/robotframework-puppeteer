@@ -16,6 +16,24 @@ __version__ = '0.0.1'
 
 
 class PuppeteerLibrary(DynamicCore):
+    """PuppeteerLibrary is a web testing library for Robot Framework.
+    PuppeteerLibrary uses the pyppeteer library internally to
+    control a web browser.
+
+    This document explains how to use keywords provided by PuppeteerLibrary.
+
+    == Locator syntax ==
+    PuppeteerLibrary supports finding elements based on different strategies
+    such as the element id, XPath expressions, or CSS selectors same as SeleniumLibrary
+
+    Locator strategy is specified with a prefix using either syntax ``strategy:value`` or ``strategy=value``.
+
+    | = Strategy = |          = Match based on =         |         = Example =            |
+    | id           | Element ``id``.                     | ``id:example``                 |
+    | xpath        | XPath expression.                   | ``xpath://div[@id="example"]`` |
+    | css          | CSS selector.                       | ``css:div#example``            |
+
+    """
 
     ROBOT_LISTENER_API_VERSION = 3
 
