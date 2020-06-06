@@ -2,12 +2,13 @@
 Library    PuppeteerLibrary
 
 *** Test Cases ***
-Control chrome browser
+Example form control
     [Teardown]    Test Teardown
     Open browser
     Maximize Browser Window
     ${header} =    Get Text    css:h1
     ${fname} =    Get Value    id:fname
+    Clear Element Text    id:fname
     Input text    id:fname    Mary
     Input text    xpath://input[@id="lname"]    Jane
     Click Element    xpath://input[@type="submit"]
