@@ -6,3 +6,4 @@ https://github.com/robotframework/RemoteInterface
 ## Setup 
 npm install robotremote
 npm install puppeteer
+python setup.py install

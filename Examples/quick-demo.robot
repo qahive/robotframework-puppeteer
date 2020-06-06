@@ -1,5 +1,4 @@
 *** Settings ***
-Library    Dialogs
 Library    PuppeteerLibrary
 
 *** Test Cases ***
@@ -13,5 +12,4 @@ Control chrome browser
 
 *** Keywords ***
 Test Teardown
-    Dialogs.Pause Execution
     Close browser

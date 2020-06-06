@@ -1,4 +1,5 @@
-from typing import Any
+from typing import Any, Optional, List
+from pyppeteer.element_handle import ElementHandle
 from pyppeteer.page import Page
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
 
@@ -9,9 +10,16 @@ class SPage(Page):
         super(Page, self).__init__()
 
     def click(self, selector: str, options: dict = None, **kwargs: Any):
-        return super().click(SelectorAbstraction.get_selector(selector), options)
+        return super().click(SelectorAbstraction.get_selector(selector), options, **kwargs)
 
-    '''
-    def querySelector(self, selenium_selector: str) -> Optional[ElementHandle]:
-        return super().querySelector(self._getSelector(selenium_selector))
-    '''
+    def type(self, selector: str, text: str, options: dict = None, **kwargs: Any):
+        return super().type(SelectorAbstraction.get_selector(selector), text, options, **kwargs)
+
+    def tap(self, selector: str):
+        return super().tap(SelectorAbstraction.get_selector(selector))
+
+    def querySelector(self, selector: str) -> Optional[ElementHandle]:
+        return super().querySelector(self._getSelector(selector))
+
+    def querySelectorAll(self, selector: str) -> List[ElementHandle]:
+        return super().querySelectorAll(SelectorAbstraction.get_selector(selector))
