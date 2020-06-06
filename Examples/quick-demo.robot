@@ -7,8 +7,8 @@ Control chrome browser
     Open browser
     Maximize Browser Window
     Input text    id=fname    Mary
-    Input text    id=lname    Jane
-    Click Element    css=input[type=submit]
+    Input text    xpath=//input[@id="lname"]    Jane
+    Click Element    xpath=//input[@type="submit"]
 
 *** Keywords ***
 Test Teardown
