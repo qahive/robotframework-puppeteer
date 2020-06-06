@@ -32,6 +32,8 @@ class PuppeteerLibrary(DynamicCore):
     | id           | Element ``id``.                     | ``id:example``                 |
     | xpath        | XPath expression.                   | ``xpath://div[@id="example"]`` |
     | css          | CSS selector.                       | ``css:div#example``            |
+    | link	       | Exact text a link has.	             | ``link:Home page``             |
+    | partial link | Partial link text   	             | ``partial link:Home``          |
 
     """
 
