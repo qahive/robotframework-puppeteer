@@ -1,11 +1,8 @@
 import asyncio
 from pyppeteer import launch
 from pyppeteer.browser import Browser
-from pyppeteer.page import Page
 from robot.api.deco import not_keyword
-from PuppeteerLibrary.base.robotlibcore import keyword
-from SeleniumLibrary.base import DynamicCore
-
+from PuppeteerLibrary.base.robotlibcore import keyword, DynamicCore
 from PuppeteerLibrary.custom_elements.SPage import SPage
 from PuppeteerLibrary.keywords import (
     ElementKeywords,
