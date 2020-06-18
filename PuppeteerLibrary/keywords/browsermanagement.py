@@ -1,3 +1,4 @@
+from pyppeteer import launch
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 
@@ -6,8 +7,17 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def open_browser(self):
-        print('')
+        async def open_browser_async():
+            self.browser = await launch(headless=False, defaultViewport={
+                'width': 1366,
+                'height': 768
+            })
+            self.current_page = await self.browser.newPage()
+            await self.current_page.goto('https://www.w3schools.com/html/html_forms.asp')
+            await self.current_page.screenshot({'path': 'example.png'})
+        self.loop.run_until_complete(open_browser_async())
 
+    '''
     @keyword
     def close_all_browsers(self):
         print('')
@@ -43,3 +53,4 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def reload_page(self):
         print('')
+    '''
