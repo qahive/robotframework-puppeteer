@@ -1,4 +1,6 @@
 import asyncio
+
+from pyppeteer.browser import Browser
 from PuppeteerLibrary.custom_elements.SPage import SPage
 from robot.api.deco import not_keyword
 from PuppeteerLibrary.base.robotlibcore import DynamicCore
@@ -51,3 +53,7 @@ class PuppeteerLibrary(DynamicCore):
         page = self.current_page
         page.__class__ = SPage
         return page
+
+    @not_keyword
+    def get_browser(self) -> Browser:
+        return self.browser

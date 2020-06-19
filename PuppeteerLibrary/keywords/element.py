@@ -7,7 +7,7 @@ class ElementKeywords(LibraryComponent):
     @keyword
     def click_element(self, selenium_locator):
         async def click_element_async():
-            await self.ctx.get_current_page().click_with_selenium_locator(selenium_locator)
+            return await self.ctx.get_current_page().click_with_selenium_locator(selenium_locator)
         self.loop.run_until_complete(click_element_async())
 
     @keyword
@@ -17,7 +17,7 @@ class ElementKeywords(LibraryComponent):
             for element in elements:
                 tag_name = (await (await element.getProperty('tagName')).jsonValue()).lower()
                 if tag_name == 'a':
-                    return element.click()
+                    return await element.click()
             raise Exception('Not found link with specific locator '+selenium_locator)
         self.loop.run_until_complete(click_link_async())
 
@@ -28,7 +28,7 @@ class ElementKeywords(LibraryComponent):
             for element in elements:
                 tag_name = (await (await element.getProperty('tagName')).jsonValue()).lower()
                 if tag_name == 'button':
-                    return element.click()
+                    return await element.click()
             raise Exception('Not found button with specific locator ' + selenium_locator)
         self.loop.run_until_complete(click_button_async())
 
