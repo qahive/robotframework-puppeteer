@@ -20,6 +20,15 @@ Example specific element type click
     Maximize Browser Window
     Click Link    partial link:Next
 
+Control browser example
+    [Teardown]    Test Teardown
+    &{options} =    create dictionary   headless=${False}
+    Open browser    https://www.w3schools.com/html/html_forms.asp   options=${options}
+    Maximize Browser Window
+    Go to   https://www.google.com
+    Go back
+    ${header} =    Get Text    css:h1
+
 *** Keywords ***
 Test Teardown
     Close browser

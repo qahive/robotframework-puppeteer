@@ -22,6 +22,12 @@ class BrowserManagementKeywords(LibraryComponent):
         | width              | default 1366           |
         | height             | default 768            |
 
+
+        Example:
+
+        | &{options} = | create dictionary                             | headless=${False}  |
+        | Open browser | https://www.w3schools.com/html/html_forms.asp | options=${options} |
+
         """
         async def open_browser_async():
             default_options = {
@@ -45,29 +51,22 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def close_browser(self):
+        """Closes the current browser
+        """
         async def close_browser_async():
             await self.ctx.browser.close()
         self.loop.run_until_complete(close_browser_async())
 
     @keyword
-    def maximize_browser_window(self):
-        """
-        Maximize view port not actual browser and set default size to 1366 x 768
+    def maximize_browser_window(self, width=1366, height=768):
+        """Maximize view port not actual browser and set default size to 1366 x 768
         """
         async def maximize_browser_window_async():
             await self.ctx.get_current_page().setViewport({
-                'width': 1366,
-                'height': 768
+                'width': width,
+                'height': height
             })
         self.loop.run_until_complete(maximize_browser_window_async())
-
-    @keyword
-    def close_all_browsers(self):
-        print('')
-
-    @keyword
-    def switch_browser(self, index_or_alias):
-        print('')
 
     @keyword
     def get_source(self):
@@ -83,11 +82,17 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def go_back(self):
-        print('')
+        """Simulate browser go back"""
+        async def go_back_async():
+            await self.ctx.get_current_page().goBack()
+        self.loop.run_until_complete(go_back_async())
 
     @keyword
     def go_to(self, url):
-        print('')
+        """Navigates the current page to the ``url``"""
+        async def go_to_async():
+            await self.ctx.get_current_page().goto(url)
+        self.loop.run_until_complete(go_to_async())
 
     @keyword
     def reload_page(self):
