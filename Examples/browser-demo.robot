@@ -7,6 +7,7 @@ Example browser title
     Open browser    https://www.w3schools.com/html/html_forms.asp
     Maximize Browser Window
     ${title} =   Get title
+    ${location} =   Get location
     Click Link    partial link:Next
 
 *** Keywords ***

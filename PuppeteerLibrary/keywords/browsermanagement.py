@@ -69,10 +69,6 @@ class BrowserManagementKeywords(LibraryComponent):
         self.loop.run_until_complete(maximize_browser_window_async())
 
     @keyword
-    def get_source(self):
-        print('')
-
-    @keyword
     def get_title(self):
         """Get page title"""
         async def get_title_async():
@@ -81,7 +77,8 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def get_location(self):
-        print('')
+        """Get page location"""
+        return self.ctx.get_current_page().url
 
     @keyword
     def go_back(self):
