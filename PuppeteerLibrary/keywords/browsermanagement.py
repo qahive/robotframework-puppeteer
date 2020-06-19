@@ -8,14 +8,40 @@ from PuppeteerLibrary.base.robotlibcore import keyword
 class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
-    def open_browser(self):
+    def open_browser(self, url, browser="chrome", alias=None, options=None):
+        """Opens a new browser instance to the specific ``url``.
+
+        The ``browser`` argument specifies which browser to use.
+
+        |    = Browser =    |        = Name(s) =     |
+        | Google Chrome     | chrome                 |
+
+
+        The ``options`` argument as a dictionary
+
+        |    = Property =    |        = Value =       |
+        | headless           | default True           |
+        | width              | default 1366           |
+        | height             | default 768            |
+
+        """
         async def open_browser_async():
-            self.browser = await launch(headless=False, defaultViewport={
+            default_options = {
+                'headless': True,
                 'width': 1366,
                 'height': 768
+            }
+            merged_options = None
+            if options is None:
+                merged_options = default_options
+            else:
+                merged_options = {**default_options, **options}
+            self.browser = await launch(headless=merged_options['headless'], defaultViewport={
+                'width': merged_options['width'],
+                'height': merged_options['height']
             })
             self.ctx.current_page = await self.browser.newPage()
-            await self.ctx.current_page.goto('https://www.w3schools.com/html/html_forms.asp')
+            await self.ctx.current_page.goto(url)
             await self.ctx.current_page.screenshot({'path': 'example.png'})
         self.loop.run_until_complete(open_browser_async())
 
@@ -44,7 +70,6 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def close_all_browsers(self):
         print('')
-
 
     @keyword
     def switch_browser(self, index_or_alias):
