@@ -74,7 +74,10 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def get_title(self):
-        print('')
+        """Get page title"""
+        async def get_title_async():
+            return await self.ctx.get_current_page().title()
+        return self.loop.run_until_complete(get_title_async())
 
     @keyword
     def get_location(self):
@@ -96,4 +99,7 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def reload_page(self):
-        print('')
+        """Reload the current page"""
+        async def reload_page_async():
+            await self.ctx.get_current_page().reload()
+        self.loop.run_until_complete(reload_page_async())

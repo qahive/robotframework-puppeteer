@@ -27,6 +27,7 @@ Control browser example
     Maximize Browser Window
     Go to   https://www.google.com
     Go back
+    Reload page
     ${header} =    Get Text    css:h1
 
 *** Keywords ***
