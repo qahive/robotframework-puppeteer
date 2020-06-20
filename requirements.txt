@@ -1,2 +1,3 @@
 robotframework>=3.2.1
-pyppeteer>=0.2.2
+# pyppeteer>=0.2.2
+git+https://github.com/qahive/pyppeteer.git@dev
