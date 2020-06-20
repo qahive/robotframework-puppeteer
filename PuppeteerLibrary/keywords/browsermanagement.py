@@ -1,3 +1,4 @@
+import time
 from pyppeteer import launch
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
@@ -100,3 +101,53 @@ class BrowserManagementKeywords(LibraryComponent):
         async def reload_page_async():
             await self.ctx.get_current_page().reload()
         self.loop.run_until_complete(reload_page_async())
+
+    @keyword
+    def wait_for_new_window_open(self, timeout=5):
+        async def wait_for_new_page_open_async():
+            pages = await self.ctx.get_browser().pages()
+            await pages[-1].title() # workaround for force pages re-cache
+            pre_page_len = len(pages)
+            timer = 0
+            while timer < timeout:
+                pages = await self.ctx.get_browser().pages()
+                await pages[-1].title()  # workaround for force pages re-cache
+                page_len = len(pages)
+                if page_len > pre_page_len:
+                    return
+                timer += 1
+                time.sleep(1)
+            raise Exception('No new page has been open. pre: '+str(pre_page_len)+' current: '+str(page_len))
+        self.loop.run_until_complete(wait_for_new_page_open_async())
+
+    @keyword
+    def switch_window(self, locator='MAIN'):
+        """Switches to tabs matching locator
+        locator support options NEW, MAIN and query using name, title and url
+            - NEW: latest opened window
+            - MAIN: main window
+            - title="QAHive": window title
+            - url="https://qahive.com": url
+        """
+        async def switch_window_async():
+            pages = await self.ctx.get_browser().pages()
+            if locator == 'MAIN':
+                return self.ctx.set_current_page(pages[0])
+            elif locator == 'NEW':
+                return self.ctx.set_current_page(pages[-1])
+            elif 'title=' in locator:
+                title = locator.replace('title=', '')
+                for page in pages:
+                    if page.title() == title:
+                        return self.ctx.set_current_page(page)
+            elif 'url=' in locator:
+                url = locator.replace('url=', '')
+                for page in pages:
+                    if page.url() == url:
+                        return self.ctx.set_current_page(page)
+            else:
+                raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
+
+            raise Exception('Can\'t find specify page locator.')
+        self.loop.run_until_complete(switch_window_async())
+

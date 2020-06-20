@@ -55,5 +55,11 @@ class PuppeteerLibrary(DynamicCore):
         return page
 
     @not_keyword
+    def set_current_page(self, page) -> SPage:
+        self.current_page = page
+        page.__class__ = SPage
+        return self.current_page
+
+    @not_keyword
     def get_browser(self) -> Browser:
         return self.browser
