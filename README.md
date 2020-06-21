@@ -4,9 +4,12 @@ Puppeteer with robotframework. This project connect between robotframework and p
 
 Keyword documentation
 ---------------------
-See `keyword documentation` for available keywords and more information
-about the library in general.
+See [`keyword documentation`](https://qahive.github.io/robotframework-puppeteer/PuppeteerLibrary.html) for available keywords and more information about the library in general.
 
+
+Command for Generate document
+
+    python -m robot.libdoc -f html PuppeteerLibrary docs/PuppeteerLibrary.html
 
 Installation
 ------------
@@ -14,10 +17,11 @@ The recommended installation method is using pip_::
 
     pip install --upgrade robotframework-puppeteer
     
-Or manuall install by running following command
+Or manually install by running following command
     
     pip install -r requirements.txt
     python setup.py install
+
 
 Usage
 ------------
@@ -37,3 +41,9 @@ Usage
     *** Keywords ***
     Test Teardown
         Close browser
+
+
+Contributor
+------------
+robotframework-puppeteer mainly contribute by QAHive Co. Ltd.
+
