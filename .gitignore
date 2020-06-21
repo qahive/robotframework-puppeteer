@@ -15,3 +15,4 @@ robotframework_puppeteer.egg-info/
 build/
 Examples/example.png
 robotframework_PuppeteerLibrary.egg-info/
+*.pyc
