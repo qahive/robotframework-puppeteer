@@ -4,10 +4,10 @@ Puppeteer with robotframework. This project connect between robotframework and p
 
 Keyword documentation
 ---------------------
-See `keyword documentation` for available keywords and more information
-about the library in general.
+See [`keyword documentation`](https://qahive.github.io/robotframework-puppeteer/PuppeteerLibrary.html) for available keywords and more information about the library in general.
 
-Generate document
+
+Command for Generate document
 
     python -m robot.libdoc -f html PuppeteerLibrary docs/PuppeteerLibrary.html
 
@@ -46,3 +46,4 @@ Usage
 Contributor
 ------------
 robotframework-puppeteer mainly contribute by QAHive Co. Ltd.
+
