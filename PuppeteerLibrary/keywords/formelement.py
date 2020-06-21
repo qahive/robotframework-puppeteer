@@ -1,5 +1,3 @@
-from PuppeteerLibrary.locators import SelectorAbstraction
-
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 

@@ -6,9 +6,10 @@ from PuppeteerLibrary.base.robotlibcore import DynamicCore
 from PuppeteerLibrary.keywords import (
     BrowserManagementKeywords,
     ElementKeywords,
-    FormElementKeywords)
+    FormElementKeywords,
+    WaitingKeywords)
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 
 class PuppeteerLibrary(DynamicCore):
@@ -45,7 +46,8 @@ class PuppeteerLibrary(DynamicCore):
         libraries = [
             BrowserManagementKeywords(self),
             ElementKeywords(self),
-            FormElementKeywords(self)
+            FormElementKeywords(self),
+            WaitingKeywords(self)
         ]
         DynamicCore.__init__(self, libraries)
 

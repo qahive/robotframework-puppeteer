@@ -1,6 +1,7 @@
 from typing import Any
 from pyppeteer.page import Page
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
+from robot.utils import timestr_to_secs
 
 
 class SPage(Page):
@@ -43,3 +44,14 @@ class SPage(Page):
             return await self.xpath(selector_value)[0]
         else:
             return await self.querySelector(selector_value)
+
+    async def waitForSelector_with_selenium_locator(self, selenium_locator: str, timestr: str = None):
+        if timestr is None:
+            timestr = '30s'
+        timesecs = timestr_to_secs(timestr)
+        options = {'timeout': timesecs * 1000}
+        selector_value = SelectorAbstraction.get_selector(selenium_locator)
+        if SelectorAbstraction.is_xpath(selenium_locator):
+            return await self.waitForXPath(selector_value, options)[0]
+        else:
+            return await self.waitForSelector(selector_value, options)
