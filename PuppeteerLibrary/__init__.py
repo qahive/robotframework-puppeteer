@@ -1,5 +1,4 @@
 import asyncio
-
 from pyppeteer.browser import Browser
 from PuppeteerLibrary.custom_elements.SPage import SPage
 from robot.api.deco import not_keyword
@@ -34,6 +33,8 @@ class PuppeteerLibrary(DynamicCore):
 
     """
 
+    ROBOT_LIBRARY_SCOPE = 'GLOBAL'
+    ROBOT_LIBRARY_VERSION = __version__
     ROBOT_LISTENER_API_VERSION = 3
 
     loop = asyncio.get_event_loop()
