@@ -18,6 +18,7 @@ setup(
     author_email="support@qahive.com",
     description="ExcelDataDriver is a Excel Data-Driven Testing library for Robot Framework.",
     long_description=LONG_DESCRIPTION,
+    long_description_content_type='text/markdown',
     license="Apache License 2.0",
     url='https://github.com/qahive/robotframework-puppeteer',
     packages=find_packages(),
