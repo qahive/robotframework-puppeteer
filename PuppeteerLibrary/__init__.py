@@ -6,10 +6,12 @@ from PuppeteerLibrary.base.robotlibcore import DynamicCore
 from PuppeteerLibrary.keywords import (
     BrowserManagementKeywords,
     ElementKeywords,
+    ElementKeywordsAsync,
     FormElementKeywords,
+    FormElementKeywordsAsync,
     UtilityKeywords,
     WaitingKeywords,
-    WaitingKeywordsAsync, ElementKeywordsAsync)
+    WaitingKeywordsAsync)
 
 __version__ = '0.3.0'
 
@@ -33,6 +35,9 @@ class PuppeteerLibrary(DynamicCore):
     | css          | CSS selector.                       | ``css:div#example``            |
     | link	       | Exact text a link has.	             | ``link:Home page``             |
     | partial link | Partial link text   	             | ``partial link:Home``          |
+
+    == Asynchronous Handler ==
+    Core functionality for
 
     """
 
@@ -58,6 +63,7 @@ class PuppeteerLibrary(DynamicCore):
 
         self.async_libraries = [
             ElementKeywordsAsync(self),
+            FormElementKeywordsAsync(self),
             WaitingKeywordsAsync(self)
         ]
 

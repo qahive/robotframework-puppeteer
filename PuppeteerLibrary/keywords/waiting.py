@@ -1,6 +1,4 @@
 from PuppeteerLibrary.keywords.waiting_async import WaitingKeywordsAsync
-from robot.api.deco import not_keyword
-
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 

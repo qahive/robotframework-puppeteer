@@ -27,8 +27,8 @@ class ElementKeywords(LibraryComponent):
 
     @keyword
     def get_text(self, selenium_locator):
-        return self.loop.run_until_complete(self.async_func.get_text_async())
+        return self.loop.run_until_complete(self.async_func.get_text_async(selenium_locator))
 
     @keyword
     def get_value(self, selenium_locator):
-        return self.loop.run_until_complete(self.async_func.get_text_async())
+        return self.loop.run_until_complete(self.async_func.get_text_async(selenium_locator))
