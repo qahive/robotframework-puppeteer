@@ -14,12 +14,12 @@ class WaitingKeywords(LibraryComponent):
     @keyword
     def wait_for_request_url(self, url, method='GET', timeout=None):
         """Wait for request url"""
-        return self.loop.run_until_complete(self.async_func.wait_for_request_url_async_2(url, method , timeout))
+        return self.loop.run_until_complete(self.async_func.wait_for_request_url_async(url, method , timeout))
 
     @keyword
     def wait_for_response_url(self, url, status=200, timeout=None):
         """Wait for response url"""
-        self.loop.run_until_complete(self.async_func.wait_for_response_async(url, status, timeout))
+        self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, timeout))
 
     @keyword
     def wait_until_page_contains_element(self, locator, timeout=None):

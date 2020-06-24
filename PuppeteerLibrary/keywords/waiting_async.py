@@ -10,7 +10,7 @@ class WaitingKeywordsAsync(LibraryComponent):
             lambda req: req.url == url and req.method == method, timeout)
 
     @keyword
-    async def wait_for_response_async(self, url, status=200, timeout=None):
+    async def wait_for_response_url_async(self, url, status=200, timeout=None):
         await self.ctx.get_current_page().waitForResponse(lambda res: res.url == url and res.status == status, timeout)
 
     @keyword
