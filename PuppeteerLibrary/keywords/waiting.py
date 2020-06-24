@@ -1,27 +1,27 @@
+from PuppeteerLibrary.keywords.waiting_async import WaitingKeywordsAsync
+from robot.api.deco import not_keyword
+
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 
 
 class WaitingKeywords(LibraryComponent):
 
+    def __init__(self, ctx):
+        self.ctx = ctx
+        self.async_func = WaitingKeywordsAsync(self)
+
     @keyword
-    def wait_for_request_url(self, url, method, timeout=None):
+    def wait_for_request_url(self, url, method='GET', timeout=None):
         """Wait for request url"""
-        async def wait_for_request_async():
-            await self.ctx.get_current_page().waitForRequest(lambda req: req.url == url and req.method == method, timeout)
-        self.loop.run_until_complete(wait_for_request_async())
+        return self.loop.run_until_complete(self.async_func.wait_for_request_url_async_2(url, method , timeout))
 
     @keyword
     def wait_for_response_url(self, url, status=200, timeout=None):
         """Wait for response url"""
-        async def wait_for_response_async():
-            await self.ctx.get_current_page().waitForResponse(lambda res: res.url == url and res.status == status, timeout)
-        self.loop.run_until_complete(wait_for_response_async())
+        self.loop.run_until_complete(self.async_func.wait_for_response_async(url, status, timeout))
 
     @keyword
     def wait_until_page_contains_element(self, locator, timeout=None):
         """Wait until page contains element within specific timeout"""
-        async def wait_until_page_contains_element_async():
-            await self.ctx.get_current_page().waitForSelector_with_selenium_locator(locator, timeout)
-        self.loop.run_until_complete(wait_until_page_contains_element_async())
-
+        self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(self, locator, timeout))
