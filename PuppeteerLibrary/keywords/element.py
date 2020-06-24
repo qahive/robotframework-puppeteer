@@ -7,7 +7,7 @@ class ElementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         self.ctx = ctx
-        self.async_func = ElementKeywordsAsync(self)
+        self.async_func = ElementKeywordsAsync(self.ctx)
 
     @keyword
     def click_element(self, selenium_locator):

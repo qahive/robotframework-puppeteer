@@ -1,6 +1,7 @@
 *** Settings ***
 Library    Dialogs    
 Library    PuppeteerLibrary
+Test Teardown    Close Browser
 
 
 *** Test Cases ***

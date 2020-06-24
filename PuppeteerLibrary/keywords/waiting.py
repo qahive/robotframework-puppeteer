@@ -9,7 +9,7 @@ class WaitingKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         self.ctx = ctx
-        self.async_func = WaitingKeywordsAsync(self)
+        self.async_func = WaitingKeywordsAsync(self.ctx)
 
     @keyword
     def wait_for_request_url(self, url, method='GET', timeout=None):
@@ -19,9 +19,9 @@ class WaitingKeywords(LibraryComponent):
     @keyword
     def wait_for_response_url(self, url, status=200, timeout=None):
         """Wait for response url"""
-        self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, timeout))
+        return self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, timeout))
 
     @keyword
     def wait_until_page_contains_element(self, locator, timeout=None):
         """Wait until page contains element within specific timeout"""
-        self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(self, locator, timeout))
+        return self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(locator, timeout))
