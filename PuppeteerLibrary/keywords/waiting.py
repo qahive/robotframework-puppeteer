@@ -32,8 +32,13 @@ class WaitingKeywords(LibraryComponent):
     @keyword
     def wait_until_page_contains_element(self, locator, timeout=None):
         """Wait until page contains element within specific timeout"""
-        return self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(locator, timeout))
+        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout))
 
     @keyword
-    def wait_until_page_does_not_contains_element(self, locator, timeout=None):
-        return self.loop.run_until_complete(self.async_func.wait_until_page_does_not_contains_element_async(locator, timeout))
+    def wait_until_element_is_hidden(self, locator, timeout=None):
+        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout, visible=False, hidden=True))
+
+    @keyword
+    def wait_until_element_is_visible(self, locator, timeout=None):
+        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout, visible=True, hidden=False))
+
