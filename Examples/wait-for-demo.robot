@@ -41,5 +41,5 @@ Demo wait for element hidden and visible
     ...    AND    Wait for response url    https://www.w3schools.com/js/ajax_info.txt
     Wait Until Element Is Hidden    css:#demo button
     Wait Until Page Contains    AJAX is not a programming language    
-    
+    Wait Until Page Does Not Contains    Let AJAX change this text
     
