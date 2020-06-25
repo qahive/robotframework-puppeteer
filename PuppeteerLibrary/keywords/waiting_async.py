@@ -14,5 +14,13 @@ class WaitingKeywordsAsync(LibraryComponent):
         await self.ctx.get_current_page().waitForResponse(lambda res: res.url == url and res.status == status, timeout)
 
     @keyword
+    async def wait_for_function_async(self, page_function):
+        await self.ctx.get_current_page().waitForFunction(page_function)
+
+    @keyword
+    async def wait_for_navigation_async(self):
+        await self.ctx.get_current_page().waitForNavigation()
+
+    @keyword
     async def wait_until_page_contains_element_async(self, locator, timeout=None):
         await self.ctx.get_current_page().waitForSelector_with_selenium_locator(locator, timeout)

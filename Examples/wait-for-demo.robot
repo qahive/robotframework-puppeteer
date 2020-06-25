@@ -25,3 +25,10 @@ Demo wait for http request and response
     ...    AND    Wait for request url     https://www.w3schools.com/js/ajax_info.txt
     ...    AND    Wait for response url    https://www.w3schools.com/js/ajax_info.txt
     
+Demo wait for navigation
+    &{options} =    create dictionary   headless=${False}
+    Open browser    https://www.w3schools.com/js/js_ajax_intro.asp   options=${options}
+    Run Async Keywords
+    ...    Click Link    partial link:Next
+    ...    AND    Wait For Navigation
+    
