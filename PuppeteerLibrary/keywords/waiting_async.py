@@ -24,3 +24,7 @@ class WaitingKeywordsAsync(LibraryComponent):
     @keyword
     async def wait_until_page_contains_element_async(self, locator, timeout=None):
         await self.ctx.get_current_page().waitForSelector_with_selenium_locator(locator, timeout)
+
+    @keyword
+    async def wait_until_page_does_not_contains_element_async(self, locator, timeout=None):
+        await self.ctx.get_current_page().waitForSelector_with_selenium_locator(locator, timeout, visible=False, hidden=True)

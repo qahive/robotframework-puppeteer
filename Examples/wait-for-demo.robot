@@ -31,4 +31,5 @@ Demo wait for navigation
     Run Async Keywords
     ...    Click Link    partial link:Next
     ...    AND    Wait For Navigation
-    
+    Wait Until Page Does Not Contains Element    css:#demo button
+        

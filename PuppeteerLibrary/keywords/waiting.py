@@ -33,3 +33,7 @@ class WaitingKeywords(LibraryComponent):
     def wait_until_page_contains_element(self, locator, timeout=None):
         """Wait until page contains element within specific timeout"""
         return self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(locator, timeout))
+
+    @keyword
+    def wait_until_page_does_not_contains_element(self, locator, timeout=None):
+        return self.loop.run_until_complete(self.async_func.wait_until_page_does_not_contains_element_async(locator, timeout))

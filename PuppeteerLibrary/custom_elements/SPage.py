@@ -45,11 +45,15 @@ class SPage(Page):
         else:
             return await self.querySelector(selector_value)
 
-    async def waitForSelector_with_selenium_locator(self, selenium_locator: str, timestr: str = None):
+    async def waitForSelector_with_selenium_locator(self, selenium_locator: str, timestr: str = None, visible=False, hidden=False):
         if timestr is None:
             timestr = '30s'
         timesecs = timestr_to_secs(timestr)
-        options = {'timeout': timesecs * 1000}
+        options = {
+            'timeout': timesecs * 1000,
+            'visible': visible,
+            'hidden': hidden
+        }
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
             return await self.waitForXPath(selector_value, options)[0]
