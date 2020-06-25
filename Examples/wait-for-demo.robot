@@ -31,7 +31,7 @@ Demo wait for navigation
     Run Async Keywords
     ...    Click Link    partial link:Next
     ...    AND    Wait For Navigation
-    ...    
+
 
 Demo wait for element hidden and visible
     &{options} =    create dictionary   headless=${False}
@@ -40,4 +40,6 @@ Demo wait for element hidden and visible
     ...    Click Element    css:#demo button
     ...    AND    Wait for response url    https://www.w3schools.com/js/ajax_info.txt
     Wait Until Element Is Hidden    css:#demo button
+    Wait Until Page Contains    AJAX is not a programming language    
+    
     

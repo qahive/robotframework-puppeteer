@@ -42,3 +42,16 @@ class WaitingKeywords(LibraryComponent):
     def wait_until_element_is_visible(self, locator, timeout=None):
         return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout, visible=True, hidden=False))
 
+    @keyword
+    def wait_until_page_contains(self, text, timeout=None):
+        """Waits until ``text`` appears on the current page"""
+        locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
+        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout))
+
+    def escape_xpath_value(self, value):
+        if '"' in value and '\'' in value:
+            parts_wo_apos = value.split('\'')
+            return "concat('%s')" % "', \"'\", '".join(parts_wo_apos)
+        if '\'' in value:
+            return "\"%s\"" % value
+        return "'%s'" % value

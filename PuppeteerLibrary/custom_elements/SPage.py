@@ -56,6 +56,6 @@ class SPage(Page):
         }
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            return await self.waitForXPath(selector_value, options)[0]
+            return await self.waitForXPath(selector_value, options)
         else:
             return await self.waitForSelector(selector_value, options)
