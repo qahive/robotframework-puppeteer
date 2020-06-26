@@ -1,8 +1,6 @@
 import asyncio
 import time
-
 from robot.utils import timestr_to_secs
-
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 
