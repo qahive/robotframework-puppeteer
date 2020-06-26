@@ -10,10 +10,6 @@ Keyword documentation
 See [`keyword documentation`](https://qahive.github.io/robotframework-puppeteer/PuppeteerLibrary.html) for available keywords and more information about the library in general.
 
 
-Command for Generate document
-
-    python -m robot.libdoc -f html PuppeteerLibrary docs/PuppeteerLibrary.html
-
 
 Installation
 ------------
