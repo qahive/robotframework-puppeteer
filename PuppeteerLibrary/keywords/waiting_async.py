@@ -54,6 +54,14 @@ class WaitingKeywordsAsync(LibraryComponent):
             validate_element_contains_text,
             timeout)
 
+    @keyword
+    async def wait_until_element_does_not_contains_async(self, selenium_locator, text, timeout=None):
+        async def validate_element_contains_text():
+            return (text not in (await (await ( await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)).getProperty('textContent')).jsonValue()))
+        return await self._wait_until(
+            validate_element_contains_text,
+            timeout)
+
     async def _wait_until(self, condition, error, timeout=None):
         if timeout is None:
             timeout = '30s'

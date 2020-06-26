@@ -32,7 +32,6 @@ Demo wait for navigation
     ...    Click Link    partial link:Next
     ...    AND    Wait For Navigation
 
-
 Demo wait for element hidden and visible
     &{options} =    create dictionary   headless=${False}
     Open browser    https://www.w3schools.com/js/js_ajax_intro.asp   options=${options}
@@ -47,4 +46,4 @@ Demo wait for element contains text
     &{options} =    create dictionary   headless=${False}
     Open browser    https://www.w3schools.com/js/js_ajax_intro.asp   options=${options}
     Wait Until Element Contains    css:#demo h2    Let AJAX change this text
-    
+    Wait Until Element Does Not Contains    css:#demo h2    AJAX is not a programming language
