@@ -42,3 +42,9 @@ Demo wait for element hidden and visible
     Wait Until Element Is Hidden    css:#demo button
     Wait Until Page Contains    AJAX is not a programming language    
     Wait Until Page Does Not Contains    Hello world
+    
+Demo wait for element contains text
+    &{options} =    create dictionary   headless=${False}
+    Open browser    https://www.w3schools.com/js/js_ajax_intro.asp   options=${options}
+    Wait Until Element Contains    css:#demo h2    Let AJAX change this text
+    
