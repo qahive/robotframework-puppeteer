@@ -36,33 +36,25 @@ class WaitingKeywords(LibraryComponent):
 
     @keyword
     def wait_until_element_is_hidden(self, locator, timeout=None):
-        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout, visible=False, hidden=True))
+        return self.loop.run_until_complete(self.async_func.wait_until_element_is_hidden_async(locator, timeout))
 
     @keyword
     def wait_until_element_is_visible(self, locator, timeout=None):
-        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout, visible=True, hidden=False))
+        return self.loop.run_until_complete(self.async_func.wait_until_element_is_visible_async(locator, timeout))
 
     @keyword
     def wait_until_page_contains(self, text, timeout=None):
         """Waits until ``text`` appears on the current page"""
-        locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
-        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout))
+        return self.loop.run_until_complete(self.async_func.wait_until_page_contains_async(text, timeout))
 
     @keyword
     def wait_until_page_does_not_contains(self, text, timeout=None):
         """Waits until ``text`` appears on the current page"""
-        locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
-        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout, visible=False, hidden=True))
+        return self.loop.run_until_complete(self.async_func.wait_until_page_does_not_contains_async(text, timeout))
 
     @keyword
     def wait_until_element_contains(self, selenium_locator, text, timeout=None):
         """Waits until the ``element`` contains ``text``."""
         return self.loop.run_until_complete(self.async_func.wait_until_element_contains_async(selenium_locator, text, timeout))
 
-    def escape_xpath_value(self, value):
-        if '"' in value and '\'' in value:
-            parts_wo_apos = value.split('\'')
-            return "concat('%s')" % "', \"'\", '".join(parts_wo_apos)
-        if '\'' in value:
-            return "\"%s\"" % value
-        return "'%s'" % value
+

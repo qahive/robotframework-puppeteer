@@ -29,6 +29,24 @@ class WaitingKeywordsAsync(LibraryComponent):
         await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
 
     @keyword
+    async def wait_until_element_is_hidden_async(self, locator, timeout=None):
+        return await self.wait_for_selenium_selector(locator, timeout, visible=False, hidden=True)
+
+    @keyword
+    async def wait_until_element_is_visible_async(self, locator, timeout=None):
+        return await self.wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
+
+    @keyword
+    async def wait_until_page_contains_async(self, text, timeout=None):
+        locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
+        return await self.wait_for_selenium_selector(locator, timeout)
+
+    @keyword
+    async def wait_until_page_does_not_contains_async(self, text, timeout=None):
+        locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
+        return await self.wait_for_selenium_selector(locator, timeout, visible=False, hidden=True)
+
+    @keyword
     async def wait_until_element_contains_async(self, selenium_locator, text, timeout=None):
         async def validate_element_contains_text():
             return (text in (await (await ( await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)).getProperty('textContent')).jsonValue()))
@@ -56,3 +74,10 @@ class WaitingKeywordsAsync(LibraryComponent):
             await asyncio.sleep(0.2)
         raise AssertionError(not_found or error)
 
+    def escape_xpath_value(self, value):
+        if '"' in value and '\'' in value:
+            parts_wo_apos = value.split('\'')
+            return "concat('%s')" % "', \"'\", '".join(parts_wo_apos)
+        if '\'' in value:
+            return "\"%s\"" % value
+        return "'%s'" % value
