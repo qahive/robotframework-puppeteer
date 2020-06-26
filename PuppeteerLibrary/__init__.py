@@ -6,9 +6,14 @@ from PuppeteerLibrary.base.robotlibcore import DynamicCore
 from PuppeteerLibrary.keywords import (
     BrowserManagementKeywords,
     ElementKeywords,
-    FormElementKeywords)
+    ElementKeywordsAsync,
+    FormElementKeywords,
+    FormElementKeywordsAsync,
+    UtilityKeywords,
+    WaitingKeywords,
+    WaitingKeywordsAsync)
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 
 class PuppeteerLibrary(DynamicCore):
@@ -31,6 +36,9 @@ class PuppeteerLibrary(DynamicCore):
     | link	       | Exact text a link has.	             | ``link:Home page``             |
     | partial link | Partial link text   	             | ``partial link:Home``          |
 
+    == Asynchronous Handler ==
+    Core functionality for
+
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
@@ -40,14 +48,31 @@ class PuppeteerLibrary(DynamicCore):
     loop = asyncio.get_event_loop()
     browser = None
     current_page = None
+    is_load_async_keywords = False
+    async_libraries = []
 
     def __init__(self):
         libraries = [
             BrowserManagementKeywords(self),
             ElementKeywords(self),
-            FormElementKeywords(self)
+            FormElementKeywords(self),
+            UtilityKeywords(self),
+            WaitingKeywords(self)
         ]
         DynamicCore.__init__(self, libraries)
+
+        self.async_libraries = [
+            ElementKeywordsAsync(self),
+            FormElementKeywordsAsync(self),
+            WaitingKeywordsAsync(self)
+        ]
+
+    @not_keyword
+    def load_async_keywords(self):
+        if self.is_load_async_keywords is True:
+            return
+        self.add_library_components(self.async_libraries)
+        self.is_load_async_keywords = True
 
     @not_keyword
     def get_current_page(self) -> SPage:
