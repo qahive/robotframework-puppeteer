@@ -18,3 +18,5 @@ robotframework_PuppeteerLibrary.egg-info/
 *.pyc
 output.xml
 example.png
+log.html
+report.html
