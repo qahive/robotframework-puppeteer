@@ -4,7 +4,8 @@ Library    PuppeteerLibrary
 *** Test Cases ***
 Example form control
     [Teardown]    Test Teardown
-    &{options} =    create dictionary   headless=${False}
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    https://www.w3schools.com/html/html_forms.asp   options=${options}
     Maximize Browser Window
     ${header} =    Get Text    css:h1
@@ -16,13 +17,16 @@ Example form control
     
 Example specific element type click
     [Teardown]    Test Teardown
-    Open browser    https://www.w3schools.com/html/html_forms.asp
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    https://www.w3schools.com/html/html_forms.asp   options=${options}
     Maximize Browser Window
     Click Link    partial link:Next
 
 Control browser example
     [Teardown]    Test Teardown
-    &{options} =    create dictionary   headless=${False}
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    https://www.w3schools.com/html/html_forms.asp   options=${options}
     Maximize Browser Window
     Go to   https://www.google.com

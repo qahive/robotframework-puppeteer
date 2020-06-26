@@ -5,7 +5,8 @@ Library    Dialogs
 *** Test Cases ***
 Example browser title
     [Teardown]    Test Teardown
-    &{options} =    create dictionary   headless=${False}
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    https://www.w3schools.com/html/html_forms.asp   options=${options}
     Maximize Browser Window
     ${title} =   Get title
