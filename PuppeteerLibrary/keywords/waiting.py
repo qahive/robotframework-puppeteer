@@ -11,12 +11,56 @@ class WaitingKeywords(LibraryComponent):
 
     @keyword
     def wait_for_request_url(self, url, method='GET', timeout=None):
-        """Wait for request url"""
+        """
+        Wait until web application sent request to ``url``.
+
+		The ``url`` is request url.
+
+        The ``method`` is HTTP Request Methods:
+        - GET (default)
+        - POST
+        - PUT
+        - HEAD
+        - DELETE
+        - PATCH
+
+        Example:
+
+        | Open browser       | ${HOME_PAGE_URL}      | options=${options}          |      |
+        | Input Text         | id:username           | foo                         |      |
+        | Input Text         | id:password           | bar                         |      |
+        | Run Async Keywords | Click Element         | id:login_button             | AND  |
+        | ...                | `Wait For Request Url`| ${HOME_PAGE_URL-API}/login  | POST |
+
+		"""
         return self.loop.run_until_complete(self.async_func.wait_for_request_url_async(url, method , timeout))
 
     @keyword
     def wait_for_response_url(self, url, status=200, timeout=None):
-        """Wait for response url"""
+        """
+        Wait until web application received response from ``url``.
+
+		The ``url`` is response url.
+
+        The ``status`` is HTTP Status Codes:
+        - 200 (default)
+        - 201
+        - 204
+        - 400
+        - 401
+		- 404
+		- 500
+        Referernce: `https://restfulapi.net/http-status-codes/`
+
+        Example:
+
+        | Open browser       | ${HOME_PAGE_URL}       | options=${options}          |      |
+        | Input Text         | id:username            | foo                         |      |
+        | Input Text         | id:password            | bar                         |      |
+        | Run Async Keywords | Click Element          | id:login_button             | AND  |
+        | ...                | `Wait For Response Url`| ${HOME_PAGE_URL-API}/login  | 200  |
+
+		"""
         return self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, timeout))
 
     @keyword
