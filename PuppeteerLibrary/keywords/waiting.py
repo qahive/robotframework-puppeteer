@@ -53,12 +53,12 @@ class WaitingKeywords(LibraryComponent):
         return self.loop.run_until_complete(self.async_func.wait_until_page_does_not_contains_async(text, timeout))
 
     @keyword
-    def wait_until_element_contains(self, selenium_locator, text, timeout=None):
+    def wait_until_element_contains(self, locator, text, timeout=None):
         """Waits until the ``element`` contains ``text``."""
-        return self.loop.run_until_complete(self.async_func.wait_until_element_contains_async(selenium_locator, text, timeout))
+        return self.loop.run_until_complete(self.async_func.wait_until_element_contains_async(locator, text, timeout))
 
     @keyword
-    def wait_until_element_does_not_contains(self, selenium_locator, text, timeout=None):
+    def wait_until_element_does_not_contains(self, locator, text, timeout=None):
         """Waits until the ``element`` does not contains ``text``."""
-        return self.loop.run_until_complete(self.async_func.wait_until_element_does_not_contains_async(selenium_locator, text, timeout))
+        return self.loop.run_until_complete(self.async_func.wait_until_element_does_not_contains_async(locator, text, timeout))
 
