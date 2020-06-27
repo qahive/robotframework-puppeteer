@@ -1,23 +1,18 @@
 *** Settings ***
 Library    PuppeteerLibrary
-Library    Dialogs
+Test Teardown    Close Browser
+
 
 *** Test Cases ***
-Example browser title
-    [Teardown]    Test Teardown
+Example switch browser and browser title
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
-    Open browser    https://www.w3schools.com/html/html_forms.asp   options=${options}
+    Open browser    http://127.0.0.1:7272   options=${options}
     Maximize Browser Window
     ${title} =   Get title
     ${location} =   Get location
-    Click Element    xpath://*[@id="main"]/div[3]/div/form/input[3]
+    Click Element    xpath://a[@href="docs.html"]
     Wait for new window open
     Switch Window   NEW
     ${Title} =   Get Title
-    should be equal as strings  Forms action page   ${Title}
-
-
-*** Keywords ***
-Test Teardown
-    Close browser
+    should be equal as strings  Docs Page   ${Title}
