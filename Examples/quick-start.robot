@@ -11,7 +11,9 @@ Example login form submit
     Maximize Browser Window
     Input text    id:username_field    demo
     Input text    id:password_field    mode
-    Click Element    id:login_button
+    Run Async Keywords
+    ...    Click Element    id:login_button    AND
+    ...    Wait For Response Url    http://127.0.0.1:7272/welcome.html
     Wait Until Page Contains    Login succeeded
     # Logout and wait for homepage loaded
     Run Async Keywords

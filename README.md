@@ -1,9 +1,14 @@
 # robotframework-puppeteer
-Puppeteer with robotframework. This project connect between robotframework and puppeteer using [pyppeteer](https://github.com/pyppeteer/pyppeteer).
+Robot Framework Puppeteer Library powered by [Pyppeteer](https://github.com/pyppeteer/pyppeteer). 
+Improve automated web testing with native functionality from [Puppeteer](https://github.com/puppeteer/puppeteer) by Google.
 
-We aim for provide keyword similar to robotframework-seleniumlibrary and add core puppeteer functionality that will improve test experiences
+We aim to provide keywords similar to robotframework-seleniumlibrary and add core puppeteer functionality that will improve test experiences.
+Example: 
+- _Handle HTTP Request_
+- _Handle HTTP Response_ 
+- _Intercepter Http_
+- _Intercepter javascript function_
 
-Example: _Handle HTTP Request_, _Handle HTTP Response_ or _Intercepter http request & response_
 
 Keyword documentation
 ---------------------
