@@ -13,9 +13,9 @@ class UtilityKeywords(LibraryComponent):
 
         Example:
 
-		| Open browser       | ${HOME_PAGE_URL}      | options=${options}          |     |
-        | Run Async Keywords | Click Element         | id:login_button             | AND |
-        | ...                | Wait for response url | ${HOME_PAGE_URL}/home.html  |     |
+		| Open browser         | ${HOME_PAGE_URL}      | options=${options}          |     |
+        | `Run Async Keywords` | Click Element         | id:login_button             | AND |
+        | ...                  | Wait for response url | ${HOME_PAGE_URL}/home.html  |     |
 
 		"""
         self.ctx.load_async_keywords()

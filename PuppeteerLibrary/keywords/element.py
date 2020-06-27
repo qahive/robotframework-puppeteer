@@ -15,7 +15,7 @@ class ElementKeywords(LibraryComponent):
 
         Example:
 
-        | Click Element                                  | id:register          |
+        | `Click Element`                                  | id:register          |
         """
         return self.loop.run_until_complete(self.async_func.click_element_async(locator))
 
@@ -25,7 +25,7 @@ class ElementKeywords(LibraryComponent):
 
         Example:
 
-        | Click Link                                  | id:view_more          |
+        | `Click Link`                                  | id:view_more          |
         """
         return self.loop.run_until_complete(self.async_func.click_link_async(locator))
 
@@ -35,7 +35,7 @@ class ElementKeywords(LibraryComponent):
 
         Example:
 
-        | Click Button                                | id:submit          |
+        | `Click Button`                                | id:submit          |
         """
         self.loop.run_until_complete(self.async_func.click_button_async(locator))
 
@@ -45,7 +45,7 @@ class ElementKeywords(LibraryComponent):
 
         Example:
 
-        | Click Image                                 | id:cat_image          |
+        | `Click Image`                                 | id:cat_image          |
         """
         self.loop.run_until_complete(self.async_func.click_image_async(locator))
 
@@ -55,7 +55,7 @@ class ElementKeywords(LibraryComponent):
 
         Example:
 
-        | ${text}                                    | Get Text          | id:username |
+        | ${text}                                    | `Get Text`          | id:username |
         """
         return self.loop.run_until_complete(self.async_func.get_text_async(locator))
 
@@ -65,6 +65,6 @@ class ElementKeywords(LibraryComponent):
 
         Example:
 
-        | ${value}                                    | Get Value          | id:comment |
+        | ${value}                                    | `Get Value`          | id:comment |
         """
         return self.loop.run_until_complete(self.async_func.get_text_async(locator))

@@ -26,8 +26,8 @@ class BrowserManagementKeywords(LibraryComponent):
 
         Example:
 
-        | &{options} = | create dictionary                             | headless=${False}  |
-        | Open browser | https://www.w3schools.com/html/html_forms.asp | options=${options} |
+        | &{options} =   | create dictionary                             | headless=${False}  |
+        | `Open browser` | https://www.w3schools.com/html/html_forms.asp | options=${options} |
 
         """
         async def open_browser_async():
@@ -104,6 +104,14 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def wait_for_new_window_open(self, timeout=5):
+        """
+        Waits until new page or tab opens.
+
+        Example:
+
+        | Run Async Keywords | Click Element              | id:view_conditions          | AND  |
+        | ...                | `Wait For New Window Open` |                             |      |
+        """
         async def wait_for_new_page_open_async():
             pages = await self.ctx.get_browser().pages()
             await pages[-1].title() # workaround for force pages re-cache
