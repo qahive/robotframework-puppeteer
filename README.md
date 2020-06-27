@@ -20,7 +20,7 @@ Installation
 ------------
 The recommended installation method is using pip_::
 
-    pip install --upgrade robotframework-puppeteer
+    pip install --upgrade robotframework-puppeteerlibrary
     
 Or manually install by running following command
     
