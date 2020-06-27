@@ -36,9 +36,6 @@ class PuppeteerLibrary(DynamicCore):
     | link	       | Exact text a link has.	             | ``link:Home page``             |
     | partial link | Partial link text   	             | ``partial link:Home``          |
 
-    == Asynchronous Handler ==
-    Core functionality for
-
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
