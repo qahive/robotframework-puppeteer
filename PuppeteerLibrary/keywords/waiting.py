@@ -14,7 +14,7 @@ class WaitingKeywords(LibraryComponent):
         """
         Wait until web application sent request to ``url``.
 
-		The ``url`` is request url.
+        The ``url`` is request url.
 
         The ``method`` is HTTP Request Methods:
         - GET (default)
@@ -32,7 +32,7 @@ class WaitingKeywords(LibraryComponent):
         | Run Async Keywords | Click Element          | id:login_button             | AND  |
         | ...                | `Wait For Request Url` | ${URL_API}/login            | POST |
 
-		"""
+        """
         return self.loop.run_until_complete(self.async_func.wait_for_request_url_async(url, method , timeout))
 
     @keyword
@@ -40,7 +40,7 @@ class WaitingKeywords(LibraryComponent):
         """
         Wait until web application received response from ``url``.
 
-		The ``url`` is response url.
+        The ``url`` is response url.
 
         The ``status`` is HTTP Status Codes:
         - 200 (default)
@@ -48,8 +48,8 @@ class WaitingKeywords(LibraryComponent):
         - 204
         - 400
         - 401
-		- 404
-		- 500
+        - 404
+        - 500
         Reference:[https://restfulapi.net/http-status-codes/|https://restfulapi.net/http-status-codes/]
 
         Example:
@@ -60,7 +60,7 @@ class WaitingKeywords(LibraryComponent):
         | Run Async Keywords | Click Element           | id:login_button             | AND  |
         | ...                | `Wait For Response Url` | ${URL_API}/login            | 200  |
 
-		"""
+        """
         return self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, timeout))
 
     @keyword
@@ -68,9 +68,9 @@ class WaitingKeywords(LibraryComponent):
         """
         Waits until web application executes java script function.
 
-		The ``page_function`` is java script function.
+        The ``page_function`` is java script function.
 
-		"""
+        """
         return self.loop.run_until_complete(self.async_func.wait_for_function_async(page_function))
 
     @keyword
