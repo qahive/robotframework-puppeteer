@@ -10,12 +10,12 @@ class WaitingKeywords(LibraryComponent):
         self.async_func = WaitingKeywordsAsync(self.ctx)
 
     @keyword
-    def wait_for_request_url(self, url, method='GET', timeout=None):
+    def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
         """
         Wait until web application sent request to ``url``.
 
         The ``url`` is request url. url can be partial url match using regexp
-        Example:
+        Match Options:
 
         | Options            | Url value                              |
         | Exact match        | ^http://127.0.0.1:7272/ajax_info.json$ |
@@ -30,19 +30,21 @@ class WaitingKeywords(LibraryComponent):
         - DELETE
         - PATCH
 
+        The ``body`` is request body message. body can match using regexp
+
         Example:
 
-        | Open browser       | ${HOME_PAGE_URL}       | options=${options}          |      |
-        | Input Text         | id:username            | foo                         |      |
-        | Input Text         | id:password            | bar                         |      |
-        | Run Async Keywords | Click Element          | id:login_button             | AND  |
-        | ...                | `Wait For Request Url` | ${URL_API}/login            | POST |
+        | Open browser       | ${HOME_PAGE_URL}       | options=${options}   |      |               |
+        | Input Text         | id:username            | foo                  |      |               |
+        | Input Text         | id:password            | bar                  |      |               |
+        | Run Async Keywords | Click Element          | id:login_button      | AND  |               |
+        | ...                | `Wait For Request Url` | ${URL_API}/login     | POST | username=demo |
 
         """
-        return self.loop.run_until_complete(self.async_func.wait_for_request_url_async(url, method , timeout))
+        return self.loop.run_until_complete(self.async_func.wait_for_request_url_async(url, method, body, timeout))
 
     @keyword
-    def wait_for_response_url(self, url, status=200, timeout=None):
+    def wait_for_response_url(self, url, status=200, body=None, timeout=None):
         """
         Wait until web application received response from ``url``.
 
@@ -60,14 +62,14 @@ class WaitingKeywords(LibraryComponent):
 
         Example:
 
-        | Open browser       | ${HOME_PAGE_URL}        | options=${options}          |      |
-        | Input Text         | id:username             | foo                         |      |
-        | Input Text         | id:password             | bar                         |      |
-        | Run Async Keywords | Click Element           | id:login_button             | AND  |
-        | ...                | `Wait For Response Url` | ${URL_API}/login            | 200  |
+        | Open browser       | ${HOME_PAGE_URL}        | options=${options}          |      |               |
+        | Input Text         | id:username             | foo                         |      |               |
+        | Input Text         | id:password             | bar                         |      |               |
+        | Run Async Keywords | Click Element           | id:login_button             | AND  |               |
+        | ...                | `Wait For Response Url` | ${URL_API}/login            | 200  | username=demo |
 
         """
-        return self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, timeout))
+        return self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, body, timeout))
 
     @keyword
     def wait_for_function(self, page_function):

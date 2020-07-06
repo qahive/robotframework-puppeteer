@@ -9,14 +9,26 @@ from PuppeteerLibrary.base.robotlibcore import keyword
 class WaitingKeywordsAsync(LibraryComponent):
 
     @keyword
-    async def wait_for_request_url_async(self, url, method='GET', timeout=None):
-        return await self.ctx.get_current_page().waitForRequest(
-            lambda req: re.search(re.escape(url), req.url) is not None and req.method == method, timeout
-        )
+    async def wait_for_request_url_async(self, url, method='GET', body=None, timeout=None):
+        req =  await self.ctx.get_current_page().waitForRequest(
+            lambda req: re.search(url, req.url) is not None
+                        and req.method == method
+            ,timeout)
+        if body is None or re.search(body, (await req.postData()).replace('\n', '')):
+            print('log success with req')
+        else:
+            raise Exception('Can\'t match request body with ' + body + ' \n ' + (await req.postData()))
 
     @keyword
-    async def wait_for_response_url_async(self, url, status=200, timeout=None):
-        await self.ctx.get_current_page().waitForResponse(lambda res: res.url == url and res.status == status, timeout)
+    async def wait_for_response_url_async(self, url, status=200, body=None, timeout=None):
+        res =  await self.ctx.get_current_page().waitForResponse(
+            lambda res: re.search(url, res.url) is not None
+                        and res.status == int(status)
+            , timeout)
+        if body is None or re.search(body, (await res.text()).replace('\n','')):
+            print('log success with res')
+        else:
+            raise Exception('Can\'t match response body with '+body+' \n '+(await res.text()))
 
     @keyword
     async def wait_for_function_async(self, page_function):
