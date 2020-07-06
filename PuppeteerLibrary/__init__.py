@@ -13,7 +13,7 @@ from PuppeteerLibrary.keywords import (
     WaitingKeywords,
     WaitingKeywordsAsync)
 
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 
 
 class PuppeteerLibrary(DynamicCore):
