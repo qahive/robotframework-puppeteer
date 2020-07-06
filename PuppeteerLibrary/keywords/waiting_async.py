@@ -10,7 +10,7 @@ class WaitingKeywordsAsync(LibraryComponent):
 
     @keyword
     async def wait_for_request_url_async(self, url, method='GET', body=None, timeout=None):
-        req =  await self.ctx.get_current_page().waitForRequest(
+        req = await self.ctx.get_current_page().waitForRequest(
             lambda req: re.search(url, req.url) is not None
                         and req.method == method
             ,timeout)
@@ -21,7 +21,7 @@ class WaitingKeywordsAsync(LibraryComponent):
 
     @keyword
     async def wait_for_response_url_async(self, url, status=200, body=None, timeout=None):
-        res =  await self.ctx.get_current_page().waitForResponse(
+        res = await self.ctx.get_current_page().waitForResponse(
             lambda res: re.search(url, res.url) is not None
                         and res.status == int(status)
             , timeout)

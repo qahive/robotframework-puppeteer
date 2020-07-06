@@ -29,7 +29,7 @@ Demo wait for http response
     Run Async Keywords
     ...    Click Element    id:get_ajax    AND
     ...    Wait for response url    /ajax_info.json\\?count=3    200    name.*?p1.*?name.*?p2.*?name.*?p3
-    
+
 Demo wait for navigation
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
