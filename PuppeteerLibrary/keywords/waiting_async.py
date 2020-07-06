@@ -1,5 +1,6 @@
 import asyncio
 import time
+import re
 from robot.utils import timestr_to_secs
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
@@ -10,7 +11,8 @@ class WaitingKeywordsAsync(LibraryComponent):
     @keyword
     async def wait_for_request_url_async(self, url, method='GET', timeout=None):
         return await self.ctx.get_current_page().waitForRequest(
-            lambda req: req.url == url and req.method == method, timeout)
+            lambda req: re.search(re.escape(url), req.url) is not None and req.method == method, timeout
+        )
 
     @keyword
     async def wait_for_response_url_async(self, url, status=200, timeout=None):

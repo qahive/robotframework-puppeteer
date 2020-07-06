@@ -20,8 +20,7 @@ Demo wait for http request
     Open browser    ${HOME_PAGE_URL}   options=${options}
     Run Async Keywords
     ...    Click Element    id:get_ajax    AND
-    ...    Wait for request url     ${HOME_PAGE_URL}/ajax_info.json    AND
-    ...    Wait for response url    ${HOME_PAGE_URL}/ajax_info.json
+    ...    Wait for request url     /ajax_info.json
 
 Demo wait for http response
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}

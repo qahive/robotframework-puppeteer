@@ -14,7 +14,13 @@ class WaitingKeywords(LibraryComponent):
         """
         Wait until web application sent request to ``url``.
 
-        The ``url`` is request url.
+        The ``url`` is request url. url can be partial url match using regexp
+        Example:
+
+        | Options            | Url value                              |
+        | Exact match        | ^http://127.0.0.1:7272/ajax_info.json$ |
+        | Partial match      | /ajax_info.json                        |
+        | Regular expression | .*?/ajax_info.json                     |
 
         The ``method`` is HTTP Request Methods:
         - GET (default)
