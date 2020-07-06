@@ -11,6 +11,18 @@
             window.location = "error.html";
         }
     }
+
+    function loadDocAjax() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("demo").innerHTML =
+          this.responseText;
+        }
+      };
+      xhttp.open("GET", "ajax_info.json", true);
+      xhttp.send();
+    }
   </script>
 </head>
 <body>
@@ -34,6 +46,10 @@
         </table>
       </form>
       <a href="docs.html" target="_blank">read doc</a>
+      <div id="demo" style="margin-top: 30px;">
+        <h2>The XMLHttpRequest Object</h2>
+        <button type="button" onclick="loadDocAjax()" id="get_ajax">Change Content</button>
+      </div>
   </div>
 </body>
 </html>

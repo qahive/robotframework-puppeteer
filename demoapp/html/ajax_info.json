@@ -1,0 +1,17 @@
+{
+  "products": [
+    {
+      "name": "p1",
+      "amount": 1000
+    },
+    {
+      "name": "p2",
+      "amount": 2000
+    },
+    {
+      "name": "p3",
+      "amount": 3000
+    }
+  ],
+  "total": 3
+}

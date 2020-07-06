@@ -19,9 +19,9 @@ Demo wait for http request
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
     Run Async Keywords
-    ...    Click Element    id:login_button    AND
-    ...    Wait for request url     ${HOME_PAGE_URL}/error.html    AND
-    ...    Wait for response url    ${HOME_PAGE_URL}/error.html
+    ...    Click Element    id:get_ajax    AND
+    ...    Wait for request url     ${HOME_PAGE_URL}/ajax_info.json    AND
+    ...    Wait for response url    ${HOME_PAGE_URL}/ajax_info.json
 
 Demo wait for http response
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
