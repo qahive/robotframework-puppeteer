@@ -14,10 +14,17 @@ class WaitingKeywordsAsync(LibraryComponent):
             lambda req: re.search(url, req.url) is not None
                         and req.method == method
             ,timeout)
-        if body is None or re.search(body, (await req.postData()).replace('\n', '')):
-            print('log success with req')
+        try:
+            pos_data = (await req.postData())
+        except:
+            pos_data = ''
+        if body is None or re.search(body, pos_data.replace('\n', '')):
+            log_str = 'Wait for request url: '+req.method+' - '+req.url
+            if pos_data != '':
+                log_str + '\n' + pos_data
+            self.info(log_str)
         else:
-            raise Exception('Can\'t match request body with ' + body + ' \n ' + (await req.postData()))
+            raise Exception('Can\'t match request body with ' + body + ' \n ' + pos_data)
 
     @keyword
     async def wait_for_response_url_async(self, url, status=200, body=None, timeout=None):
@@ -25,10 +32,17 @@ class WaitingKeywordsAsync(LibraryComponent):
             lambda res: re.search(url, res.url) is not None
                         and res.status == int(status)
             , timeout)
-        if body is None or re.search(body, (await res.text()).replace('\n','')):
-            print('log success with res')
+        try:
+            res_text = (await res.text())
+        except:
+            res_text = ''
+        if body is None or re.search(body, res_text.replace('\n','')):
+            log_str = 'Wait for request url: ' + res.url
+            if res_text != '':
+                log_str += '\n' + res_text
+            self.info(log_str)
         else:
-            raise Exception('Can\'t match response body with '+body+' \n '+(await res.text()))
+            raise Exception('Can\'t match response body with '+body+' \n '+res_text)
 
     @keyword
     async def wait_for_function_async(self, page_function):
