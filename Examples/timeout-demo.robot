@@ -8,7 +8,14 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272
 
 
 *** Test Cases ***
-Demo timeout wait for new window open
+Set default timeout
+    Open browser    ${HOME_PAGE_URL}
+    Maximize Browser Window
+    Set Timeout    3s
+    Run Keyword And Expect Error    No new page has been open.*    Wait for new window open
+    
+
+Timeout wait for new window open
     Open browser    ${HOME_PAGE_URL}
     Maximize Browser Window
     Run Keyword And Expect Error    No new page has been open.*    Wait for new window open    1s
