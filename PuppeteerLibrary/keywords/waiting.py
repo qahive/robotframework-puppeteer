@@ -72,14 +72,14 @@ class WaitingKeywords(LibraryComponent):
         return self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, body, timeout))
 
     @keyword
-    def wait_for_function(self, page_function):
+    def wait_for_function(self, page_function, timeout=None):
         """
         Waits until web application executes java script function.
 
         The ``page_function`` is java script function.
 
         """
-        return self.loop.run_until_complete(self.async_func.wait_for_function_async(page_function))
+        return self.loop.run_until_complete(self.async_func.wait_for_function_async(page_function, timeout))
 
     @keyword
     def wait_for_navigation(self):

@@ -45,8 +45,10 @@ class WaitingKeywordsAsync(LibraryComponent):
             raise Exception('Can\'t match response body with '+body+' \n '+res_text)
 
     @keyword
-    async def wait_for_function_async(self, page_function):
-        await self.ctx.get_current_page().waitForFunction(page_function)
+    async def wait_for_function_async(self, page_function, timeout=None):
+        await self.ctx.get_current_page().waitForFunction(page_function, options={
+            timeout: self.timestr_to_secs_for_default_timeout(timeout)
+        })
 
     @keyword
     async def wait_for_navigation_async(self):

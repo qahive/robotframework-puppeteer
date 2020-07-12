@@ -42,6 +42,8 @@ class BrowserManagementKeywords(LibraryComponent):
                 merged_options = default_options
             else:
                 merged_options = {**default_options, **options}
+            self.info(('Open browser to ' + url + '\n' +
+                        str(merged_options)))
             self.ctx.browser = await launch(headless=merged_options['headless'], defaultViewport={
                 'width': merged_options['width'],
                 'height': merged_options['height']
@@ -63,6 +65,8 @@ class BrowserManagementKeywords(LibraryComponent):
     def maximize_browser_window(self, width=1366, height=768):
         """Maximize view port not actual browser and set default size to 1366 x 768
         """
+        self.info(('width: ' + str(width) + '\n' +
+                   'height: ' + str(height)))
         async def maximize_browser_window_async():
             await self.ctx.get_current_page().setViewport({
                 'width': width,

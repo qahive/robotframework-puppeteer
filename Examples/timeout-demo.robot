@@ -21,3 +21,8 @@ Timeout wait for new window open
     Run Keyword And Expect Error    No new page has been open.*    Wait for new window open    1s
     Click Element    xpath://a[@href="docs.html"]
     Wait for new window open    5s
+
+Timeout wait for function
+    Open browser    ${HOME_PAGE_URL}
+    Maximize Browser Window
+    # Wait For Function    demo123123    3s
