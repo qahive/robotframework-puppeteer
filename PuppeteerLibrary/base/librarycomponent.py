@@ -1,4 +1,5 @@
 from robot.api import logger
+from robot.utils import timestr_to_secs
 from PuppeteerLibrary.base.context import ContextAware
 
 
@@ -13,3 +14,7 @@ class LibraryComponent(ContextAware):
     def warn(self, msg, html=False):
         logger.warn(msg, html)
 
+    def timestr_to_secs_for_default_timeout(self, timeout):
+        if timeout is None or timeout == '':
+            timeout = self.ctx.timeout
+        return timestr_to_secs(timeout)

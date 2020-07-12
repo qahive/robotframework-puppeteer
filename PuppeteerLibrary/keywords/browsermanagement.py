@@ -103,7 +103,7 @@ class BrowserManagementKeywords(LibraryComponent):
         self.loop.run_until_complete(reload_page_async())
 
     @keyword
-    def wait_for_new_window_open(self, timeout=5):
+    def wait_for_new_window_open(self, timeout=None):
         """
         Waits until new page or tab opens.
 
@@ -112,6 +112,7 @@ class BrowserManagementKeywords(LibraryComponent):
         | Run Async Keywords | Click Element              | id:view_conditions          | AND  |
         | ...                | `Wait For New Window Open` |                             |      |
         """
+        timeout = self.timestr_to_secs_for_default_timeout(timeout)
         async def wait_for_new_page_open_async():
             pages = await self.ctx.get_browser().pages()
             await pages[-1].title() # workaround for force pages re-cache

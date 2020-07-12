@@ -10,3 +10,4 @@ class ContextAware(object):
         :type ctx: PuppeteerLibrary.PuppeteerLibrary
         """
         self.ctx = ctx
+        self.ctx.timeout = '30s'
