@@ -13,7 +13,9 @@ class WaitingKeywordsAsync(LibraryComponent):
         req = await self.ctx.get_current_page().waitForRequest(
             lambda req: re.search(url, req.url) is not None
                         and req.method == method
-            ,timeout)
+            , options={
+                'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
+            })
         try:
             pos_data = (await req.postData())
         except:
@@ -31,7 +33,9 @@ class WaitingKeywordsAsync(LibraryComponent):
         res = await self.ctx.get_current_page().waitForResponse(
             lambda res: re.search(url, res.url) is not None
                         and res.status == int(status)
-            , timeout)
+            , options={
+                'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
+            })
         try:
             res_text = (await res.text())
         except:
@@ -45,15 +49,14 @@ class WaitingKeywordsAsync(LibraryComponent):
             raise Exception('Can\'t match response body with '+body+' \n '+res_text)
 
     @keyword
-    async def wait_for_function_async(self, page_function):
-        await self.ctx.get_current_page().waitForFunction(page_function)
-
-    @keyword
-    async def wait_for_navigation_async(self):
-        await self.ctx.get_current_page().waitForNavigation()
+    async def wait_for_navigation_async(self, timeout=None):
+        await self.ctx.get_current_page().waitForNavigation(options={
+                'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
+            })
 
     @keyword
     async def wait_for_selenium_selector(self, selenium_locator, timeout=None, visible=False, hidden=False):
+        timeout = self.timestr_to_secs_for_default_timeout(timeout)
         await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
 
     @keyword
@@ -78,25 +81,19 @@ class WaitingKeywordsAsync(LibraryComponent):
     async def wait_until_element_contains_async(self, selenium_locator, text, timeout=None):
         async def validate_element_contains_text():
             return (text in (await (await ( await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)).getProperty('textContent')).jsonValue()))
-        return await self._wait_until(
+        return await self._wait_until_worker(
             validate_element_contains_text,
-            timeout)
+            self.timestr_to_secs_for_default_timeout(timeout))
 
     @keyword
     async def wait_until_element_does_not_contains_async(self, selenium_locator, text, timeout=None):
         async def validate_element_contains_text():
             return (text not in (await (await ( await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)).getProperty('textContent')).jsonValue()))
-        return await self._wait_until(
+        return await self._wait_until_worker(
             validate_element_contains_text,
-            timeout)
+            self.timestr_to_secs_for_default_timeout(timeout))
 
-    async def _wait_until(self, condition, error, timeout=None):
-        if timeout is None:
-            timeout = '30s'
-        timeout = timestr_to_secs(timeout)
-        await self._wait_until_worker(condition, timeout, error)
-
-    async def _wait_until_worker(self, condition, timeout, error):
+    async def _wait_until_worker(self, condition, timeout, error=None):
         max_time = time.time() + timeout
         not_found = None
         while time.time() < max_time:

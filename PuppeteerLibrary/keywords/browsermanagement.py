@@ -1,4 +1,5 @@
 import time
+from robot.utils import timestr_to_secs
 from pyppeteer import launch
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
@@ -41,6 +42,8 @@ class BrowserManagementKeywords(LibraryComponent):
                 merged_options = default_options
             else:
                 merged_options = {**default_options, **options}
+            self.info(('Open browser to ' + url + '\n' +
+                        str(merged_options)))
             self.ctx.browser = await launch(headless=merged_options['headless'], defaultViewport={
                 'width': merged_options['width'],
                 'height': merged_options['height']
@@ -62,6 +65,8 @@ class BrowserManagementKeywords(LibraryComponent):
     def maximize_browser_window(self, width=1366, height=768):
         """Maximize view port not actual browser and set default size to 1366 x 768
         """
+        self.info(('width: ' + str(width) + '\n' +
+                   'height: ' + str(height)))
         async def maximize_browser_window_async():
             await self.ctx.get_current_page().setViewport({
                 'width': width,
@@ -103,7 +108,26 @@ class BrowserManagementKeywords(LibraryComponent):
         self.loop.run_until_complete(reload_page_async())
 
     @keyword
-    def wait_for_new_window_open(self, timeout=5):
+    def set_timeout(self, timeout):
+        """Sets the timeout that is used by various keywords.
+        The value can be given as a number that is considered to be seconds or as a human-readable string like 1 second.
+        The previous value is returned and can be used to restore the original value later if needed.
+        See the Timeout section above for more information.
+
+        Example:
+
+        | ${orig timeout} =	          | Set Timeout	     | 15 seconds |
+        | Open page that loads slowly |	                 |            |
+        | Set Timeout	              | ${orig timeout}	 |            |
+
+        """
+        orig_timeout = self.ctx.timeout
+        self.ctx.timeout = timestr_to_secs(timeout)
+        self.info('Original timeout is ' + str(orig_timeout) + ' seconds')
+        return orig_timeout
+
+    @keyword
+    def wait_for_new_window_open(self, timeout=None):
         """
         Waits until new page or tab opens.
 
@@ -112,6 +136,7 @@ class BrowserManagementKeywords(LibraryComponent):
         | Run Async Keywords | Click Element              | id:view_conditions          | AND  |
         | ...                | `Wait For New Window Open` |                             |      |
         """
+        timeout = self.timestr_to_secs_for_default_timeout(timeout)
         async def wait_for_new_page_open_async():
             pages = await self.ctx.get_browser().pages()
             await pages[-1].title() # workaround for force pages re-cache
