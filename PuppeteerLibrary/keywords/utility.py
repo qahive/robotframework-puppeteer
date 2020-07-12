@@ -13,11 +13,11 @@ class UtilityKeywords(LibraryComponent):
 
         Example:
 
-		| Open browser         | ${HOME_PAGE_URL}      | options=${options}          |     |
+        | Open browser         | ${HOME_PAGE_URL}      | options=${options}          |     |
         | `Run Async Keywords` | Click Element         | id:login_button             | AND |
         | ...                  | Wait for response url | ${HOME_PAGE_URL}/home.html  |     |
 
-		"""
+        """
         self.ctx.load_async_keywords()
         run_keyword = _RunKeyword()
         self.loop.run_until_complete( self._run_async_keywords(run_keyword._split_run_keywords(list(keywords))) )
@@ -25,7 +25,7 @@ class UtilityKeywords(LibraryComponent):
     async def _run_async_keywords(self, iterable):
         statements = []
         for kw, args in iterable:
-            kw_name = kw.lower().replace(' ', '_') +'_async'
+            kw_name = kw.lower().replace(' ', '_') + '_async'
             statements.append(self.ctx.keywords[kw_name](*args))
 
         try:
