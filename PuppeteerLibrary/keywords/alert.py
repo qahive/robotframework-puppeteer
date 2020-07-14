@@ -11,10 +11,17 @@ class AlertKeywords(LibraryComponent):
 
     @keyword
     def handle_alert(self, action, prompt_text=''):
-        """Clicks element identified by ``locator``.
+        """Handles the current alert and returns its message.
+
+        action:
+        - ACCEPT: Accept the alert i.e. press Ok. Default.
+        - DISMISS: Dismiss the alert i.e. press Cancel.`.
 
         Example:
 
-        | `Click Element`                                  | id:register          |
+        | `Run Async Keywords` |                  |     |
+        | ...    Handle Alert  | ACCEPT           | AND |
+        | ...    Click Button  | id=alert_confirm |     |
+
         """
         return self.loop.run_until_complete(self.async_func.handle_alert_async(action, prompt_text))

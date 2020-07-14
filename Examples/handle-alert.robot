@@ -21,7 +21,6 @@ Dismiss Hadle alert
     ...    Click Button    id=alert_confirm
     Click Element    id:get_ajax
 
-
 *** Keywords ***
 Open browser to test page
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
