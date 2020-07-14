@@ -4,6 +4,8 @@ from PuppeteerLibrary.custom_elements.SPage import SPage
 from robot.api.deco import not_keyword
 from PuppeteerLibrary.base.robotlibcore import DynamicCore
 from PuppeteerLibrary.keywords import (
+    AlertKeywords,
+    AlertKeywordsAsync,
     BrowserManagementKeywords,
     ElementKeywords,
     ElementKeywordsAsync,
@@ -60,6 +62,7 @@ class PuppeteerLibrary(DynamicCore):
 
     def __init__(self):
         libraries = [
+            AlertKeywords(self),
             BrowserManagementKeywords(self),
             ElementKeywords(self),
             FormElementKeywords(self),
@@ -69,6 +72,7 @@ class PuppeteerLibrary(DynamicCore):
         DynamicCore.__init__(self, libraries)
 
         self.async_libraries = [
+            AlertKeywordsAsync(self),
             ElementKeywordsAsync(self),
             FormElementKeywordsAsync(self),
             WaitingKeywordsAsync(self)
