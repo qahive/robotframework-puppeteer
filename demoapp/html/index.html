@@ -4,6 +4,10 @@
   <title>Login Page</title>
   <link href="demo.css" media="all" rel="stylesheet" type="text/css">
   <script type="text/javascript">
+    function alertConfirm() {
+      alert('Test alert');
+    }
+
     function login(username, password) {
         if (username == "demo" && password == "mode") {
             window.location = "welcome.html";
@@ -49,6 +53,9 @@
       <div id="demo" style="margin-top: 30px;">
         <h2>The XMLHttpRequest Object</h2>
         <button type="button" onclick="loadDocAjax()" id="get_ajax">Change Content</button>
+      </div>
+      <div style="margin-top: 30px;">
+        <button type="button" onclick="alertConfirm()" id="alert_confirm">Alert confirm</button>
       </div>
   </div>
 </body>
