@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax demo</title>
+    <script type="text/javascript">
+        var verified = false;
+        function verify() {
+           var sleepTime = Math.floor(Math.random() * 5);
+           console.log('sleep time '+sleepTime);
+           document.getElementById('loading').style.display = 'block';
+           setTimeout(function(){
+               document.getElementById('loading').style.display = 'none';
+               verified = true;
+           }, sleepTime * 1000);
+        }
+
+        function submit() {
+            if(verified == true)
+            {
+                window.location = "welcome.html";
+            }
+            else {
+                window.location = "error.html";
+            }
+        }
+    </script>
+    <style>
+        #loading {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 100;
+          width: 100vw;
+          height: 100vh;
+          background-color: rgba(192, 192, 192, 0.5);
+          background-image: url("https://i.stack.imgur.com/MnyxU.gif");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="demo" style="margin-top: 30px;">
+    <h2>Demo ajax verify data</h2>
+    <input type="text" name="idcard" id="idcard">
+    <button type="button" onclick="verify()" id="verify">Verify status</button>
+    <button type="button" id="submit" onclick="submit()">Submit</button>
+</div>
+
+<div id="loading"></div>
+
+</body>
+</html>
