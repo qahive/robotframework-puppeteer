@@ -1,7 +1,10 @@
 import asyncio
-from pyppeteer.browser import Browser
-from PuppeteerLibrary.custom_elements.SPage import SPage
 from robot.api.deco import not_keyword
+from robot.api import logger
+from pyppeteer.browser import Browser
+from robot.libraries.BuiltIn import BuiltIn
+
+from PuppeteerLibrary.custom_elements.SPage import SPage
 from PuppeteerLibrary.base.robotlibcore import DynamicCore
 from PuppeteerLibrary.keywords import (
     AlertKeywords,
@@ -63,6 +66,8 @@ class PuppeteerLibrary(DynamicCore):
     async_libraries = []
 
     def __init__(self):
+        self.run_on_failure_keyword = 'Capture Page Screenshot'
+
         libraries = [
             AlertKeywords(self),
             BrowserManagementKeywords(self),
@@ -104,3 +109,21 @@ class PuppeteerLibrary(DynamicCore):
     @not_keyword
     def get_browser(self) -> Browser:
         return self.browser
+
+    @not_keyword
+    def run_keyword(self, name, args, kwargs):
+        self._running_keyword = name
+        try:
+            return DynamicCore.run_keyword(self, name, args, kwargs)
+        except Exception:
+            self.failure_occurred()
+            raise
+        finally:
+            self._running_keyword = None
+
+    def failure_occurred(self):
+        try:
+            BuiltIn().run_keyword(self.run_on_failure_keyword)
+        except Exception as err:
+            logger.warn("Keyword '%s' could not be run on failure: %s"
+                        % (self.run_on_failure_keyword, err))
