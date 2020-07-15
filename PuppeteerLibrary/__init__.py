@@ -20,7 +20,7 @@ from PuppeteerLibrary.keywords import (
     WaitingKeywords,
     WaitingKeywordsAsync)
 
-__version__ = '0.3.1'
+__version__ = '0.4.0'
 
 
 class PuppeteerLibrary(DynamicCore):
@@ -43,14 +43,18 @@ class PuppeteerLibrary(DynamicCore):
     | link	       | Exact text a link has.	             | ``link:Home page``             |
     | partial link | Partial link text   	             | ``partial link:Home``          |
 
-    == Timeout == Timeout will use for Wait.. keywords. By default Puppeteer will use default timeout value if you
+    == Timeout ==
+    Timeout will use for Wait.. keywords. By default Puppeteer will use default timeout value if you
     didn't specific in keywords argument.
     Default Timeout is ``30 seconds``.
 
     User can set new default timeout using ``Set Timeout`` keyword
 
-    **Time format**
-    All timeouts and waits can be given as numbers considered seconds (e.g. 0.5 or 42) or in Robot Framework's time syntax (e.g. 1.5 seconds or 1 min 30 s).
+
+    *Time format*
+
+    All timeouts and waits can be given as numbers considered seconds (e.g. 0.5 or 42) or in Robot Framework's time syntax(e.g. 1.5 seconds or 1 min 30 s).
+
     For more information about the time syntax see the Robot Framework User Guide.
 
     """
