@@ -11,6 +11,7 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272
 *** Test Cases ***
 Capture page screenshot home page
     Capture Page Screenshot
+    Capture Page Screenshot    test-{index}.png
 
 
 *** Keywords ***
