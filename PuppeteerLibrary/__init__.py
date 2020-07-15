@@ -11,6 +11,8 @@ from PuppeteerLibrary.keywords import (
     ElementKeywordsAsync,
     FormElementKeywords,
     FormElementKeywordsAsync,
+    ScreenshotKeywords,
+    ScreenshotKeywordsAsync,
     UtilityKeywords,
     WaitingKeywords,
     WaitingKeywordsAsync)
@@ -66,6 +68,7 @@ class PuppeteerLibrary(DynamicCore):
             BrowserManagementKeywords(self),
             ElementKeywords(self),
             FormElementKeywords(self),
+            ScreenshotKeywords(self),
             UtilityKeywords(self),
             WaitingKeywords(self)
         ]
@@ -75,6 +78,7 @@ class PuppeteerLibrary(DynamicCore):
             AlertKeywordsAsync(self),
             ElementKeywordsAsync(self),
             FormElementKeywordsAsync(self),
+            ScreenshotKeywordsAsync(self),
             WaitingKeywordsAsync(self)
         ]
 
