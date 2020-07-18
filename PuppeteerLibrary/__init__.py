@@ -3,7 +3,6 @@ from robot.api.deco import not_keyword
 from robot.api import logger
 from pyppeteer.browser import Browser
 from robot.libraries.BuiltIn import BuiltIn
-
 from PuppeteerLibrary.custom_elements.SPage import SPage
 from PuppeteerLibrary.base.robotlibcore import DynamicCore
 from PuppeteerLibrary.keywords import (
@@ -14,6 +13,8 @@ from PuppeteerLibrary.keywords import (
     ElementKeywordsAsync,
     FormElementKeywords,
     FormElementKeywordsAsync,
+    JavascriptKeywords,
+    JavascriptKeywordsAsync,
     ScreenshotKeywords,
     ScreenshotKeywordsAsync,
     UtilityKeywords,
@@ -77,6 +78,7 @@ class PuppeteerLibrary(DynamicCore):
             BrowserManagementKeywords(self),
             ElementKeywords(self),
             FormElementKeywords(self),
+            JavascriptKeywords(self),
             ScreenshotKeywords(self),
             UtilityKeywords(self),
             WaitingKeywords(self)
@@ -87,6 +89,7 @@ class PuppeteerLibrary(DynamicCore):
             AlertKeywordsAsync(self),
             ElementKeywordsAsync(self),
             FormElementKeywordsAsync(self),
+            JavascriptKeywordsAsync(self),
             ScreenshotKeywordsAsync(self),
             WaitingKeywordsAsync(self)
         ]
