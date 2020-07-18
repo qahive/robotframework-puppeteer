@@ -3,3 +3,4 @@ image:
 
 tasks:
   - init: pip install -r ./requirements.txt
+  
