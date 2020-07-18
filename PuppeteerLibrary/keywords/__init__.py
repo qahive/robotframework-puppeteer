@@ -5,6 +5,8 @@ from .element import ElementKeywords
 from .element_async import ElementKeywordsAsync
 from .formelement import FormElementKeywords
 from .formelement_async import FormElementKeywordsAsync
+from .javascript import JavascriptKeywords
+from .javascript_async import JavascriptKeywordsAsync
 from .screenshot import ScreenshotKeywords
 from .screenshot_async import ScreenshotKeywordsAsync
 from .utility import UtilityKeywords
