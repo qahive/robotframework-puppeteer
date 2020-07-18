@@ -2,5 +2,5 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: pip install -r ./requirements.txt
-  
+  - init: pip install -r ./requirements.txt; /workspace/.pip-modules/bin/pyppeteer-install
+
