@@ -3,4 +3,4 @@ image:
 
 tasks:
   - init: pip install -r ./requirements.txt; /workspace/.pip-modules/bin/pyppeteer-install
-
+    command: python demoapp/server.py &
