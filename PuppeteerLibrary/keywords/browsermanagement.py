@@ -44,10 +44,13 @@ class BrowserManagementKeywords(LibraryComponent):
                 merged_options = {**default_options, **options}
             self.info(('Open browser to ' + url + '\n' +
                         str(merged_options)))
-            self.ctx.browser = await launch(headless=merged_options['headless'], defaultViewport={
-                'width': merged_options['width'],
-                'height': merged_options['height']
-            })
+            self.ctx.browser = await launch(
+                headless=merged_options['headless'], 
+                defaultViewport={
+                    'width': merged_options['width'],
+                    'height': merged_options['height']
+                },
+                args=['--no-sandbox', '--disable-setuid-sandbox'])
             self.ctx.current_page = await self.ctx.browser.newPage()
             await self.ctx.current_page.goto(url)
             await self.ctx.current_page.screenshot({'path': 'example.png'})
