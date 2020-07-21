@@ -93,6 +93,10 @@ class WaitingKeywordsAsync(LibraryComponent):
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
+    @keyword
+    async def wait_until_location_contains_async(self):
+        return None
+
     async def _wait_until_worker(self, condition, timeout, error=None):
         max_time = time.time() + timeout
         not_found = None

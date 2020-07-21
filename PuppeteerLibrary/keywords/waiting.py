@@ -175,3 +175,11 @@ class WaitingKeywords(LibraryComponent):
         """
         return self.loop.run_until_complete(self.async_func.wait_until_element_does_not_contains_async(locator, text, timeout))
 
+    @keyword
+    def wait_until_location_contains(self, expected, timeout=None):
+        """
+        Waits until the current URL contains `expected`.
+
+        The `expected` argument contains the expected value in url.
+        """
+        return self.loop.run_until_complete(self.async_func.wait_until_location_contains_async(expected, timeout))
