@@ -93,6 +93,22 @@ class WaitingKeywordsAsync(LibraryComponent):
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
+    @keyword
+    async def wait_until_location_contains_async(self, expected, timeout=None):
+        async def validate_url_contains_text():
+            return expected in self.ctx.get_current_page().url
+        return await self._wait_until_worker(
+            validate_url_contains_text,
+            self.timestr_to_secs_for_default_timeout(timeout))
+
+    @keyword
+    async def wait_until_location_does_not_contains_async(self, expected, timeout=None):
+        async def validate_url_not_contains_text():
+            return expected not in self.ctx.get_current_page().url
+        return await self._wait_until_worker(
+            validate_url_not_contains_text,
+            self.timestr_to_secs_for_default_timeout(timeout))
+
     async def _wait_until_worker(self, condition, timeout, error=None):
         max_time = time.time() + timeout
         not_found = None
@@ -100,10 +116,10 @@ class WaitingKeywordsAsync(LibraryComponent):
             try:
                 if await condition():
                     return
+                else:
+                    not_found = None
             except Exception as err:
                 not_found = err
-            else:
-                not_found = None
             await asyncio.sleep(0.2)
         raise AssertionError(not_found or error)
 

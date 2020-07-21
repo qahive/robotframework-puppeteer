@@ -55,3 +55,11 @@ Demo wait for element contains text
     Open browser    ${HOME_PAGE_URL}   options=${options}
     Wait Until Element Contains    css:#container p    Please input your user name
     Wait Until Element Does Not Contains    css:#container p    Invalid user name and/or password
+
+Demo wait for location contains
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    ${HOME_PAGE_URL}   options=${options}
+    Go To     ${HOME_PAGE_URL}/docs.html
+    Switch Window    NEW
+    Wait Until Location Contains    docs.html

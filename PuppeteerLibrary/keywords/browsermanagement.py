@@ -50,7 +50,9 @@ class BrowserManagementKeywords(LibraryComponent):
                     'width': merged_options['width'],
                     'height': merged_options['height']
                 },
-                args=['--no-sandbox', '--disable-setuid-sandbox'])
+                # Only for ubuntu
+                # args=['--no-sandbox', '--disable-setuid-sandbox'])
+                args=['--disable-setuid-sandbox'])
             self.ctx.current_page = await self.ctx.browser.newPage()
             await self.ctx.current_page.goto(url)
             await self.ctx.current_page.screenshot({'path': 'example.png'})
