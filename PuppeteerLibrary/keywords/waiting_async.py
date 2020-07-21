@@ -101,6 +101,14 @@ class WaitingKeywordsAsync(LibraryComponent):
             validate_url_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
+    @keyword
+    async def wait_until_location_does_not_contains_async(self, expected, timeout=None):
+        async def validate_url_not_contains_text():
+            return expected not in self.ctx.get_current_page().url
+        return await self._wait_until_worker(
+            validate_url_not_contains_text,
+            self.timestr_to_secs_for_default_timeout(timeout))
+
     async def _wait_until_worker(self, condition, timeout, error=None):
         max_time = time.time() + timeout
         not_found = None

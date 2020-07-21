@@ -183,3 +183,12 @@ class WaitingKeywords(LibraryComponent):
         The `expected` argument contains the expected value in url.
         """
         return self.loop.run_until_complete(self.async_func.wait_until_location_contains_async(expected, timeout))
+
+    @keyword
+    def wait_until_location_does_not_contains(self, expected, timeout=None):
+        """
+        Waits until the current URL does not contains `expected`.
+
+        The `expected` argument contains the expected value must not in url.
+        """
+        return self.loop.run_until_complete(self.async_func.wait_until_location_does_not_contains_async(expected, timeout))
