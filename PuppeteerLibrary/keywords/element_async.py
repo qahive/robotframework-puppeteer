@@ -49,7 +49,7 @@ class ElementKeywordsAsync(LibraryComponent):
     async def element_should_be_disabled_async(self, selenium_locator):
         element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
         is_disabled = await (await element.getProperty('disabled')).jsonValue()
-        if is_disabled != True:
+        if not is_disabled:
             raise AssertionError("Element '%s' is enabled. " % selenium_locator)
         return element
 
@@ -57,6 +57,20 @@ class ElementKeywordsAsync(LibraryComponent):
     async def element_should_be_enabled_async(self, selenium_locator):
         element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
         is_disabled = await (await element.getProperty('disabled')).jsonValue()
-        if is_disabled == True:
+        if is_disabled:
             raise AssertionError("Element '%s' is disabled. " % selenium_locator)
         return element
+
+    @keyword
+    async def element_should_be_visible_async(self, selenium_locator):
+        try:
+            return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.0001, visible=True, hidden=False)
+        except:
+            raise AssertionError("Element '%s' is not be visible. " % selenium_locator)
+
+    @keyword
+    async def element_should_not_be_visible_async(self, selenium_locator):
+        try:
+            return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.0001, visible=False, hidden=True)
+        except:
+            raise AssertionError("Element '%s' is visible. " % selenium_locator)
