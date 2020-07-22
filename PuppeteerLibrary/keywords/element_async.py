@@ -44,3 +44,11 @@ class ElementKeywordsAsync(LibraryComponent):
     async def get_value_async(self, selenium_locator):
         element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
         return (await (await element.getProperty('value')).jsonValue())
+
+    @keyword
+    async def element_should_be_disabled_async(self, selenium_locator):
+        element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+        is_disabled = await (await element.getProperty('disabled')).jsonValue()
+        if is_disabled != True:
+            raise AssertionError("Element '%s' is enabled. " % selenium_locator)
+        return element
