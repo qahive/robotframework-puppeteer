@@ -17,9 +17,10 @@ Element proprty is enable
     Element Should Be Enabled    id:username_field
     
 Element is visible and not visible
+    Sleep   3s
     Element Should Be Visible    id:username_field
     Element Should Not Be Visible    id:not-visible-button
-    Run Keyword And Expect Error    REGEXP:Element 'id:username_field' is not be visible    Element Should Be Visible    id:not-visible-button
+    Run Keyword And Expect Error    REGEXP:Element 'id:not-visible-button' is not be visible    Element Should Be Visible    id:not-visible-button
     
 
 *** Keywords ***

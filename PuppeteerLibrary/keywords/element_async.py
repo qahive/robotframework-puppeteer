@@ -64,13 +64,13 @@ class ElementKeywordsAsync(LibraryComponent):
     @keyword
     async def element_should_be_visible_async(self, selenium_locator):
         try:
-            return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.0001, visible=True, hidden=False)
+            return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.1, visible=True, hidden=False)
         except:
             raise AssertionError("Element '%s' is not be visible. " % selenium_locator)
 
     @keyword
     async def element_should_not_be_visible_async(self, selenium_locator):
         try:
-            return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.0001, visible=False, hidden=True)
+            return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.1, visible=False, hidden=True)
         except:
             raise AssertionError("Element '%s' is visible. " % selenium_locator)
