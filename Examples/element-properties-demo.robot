@@ -14,7 +14,7 @@ Element property is disable
     Run Keyword And Expect Error    REGEXP:Element 'id:username_field' is enabled    Element Should Be Disabled    id:username_field
 
 Element proprty is enable
-    Log    tmp
+    Element Should Be Enabled    id:username_field
 
 *** Keywords ***
 Open browser to test page

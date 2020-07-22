@@ -75,3 +75,12 @@ class ElementKeywords(LibraryComponent):
 
         """
         return self.loop.run_until_complete(self.async_func.element_should_be_disabled_async(locator))
+
+    @keyword
+    def element_should_be_enabled(self, locator):
+        """	Verifies that element identified by locator is enabled.
+
+        """
+        return self.loop.run_until_complete(self.async_func.element_should_be_enabled_async(locator))
+
+
