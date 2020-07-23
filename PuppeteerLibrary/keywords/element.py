@@ -97,3 +97,16 @@ class ElementKeywords(LibraryComponent):
         """
         return self.loop.run_until_complete(self.async_func.element_should_not_be_visible_async(locator))
 
+    @keyword
+    def element_should_contain(self, locator, expected, ignore_case=False):
+        """ Verifies that element locator contains text `expected`.
+
+        """
+        return self.loop.run_until_complete(self.async_func.element_should_contain_async(locator, expected, ignore_case))
+
+    @keyword
+    def element_should_not_contain(self, locator, expected, ignore_case=False):
+        """ Verifies that element locator should not contains text `expected`.
+
+        """
+        return self.loop.run_until_complete(self.async_func.element_should_not_contain_async(locator, expected, ignore_case))

@@ -17,11 +17,15 @@ Element proprty is enable
     Element Should Be Enabled    id:username_field
     
 Element is visible and not visible
-    Sleep   3s
     Element Should Be Visible    id:username_field
     Element Should Not Be Visible    id:not-visible-button
     Run Keyword And Expect Error    REGEXP:Element 'id:not-visible-button' is not be visible    Element Should Be Visible    id:not-visible-button
     
+Element should containt text
+    Element Should Contain    id=container    please input    ${True}
+    
+Element should not contain text
+    Element Should Not Contain    id=container    please input2    ${True}
 
 *** Keywords ***
 Open browser to test page

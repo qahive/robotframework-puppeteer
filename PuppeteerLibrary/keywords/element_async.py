@@ -1,3 +1,5 @@
+from robot.libraries.BuiltIn import BuiltIn
+
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 
@@ -74,3 +76,13 @@ class ElementKeywordsAsync(LibraryComponent):
             return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.1, visible=False, hidden=True)
         except:
             raise AssertionError("Element '%s' is visible. " % selenium_locator)
+
+    @keyword
+    async def element_should_contain_async(self, selenium_locator, expected, ignore_case):
+        text = await self.get_text_async(selenium_locator)
+        return BuiltIn().should_contain(text, expected, ignore_case=ignore_case)
+
+    @keyword
+    async def element_should_not_contain_async(self, selenium_locator, expected, ignore_case):
+        text = await self.get_text_async(selenium_locator)
+        return BuiltIn().should_not_contain(text, expected, ignore_case=ignore_case)
