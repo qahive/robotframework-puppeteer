@@ -21,7 +21,7 @@ from PuppeteerLibrary.keywords import (
     WaitingKeywords,
     WaitingKeywordsAsync)
 
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 
 
 class PuppeteerLibrary(DynamicCore):

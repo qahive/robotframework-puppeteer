@@ -1,3 +1,5 @@
+from robot.libraries.BuiltIn import BuiltIn
+
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 
@@ -44,3 +46,53 @@ class ElementKeywordsAsync(LibraryComponent):
     async def get_value_async(self, selenium_locator):
         element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
         return (await (await element.getProperty('value')).jsonValue())
+
+    @keyword
+    async def element_should_be_disabled_async(self, selenium_locator):
+        element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+        is_disabled = await (await element.getProperty('disabled')).jsonValue()
+        if not is_disabled:
+            raise AssertionError("Element '%s' is enabled. " % selenium_locator)
+        return element
+
+    @keyword
+    async def element_should_be_enabled_async(self, selenium_locator):
+        element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+        is_disabled = await (await element.getProperty('disabled')).jsonValue()
+        if is_disabled:
+            raise AssertionError("Element '%s' is disabled. " % selenium_locator)
+        return element
+
+    @keyword
+    async def element_should_be_visible_async(self, selenium_locator):
+        try:
+            return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.1, visible=True, hidden=False)
+        except:
+            raise AssertionError("Element '%s' is not be visible. " % selenium_locator)
+
+    @keyword
+    async def element_should_not_be_visible_async(self, selenium_locator):
+        try:
+            return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, 0.1, visible=False, hidden=True)
+        except:
+            raise AssertionError("Element '%s' is visible. " % selenium_locator)
+
+    @keyword
+    async def element_should_contain_async(self, selenium_locator, expected, ignore_case=False):
+        text = await self.get_text_async(selenium_locator)
+        return BuiltIn().should_contain(text, expected, ignore_case=ignore_case)
+
+    @keyword
+    async def element_should_not_contain_async(self, selenium_locator, expected, ignore_case=False):
+        text = await self.get_text_async(selenium_locator)
+        return BuiltIn().should_not_contain(text, expected, ignore_case=ignore_case)
+
+    @keyword
+    async def element_text_should_be_async(self, selenium_locator, expected, ignore_case=False):
+        text = await self.get_text_async(selenium_locator)
+        return BuiltIn().should_be_equal_as_strings(text, expected, ignore_case=ignore_case)
+
+    @keyword
+    async def element_text_should_not_be_async(self, selenium_locator, expected, ignore_case=False):
+        text = await self.get_text_async(selenium_locator)
+        return BuiltIn().should_not_be_equal_as_strings(text, expected, ignore_case=ignore_case)
