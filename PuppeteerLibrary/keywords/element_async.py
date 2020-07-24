@@ -78,11 +78,21 @@ class ElementKeywordsAsync(LibraryComponent):
             raise AssertionError("Element '%s' is visible. " % selenium_locator)
 
     @keyword
-    async def element_should_contain_async(self, selenium_locator, expected, ignore_case):
+    async def element_should_contain_async(self, selenium_locator, expected, ignore_case=False):
         text = await self.get_text_async(selenium_locator)
         return BuiltIn().should_contain(text, expected, ignore_case=ignore_case)
 
     @keyword
-    async def element_should_not_contain_async(self, selenium_locator, expected, ignore_case):
+    async def element_should_not_contain_async(self, selenium_locator, expected, ignore_case=False):
         text = await self.get_text_async(selenium_locator)
         return BuiltIn().should_not_contain(text, expected, ignore_case=ignore_case)
+
+    @keyword
+    async def element_text_should_be_async(self, selenium_locator, expected, ignore_case=False):
+        text = await self.get_text_async(selenium_locator)
+        return BuiltIn().should_be_equal_as_strings(text, expected, ignore_case=ignore_case)
+
+    @keyword
+    async def element_text_should_not_be_async(self, selenium_locator, expected, ignore_case=False):
+        text = await self.get_text_async(selenium_locator)
+        return BuiltIn().should_not_be_equal_as_strings(text, expected, ignore_case=ignore_case)

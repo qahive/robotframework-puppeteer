@@ -26,6 +26,12 @@ Element should containt text
     
 Element should not contain text
     Element Should Not Contain    id=container    please input2    ${True}
+    
+Element text should be
+     Element Text Should Be    id=get_ajax    Change Content    ${True}
+     
+Element test should not be
+    Element Text Should Not Be    id=get_ajax    Change    ${True}    
 
 *** Keywords ***
 Open browser to test page
