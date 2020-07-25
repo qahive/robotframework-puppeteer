@@ -138,3 +138,7 @@ class PuppeteerLibrary(DynamicCore):
         except Exception as err:
             logger.warn("Keyword '%s' could not be run on failure: %s"
                         % (self.run_on_failure_keyword, err))
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
