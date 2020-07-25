@@ -1,4 +1,5 @@
 import time
+import sys
 from robot.utils import timestr_to_secs
 from pyppeteer import launch
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
@@ -32,6 +33,7 @@ class BrowserManagementKeywords(LibraryComponent):
 
         """
         async def open_browser_async():
+            default_args = []
             default_options = {
                 'headless': True,
                 'width': 1366,
@@ -42,6 +44,10 @@ class BrowserManagementKeywords(LibraryComponent):
                 merged_options = default_options
             else:
                 merged_options = {**default_options, **options}
+
+            if 'win' not in sys.platform.lower():
+                default_args = ['--no-sandbox', '--disable-setuid-sandbox']
+            
             self.info(('Open browser to ' + url + '\n' +
                         str(merged_options)))
             self.ctx.browser = await launch(
@@ -50,9 +56,7 @@ class BrowserManagementKeywords(LibraryComponent):
                     'width': merged_options['width'],
                     'height': merged_options['height']
                 },
-                # Only for ubuntu
-                # args=['--no-sandbox', '--disable-setuid-sandbox'])
-                args=['--disable-setuid-sandbox'])
+                args=default_args)
             self.ctx.current_page = await self.ctx.browser.newPage()
             await self.ctx.current_page.goto(url)
             await self.ctx.current_page.screenshot({'path': 'example.png'})
