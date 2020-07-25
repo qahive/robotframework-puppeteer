@@ -21,7 +21,11 @@ from PuppeteerLibrary.keywords import (
     WaitingKeywords,
     WaitingKeywordsAsync)
 
-__version__ = '0.4.2'
+# Get the version from the _version.py versioneer file. For a git checkout,
+# this is computed based on the number of commits since the last tag.
+from ._version import get_versions
+__version__ = str(get_versions()['version'])
+del get_versions
 
 
 class PuppeteerLibrary(DynamicCore):
