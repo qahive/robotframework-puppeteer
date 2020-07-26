@@ -21,7 +21,11 @@ from PuppeteerLibrary.keywords import (
     WaitingKeywords,
     WaitingKeywordsAsync)
 
-__version__ = '0.4.2'
+# Get the version from the _version.py versioneer file. For a git checkout,
+# this is computed based on the number of commits since the last tag.
+from ._version import get_versions
+__version__ = str(get_versions()['version']).split('+')[0]
+del get_versions
 
 
 class PuppeteerLibrary(DynamicCore):
@@ -134,3 +138,7 @@ class PuppeteerLibrary(DynamicCore):
         except Exception as err:
             logger.warn("Keyword '%s' could not be run on failure: %s"
                         % (self.run_on_failure_keyword, err))
+
+from ._version import get_versions
+__version__ = get_versions()['version']
+del get_versions
