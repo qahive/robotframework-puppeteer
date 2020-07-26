@@ -7,9 +7,11 @@ CURDIR = dirname(abspath(__file__))
 with open("README.md", "r", encoding='utf-8') as fh:
     LONG_DESCRIPTION = fh.read()
 
-with open(join(CURDIR, 'PuppeteerLibrary', '__init__.py'), encoding='utf-8') as f:
-    VERSION = re.search("\n__version__ = '(.*)'", f.read()).group(1)
-
+# Get the version from the _version.py versioneer file. For a git checkout,
+# this is computed based on the number of commits since the last tag.
+from PuppeteerLibrary._version import get_versions
+VERSION = str(get_versions()['version']).split('+')[0]
+del get_versions
 
 setup(
     name="robotframework-PuppeteerLibrary",
