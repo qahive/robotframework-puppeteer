@@ -12,6 +12,7 @@ class BrowserManagementKeywords(LibraryComponent):
     def __init__(self, ctx):
         self.ctx = ctx
         self.async_func = BrowserManagementKeywordsAsync(self.ctx)
+        self.ctx.contexts = {}
 
     @keyword
     def open_browser(self, url, browser="chrome", alias=None, options=None):
@@ -64,6 +65,10 @@ class BrowserManagementKeywords(LibraryComponent):
                     },
                     args=default_args)
             context = await self.ctx.browser.createIncognitoBrowserContext()
+            if alias in self.ctx.contexts.keys():
+                await self.ctx.contexts[alias].close();
+                del self.ctx.contexts[alias]
+            self.ctx.contexts[alias] = context
             self.ctx.current_page = await context.newPage()
             await self.ctx.current_page.goto(url)
             await self.ctx.current_page.screenshot({'path': 'example.png'})
