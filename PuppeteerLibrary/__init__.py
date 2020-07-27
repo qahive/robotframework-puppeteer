@@ -9,6 +9,7 @@ from PuppeteerLibrary.keywords import (
     AlertKeywords,
     AlertKeywordsAsync,
     BrowserManagementKeywords,
+    BrowserManagementKeywordsAsync,
     ElementKeywords,
     ElementKeywordsAsync,
     FormElementKeywords,
@@ -91,6 +92,7 @@ class PuppeteerLibrary(DynamicCore):
 
         self.async_libraries = [
             AlertKeywordsAsync(self),
+            BrowserManagementKeywordsAsync(self),
             ElementKeywordsAsync(self),
             FormElementKeywordsAsync(self),
             JavascriptKeywordsAsync(self),

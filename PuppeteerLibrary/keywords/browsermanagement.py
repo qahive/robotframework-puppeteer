@@ -4,9 +4,14 @@ from robot.utils import timestr_to_secs
 from pyppeteer import launch
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
+from PuppeteerLibrary.keywords.browsermanagement_async import BrowserManagementKeywordsAsync
 
 
 class BrowserManagementKeywords(LibraryComponent):
+
+    def __init__(self, ctx):
+        self.ctx = ctx
+        self.async_func = BrowserManagementKeywordsAsync(self.ctx)
 
     @keyword
     def open_browser(self, url, browser="chrome", alias=None, options=None):
@@ -33,31 +38,33 @@ class BrowserManagementKeywords(LibraryComponent):
 
         """
         async def open_browser_async():
-            default_args = []
-            default_options = {
-                'headless': True,
-                'width': 1366,
-                'height': 768
-            }
-            merged_options = None
-            if options is None:
-                merged_options = default_options
-            else:
-                merged_options = {**default_options, **options}
+            if self.ctx.browser is None:
+                default_args = []
+                default_options = {
+                    'headless': True,
+                    'width': 1366,
+                    'height': 768
+                }
+                merged_options = None
+                if options is None:
+                    merged_options = default_options
+                else:
+                    merged_options = {**default_options, **options}
 
-            if 'win' not in sys.platform.lower():
-                default_args = ['--no-sandbox', '--disable-setuid-sandbox']
-            
-            self.info(('Open browser to ' + url + '\n' +
-                        str(merged_options)))
-            self.ctx.browser = await launch(
-                headless=merged_options['headless'], 
-                defaultViewport={
-                    'width': merged_options['width'],
-                    'height': merged_options['height']
-                },
-                args=default_args)
-            self.ctx.current_page = await self.ctx.browser.newPage()
+                if 'win' not in sys.platform.lower():
+                    default_args = ['--no-sandbox', '--disable-setuid-sandbox']
+
+                self.info(('Open browser to ' + url + '\n' +
+                            str(merged_options)))
+                self.ctx.browser = await launch(
+                    headless=merged_options['headless'],
+                    defaultViewport={
+                        'width': merged_options['width'],
+                        'height': merged_options['height']
+                    },
+                    args=default_args)
+            context = await self.ctx.browser.createIncognitoBrowserContext()
+            self.ctx.current_page = await context.newPage()
             await self.ctx.current_page.goto(url)
             await self.ctx.current_page.screenshot({'path': 'example.png'})
         self.loop.run_until_complete(open_browser_async())
@@ -68,6 +75,7 @@ class BrowserManagementKeywords(LibraryComponent):
         """
         async def close_browser_async():
             await self.ctx.browser.close()
+            self.ctx.browser = None
         self.loop.run_until_complete(close_browser_async())
 
     @keyword
@@ -145,22 +153,7 @@ class BrowserManagementKeywords(LibraryComponent):
         | Run Async Keywords | Click Element              | id:view_conditions          | AND  |
         | ...                | `Wait For New Window Open` |                             |      |
         """
-        timeout = self.timestr_to_secs_for_default_timeout(timeout)
-        async def wait_for_new_page_open_async():
-            pages = await self.ctx.get_browser().pages()
-            await pages[-1].title() # workaround for force pages re-cache
-            pre_page_len = len(pages)
-            timer = 0
-            while timer < timeout:
-                pages = await self.ctx.get_browser().pages()
-                await pages[-1].title()  # workaround for force pages re-cache
-                page_len = len(pages)
-                if page_len > pre_page_len:
-                    return
-                timer += 1
-                time.sleep(1)
-            raise Exception('No new page has been open. pre: '+str(pre_page_len)+' current: '+str(page_len))
-        self.loop.run_until_complete(wait_for_new_page_open_async())
+        self.loop.run_until_complete(self.async_func.wait_for_new_window_open_async(timeout))
 
     @keyword
     def switch_window(self, locator='MAIN'):

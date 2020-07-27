@@ -1,6 +1,7 @@
 from .alert import AlertKeywords
 from .alert_async import AlertKeywordsAsync
 from .browsermanagement import BrowserManagementKeywords
+from .browsermanagement_async import BrowserManagementKeywordsAsync
 from .element import ElementKeywords
 from .element_async import ElementKeywordsAsync
 from .formelement import FormElementKeywords
