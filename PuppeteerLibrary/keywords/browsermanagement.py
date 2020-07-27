@@ -69,6 +69,7 @@ class BrowserManagementKeywords(LibraryComponent):
                 await self.ctx.contexts[alias].close();
                 del self.ctx.contexts[alias]
             self.ctx.contexts[alias] = context
+            self.ctx.current_context_name = alias
             self.ctx.current_page = await context.newPage()
             await self.ctx.current_page.goto(url)
             await self.ctx.current_page.screenshot({'path': 'example.png'})
@@ -79,9 +80,12 @@ class BrowserManagementKeywords(LibraryComponent):
         """Closes the current browser
         """
         async def close_browser_async():
-            await self.ctx.browser.close()
-            self.ctx.browser = None
+            await self.ctx.contexts[self.ctx.current_context_name].close()
+            del self.ctx.contexts[self.ctx.current_context_name]
+            # await self.ctx.browser.close()
+            # self.ctx.browser = None
         self.loop.run_until_complete(close_browser_async())
+
 
     @keyword
     def maximize_browser_window(self, width=1366, height=768):
