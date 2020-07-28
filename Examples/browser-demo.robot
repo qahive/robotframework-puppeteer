@@ -11,9 +11,9 @@ Example switch window and check window title
     Maximize Browser Window
     ${title} =   Get title
     ${location} =   Get location
-    Run Async Keywords    
-    ...    Click Element    xpath://a[@href="docs.html"]    AND
-    ...    Wait for new window open
+    Run Async Keywords
+    ...    Wait for new window open    AND
+    ...    Click Element    xpath://a[@href="docs.html"]
     Switch Window   NEW
     ${Title} =   Get Title
     should be equal as strings  Docs Page   ${Title}
