@@ -1,0 +1,1 @@
+from .device_descriptors import DEVICE_DESCRIPTORS

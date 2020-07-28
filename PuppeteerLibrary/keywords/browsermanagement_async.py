@@ -1,6 +1,7 @@
 import time
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
+from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 
 
 class BrowserManagementKeywordsAsync(LibraryComponent):
@@ -46,15 +47,7 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
 
     @keyword
     async def enable_emulate_mode_async(self, emulate_name):
-        await self.ctx.get_current_page().emulate(
-            {
-                'userAgent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1',
-                'viewport': { 
-                    'width': 375, 
-                    'height': 812,
-                    'isMobile': True
-                }
-            })
-
-        # await page.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1');
-        # await page.setViewport({ width: 375, height: 812 });
+        # DeviceDescriptors
+        # https://github.com/puppeteer/puppeteer/blob/main/src/common/DeviceDescriptors.ts
+        await self.ctx.get_current_page().emulate(DEVICE_DESCRIPTORS[emulate_name])
+        
