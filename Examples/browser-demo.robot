@@ -39,3 +39,11 @@ Example close puppeteer browser
     Close Puppeteer
     Open browser    http://127.0.0.1:7272   options=${options}    alias=Browser 2
     Click Element    id=get_ajax
+
+Example enable emulator mode
+    [Teardown]    Close All Browser
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    http://127.0.0.1:7272   options=${options}    alias=Browser 1
+    Enable emulate mode    iPhone X
+    Capture page screenshot

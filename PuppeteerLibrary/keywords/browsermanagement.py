@@ -209,4 +209,4 @@ class BrowserManagementKeywords(LibraryComponent):
         | iPhonex          |
 
         """
-        return self.loop.run_until_complete(self.enable_emulate_mode_async(emulate_name))
+        return self.loop.run_until_complete(self.async_func.enable_emulate_mode_async(emulate_name))
