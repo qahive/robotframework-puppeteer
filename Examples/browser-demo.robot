@@ -1,10 +1,10 @@
 *** Settings ***
 Library    PuppeteerLibrary
-Test Teardown    Close Browser
 
 
 *** Test Cases ***
-Example switch browser and browser title
+Example switch window and check window title
+    [Teardown]    Close Browser
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    http://127.0.0.1:7272   options=${options}
@@ -18,5 +18,16 @@ Example switch browser and browser title
     ${Title} =   Get Title
     should be equal as strings  Docs Page   ${Title}
 
-Example muti browser
-    
+Example open multiple browser
+    [Teardown]    Close All Browser
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    http://127.0.0.1:7272   options=${options}    alias=Browser 1
+    Click Element    id=login_button
+    Open browser    http://127.0.0.1:7272   options=${options}    alias=Browser 2
+    Click Element    id=get_ajax
+    Switch Browser    Browser 1
+    Wait Until Page Contains    Error Page    
+    Switch Browser    Browser 2
+    Wait Until Page Contains    products
+

@@ -136,9 +136,12 @@ class PuppeteerLibrary(DynamicCore):
         return self.contexts[self.current_context_name]
 
     @not_keyword
-    def set_current_context(self, context_name):
+    async def set_current_context(self, context_name) -> BrowserContext:
         self.current_context_name = context_name
-        self.current_page = self.get_current_context().pages()[-1]
+        context = self.get_current_context()
+        pages = await context.pages()
+        self.current_page = pages[-1]
+        return context
 
     @not_keyword
     def clear_context(self, context_name):

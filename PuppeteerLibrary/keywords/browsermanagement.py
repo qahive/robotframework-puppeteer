@@ -82,6 +82,10 @@ class BrowserManagementKeywords(LibraryComponent):
         self.loop.run_until_complete(self.async_func.close_all_browser_async())
 
     @keyword
+    def close_puppeteer(self):
+        self.loop.run_until_complete(self.async_func.close_puppeteer_async())
+
+    @keyword
     def maximize_browser_window(self, width=1366, height=768):
         """Maximize view port not actual browser and set default size to 1366 x 768
         """
@@ -188,3 +192,9 @@ class BrowserManagementKeywords(LibraryComponent):
 
             raise Exception('Can\'t find specify page locator.')
         self.loop.run_until_complete(switch_window_async())
+
+    @keyword
+    def switch_browser(self, alias):
+        """Switch browser context based on alias name
+        """
+        return self.loop.run_until_complete(self.ctx.set_current_context(alias))
