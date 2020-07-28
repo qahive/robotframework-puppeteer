@@ -7,7 +7,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 ## Submitting issues
 
-Bugs and enhancements are tracked in the `issue tracker`_.
+Bugs and enhancements are tracked in the `issue tracker`.
 Before submitting a new issue, it is always a good idea to check is the
 same bug or enhancement already reported. If it is, please add your
 comments to the existing issue instead of creating a new one.
