@@ -31,3 +31,11 @@ Example open multiple browser
     Switch Browser    Browser 2
     Wait Until Page Contains    products
 
+Example close puppeteer browser
+    [Teardown]    Close All Browser
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    http://127.0.0.1:7272   options=${options}    alias=Browser 1
+    Close Puppeteer
+    Open browser    http://127.0.0.1:7272   options=${options}    alias=Browser 2
+    Click Element    id=get_ajax
