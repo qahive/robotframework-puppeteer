@@ -198,3 +198,15 @@ class BrowserManagementKeywords(LibraryComponent):
         """Switch browser context based on alias name
         """
         return self.loop.run_until_complete(self.ctx.set_current_context(alias))
+
+    @keyword
+    def enable_emulate_mode(self, emulate_name):
+        """Emulate specific mobile or tablet
+
+        The ``emulate_name`` argument specifies which emulator to use.
+
+        |    = Options =   |
+        | iPhonex          |
+
+        """
+        return self.loop.run_until_complete(self.enable_emulate_mode_async(emulate_name))

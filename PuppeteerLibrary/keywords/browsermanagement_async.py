@@ -43,3 +43,7 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
     async def close_puppeteer_async(self):
         await self.ctx.browser.close()
         self.ctx.clear_browser()
+
+    @keyword
+    async def enable_emulate_mode_async(self, emulate_name):
+        await self.ctx.get_current_page().emulate(emulate_name)
