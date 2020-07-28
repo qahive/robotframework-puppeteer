@@ -21,3 +21,20 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
             timer += 1
             time.sleep(1)
         raise Exception('No new page has been open. pre: ' + str(pre_page_len) + ' current: ' + str(page_len))
+
+    @keyword
+    async def close_browser_async(self, alias=None):
+        if alias is None:
+            alias = self.ctx.current_context_name
+        await self.ctx.contexts[self.ctx.current_context_name].close()
+        self.ctx.clear_context(alias)
+        if len(self.ctx.contexts.keys()) > 0:
+            self.ctx.set_current_context(self.contexts.keys()[-1])
+
+    @keyword
+    async def close_all_browser_async(self):
+        for context in self.contexts:
+            await context.close()
+        self.ctx.contexts = {}
+        self.ctx.current_context_name = None
+        self.ctx.current_page = None

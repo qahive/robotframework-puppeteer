@@ -17,3 +17,6 @@ Example switch browser and browser title
     Switch Window   NEW
     ${Title} =   Get Title
     should be equal as strings  Docs Page   ${Title}
+
+Example muti browser
+    

@@ -1,7 +1,7 @@
 import asyncio
 from robot.api.deco import not_keyword
 from robot.api import logger
-from pyppeteer.browser import Browser
+from pyppeteer.browser import Browser, BrowserContext
 from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.custom_elements.SPage import SPage
 from PuppeteerLibrary.base.robotlibcore import DynamicCore
@@ -70,10 +70,13 @@ class PuppeteerLibrary(DynamicCore):
     ROBOT_LISTENER_API_VERSION = 3
 
     loop = asyncio.get_event_loop()
-    browser = None
-    current_page = None
     is_load_async_keywords = False
     async_libraries = []
+
+    browser = None
+    contexts = {}
+    current_context_name = None
+    current_page = None
 
     def __init__(self):
         self.run_on_failure_keyword = 'Capture Page Screenshot'
@@ -108,6 +111,52 @@ class PuppeteerLibrary(DynamicCore):
         self.is_load_async_keywords = True
 
     @not_keyword
+    def get_browser(self) -> Browser:
+        return self.browser
+
+    @not_keyword
+    def clear_browser(self):
+        self.browser = None
+        self.contexts = {}
+        self.current_context_name = None
+        self.current_page = None
+
+    @not_keyword
+    async def create_context_async(self, alias) -> BrowserContext:
+        context = await self.browser.createIncognitoBrowserContext()
+        if alias in self.contexts.keys():
+           await self.contexts[alias].close()
+           del self.contexts[alias]
+        self.current_context_name = alias
+        self.contexts[self.current_context_name] = context
+        return context
+
+    @not_keyword
+    def get_current_context(self) -> BrowserContext:
+        return self.contexts[self.current_context_name]
+
+    @not_keyword
+    def set_current_context(self, context_name):
+        self.current_context_name = context_name
+        self.current_page = self.get_current_context().pages()[-1]
+
+    @not_keyword
+    def clear_context(self, context_name):
+        del self.contexts[context_name]
+        if self.current_context_name == context_name:
+            self.current_context_name = None
+            self.current_page = None
+
+    @not_keyword
+    def clear_current_context(self):
+        self.clear_context(self.current_context_name)
+
+    @not_keyword
+    async def create_page_async(self) -> SPage:
+        self.current_page = await self.get_current_context().newPage()
+        return self.get_current_page()
+
+    @not_keyword
     def get_current_page(self) -> SPage:
         page = self.current_page
         page.__class__ = SPage
@@ -120,8 +169,8 @@ class PuppeteerLibrary(DynamicCore):
         return self.current_page
 
     @not_keyword
-    def get_browser(self) -> Browser:
-        return self.browser
+    def clear_current_page(self):
+        self.current_page = None
 
     @not_keyword
     def run_keyword(self, name, args, kwargs):

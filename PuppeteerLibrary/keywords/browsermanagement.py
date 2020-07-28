@@ -12,7 +12,6 @@ class BrowserManagementKeywords(LibraryComponent):
     def __init__(self, ctx):
         self.ctx = ctx
         self.async_func = BrowserManagementKeywordsAsync(self.ctx)
-        self.ctx.contexts = {}
 
     @keyword
     def open_browser(self, url, browser="chrome", alias=None, options=None):
@@ -64,28 +63,23 @@ class BrowserManagementKeywords(LibraryComponent):
                         'height': merged_options['height']
                     },
                     args=default_args)
-            context = await self.ctx.browser.createIncognitoBrowserContext()
-            if alias in self.ctx.contexts.keys():
-                await self.ctx.contexts[alias].close();
-                del self.ctx.contexts[alias]
-            self.ctx.contexts[alias] = context
-            self.ctx.current_context_name = alias
-            self.ctx.current_page = await context.newPage()
-            await self.ctx.current_page.goto(url)
-            await self.ctx.current_page.screenshot({'path': 'example.png'})
+            await self.ctx.create_context_async(alias)
+            current_page = await self.ctx.create_page_async()
+            await current_page.goto(url)
+            await current_page.screenshot({'path': 'example.png'})
         self.loop.run_until_complete(open_browser_async())
 
     @keyword
-    def close_browser(self):
+    def close_browser(self, alias=None):
         """Closes the current browser
         """
-        async def close_browser_async():
-            await self.ctx.contexts[self.ctx.current_context_name].close()
-            del self.ctx.contexts[self.ctx.current_context_name]
-            # await self.ctx.browser.close()
-            # self.ctx.browser = None
-        self.loop.run_until_complete(close_browser_async())
+        self.loop.run_until_complete(self.async_func.close_browser_async(alias))
 
+    @keyword
+    def close_all_browser(self):
+        """Close all browser
+        """
+        self.loop.run_until_complete(self.async_func.close_all_browser_async())
 
     @keyword
     def maximize_browser_window(self, width=1366, height=768):
@@ -194,4 +188,3 @@ class BrowserManagementKeywords(LibraryComponent):
 
             raise Exception('Can\'t find specify page locator.')
         self.loop.run_until_complete(switch_window_async())
-
