@@ -69,7 +69,7 @@ class PuppeteerLibrary(DynamicCore):
     ROBOT_LIBRARY_VERSION = __version__
     ROBOT_LISTENER_API_VERSION = 3
 
-    loop = asyncio.get_event_loop()
+    loop = None
     is_load_async_keywords = False
     async_libraries = []
 
@@ -79,6 +79,11 @@ class PuppeteerLibrary(DynamicCore):
     current_page = None
 
     def __init__(self):
+        try:
+            self.loop = asyncio.get_event_loop()
+        except:
+            print('Warning: Asyncio not supported')
+
         self.run_on_failure_keyword = 'Capture Page Screenshot'
 
         libraries = [

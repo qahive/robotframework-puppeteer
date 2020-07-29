@@ -1,4 +1,4 @@
-import time
+import asyncio
 import sys
 from robot.utils import timestr_to_secs
 from pyppeteer import launch
@@ -10,7 +10,7 @@ from PuppeteerLibrary.keywords.browsermanagement_async import BrowserManagementK
 class BrowserManagementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
-        self.ctx = ctx
+        super().__init__(ctx)
         self.async_func = BrowserManagementKeywordsAsync(self.ctx)
 
     @keyword
