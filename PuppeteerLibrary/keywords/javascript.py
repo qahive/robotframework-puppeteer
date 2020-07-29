@@ -6,7 +6,7 @@ from PuppeteerLibrary.keywords.javascript_async import JavascriptKeywordsAsync
 class JavascriptKeywords(LibraryComponent):
 
     def __init__(self, ctx):
-        self.ctx = ctx
+        super().__init__(ctx)
         self.async_func = JavascriptKeywordsAsync(self.ctx)
 
     @keyword

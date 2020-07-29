@@ -6,7 +6,7 @@ from PuppeteerLibrary.keywords.alert_async import AlertKeywordsAsync
 class AlertKeywords(LibraryComponent):
 
     def __init__(self, ctx):
-        self.ctx = ctx
+        super().__init__(ctx)
         self.async_func = AlertKeywordsAsync(self.ctx)
 
     @keyword

@@ -6,7 +6,7 @@ from PuppeteerLibrary.keywords.formelement_async import FormElementKeywordsAsync
 class FormElementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
-        self.ctx = ctx
+        super().__init__(ctx)
         self.async_func = FormElementKeywordsAsync(self.ctx)
 
     @keyword

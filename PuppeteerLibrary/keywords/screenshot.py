@@ -6,7 +6,7 @@ from PuppeteerLibrary.keywords.screenshot_async import ScreenshotKeywordsAsync, 
 class ScreenshotKeywords(LibraryComponent):
 
     def __init__(self, ctx):
-        self.ctx = ctx
+        super().__init__(ctx)
         self.async_func = ScreenshotKeywordsAsync(self.ctx)
 
     @keyword

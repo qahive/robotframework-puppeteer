@@ -6,7 +6,7 @@ from PuppeteerLibrary.keywords.element_async import ElementKeywordsAsync
 class ElementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
-        self.ctx = ctx
+        super().__init__(ctx)
         self.async_func = ElementKeywordsAsync(self.ctx)
 
     @keyword

@@ -6,7 +6,7 @@ from PuppeteerLibrary.base.robotlibcore import keyword
 class WaitingKeywords(LibraryComponent):
 
     def __init__(self, ctx):
-        self.ctx = ctx
+        super().__init__(ctx)
         self.async_func = WaitingKeywordsAsync(self.ctx)
 
     @keyword
