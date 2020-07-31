@@ -205,8 +205,11 @@ class BrowserManagementKeywords(LibraryComponent):
 
         The ``emulate_name`` argument specifies which emulator to use.
 
-        |    = Options =   |
-        | iPhonex          |
+        | = Example Options = |
+        | iPhone X            |
+        | Pixel 2             |
+
+        More emulate_name please visit [device_descriptors.py](https://github.com/qahive/robotframework-puppeteer/tree/master/PuppeteerLibrary/utils/device_descriptors.py)
 
         """
         return self.loop.run_until_complete(self.async_func.enable_emulate_mode_async(emulate_name))

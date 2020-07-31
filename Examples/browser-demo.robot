@@ -45,5 +45,5 @@ Example enable emulator mode
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    http://127.0.0.1:7272   options=${options}    alias=Browser 1
-    Enable emulate mode    iPhone X
+    Enable emulate mode    iPhone SE
     Capture page screenshot
