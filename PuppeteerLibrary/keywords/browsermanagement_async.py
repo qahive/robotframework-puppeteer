@@ -1,6 +1,7 @@
 import time
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
+from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 
 
 class BrowserManagementKeywordsAsync(LibraryComponent):
@@ -43,3 +44,7 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
     async def close_puppeteer_async(self):
         await self.ctx.browser.close()
         self.ctx.clear_browser()
+
+    @keyword
+    async def enable_emulate_mode_async(self, emulate_name):
+        await self.ctx.get_current_page().emulate(DEVICE_DESCRIPTORS[emulate_name])
