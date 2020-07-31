@@ -47,7 +47,5 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
 
     @keyword
     async def enable_emulate_mode_async(self, emulate_name):
-        # DeviceDescriptors
-        # https://github.com/puppeteer/puppeteer/blob/main/src/common/DeviceDescriptors.ts
         await self.ctx.get_current_page().emulate(DEVICE_DESCRIPTORS[emulate_name])
         
