@@ -193,7 +193,7 @@ class PuppeteerLibrary(DynamicCore):
 
     def failure_occurred(self):
         try:
-            BuiltIn().run_keyword(self.run_on_failure_keyword)
+            BuiltIn().run_keyword_and_ignore_error(self.run_on_failure_keyword)
         except Exception as err:
             logger.warn("Keyword '%s' could not be run on failure: %s"
                         % (self.run_on_failure_keyword, err))
