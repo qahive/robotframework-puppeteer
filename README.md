@@ -64,6 +64,13 @@ It can be started either by double clicking demoapp/server.py file in a file man
 
 Full example please recheck [`Examples`](https://github.com/qahive/robotframework-puppeteer/tree/master/Examples)
 
+Extended Puppeteer Libraries
+------------
+
+| Library        | Description |
+| :---           | :---        |
+| [Percy.io](https://github.com/qahive/robotframework-puppeteer-percy)  | Visual testing library for Robot Framework Puppeteer. |
+
 Contributor
 ------------
 robotframework-puppeteer mainly contribute by QAHive Co. Ltd.
