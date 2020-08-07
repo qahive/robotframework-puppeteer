@@ -16,11 +16,14 @@ from PuppeteerLibrary.keywords import (
     FormElementKeywordsAsync,
     JavascriptKeywords,
     JavascriptKeywordsAsync,
+    MockResponseKeywords,
+    MockResponseKeywordsAsync,
     ScreenshotKeywords,
     ScreenshotKeywordsAsync,
     UtilityKeywords,
     WaitingKeywords,
     WaitingKeywordsAsync)
+
 
 # Get the version from the _version.py versioneer file. For a git checkout,
 # this is computed based on the number of commits since the last tag.
@@ -92,6 +95,7 @@ class PuppeteerLibrary(DynamicCore):
             ElementKeywords(self),
             FormElementKeywords(self),
             JavascriptKeywords(self),
+            MockResponseKeywords(self),
             ScreenshotKeywords(self),
             UtilityKeywords(self),
             WaitingKeywords(self)
@@ -104,6 +108,7 @@ class PuppeteerLibrary(DynamicCore):
             ElementKeywordsAsync(self),
             FormElementKeywordsAsync(self),
             JavascriptKeywordsAsync(self),
+            MockResponseKeywordsAsync(self),
             ScreenshotKeywordsAsync(self),
             WaitingKeywordsAsync(self)
         ]

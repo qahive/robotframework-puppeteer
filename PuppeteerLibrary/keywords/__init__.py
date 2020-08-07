@@ -8,6 +8,8 @@ from .formelement import FormElementKeywords
 from .formelement_async import FormElementKeywordsAsync
 from .javascript import JavascriptKeywords
 from .javascript_async import JavascriptKeywordsAsync
+from .mockresponse import MockResponseKeywords
+from .mockresponse_async import MockResponseKeywordsAsync
 from .screenshot import ScreenshotKeywords
 from .screenshot_async import ScreenshotKeywordsAsync
 from .utility import UtilityKeywords
