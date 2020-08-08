@@ -81,6 +81,12 @@ class PuppeteerLibrary(DynamicCore):
     current_context_name = None
     current_page = None
 
+    debug_mode = False
+    debug_mode_options = {
+        'slowMo': 200,
+        'devtools': False
+    }
+
     def __init__(self):
         try:
             self.loop = asyncio.get_event_loop()

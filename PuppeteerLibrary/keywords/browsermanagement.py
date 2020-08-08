@@ -41,15 +41,20 @@ class BrowserManagementKeywords(LibraryComponent):
             if self.ctx.browser is None:
                 default_args = []
                 default_options = {
+                    'slowMo': 0,
                     'headless': True,
+                    'devtools': False,
                     'width': 1366,
                     'height': 768
                 }
-                merged_options = None
-                if options is None:
-                    merged_options = default_options
-                else:
-                    merged_options = {**default_options, **options}
+
+                merged_options = default_options
+
+                if options is not None:
+                    merged_options = {**merged_options, **options}
+
+                if self.ctx.debug_mode is True:
+                    merged_options = {**merged_options, **self.ctx.debug_mode_options}
 
                 if 'win' not in sys.platform.lower():
                     default_args = ['--no-sandbox', '--disable-setuid-sandbox']
@@ -57,6 +62,8 @@ class BrowserManagementKeywords(LibraryComponent):
                 self.info(('Open browser to ' + url + '\n' +
                             str(merged_options)))
                 self.ctx.browser = await launch(
+                    slowMo=merged_options['slowMo'],
+                    devtools=merged_options['devtools'],
                     headless=merged_options['headless'],
                     defaultViewport={
                         'width': merged_options['width'],
