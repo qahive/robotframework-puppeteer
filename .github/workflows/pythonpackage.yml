@@ -33,4 +33,4 @@ jobs:
         python setup.py install
         pip install -r demoapp/requirements.txt
         python demoapp/server.py &
-        robot -v HEADLESS:True Examples
+        robot -v HEADLESS:True -e Ignore Examples
