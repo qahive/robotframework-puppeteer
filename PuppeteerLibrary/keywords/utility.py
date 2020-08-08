@@ -55,4 +55,12 @@ class UtilityKeywords(LibraryComponent):
 
     @keyword
     def disable_debug_mode(self):
-        self.ctx.debug_mode = True
+        """Disable debug mode. This keyword will close all browser and reset debug mode to False.
+        """
+        async def disable_debug_mode_async():
+            await self.ctx.browser.close()
+
+        self.loop.run_until_complete(disable_debug_mode_async())
+        self.ctx.debug_mode = False
+        self.ctx.clear_browser()
+

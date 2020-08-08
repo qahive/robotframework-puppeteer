@@ -37,7 +37,8 @@ Example Debug mode
     Open browser    http://127.0.0.1:7272
     Input text    id:username_field    demo
     Input text    id:password_field    mode
-    
+
+
 *** Keywords ***
 Test Teardown
     Close browser
