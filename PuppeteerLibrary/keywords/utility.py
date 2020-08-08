@@ -32,3 +32,35 @@ class UtilityKeywords(LibraryComponent):
             return await asyncio.gather(*statements)
         except Exception as err:
             raise Exception(err)
+
+    @keyword
+    def enable_debug_mode(self, slowMo=150, devtools=True):
+        """Enable debug mode.
+
+        The ``slowMo`` argument specifies delay for each test step.
+        The ``devtools`` argument specifies enable devtools or not.
+
+        Example:
+
+        | Enable Debug Mode |                       |      |
+        | Open browser      | http://127.0.0.1:7272 |      |
+        | Input text        | id:username_field     | demo |
+        | Input text        | id:password_field     | mode |
+
+        """
+        self.ctx.debug_mode = True
+        self.ctx.debug_mode_options['headless'] = False
+        self.ctx.debug_mode_options['slowMo'] = slowMo
+        self.ctx.debug_mode_options['devtools'] = devtools
+
+    @keyword
+    def disable_debug_mode(self):
+        """Disable debug mode. This keyword will close all browser and reset debug mode to False.
+        """
+        async def disable_debug_mode_async():
+            await self.ctx.browser.close()
+
+        self.loop.run_until_complete(disable_debug_mode_async())
+        self.ctx.debug_mode = False
+        self.ctx.clear_browser()
+

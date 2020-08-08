@@ -15,3 +15,4 @@ class ContextAware(object):
             print('Warning: Asyncio not supported')
         self.ctx = ctx
         self.ctx.timeout = 30
+

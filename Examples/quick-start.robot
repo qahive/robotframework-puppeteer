@@ -20,7 +20,7 @@ Example login form submit
     ...    Click Link    partial link:logout    AND
     ...    Wait For Response Url    http://127.0.0.1:7272/
 
-Control browser example
+Example Control browser
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    http://127.0.0.1:7272   options=${options}
@@ -30,6 +30,14 @@ Control browser example
     Reload page
     ${header} =    Get Text    css:h1
     Should Be Equal    Login Page    ${header}
+    
+Example Debug mode
+    [Tags]    Ignore
+    Enable Debug Mode
+    Open browser    http://127.0.0.1:7272
+    Input text    id:username_field    demo
+    Input text    id:password_field    mode
+
 
 *** Keywords ***
 Test Teardown
