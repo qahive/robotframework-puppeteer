@@ -200,10 +200,7 @@ class BrowserManagementKeywords(LibraryComponent):
                 raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
             raise Exception('Can\'t find specify page locator.')
 
-        try:
-            return self.loop.run_until_complete(switch_window_async())
-        except:
-            raise Exception('Can\'t find specify page locator.')
+        return self.loop.run_until_complete(switch_window_async())
 
     @keyword
     def switch_browser(self, alias):
