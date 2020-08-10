@@ -187,8 +187,10 @@ class BrowserManagementKeywords(LibraryComponent):
             elif 'title=' in locator:
                 title = locator.replace('title=', '')
                 for page in pages:
-                    if page.title() == title:
+                    page_title = await page.title()
+                    if page_title == title:
                         return self.ctx.set_current_page(page)
+                    self.debug('Title mismatch: ' + page_title)
             elif 'url=' in locator:
                 url = locator.replace('url=', '')
                 for page in pages:
@@ -196,9 +198,9 @@ class BrowserManagementKeywords(LibraryComponent):
                         return self.ctx.set_current_page(page)
             else:
                 raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
-
             raise Exception('Can\'t find specify page locator.')
-        self.loop.run_until_complete(switch_window_async())
+
+        return self.loop.run_until_complete(switch_window_async())
 
     @keyword
     def switch_browser(self, alias):
