@@ -176,7 +176,7 @@ class BrowserManagementKeywords(LibraryComponent):
             - NEW: latest opened window
             - MAIN: main window
             - title="QAHive": window title. Page title will have have error if new tab have auto redirection
-            - url="https://qahive.com": url
+            - url="https://qahive.com": url support regex Example: url=.*qahive.com
         """
         async def switch_window_async():
             pages = await self.ctx.get_browser().pages()
@@ -205,6 +205,7 @@ class BrowserManagementKeywords(LibraryComponent):
                     if re.match(url, page.url):
                         await page.bringToFront()
                         return self.ctx.set_current_page(page)
+                    self.info('Url mismatch: ' + page.url)
             else:
                 raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
             raise Exception('Can\'t find specify page locator.')
