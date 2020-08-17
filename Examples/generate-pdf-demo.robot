@@ -10,7 +10,7 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272
 
 *** Test Cases ***
 Generate pdf file
-    Print as pdf
+    Print as pdf    
 
 *** Keywords ***
 Open browser to test page
