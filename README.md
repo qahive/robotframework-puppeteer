@@ -4,6 +4,8 @@
 Robot Framework Puppeteer Library powered by [Pyppeteer](https://github.com/pyppeteer/pyppeteer). 
 Improve automated web testing with native functionality from [Puppeteer](https://github.com/puppeteer/puppeteer) by Google.
 
+More detail please visit [Robot Framework Puppeteer Homepage](https://qahive.github.io/robotframework-puppeteer.github.io/)
+
 We aim to provide keywords similar to robotframework-seleniumlibrary and add core puppeteer functionality that will improve test experiences.
 Example: 
 - _Handle HTTP Request_
