@@ -10,6 +10,8 @@ from .javascript import JavascriptKeywords
 from .javascript_async import JavascriptKeywordsAsync
 from .mockresponse import MockResponseKeywords
 from .mockresponse_async import MockResponseKeywordsAsync
+from .pdf import PDFKeywords
+from .pdf_async import PDFKeywordsAsync
 from .screenshot import ScreenshotKeywords
 from .screenshot_async import ScreenshotKeywordsAsync
 from .utility import UtilityKeywords

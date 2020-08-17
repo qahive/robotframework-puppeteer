@@ -18,6 +18,8 @@ from PuppeteerLibrary.keywords import (
     JavascriptKeywordsAsync,
     MockResponseKeywords,
     MockResponseKeywordsAsync,
+    PDFKeywords,
+    PDFKeywordsAsync,
     ScreenshotKeywords,
     ScreenshotKeywordsAsync,
     UtilityKeywords,
@@ -102,6 +104,7 @@ class PuppeteerLibrary(DynamicCore):
             FormElementKeywords(self),
             JavascriptKeywords(self),
             MockResponseKeywords(self),
+            PDFKeywords(self),
             ScreenshotKeywords(self),
             UtilityKeywords(self),
             WaitingKeywords(self)
@@ -115,6 +118,7 @@ class PuppeteerLibrary(DynamicCore):
             FormElementKeywordsAsync(self),
             JavascriptKeywordsAsync(self),
             MockResponseKeywordsAsync(self),
+            PDFKeywordsAsync(self),
             ScreenshotKeywordsAsync(self),
             WaitingKeywordsAsync(self)
         ]
