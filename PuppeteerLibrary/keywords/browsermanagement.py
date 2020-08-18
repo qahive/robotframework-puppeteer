@@ -1,4 +1,4 @@
-import asyncio
+import re
 import sys
 from robot.utils import timestr_to_secs
 from pyppeteer import launch
@@ -175,27 +175,37 @@ class BrowserManagementKeywords(LibraryComponent):
         locator support options NEW, MAIN and query using name, title and url
             - NEW: latest opened window
             - MAIN: main window
-            - title="QAHive": window title
-            - url="https://qahive.com": url
+            - title="QAHive": window title. Page title will have have error if new tab have auto redirection
+            - url="https://qahive.com": url support regex Example: url=.*qahive.com
         """
         async def switch_window_async():
             pages = await self.ctx.get_browser().pages()
             if locator == 'MAIN':
-                return self.ctx.set_current_page(pages[0])
+                page = pages[0]
+                await page.bringToFront()
+                return self.ctx.set_current_page(page)
+
             elif locator == 'NEW':
-                return self.ctx.set_current_page(pages[-1])
+                page = pages[-1]
+                await page.bringToFront()
+                return self.ctx.set_current_page(page)
+
             elif 'title=' in locator:
                 title = locator.replace('title=', '')
                 for page in pages:
                     page_title = await page.title()
                     if page_title == title:
+                        await page.bringToFront()
                         return self.ctx.set_current_page(page)
-                    self.debug('Title mismatch: ' + page_title)
+                    self.info('Title mismatch: ' + page_title)
+
             elif 'url=' in locator:
                 url = locator.replace('url=', '')
                 for page in pages:
-                    if page.url() == url:
+                    if re.match(url, page.url):
+                        await page.bringToFront()
                         return self.ctx.set_current_page(page)
+                    self.info('Url mismatch: ' + page.url)
             else:
                 raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
             raise Exception('Can\'t find specify page locator.')
