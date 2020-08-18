@@ -22,7 +22,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     license="Apache License 2.0",
-    url='https://github.com/qahive/robotframework-puppeteer',
+    url='https://qahive.github.io/robotframework-puppeteer.github.io/',
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
