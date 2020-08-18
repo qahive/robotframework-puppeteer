@@ -3,7 +3,7 @@ from robot.utils import get_link_path
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 
-DEFAULT_FILENAME_PAGE = 'selenium-screenshot-{index}.png'
+DEFAULT_FILENAME_PAGE = 'puppeteer-screenshot-{index}.png'
 
 class ScreenshotKeywordsAsync(LibraryComponent):
 
