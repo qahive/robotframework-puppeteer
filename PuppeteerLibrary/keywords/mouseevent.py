@@ -23,4 +23,6 @@ class MouseEventKeywords(LibraryComponent):
     def mouse_up(self):
         return self.loop.run_until_complete(self.async_func.mouse_up_async())
 
-    
+    @keyword
+    def mouse_move(self, x, y):
+        return self.loop.run_until_complete(self.async_func.mouse_move_async(x, y))
