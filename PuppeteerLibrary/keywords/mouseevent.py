@@ -14,3 +14,13 @@ class MouseEventKeywords(LibraryComponent):
         """Simulates hovering the mouse over the element.
         """
         return self.loop.run_until_complete(self.async_func.mouse_over_async(locator))
+
+    @keyword
+    def mouse_down(self, locator):
+        return self.loop.run_until_complete(self.async_func.mouse_down_async(locator))
+
+    @keyword
+    def mouse_up(self):
+        return self.loop.run_until_complete(self.async_func.mouse_up_async())
+
+    
