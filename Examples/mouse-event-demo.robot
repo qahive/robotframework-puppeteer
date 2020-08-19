@@ -1,4 +1,5 @@
 *** Settings ***
+Library    Dialogs    
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page    
 Test Teardown    Close Browser
@@ -16,6 +17,11 @@ Mouse over event
     Click Element    id=menu-docs
     Wait Until Page Contains    This is a demo document content    
 
+Mouse drag
+    Go To    http://127.0.0.1:7272/drag-and-drop.html
+    Mouse Down    id=ball
+    Mouse Move    40    50
+    Mouse Up        
 
 *** Keywords ***
 Open browser to test page

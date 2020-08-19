@@ -15,7 +15,10 @@ class MouseEventKeywordsAsync(LibraryComponent):
     @keyword
     async def mouse_down_async(self, selenium_locator):
         element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
-        await element.hover()
+        bounding_box = await element.boundingBox()
+        await self.ctx.get_current_page().mouse.move(
+            bounding_box['x'] + bounding_box['width'] / 2,
+            bounding_box['y'] + bounding_box['height'] / 2)
         await self.ctx.get_current_page().mouse.down()
 
     @keyword
@@ -24,4 +27,4 @@ class MouseEventKeywordsAsync(LibraryComponent):
 
     @keyword
     async def mouse_move_async(self, x, y):
-        await self.ctx.get_current_page().mouse.move(x, y)
+        await self.ctx.get_current_page().mouse.move(int(x), int(y))
