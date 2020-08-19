@@ -13,10 +13,9 @@ Set default timeout
     Set Timeout    3s
     Run Keyword And Expect Error    No new page has been open.*    Wait for new window open
     
-
 Timeout wait for new window open
     Run Keyword And Expect Error    No new page has been open.*    Wait for new window open    1s
-    Click Element    xpath://a[@href="docs.html"]
+    Click Element    id:readdocs
     Wait for new window open    5s
     
 

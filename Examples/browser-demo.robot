@@ -13,7 +13,7 @@ Example switch window and check window title
     ${location} =   Get location
     Run Async Keywords
     ...    Wait for new window open    AND
-    ...    Click Element    xpath://a[@href="docs.html"]
+    ...    Click Element    id=readdocs
     Switch Window   NEW
     ${Title} =   Get Title
     should be equal as strings  Docs Page   ${Title}
