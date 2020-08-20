@@ -10,7 +10,6 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
     async def wait_for_new_window_open_async(self, timeout=None):
         timeout = self.timestr_to_secs_for_default_timeout(timeout)
         pages = await self.ctx.get_browser().pages()
-        await pages[-1].title()  # workaround for force pages re-cache
         pre_page_len = len(pages)
         timer = 0
         while timer < timeout:
