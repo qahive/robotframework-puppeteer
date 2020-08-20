@@ -11,9 +11,8 @@ Example switch window and check window title
     Maximize Browser Window
     ${title} =   Get title
     ${location} =   Get location
-    ${window count} =    Get Window Count
     Run Async Keywords
-    ...    Wait for new window open    ${window count}    5s    AND
+    ...    Wait for new window open    5s    AND
     ...    Click Element    id=readdocs
     Switch Window   NEW
     ${Title} =   Get Title

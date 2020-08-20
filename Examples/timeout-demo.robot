@@ -11,13 +11,12 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272
 *** Test Cases ***
 Set default timeout
     Set Timeout    3s
-    ${window count} =    Get Window Count
-    Run Keyword And Expect Error    No new page has been open.*    Wait for new window open    ${window count}
+    Run Keyword And Expect Error    No new page has been open.*    Wait for new window open
     
 Timeout wait for new window open
     ${window count} =    Get Window Count
     Run Async Keywords
-    ...    Wait for new window open    ${window count}    5s    AND    
+    ...    Wait for new window open    5s    AND    
     ...    Click Element    id:readdocs
 
 *** Keywords ***
