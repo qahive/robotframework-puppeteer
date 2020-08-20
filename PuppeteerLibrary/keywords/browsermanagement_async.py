@@ -7,16 +7,20 @@ from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 class BrowserManagementKeywordsAsync(LibraryComponent):
 
     @keyword
-    async def wait_for_new_window_open_async(self, timeout=None):
-        timeout = self.timestr_to_secs_for_default_timeout(timeout)
+    async def get_window_count_async(self):
         pages = await self.ctx.get_browser().pages()
-        await pages[-1].title()  # workaround for force pages re-cache
-        pre_page_len = len(pages)
+        for page in pages:
+            await page.title()  # workaround for force pages re-cache
+        return len(await self.ctx.get_browser().pages())
+
+    @keyword
+    async def wait_for_new_window_open_async(self, current_page_count=1, timeout=None):
+        page_len = 0
+        pre_page_len = int(current_page_count)
+        timeout = self.timestr_to_secs_for_default_timeout(timeout)
         timer = 0
         while timer < timeout:
-            pages = await self.ctx.get_browser().pages()
-            await pages[-1].title()  # workaround for force pages re-cache
-            page_len = len(pages)
+            page_len = await self.get_window_count_async()
             if page_len > pre_page_len:
                 return
             timer += 1
