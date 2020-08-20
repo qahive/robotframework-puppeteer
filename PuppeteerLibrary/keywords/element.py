@@ -124,3 +124,9 @@ class ElementKeywords(LibraryComponent):
 
         """
         return self.loop.run_until_complete(self.async_func.element_text_should_not_be_async(locator, expected, ignore_case))
+
+    @keyword
+    def upload_file(self, locator, file_path):
+        """ Upload file
+        """
+        return self.loop.run_until_complete(self.async_func.upload_file_async(locator, file_path))

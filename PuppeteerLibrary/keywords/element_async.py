@@ -96,3 +96,8 @@ class ElementKeywordsAsync(LibraryComponent):
     async def element_text_should_not_be_async(self, selenium_locator, expected, ignore_case=False):
         text = await self.get_text_async(selenium_locator)
         return BuiltIn().should_not_be_equal_as_strings(text, expected, ignore_case=ignore_case)
+
+    @keyword
+    async def upload_file_async(self, selenium_locator, file_path):
+        element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+        await element.uploadFile(file_path)
