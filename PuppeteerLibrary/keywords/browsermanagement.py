@@ -164,7 +164,7 @@ class BrowserManagementKeywords(LibraryComponent):
         return  self.loop.run_until_complete(self.async_func.get_window_count_async())
 
     @keyword
-    def wait_for_new_window_open(self, current_page_count=1, timeout=None):
+    def wait_for_new_window_open(self, timeout=None):
         """
         Waits until new page or tab opens.
 
@@ -173,7 +173,7 @@ class BrowserManagementKeywords(LibraryComponent):
         | Run Async Keywords | Click Element              | id:view_conditions          | AND  |
         | ...                | `Wait For New Window Open` |                             |      |
         """
-        self.loop.run_until_complete(self.async_func.wait_for_new_window_open_async(current_page_count, timeout))
+        self.loop.run_until_complete(self.async_func.wait_for_new_window_open_async(timeout))
 
     @keyword
     def switch_window(self, locator='MAIN'):

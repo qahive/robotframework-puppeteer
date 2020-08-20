@@ -10,13 +10,17 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
     async def get_window_count_async(self):
         pages = await self.ctx.get_browser().pages()
         for page in pages:
-            await page.title()  # workaround for force pages re-cache
+            # Workaround: for force pages re-cache
+            await page.title()
         return len(await self.ctx.get_browser().pages())
 
     @keyword
-    async def wait_for_new_window_open_async(self, current_page_count=1, timeout=None):
+    async def wait_for_new_window_open_async(self, timeout=None):
         page_len = 0
-        pre_page_len = int(current_page_count)
+        # Workaround:
+        # We get length without force reset. For ensure that when we count page length.
+        # Page length still not update / same as before open new window
+        pre_page_len = len(await self.ctx.get_browser().pages())
         timeout = self.timestr_to_secs_for_default_timeout(timeout)
         timer = 0
         while timer < timeout:
