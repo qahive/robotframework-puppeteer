@@ -18,9 +18,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
         pip install -r requirements.txt
+        python setup.py install
     - name: Update keywords document
       run: |
         python -m robot.libdoc -f html PuppeteerLibrary docs/PuppeteerLibrary.html
+    - name: Update visual studio keywords document
+      run: |
+        python -m libdoc2json PuppeteerLibrary vscode-PuppeteerLibrary.json
     - uses: matheusalbino/git-commit@v1.0.1
       with:
         message: This a commit from Github Actions
