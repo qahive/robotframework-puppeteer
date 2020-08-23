@@ -10,6 +10,8 @@ from PuppeteerLibrary.keywords import (
     AlertKeywordsAsync,
     BrowserManagementKeywords,
     BrowserManagementKeywordsAsync,
+    DropdownKeywords,
+    DropdownKeywordsAsync,
     ElementKeywords,
     ElementKeywordsAsync,
     FormElementKeywords,
@@ -102,6 +104,7 @@ class PuppeteerLibrary(DynamicCore):
         libraries = [
             AlertKeywords(self),
             BrowserManagementKeywords(self),
+            DropdownKeywords(self),
             ElementKeywords(self),
             FormElementKeywords(self),
             JavascriptKeywords(self),
@@ -117,6 +120,7 @@ class PuppeteerLibrary(DynamicCore):
         self.async_libraries = [
             AlertKeywordsAsync(self),
             BrowserManagementKeywordsAsync(self),
+            DropdownKeywordsAsync(self),
             ElementKeywordsAsync(self),
             FormElementKeywordsAsync(self),
             JavascriptKeywordsAsync(self),
