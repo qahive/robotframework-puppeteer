@@ -12,3 +12,7 @@ class DropdownKeywords(LibraryComponent):
     @keyword
     def select_from_list_by_value(self, locator, values):
         return self.loop.run_until_complete(self.async_func.select_from_list_by_value_async(locator, values))
+
+    @keyword
+    def select_from_list_by_label(self, locator, labels):
+        return self.loop.run_until_complete(self.async_func.select_from_list_by_label_async(locator, labels))
