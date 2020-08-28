@@ -109,6 +109,17 @@ class WaitingKeywordsAsync(LibraryComponent):
             validate_url_not_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
+    @keyword
+    async def wait_until_element_is_enabled_async(self, selenium_locator, timeout=None):
+        async def validate_is_enabled():
+            element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+            is_disabled = await (await element.getProperty('disabled')).jsonValue()
+            return is_disabled == False
+        return await self._wait_until_worker(
+            validate_is_enabled,
+            self.timestr_to_secs_for_default_timeout(timeout),
+            'Element '+selenium_locator+' was not enabled.')
+
     async def _wait_until_worker(self, condition, timeout, error=None):
         max_time = time.time() + timeout
         not_found = None
