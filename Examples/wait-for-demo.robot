@@ -63,3 +63,14 @@ Demo wait for location contains
     Go To     ${HOME_PAGE_URL}/docs.html
     Switch Window    NEW
     Wait Until Location Contains    docs.html
+
+Demo wait for element is enabled
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    ${HOME_PAGE_URL}   options=${options}
+    Go To     ${HOME_PAGE_URL}/form.html
+    Wait Until Element Is Enabled    id=disable_button    
+    Click Element    id=disable_button
+    Wait Until Page Contains    Login succeeded    
+    
+    

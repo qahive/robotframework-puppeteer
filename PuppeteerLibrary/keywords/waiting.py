@@ -192,3 +192,12 @@ class WaitingKeywords(LibraryComponent):
         The `expected` argument contains the expected value must not in url.
         """
         return self.loop.run_until_complete(self.async_func.wait_until_location_does_not_contains_async(expected, timeout))
+
+    @keyword
+    def wait_until_element_is_enabled(self, selenium_locator, timeout=None):
+        """
+        Waits until the specific element is Enabled.
+
+        """
+        return self.loop.run_until_complete(
+            self.async_func.wait_until_element_is_enabled_async(selenium_locator, timeout))

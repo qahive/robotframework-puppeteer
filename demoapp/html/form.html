@@ -13,6 +13,17 @@
           <option value="opel">Opel</option>
           <option value="audi">Audi</option>
         </select>
-      </div>
+    </div>
+    <button id="disable_button" disabled onclick="goto();">disable button</button>
+
+    <script>
+        setTimeout(function(){
+            document.getElementById('disable_button').disabled = false; }
+            , 2000);
+
+        function goto() {
+            window.location = "welcome.html";
+        }
+    </script>
 </body>
 </html>
