@@ -30,8 +30,14 @@ Element should not contain text
 Element text should be
      Element Text Should Be    id=get_ajax    Change Content    ${True}
      
-Element test should not be
+Element text should not be
     Element Text Should Not Be    id=get_ajax    Change    ${True}    
+
+Element wait for animation
+    Click Button    id=popup_modal     
+    Wait Until Element Finished Animating    id:close_modal
+    Click Element    id:close_modal
+    Wait Until Element Is Hidden    id:close_modal    
 
 *** Keywords ***
 Open browser to test page

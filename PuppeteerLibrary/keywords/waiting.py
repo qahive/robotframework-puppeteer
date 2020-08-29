@@ -201,3 +201,13 @@ class WaitingKeywords(LibraryComponent):
         """
         return self.loop.run_until_complete(
             self.async_func.wait_until_element_is_enabled_async(selenium_locator, timeout))
+
+    @keyword
+    def wait_until_element_finished_animating(self, selenium_locator, timeout=None):
+        """
+        Waits until the specific element is finished animating.
+        Check by check element position.
+
+        """
+        return self.loop.run_until_complete(
+            self.async_func.wait_until_element_finished_animating_async(selenium_locator, timeout))

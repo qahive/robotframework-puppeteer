@@ -1,7 +1,6 @@
 import asyncio
 import time
 import re
-from robot.utils import timestr_to_secs
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 
@@ -117,6 +116,26 @@ class WaitingKeywordsAsync(LibraryComponent):
             return is_disabled == False
         return await self._wait_until_worker(
             validate_is_enabled,
+            self.timestr_to_secs_for_default_timeout(timeout),
+            'Element '+selenium_locator+' was not enabled.')
+
+    @keyword
+    async def wait_until_element_finished_animating_async(self, selenium_locator, timeout=None):
+        prev_rect_tmp = { 'value': None }
+        async def check_finished_animating():
+            element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+            if prev_rect_tmp['value'] is None:
+                prev_rect_tmp['value'] = await element.boundingBox()
+                return False
+            prev_rect = prev_rect_tmp['value']
+            next_rect = await element.boundingBox()
+            if next_rect['x'] == prev_rect['x'] and next_rect['y'] == prev_rect['y']:
+                return True
+            else:
+                prev_rect_tmp['value'] = next_rect
+                return False
+        return await self._wait_until_worker(
+            check_finished_animating,
             self.timestr_to_secs_for_default_timeout(timeout),
             'Element '+selenium_locator+' was not enabled.')
 
