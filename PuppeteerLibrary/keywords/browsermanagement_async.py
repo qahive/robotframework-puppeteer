@@ -11,7 +11,10 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
         pages = await self.ctx.get_browser().pages()
         for page in pages:
             # Workaround: for force pages re-cache
-            await page.title()
+            try:
+                await page.title()
+            except:
+                continue
         return len(await self.ctx.get_browser().pages())
 
     @keyword
