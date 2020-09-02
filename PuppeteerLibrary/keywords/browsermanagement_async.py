@@ -1,3 +1,4 @@
+import asyncio
 import time
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
@@ -14,7 +15,7 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
             try:
                 await page.title()
             except:
-                continue
+                return -1
         return len(await self.ctx.get_browser().pages())
 
     @keyword
@@ -25,13 +26,12 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
         # Page length still not update / same as before open new window
         pre_page_len = len(await self.ctx.get_browser().pages())
         timeout = self.timestr_to_secs_for_default_timeout(timeout)
-        timer = 0
-        while timer < timeout:
+        max_time = time.time() + timeout
+        while time.time() < max_time:
             page_len = await self.get_window_count_async()
             if page_len > pre_page_len:
                 return
-            timer += 1
-            time.sleep(1)
+            await asyncio.sleep(0.5)
         raise Exception('No new page has been open. pre: ' + str(pre_page_len) + ' current: ' + str(page_len))
 
     @keyword
