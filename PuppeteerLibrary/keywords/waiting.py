@@ -32,6 +32,8 @@ class WaitingKeywords(LibraryComponent):
 
         The ``body`` is request body message. body can match using regexp
 
+        ``Return`` request msg  with properties {url, method, body}
+
         Example:
 
         | Open browser       | ${HOME_PAGE_URL}       | options=${options}   |      |               |
@@ -59,6 +61,8 @@ class WaitingKeywords(LibraryComponent):
         - 404
         - 500
         Reference:[https://restfulapi.net/http-status-codes/|https://restfulapi.net/http-status-codes/]
+
+        ``Return`` request msg  with properties {url, status, body}
 
         Example:
 

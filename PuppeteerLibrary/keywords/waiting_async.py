@@ -15,10 +15,12 @@ class WaitingKeywordsAsync(LibraryComponent):
             , options={
                 'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
             })
+
         try:
             pos_data = (await req.postData())
         except:
             pos_data = ''
+
         if body is None or re.search(body, pos_data.replace('\n', '')):
             log_str = 'Wait for request url: '+req.method+' - '+req.url
             if pos_data != '':
@@ -26,6 +28,12 @@ class WaitingKeywordsAsync(LibraryComponent):
             self.info(log_str)
         else:
             raise Exception('Can\'t match request body with ' + body + ' \n ' + pos_data)
+
+        return {
+            'url': req.url,
+            'method': req.method,
+            'body':  pos_data
+        }
 
     @keyword
     async def wait_for_response_url_async(self, url, status=200, body=None, timeout=None):
@@ -46,6 +54,11 @@ class WaitingKeywordsAsync(LibraryComponent):
             self.info(log_str)
         else:
             raise Exception('Can\'t match response body with '+body+' \n '+res_text)
+        return {
+            'url': res.url,
+            'status': res.status,
+            'body': res_text
+        }
 
     @keyword
     async def wait_for_navigation_async(self, timeout=None):

@@ -19,16 +19,19 @@ Demo wait for http request
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
     Run Async Keywords
-    ...    Click Element    id:get_ajax    AND
-    ...    Wait for request url     /ajax_info.json
+    ...    Wait for request url     /ajax_info.json    AND
+    ...    Click Element    id:get_ajax
 
 Demo wait for http response
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
-    Run Async Keywords
-    ...    Click Element    id:get_ajax    AND
-    ...    Wait for response url    /ajax_info.json\\?count=3    200    name.*?p1.*?name.*?p2.*?name.*?p3
+    ${responses} =    Run Async Keywords
+    ...    Wait for response url    /ajax_info.json\\?count=3    200    name.*?p1.*?name.*?p2.*?name.*?p3    AND
+    ...    Click Element    id:get_ajax
+    Should Contain    ${responses[0]['url']}    ajax
+    Should Be Equal As Strings    ${responses[0]['status']}    200
+    Log    ${responses[0]['body']}
 
 Demo wait for navigation
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
