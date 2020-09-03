@@ -1,6 +1,7 @@
 import asyncio
 import time
 import re
+from robot.utils import DotDict
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 
@@ -29,11 +30,11 @@ class WaitingKeywordsAsync(LibraryComponent):
         else:
             raise Exception('Can\'t match request body with ' + body + ' \n ' + pos_data)
 
-        return {
+        return DotDict({
             'url': req.url,
             'method': req.method,
             'body':  pos_data
-        }
+        })
 
     @keyword
     async def wait_for_response_url_async(self, url, status=200, body=None, timeout=None):
@@ -54,11 +55,11 @@ class WaitingKeywordsAsync(LibraryComponent):
             self.info(log_str)
         else:
             raise Exception('Can\'t match response body with '+body+' \n '+res_text)
-        return {
+        return DotDict({
             'url': res.url,
             'status': res.status,
             'body': res_text
-        }
+        })
 
     @keyword
     async def wait_for_navigation_async(self, timeout=None):
