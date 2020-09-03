@@ -11,6 +11,8 @@ class UtilityKeywords(LibraryComponent):
         # Ensure that script load async keywords before run async keywords function
         """Executes all the given keywords in a asynchronous and wait until all keyword is completed
 
+        ``Return`` Array of return for reach keywords based on index
+
         Example:
 
         | Open browser         | ${HOME_PAGE_URL}      | options=${options}          |     |
@@ -20,14 +22,13 @@ class UtilityKeywords(LibraryComponent):
         """
         self.ctx.load_async_keywords()
         run_keyword = _RunKeyword()
-        self.loop.run_until_complete( self._run_async_keywords(run_keyword._split_run_keywords(list(keywords))) )
+        return self.loop.run_until_complete( self._run_async_keywords(run_keyword._split_run_keywords(list(keywords))) )
 
     async def _run_async_keywords(self, iterable):
         statements = []
         for kw, args in iterable:
             kw_name = kw.lower().replace(' ', '_') + '_async'
             statements.append(self.ctx.keywords[kw_name](*args))
-
         try:
             return await asyncio.gather(*statements)
         except Exception as err:
