@@ -86,6 +86,7 @@ class PuppeteerLibrary(DynamicCore):
     contexts = {}
     current_context_name = None
     current_page = None
+    current_iframe = None
 
     debug_mode = False
     debug_mode_options = {
@@ -148,6 +149,7 @@ class PuppeteerLibrary(DynamicCore):
         self.contexts = {}
         self.current_context_name = None
         self.current_page = None
+        self.clear_current_iframe()
 
     @not_keyword
     async def create_context_async(self, alias) -> BrowserContext:
@@ -169,6 +171,7 @@ class PuppeteerLibrary(DynamicCore):
         context = self.get_current_context()
         pages = await context.pages()
         self.current_page = pages[-1]
+        self.clear_current_iframe()
         return context
 
     @not_keyword
@@ -191,17 +194,28 @@ class PuppeteerLibrary(DynamicCore):
     def get_current_page(self) -> SPage:
         page = self.current_page
         page.__class__ = SPage
+        page.selected_iframe = self.current_iframe
         return page
 
     @not_keyword
     def set_current_page(self, page) -> SPage:
         self.current_page = page
         page.__class__ = SPage
+        self.clear_current_iframe()
         return self.current_page
 
     @not_keyword
     def clear_current_page(self):
         self.current_page = None
+        self.clear_current_iframe()
+
+    @not_keyword
+    def set_current_iframe(self, iframe):
+        self.current_iframe = iframe
+
+    @not_keyword
+    def clear_current_iframe(self):
+        self.current_iframe = None
 
     @not_keyword
     def run_keyword(self, name, args, kwargs):
