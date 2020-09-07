@@ -26,9 +26,9 @@ class SPage(Page):
     async def type_with_selenium_locator(self, selenium_locator: str, text: str, options: dict = None, **kwargs: Any):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            await self.type_xpath(selector_value, text, options, **kwargs)
+            await self.type_xpath(selector=selector_value, text=text, options=options, kwargs=kwargs)
         else:
-            await super().type(selector_value, text, options, **kwargs)
+            await super().type(selector=selector_value, text=text, options=options, kwargs=kwargs)
 
     async def type_xpath(self, selector, text: str, options: dict = None, **kwargs: Any):
         element = await self.xpath(selector)
