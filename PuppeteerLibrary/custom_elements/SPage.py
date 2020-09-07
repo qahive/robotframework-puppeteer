@@ -1,13 +1,16 @@
-from typing import Any
+from typing import Any, List, Optional
+from pyppeteer.element_handle import ElementHandle
 from pyppeteer.page import Page
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
 from robot.utils import timestr_to_secs
 
 
 class SPage(Page):
+    selected_iframe: ElementHandle = None
 
     def __init__(self):
         super(Page, self).__init__()
+        self.selected_iframe = None
 
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
@@ -56,3 +59,24 @@ class SPage(Page):
             return await self.waitForXPath(selector_value, options)
         else:
             return await self.waitForSelector(selector_value, options)
+
+    # Override xpath behavior for SPage
+    async def xpath(self, expression: str) -> List[ElementHandle]:
+        if self.selected_iframe is None:
+            return await super().xpath(expression)
+        else:
+            return await self.selected_iframe.xpath(expression)
+
+    # Override click behavior for SPage
+    async def click(self, selector: str, options: dict = None, **kwargs: Any):
+        if self.selected_iframe is None:
+            return await super().click(selector, options, kwargs)
+        else:
+            return await self.selected_iframe.click(selector, options, kwargs)
+
+    # Override querySelectorAll for SPage
+    async def querySelector(self, selector: str) -> Optional[ElementHandle]:
+        if self.selected_iframe is None:
+            return await super().querySelector(selector)
+        else:
+            return await self.selected_iframe.querySelector(selector)

@@ -59,3 +59,9 @@ class BrowserManagementKeywordsAsync(LibraryComponent):
     @keyword
     async def enable_emulate_mode_async(self, emulate_name):
         await self.ctx.get_current_page().emulate(DEVICE_DESCRIPTORS[emulate_name])
+
+    @keyword
+    async def select_frame_async(self, selenium_locator):
+        element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+        iframe = await element.contentFrame()
+        self.ctx.set_current_iframe(iframe)

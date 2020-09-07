@@ -238,3 +238,11 @@ class BrowserManagementKeywords(LibraryComponent):
 
         """
         return self.loop.run_until_complete(self.async_func.enable_emulate_mode_async(emulate_name))
+
+    @keyword
+    def select_frame(self, selenium_locator):
+        return self.loop.run_until_complete(self.async_func.select_frame_async(selenium_locator))
+
+    @keyword
+    def unselect_frame(self):
+        self.ctx.clear_current_iframe()
