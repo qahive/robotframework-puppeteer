@@ -56,27 +56,27 @@ class SPage(Page):
         }
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            return await self.waitForXPath(selector_value, options)
+            return await self.waitForXPath(selector_value=selector_value, options=options)
         else:
-            return await self.waitForSelector(selector_value, options)
+            return await self.waitForSelector(selector_value=selector_value, options=options)
 
     # Override xpath behavior for SPage
     async def xpath(self, expression: str) -> List[ElementHandle]:
         if self.selected_iframe is None:
-            return await super().xpath(expression)
+            return await super().xpath(expression=expression)
         else:
-            return await self.selected_iframe.xpath(expression)
+            return await self.selected_iframe.xpath(expression=expression)
 
     # Override click behavior for SPage
     async def click(self, selector: str, options: dict = None, **kwargs: Any):
         if self.selected_iframe is None:
-            return await super().click(selector, options, kwargs)
+            return await super().click(selector=selector, options=options, kwargs=kwargs)
         else:
-            return await self.selected_iframe.click(selector, options, kwargs)
+            return await self.selected_iframe.click(selector=selector, options=options, kwargs=kwargs)
 
     # Override querySelectorAll for SPage
     async def querySelector(self, selector: str) -> Optional[ElementHandle]:
         if self.selected_iframe is None:
-            return await super().querySelector(selector)
+            return await super().querySelector(selector=selector)
         else:
-            return await self.selected_iframe.querySelector(selector)
+            return await self.selected_iframe.querySelector(selector=selector)
