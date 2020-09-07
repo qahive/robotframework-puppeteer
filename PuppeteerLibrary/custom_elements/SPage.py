@@ -41,7 +41,7 @@ class SPage(Page):
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            return await self.xpath(selector_value)[0]
+            return (await self.xpath(selector_value))[0]
         else:
             return await self.querySelector(selector_value)
 

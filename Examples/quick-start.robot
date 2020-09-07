@@ -15,6 +15,8 @@ Example login form submit
     ...    Click Element    id:login_button    AND
     ...    Wait For Response Url    http://127.0.0.1:7272/welcome.html
     Wait Until Page Contains    Login succeeded
+    ${header text} =    Get Text    xpath=//h1
+    Should Contain    ${header text}    Welcome    
     # Logout and wait for homepage loaded
     Run Async Keywords
     ...    Click Link    partial link:logout    AND
@@ -37,7 +39,6 @@ Example Debug mode
     Open browser    http://127.0.0.1:7272
     Input text    id:username_field    demo
     Input text    id:password_field    mode
-
 
 *** Keywords ***
 Test Teardown
