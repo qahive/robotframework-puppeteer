@@ -56,9 +56,23 @@ class SPage(Page):
         }
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            return await self.waitForXPath(selector_value=selector_value, options=options)
+            return await self.waitForXPath(xpath=selector_value, options=options)
         else:
-            return await self.waitForSelector(selector_value=selector_value, options=options)
+            return await self.waitForSelector(selector=selector_value, options=options)
+
+    # Override waitForXPath behavior for SPage
+    async def waitForXPath(self, xpath: str, options: dict = None, **kwargs: Any):
+        if self.selected_iframe is None:
+            return await super().waitForXPath(xpath=xpath, options=options, kwargs=kwargs)
+        else:
+            return await self.selected_iframe.waitForXPath(xpath=xpath, options=options, kwargs=kwargs)
+
+    # Override waitForSelector behavior for SPage
+    async def waitForSelector(self, selector: str, options: dict = None, **kwargs: Any):
+        if self.selected_iframe is None:
+            return await super().waitForSelector(selector=selector, options=options, kwargs=kwargs)
+        else:
+            return await self.selected_iframe.waitForSelector(selector=selector, options=options, kwargs=kwargs)
 
     # Override xpath behavior for SPage
     async def xpath(self, expression: str) -> List[ElementHandle]:
