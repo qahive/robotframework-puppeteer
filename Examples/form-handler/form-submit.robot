@@ -8,7 +8,11 @@ Submit login form
     Input Text    id=exampleInputEmail1    demo@qahive.com
     Input Text    id=exampleInputPassword1    123456789
     Click Element    id=exampleCheck1
-    Click Element    css=button[type="submit"]
+    Run Async Keywords
+    ...    Wait For New Window Open    AND
+    ...    Click Element    css=button[type="submit"]
+    Switch Window    NEW
+    Wait Until Page Contains    Login succeeded    
     
 Submit register form
     Open browser to test page    http://127.0.0.1:7272/register-form-example.html

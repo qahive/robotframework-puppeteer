@@ -17,7 +17,7 @@
         <h2>Login form</h2>
       </div>
       <div class="row" style="margin-top: 20px;">
-        <form>
+        <form onsubmit="login(this.exampleInputEmail1.value, this.exampleInputPassword1.value); return false;">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -35,6 +35,16 @@
         </form>
       </div>
     </div>
+
+    <script>
+      function login(username, password) {
+        if (username == "demo@qahive.com" && password == "123456789") {
+          window.open("welcome.html");
+        } else {
+          window.open("error.html");
+        }
+      }
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
