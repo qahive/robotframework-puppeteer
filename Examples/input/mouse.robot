@@ -1,24 +1,21 @@
 *** Settings ***
-Library    Dialogs    
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page    
-Test Teardown    Close Browser
-
+Test Teardown    Close All Browser
 
 *** Variables ***
-${HOME_PAGE_URL}    http://127.0.0.1:7272
+${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
 *** Test Cases ***
 Mouse over event
     Run Async Keywords
     ...    Mouse Over    id=dropdown-menu    AND
-    ...    Wait Until Element Is Visible    id=menu-docs    
-    Click Element    id=menu-docs
-    Wait Until Page Contains    This is a demo document content    
+    ...    Wait Until Element Is Visible    id=menu-login  
+    Click Element    id=menu-login
+    Wait Until Page Contains    Login form
 
 Mouse drag
-    Go To    http://127.0.0.1:7272/drag-and-drop.html
     Mouse Down    id=ball
     Mouse Move    40    50
     Mouse Up        
