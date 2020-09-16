@@ -1,6 +1,8 @@
 *** Settings ***
 Library    PuppeteerLibrary
-Test Teardown    Close Browser
+Test Teardown    Close All Browser
+Suite Teardown    Close Puppeteer
+
 
 *** Test Cases ***
 Submit login form

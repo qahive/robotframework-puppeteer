@@ -7,10 +7,51 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="css/basic-html-elements.css" media="all" type="text/css">
     <title>Basic HTML Elements</title>
   </head>
   <body>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <h2>Ajax</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <button type="button" class="btn btn-primary" onclick="loadDocAjax()" id="get_ajax">
+          Change Content
+        </button>
+        <span id="ajax-content">Content...</span>
+        <script type="text/javascript">
+          function loadDocAjax() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("ajax-content").innerHTML =
+                this.responseText;
+              }
+            };
+            xhttp.open("GET", "contents/ajax_info.json?count=3", true);
+            xhttp.send();
+          }
+        </script>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <h2>Alert</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <button class="btn btn-primary" type="button" onclick="alertConfirm()" id="alert_confirm">Alert confirm</button>
+        <script>
+          function alertConfirm() {
+            alert('Test alert');
+          }
+        </script>
+      </div>
+      <hr>
+    </div>
 
     <div class="container">
       <div class="row" style="margin-top: 20px;">
@@ -19,7 +60,157 @@
       <div class="row" style="margin-top: 20px;">
         <a id="open-new-tab" href="login-form-example.html" target="_blank" class="btn btn-primary">Open login page</a>
       </div>
+      <hr>
     </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <h2>Drag and drop</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <p>Drag the ball.</p>
+        <img src="https://en.js.cx/clipart/soccer-gate.svg" id="gate" class="droppable">
+        <img src="https://en.js.cx/clipart/ball.svg" id="ball">
+        <script>
+          let currentDroppable = null;
+      
+          ball.onmousedown = function(event) {
+      
+            let shiftX = event.clientX - ball.getBoundingClientRect().left;
+            let shiftY = event.clientY - ball.getBoundingClientRect().top;
+      
+            ball.style.position = 'absolute';
+            ball.style.zIndex = 1000;
+            document.body.append(ball);
+      
+            moveAt(event.pageX, event.pageY);
+      
+            function moveAt(pageX, pageY) {
+              ball.style.left = pageX - shiftX + 'px';
+              ball.style.top = pageY - shiftY + 'px';
+            }
+      
+            function onMouseMove(event) {
+              moveAt(event.pageX, event.pageY);
+      
+              ball.hidden = true;
+              let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+              ball.hidden = false;
+      
+              if (!elemBelow) return;
+      
+              let droppableBelow = elemBelow.closest('.droppable');
+              if (currentDroppable != droppableBelow) {
+                if (currentDroppable) { // null when we were not over a droppable before this event
+                  leaveDroppable(currentDroppable);
+                }
+                currentDroppable = droppableBelow;
+                if (currentDroppable) { // null if we're not coming over a droppable now
+                  // (maybe just left the droppable)
+                  enterDroppable(currentDroppable);
+                }
+              }
+            }
+      
+            document.addEventListener('mousemove', onMouseMove);
+      
+            ball.onmouseup = function() {
+              document.removeEventListener('mousemove', onMouseMove);
+              ball.onmouseup = null;
+            };
+      
+          };
+      
+          function enterDroppable(elem) {
+            elem.style.background = 'pink';
+          }
+      
+          function leaveDroppable(elem) {
+            elem.style.background = '';
+          }
+      
+          ball.ondragstart = function() {
+            return false;
+          };
+        </script>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <h2>File Upload</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <form method="post" enctype="multipart/form-data">
+          Select image to upload:
+          <input type="file" name="fileToUpload" id="fileToUpload">
+          <input type="submit" class="btn btn-primary" value="Upload Image" name="submit">
+        </form>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <h2>iFrame</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <iframe id="ifrm" src="login-form-example.html" width="400px;" height="400px;"></iframe>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <h2>Modal</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <button id="popup_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Launch demo modal
+        </button>
+      </div>
+      <hr>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button id="close_modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <h2>Mouse Over</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div id="menu">
+          <div id="dropdown-menu" class="dropdown">
+            <button class="dropbtn">Dropdown</button>
+            <div class="dropdown-content">
+              <a id="menu-login" href="login-form-example.html">Login page</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <br>
+    <br>
+    <br>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
