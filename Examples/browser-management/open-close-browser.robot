@@ -6,7 +6,7 @@ Test Teardown    Close All Browser
 *** Test Cases ***
 Switch to new browser
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
-    &{options} =    create dictionary   headless=${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    http://127.0.0.1:7272/basic-html-elements.html   options=${options}
     Run Async Keywords
     ...    Wait For New Window Open    AND
