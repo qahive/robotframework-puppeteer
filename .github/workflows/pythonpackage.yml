@@ -31,6 +31,7 @@ jobs:
     - name: System test
       run: |
         python setup.py install
+        pyppeteer-install
         pip install -r demoapp/requirements.txt
         python demoapp/server.py &
         robot -v HEADLESS:True -e Ignore Examples

@@ -3,18 +3,19 @@ Library    PuppeteerLibrary
 Test Teardown    Close Browser
 
 *** Variables ***
-${HOME_PAGE_URL}    http://127.0.0.1:7272
+${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
+${LOGIN_PAGE_URL}    http://127.0.0.1:7272/login-form-example.html
 
 
 *** Test Cases ***
-Demo wait for element
+Wait for element
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
-    Wait Until Page Contains Element    id:username_field
+    Wait Until Page Contains Element    id:get_ajax
     Run Keyword And Expect Error    STARTS: TimeoutError:    Wait Until Page Contains Element    css:no_element    timeout=5s
 
-Demo wait for http request
+Wait for http request
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
@@ -25,7 +26,7 @@ Demo wait for http request
     Should Be Equal As Strings    ${results[0].method}    GET
     Log    ${results[0].body}
 
-Demo wait for http response
+Wait for http response
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
@@ -36,47 +37,37 @@ Demo wait for http response
     Should Be Equal As Strings    ${results[0].status}    200
     Log    ${results[0].body}
 
-Demo wait for navigation
+Wait for navigation
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
     Run Async Keywords
-    ...    Click Element    id:login_button    AND
-    ...    Wait For Navigation
+    ...    Wait For Navigation    AND
+    ...    Click Element    id=goto-login-page
 
-Demo wait for element hidden and visible
+Wait for element hidden and visible
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
-    Run Async Keywords
-    ...    Click Element    id:login_button    AND
-    ...    Wait For Navigation
-    Wait Until Element Is Hidden    id:login_button
-    Wait Until Page Contains    Invalid user name and/or password
-    Wait Until Page Does Not Contains    Please input your user name
+    Click Element    id:click_and_hide
+    Wait Until Element Is Hidden    id:click_and_hide
     
-Demo wait for element contains text
+Wait for element contains text
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
-    Open browser    ${HOME_PAGE_URL}   options=${options}
-    Wait Until Element Contains    css:#container p    Please input your user name
-    Wait Until Element Does Not Contains    css:#container p    Invalid user name and/or password
+    Open browser    ${LOGIN_PAGE_URL}   options=${options}
+    Wait Until Element Contains    id:emailHelp    We'll never share your email
+    Wait Until Element Does Not Contains    id:emailHelp    We'll never share your password
 
-Demo wait for location contains
+Wait for location contains
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
-    Open browser    ${HOME_PAGE_URL}   options=${options}
-    Go To     ${HOME_PAGE_URL}/docs.html
-    Switch Window    NEW
-    Wait Until Location Contains    docs.html
+    Open browser    ${LOGIN_PAGE_URL}   options=${options}
+    Wait Until Location Contains    login-form-example.html
 
-Demo wait for element is enabled
+Wait for element is enabled
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   options=${options}
-    Go To     ${HOME_PAGE_URL}/form.html
-    Wait Until Element Is Enabled    id=disable_button    
-    Click Element    id=disable_button
-    Wait Until Page Contains    Login succeeded    
-    
-    
+    Wait Until Element Is Enabled    id=prop-enable
+    Click Element    id=prop-enable

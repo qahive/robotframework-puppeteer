@@ -5,7 +5,7 @@ Test Teardown    Close Browser
 
 
 *** Variables ***
-${HOME_PAGE_URL}    http://127.0.0.1:7272
+${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
 *** Test Cases ***
