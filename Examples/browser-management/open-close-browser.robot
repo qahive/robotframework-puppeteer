@@ -1,10 +1,10 @@
 *** Settings ***
 Library    PuppeteerLibrary
 Suite Teardown    Close Puppeteer
+Test Teardown    Close All Browser
 
 *** Test Cases ***
 Switch to new browser
-    [Teardown]    Close All Browser
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${False}
     Open browser    http://127.0.0.1:7272/basic-html-elements.html   options=${options}
@@ -17,7 +17,6 @@ Switch to new browser
     Wait Until Page Contains Element    id=open-new-tab    
 
 Handle multiple browser
-    [Teardown]    Close All Browser
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    http://127.0.0.1:7272/basic-html-elements.html   options=${options}    alias=Browser 1
