@@ -1,110 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Welcome Page</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Basic HTML Elements</title>
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <h2>Page of contents</h2>
+      </div>
+      <div class="row">
+        <ul>
+          <li>
+            <a href="basic-html-elements.html">Basic html elements</a>
+          </li>
+          <li>
+            <a href="login-form-example.html">Login</a>
+          </li>
+          <li>
+            <a href="register-form-example.html">Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
     
-  <link href="demo.css" media="all" rel="stylesheet" type="text/css">
-  <script type="text/javascript">
-    function alertConfirm() {
-      alert('Test alert');
-    }
 
-    function login(username, password) {
-        if (username == "demo" && password == "mode") {
-            window.location = "welcome.html";
-        } else {
-            window.location = "error.html";
-        }
-    }
 
-    function loadDocAjax() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("demo").innerHTML =
-          this.responseText;
-        }
-      };
-      xhttp.open("GET", "ajax_info.json?count=3", true);
-      xhttp.send();
-    }
-  </script>
-</head>
-<body>
-  <div id="menu">
-    <div id="dropdown-menu" class="dropdown">
-      <button class="dropbtn">Dropdown</button>
-      <div class="dropdown-content">
-        <a id="menu-docs" href="docs.html">Docs page</a>
-      </div>
-    </div>
-  </div>
-
-  <div id="container" class="container" style="margin-bottom: 30px;">
-    <h1>Login Page</h1>
-      <p>Please input your user name and password and click the login button.</p>
-      <form name="login_form" onsubmit="login(this.username_field.value, this.password_field.value); return false;">
-        <table>
-          <tr>
-            <td><label for="username_field">User Name:</label></td>
-            <td><input id="username_field" size="30" type="text"></td>
-          </tr>
-          <tr>
-            <td><label for="password_field">Password:</label></td>
-            <td><input id="password_field" size="30" type="password"></td>
-          </tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><input id="login_button" type="submit" value="LOGIN"></td>
-          </tr>
-        </table>
-      </form>
-      <a id="readdocs" href="docs.html" target="_blank">read doc</a>
-      <div id="demo" style="margin-top: 30px;">
-        <h2>The XMLHttpRequest Object</h2>
-        <button type="button" onclick="loadDocAjax()" id="get_ajax">Change Content</button>
-      </div>
-      <div style="margin-top: 30px;">
-        <button type="button" onclick="alertConfirm()" id="alert_confirm">Alert confirm</button>
-      </div>
-      <div style="margin-top: 30px;">
-        <h3>Element property</h3>
-        <button id="disabled-button" disabled>disable button</button>
-        <button id="not-visible-button" style="display:None;">in visible button</button>
-      </div>
-
-      <div style="margin-top: 30px;">
-        <button id="popup_modal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          Launch demo modal
-        </button>
-      </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button id="close_modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-</body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
 </html>

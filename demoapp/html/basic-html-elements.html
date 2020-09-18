@@ -193,6 +193,22 @@
 
     <div class="container">
       <div class="row" style="margin-top: 20px;">
+        <h2>Hidden element</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <button id="click_and_hide" onclick="hideMe();" class="btn btn-primary">Click and hide</button>
+        <script>
+          function hideMe() {
+            var x = document.getElementById("click_and_hide");
+            x.style.display = "none";
+          }
+        </script>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
         <h2>iFrame</h2>
       </div>
       <div class="row" style="margin-top: 20px;">
@@ -244,6 +260,16 @@
             </div>
           </div>
         </div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
+        <h2>Navigate Page</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <a id="goto-login-page" href="http://127.0.0.1:7272/login-form-example.html">Goto login page</a>
       </div>
       <hr>
     </div>
