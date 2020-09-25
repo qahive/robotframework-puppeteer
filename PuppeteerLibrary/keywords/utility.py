@@ -20,12 +20,18 @@ class UtilityKeywords(LibraryComponent):
         run_keyword = _RunKeyword()
         return self.loop.run_until_complete( self._run_async_keywords_first_completed(run_keyword._split_run_keywords(list(keywords))) )
 
+    async def _wrapped_async_keyword_return_index(self, index, future):
+        await future
+        return index
+
     async def _run_async_keywords_first_completed(self, iterable):
-        statements = []
+        org_statements = []
+        index = 0
         for kw, args in iterable:
             kw_name = kw.lower().replace(' ', '_') + '_async'
-            statements.append(self.ctx.keywords[kw_name](*args))
-
+            org_statements.append(self._wrapped_async_keyword_return_index(index, self.ctx.keywords[kw_name](*args)))
+            index += 1
+        statements = org_statements
         error_stack_trace = ''
         while True:
             done, pending = await asyncio.wait(statements, return_when=asyncio.FIRST_COMPLETED)
@@ -33,13 +39,11 @@ class UtilityKeywords(LibraryComponent):
             for future in done:
                 try:
                     # Raise an exception if coroutine failed
-                    future.result()
-
+                    result_index = future.result()
                     # Force cancel all pending
                     for p in pending:
                         p.cancel()
-
-                    return future.get_loop()
+                    return result_index
                 except Exception as e:
                     error_stack_trace += str(e)+'\n'
                     continue
