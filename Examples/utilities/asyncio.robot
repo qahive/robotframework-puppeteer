@@ -13,8 +13,14 @@ Run Async Keywords and wait for first completed keyword
     ${result} =    Run Async Keywords And Return First Completed
     ...    Click Element    id=non_existing_id    AND
     ...    Click Element    id=get_ajax
-    Run Keyword If    ${result} == 0    Log    first keyword pass
-    Run Keyword If    ${result} == 1    Log    second keyword pass
+    Should Be Equal As Integers    1    ${result}    
+    Run Keyword If    ${result} == 0    Log    first keyword completed
+    Run Keyword If    ${result} == 1    Log    second keyword completed
+    
+Ignore error Run Async Keywords and Return First Complete if no keyword success
+    Run Keyword And Expect Error    All async keywords failed*    Run Async Keywords And Return First Completed
+    ...    Click Element    id=non_existing_id    AND
+    ...    Click Element    id=non_existing_id2
 
 *** Keywords ***
 Open browser to test page
