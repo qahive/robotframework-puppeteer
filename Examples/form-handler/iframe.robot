@@ -13,9 +13,6 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 Interact with iframe element
     Wait Until Page Contains Element    id=ifrm
     Select Frame    id=ifrm
-    # Input Text not support iframe
-    # Input Text    id=exampleInputEmail1    demo@qahive.com
-    # Input Text    id=exampleInputPassword1    123456789
     Click Element    id=exampleCheck1
     
 *** Keywords ***
