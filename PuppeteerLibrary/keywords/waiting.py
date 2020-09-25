@@ -100,7 +100,7 @@ class WaitingKeywords(LibraryComponent):
         | Open browser                       | ${HOME_PAGE_URL}        | options=${options} |
         | `Wait Until Page Contains Element` | id:username             |                    |
         """
-        return self.loop.run_until_complete(self.async_func.wait_for_selenium_selector(locator, timeout))
+        return self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(locator, timeout))
 
     @keyword
     def wait_until_element_is_hidden(self, locator, timeout=None):

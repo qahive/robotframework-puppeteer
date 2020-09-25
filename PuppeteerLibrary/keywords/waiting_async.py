@@ -70,7 +70,11 @@ class WaitingKeywordsAsync(LibraryComponent):
     @keyword
     async def wait_for_selenium_selector(self, selenium_locator, timeout=None, visible=False, hidden=False):
         timeout = self.timestr_to_secs_for_default_timeout(timeout)
-        await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
+        return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
+
+    @keyword
+    async def wait_until_page_contains_element_async(self, selenium_locator, timeout=None):
+        return await self.wait_for_selenium_selector(selenium_locator, timeout, visible=False, hidden=False)
 
     @keyword
     async def wait_until_element_is_hidden_async(self, locator, timeout=None):

@@ -7,14 +7,56 @@ from PuppeteerLibrary.base.robotlibcore import keyword
 class UtilityKeywords(LibraryComponent):
 
     @keyword
+    def run_async_keywords_and_return_first_completed(self, *keywords):
+        """Executes all the given keywords in a asynchronous and wait until first keyword is completed
+        
+        ``Return`` Array of result for each keywords based on index
+
+        Example
+        | `Run Async Keywords And Return First Completed` | Wait for response url | ${HOME_PAGE_URL}/login.html | AND  |
+        | ...                                             | Wait for response url | ${HOME_PAGE_URL}/home.html  |      |
+        """
+        self.ctx.load_async_keywords()
+        run_keyword = _RunKeyword()
+        return self.loop.run_until_complete( self._run_async_keywords_first_completed(run_keyword._split_run_keywords(list(keywords))) )
+
+    async def _wrapped_async_keyword_return_index(self, index, future):
+        await future
+        return index
+
+    async def _run_async_keywords_first_completed(self, iterable):
+        org_statements = []
+        index = 0
+        for kw, args in iterable:
+            kw_name = kw.lower().replace(' ', '_') + '_async'
+            org_statements.append(self._wrapped_async_keyword_return_index(index, self.ctx.keywords[kw_name](*args)))
+            index += 1
+        statements = org_statements
+        error_stack_trace = ''
+        while True:
+            done, pending = await asyncio.wait(statements, return_when=asyncio.FIRST_COMPLETED)
+            statements = pending
+            for future in done:
+                try:
+                    # Raise an exception if coroutine failed
+                    result_index = future.result()
+                    # Force cancel all pending
+                    for p in pending:
+                        p.cancel()
+                    return result_index
+                except Exception as e:
+                    error_stack_trace += str(e)+'\n'
+                    continue
+            if len(pending) == 0:
+                raise Exception("All async keywords failed \r\n"+ error_stack_trace)
+        
+    @keyword
     def run_async_keywords(self, *keywords):
-        # Ensure that script load async keywords before run async keywords function
         """Executes all the given keywords in a asynchronous and wait until all keyword is completed
 
-        ``Return`` Array of return for reach keywords based on index
+        ``Return`` Array of result for each keywords based on index
 
         Example:
-
         | Open browser         | ${HOME_PAGE_URL}      | options=${options}          |     |
         | `Run Async Keywords` | Click Element         | id:login_button             | AND |
         | ...                  | Wait for response url | ${HOME_PAGE_URL}/home.html  |     |
@@ -23,7 +65,7 @@ class UtilityKeywords(LibraryComponent):
         self.ctx.load_async_keywords()
         run_keyword = _RunKeyword()
         return self.loop.run_until_complete( self._run_async_keywords(run_keyword._split_run_keywords(list(keywords))) )
-
+        
     async def _run_async_keywords(self, iterable):
         statements = []
         for kw, args in iterable:
