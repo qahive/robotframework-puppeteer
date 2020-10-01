@@ -1,6 +1,7 @@
 import asyncio
 from robot.api.deco import not_keyword
 from robot.api import logger
+from playwright import sync_playwright
 from pyppeteer.browser import Browser, BrowserContext
 from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.custom_elements.SPage import SPage
