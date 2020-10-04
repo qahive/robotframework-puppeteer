@@ -6,30 +6,23 @@ from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.browsermanagement_async import BrowserManagementKeywordsAsync
 
-# from playwright import sync_playwright
-# from PuppeteerLibrary.playwright.playwright_browsermanagement import PlaywrightBrowserManagement
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
+from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
+
 
 class BrowserManagementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
         self.async_func = BrowserManagementKeywordsAsync(self.ctx)
-        # self.playwright = PlaywrightBrowserManagement()
+        
+        self.playwright = PlaywrightBrowserManagement()
+        self.puppeteer = PuppeteerBrowserManagement(self.ctx)
+        self.browserManagement = self.puppeteer
 
     @keyword
     def new_open_browser(self, url, browser="chrome", alias=None, options=None):
-        if browser == "chrome":
-            print('')
-            # playwright = sync_playwright().start()
-            # web_browser = playwright.webkit.launch(headless=False)
-            # page = web_browser.newPage()
-            # page.goto("http://whatsmyuseragent.org/")
-            # self.loop.run_until_complete(self.playwright.open_browser(url, browser, alias, options))
-        else:
-            print('')
-
-    # def new_close_browser(self):
-    #     self.async_func.close_browser()
+        return self.loop.run_until_complete(self.browserManagement.open_browser_async(url, browser, alias, options))
 
     @keyword
     def open_browser(self, url, browser="chrome", alias=None, options=None):

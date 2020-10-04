@@ -1,7 +1,6 @@
 import asyncio
 from robot.api.deco import not_keyword
 from robot.api import logger
-from playwright import sync_playwright
 from pyppeteer.browser import Browser, BrowserContext
 from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.custom_elements.SPage import SPage
@@ -153,6 +152,15 @@ class PuppeteerLibrary(DynamicCore):
         self.clear_current_iframe()
 
     @not_keyword
+    async def add_context_async(self, alias, browser_context):
+        if alias in self.contexts.keys():
+           await self.contexts[alias].close()
+           del self.contexts[alias]
+        self.current_context_name = alias
+        self.contexts[self.current_context_name] = browser_context
+
+    @not_keyword
+    # Will obsolted
     async def create_context_async(self, alias) -> BrowserContext:
         context = await self.browser.createIncognitoBrowserContext()
         if alias in self.contexts.keys():
