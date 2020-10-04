@@ -16,7 +16,7 @@ class BrowserManagementKeywords(LibraryComponent):
         super().__init__(ctx)
         self.async_func = BrowserManagementKeywordsAsync(self.ctx)
         
-        self.playwright = PlaywrightBrowserManagement()
+        self.playwright = PlaywrightBrowserManagement(self.ctx)
         self.puppeteer = PuppeteerBrowserManagement(self.ctx)
         self.browserManagement = self.puppeteer
 
