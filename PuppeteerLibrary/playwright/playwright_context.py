@@ -34,9 +34,15 @@ class PlaywrightContext(iLibraryContext):
             return True
         return False
 
+    async def create_new_page(self, options: dict=None):
+        self.current_page = await self.browser.newPage()
+        return self.current_page
+
     def _reset_context(self):
         playwright = None
         browser = None
         contexts = {}
         current_page = None
         current_iframe = None
+
+    

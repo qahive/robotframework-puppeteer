@@ -20,3 +20,6 @@ class iLibraryContext(ABC):
     def is_server_started(self) -> bool:
         pass
 
+    @abstractmethod
+    async def create_new_page(self, options: dict=None):
+        pass

@@ -149,19 +149,19 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         self.library_factory = LibraryContextFactory()
 
     @not_keyword
-    def load_async_keywords(self):
-        if self.is_load_async_keywords is True:
-            return
-        self.add_library_components(self.async_libraries)
-        self.is_load_async_keywords = True
-
-    @not_keyword
     def get_library_context(self, browser_type: str) -> iLibraryContext:
         library_context = self.library_contexts[browser_type]
         if library_context is None:
             library_context = self.library_factory.create(browser_type)
             self.library_contexts[browser_type] = library_context
         return library_context
+
+    @not_keyword
+    def load_async_keywords(self):
+        if self.is_load_async_keywords is True:
+            return
+        self.add_library_components(self.async_libraries)
+        self.is_load_async_keywords = True
 
     @not_keyword
     def get_browser(self) -> Browser:

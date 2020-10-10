@@ -22,9 +22,8 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def new_open_browser(self, url, browser="chrome", alias=None, options=None):
         library_context = self.ctx.get_library_context(browser)
-        if library_context.is_server_started is False:
-            self.loop.run_until_complete(library_context.start_server())
-        
+        if library_context.is_server_started() is False:
+            self.loop.run_until_complete(library_context.start_server(options))
         return self.loop.run_until_complete(self.browserManagement.open_browser_async(url, browser, alias, options))
 
     @keyword
