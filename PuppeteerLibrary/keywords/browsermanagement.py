@@ -5,7 +5,6 @@ from pyppeteer import launch
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.browsermanagement_async import BrowserManagementKeywordsAsync
-
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
 from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
 
@@ -18,10 +17,14 @@ class BrowserManagementKeywords(LibraryComponent):
         
         self.playwright = PlaywrightBrowserManagement(self.ctx)
         self.puppeteer = PuppeteerBrowserManagement(self.ctx)
-        self.browserManagement = self.puppeteer
+        self.browserManagement = self.playwright
 
     @keyword
     def new_open_browser(self, url, browser="chrome", alias=None, options=None):
+        library_context = self.ctx.get_library_context(browser)
+        if library_context.is_server_started is False:
+            self.loop.run_until_complete(library_context.start_server())
+        
         return self.loop.run_until_complete(self.browserManagement.open_browser_async(url, browser, alias, options))
 
     @keyword

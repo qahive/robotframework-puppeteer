@@ -8,6 +8,7 @@ from .element import ElementKeywords
 from .element_async import ElementKeywordsAsync
 from .formelement import FormElementKeywords
 from .formelement_async import FormElementKeywordsAsync
+from .ibrowsermanagement_async import iBrowserManagementAsync
 from .javascript import JavascriptKeywords
 from .javascript_async import JavascriptKeywordsAsync
 from .mockresponse import MockResponseKeywords

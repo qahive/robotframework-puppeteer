@@ -1,8 +1,11 @@
+
+from PuppeteerLibrary.base.ipuppeteer_library import iPuppeteerLibrary
 import asyncio
 
 class ContextAware(object):
 
     loop = None
+    ctx: iPuppeteerLibrary = None
 
     def __init__(self, ctx):
         """Base class exposing attributes from the common context.

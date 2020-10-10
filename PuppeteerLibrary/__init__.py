@@ -1,8 +1,11 @@
+from PuppeteerLibrary.base.ipuppeteer_library import iPuppeteerLibrary
 import asyncio
 from robot.api.deco import not_keyword
 from robot.api import logger
-from pyppeteer.browser import Browser, BrowserContext
 from robot.libraries.BuiltIn import BuiltIn
+from pyppeteer.browser import Browser, BrowserContext
+from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
+from PuppeteerLibrary.library_context.library_context_factory import LibraryContextFactory
 from PuppeteerLibrary.custom_elements.SPage import SPage
 from PuppeteerLibrary.base.robotlibcore import DynamicCore
 from PuppeteerLibrary.keywords import (
@@ -38,7 +41,7 @@ __version__ = str(get_versions()['version']).split('+')[0]
 del get_versions
 
 
-class PuppeteerLibrary(DynamicCore):
+class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     """PuppeteerLibrary is a web testing library for Robot Framework.
     PuppeteerLibrary uses the pyppeteer library internally to
     control a web browser.
@@ -83,7 +86,10 @@ class PuppeteerLibrary(DynamicCore):
     async_libraries = []
 
     browser = None
-    contexts = {}
+    puppeteer_browser: iLibraryContext = None
+    playwright_browser: iLibraryContext = None
+
+    # contexts = {}
     current_context_name = None
     current_page = None
     current_iframe = None
@@ -92,6 +98,14 @@ class PuppeteerLibrary(DynamicCore):
     debug_mode_options = {
         'slowMo': 200,
         'devtools': False
+    }
+
+    # new context
+    library_factory: LibraryContextFactory = None
+    library_contexts: dict = {
+        'chrome': None,
+        'webkit': None,
+        'firefox': None
     }
 
     def __init__(self):
@@ -132,12 +146,22 @@ class PuppeteerLibrary(DynamicCore):
             WaitingKeywordsAsync(self)
         ]
 
+        self.library_factory = LibraryContextFactory()
+
     @not_keyword
     def load_async_keywords(self):
         if self.is_load_async_keywords is True:
             return
         self.add_library_components(self.async_libraries)
         self.is_load_async_keywords = True
+
+    @not_keyword
+    def get_library_context(self, browser_type: str) -> iLibraryContext:
+        library_context = self.library_contexts[browser_type]
+        if library_context is None:
+            library_context = self.library_factory.create(browser_type)
+            self.library_contexts[browser_type] = library_context
+        return library_context
 
     @not_keyword
     def get_browser(self) -> Browser:
