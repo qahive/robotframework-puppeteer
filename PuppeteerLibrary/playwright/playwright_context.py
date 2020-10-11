@@ -38,11 +38,14 @@ class PlaywrightContext(iLibraryContext):
         self.current_page = await self.browser.newPage()
         return self.current_page
 
+    def get_current_page(self):
+        return self.current_page
+
     async def close_browser_context(self):
         await self.browser.close()
         self._reset_context()
 
-    async def get_async_keyword_group(self, keyword_group_name: str):
+    def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self)
         }

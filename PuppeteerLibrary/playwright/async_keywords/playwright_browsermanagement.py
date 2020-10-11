@@ -11,15 +11,11 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
     def __init__(self, ctx):
         super().__init__(ctx)
 
-    async def open_browser_async(self, url, browser, alias=None, options=None):
-        page = await self.ctx.get_library_context(browser).create_new_page()
-        await page.goto(url)
-
-    async def close_browser_async(self, alias=None):
-        pass
-
-    async def close_all_browser_async(self):
-        pass
-
-    async def close_puppeteer_async(self):
-        pass
+    async def go_to(self, url):
+        return await self.ctx.get_current_page().goto(url)
+        
+        '''
+        async def go_to_async():
+            await self.ctx.get_current_page().goto(url)
+        self.loop.run_until_complete(go_to_async())
+        '''

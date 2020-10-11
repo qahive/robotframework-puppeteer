@@ -20,7 +20,8 @@ class BrowserManagementKeywords(LibraryComponent):
     def new_open_browser(self, url, browser="chrome", alias=None, options=None):
         library_context = self.ctx.create_library_context(alias, browser)
         self.loop.run_until_complete(library_context.start_server(options))
-        return self.loop.run_until_complete(library_context.create_new_page(options))
+        self.loop.run_until_complete(library_context.create_new_page(options))
+        self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
 
     @keyword
     def new_close_browser(self, alias=None):
@@ -159,9 +160,7 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def go_to(self, url):
         """Navigates the current page to the ``url``"""
-        async def go_to_async():
-            await self.ctx.get_current_page().goto(url)
-        self.loop.run_until_complete(go_to_async())
+        self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
 
     @keyword
     def reload_page(self):
