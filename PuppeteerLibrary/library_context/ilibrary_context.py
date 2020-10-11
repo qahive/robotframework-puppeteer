@@ -25,5 +25,9 @@ class iLibraryContext(ABC):
         pass
 
     @abstractmethod
+    async def close_browser_context(self):
+        pass
+
+    @abstractmethod
     async def get_async_keyword_group(self, keyword_group_name: str):
         pass

@@ -12,7 +12,6 @@ class PlaywrightContext(iLibraryContext):
 
     playwright: any = None
     browser: any = None
-    contexts = {}
     current_page = None
     current_iframe = None
 
@@ -28,7 +27,7 @@ class PlaywrightContext(iLibraryContext):
 
     async def stop_server(self):
         await self.playwright.stop()
-        self._reset_context()
+        self._reset_server_context()
     
     def is_server_started(self) -> bool:
         if self.browser is not None:
@@ -39,6 +38,10 @@ class PlaywrightContext(iLibraryContext):
         self.current_page = await self.browser.newPage()
         return self.current_page
 
+    async def close_browser_context(self):
+        await self.browser.close()
+        self._reset_context()
+
     async def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self)
@@ -46,10 +49,12 @@ class PlaywrightContext(iLibraryContext):
         return switcher.get(keyword_group_name)
 
     def _reset_context(self):
-        playwright = None
-        browser = None
-        contexts = {}
-        current_page = None
-        current_iframe = None
+        self.browser = None
+        self.current_page = None
+        self.current_iframe = None
+    
+    def _reset_server_context(self):
+        self._reset_context()
+        self.playwright = None
 
     

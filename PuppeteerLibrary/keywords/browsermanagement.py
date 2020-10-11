@@ -23,10 +23,27 @@ class BrowserManagementKeywords(LibraryComponent):
         return self.loop.run_until_complete(library_context.create_new_page(options))
 
     @keyword
+    def new_close_browser(self, alias=None):
+        """Closes the current browser
+        """
+        library_context = self.ctx.get_current_library_context()
+        if alias is not None:
+            library_context = self.ctx.get_library_context_by_name(alias)
+        self.loop.run_until_complete(library_context.close_browser_context())
+
+    @keyword
     def new_close_all_browser(self):
         """Close all browser
         """
-        self.loop.run_until_complete(self.get_async_keyword_group().close_all_browser_async())
+        library_contexts =  self.ctx.get_all_library_context()
+        for library_context in library_contexts:
+            self.loop.run_until_complete(library_context.close_browser_context())
+
+    @keyword
+    def new_close_puppeteer(self):
+        library_contexts =  self.ctx.get_all_library_context()
+        for library_context in library_contexts:
+            self.loop.run_until_complete(library_context.stop_server())
 
     @keyword
     def open_browser(self, url, browser="chrome", alias=None, options=None):

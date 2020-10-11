@@ -1,3 +1,4 @@
+from typing import List
 from PuppeteerLibrary.base.ipuppeteer_library import iPuppeteerLibrary
 import asyncio
 from robot.api.deco import not_keyword
@@ -148,6 +149,14 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     @not_keyword
     def get_current_library_context(self) -> iLibraryContext:
         return self.current_libary_context
+
+    @not_keyword
+    def get_library_context_by_name(self, alias: str) -> iLibraryContext:
+        return self.library_contexts[alias]
+
+    @not_keyword
+    def get_all_library_context(self) -> List[iLibraryContext]:
+        return list(self.library_contexts.values())
 
     @not_keyword
     def create_library_context(self, alias: str, browser_type: str) -> iLibraryContext:
