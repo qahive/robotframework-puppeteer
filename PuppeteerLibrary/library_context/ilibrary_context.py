@@ -23,3 +23,7 @@ class iLibraryContext(ABC):
     @abstractmethod
     async def create_new_page(self, options: dict=None):
         pass
+
+    @abstractmethod
+    async def get_async_keyword_group(self, keyword_group_name: str):
+        pass

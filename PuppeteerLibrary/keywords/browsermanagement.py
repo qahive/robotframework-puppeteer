@@ -1,3 +1,4 @@
+from PuppeteerLibrary.keywords.ibrowsermanagement_async import iBrowserManagementAsync
 import re
 import sys
 from robot.utils import timestr_to_secs
@@ -5,26 +6,27 @@ from pyppeteer import launch
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.browsermanagement_async import BrowserManagementKeywordsAsync
-from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
-from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
-
 
 class BrowserManagementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
         self.async_func = BrowserManagementKeywordsAsync(self.ctx)
-        
-        self.playwright = PlaywrightBrowserManagement(self.ctx)
-        self.puppeteer = PuppeteerBrowserManagement(self.ctx)
-        self.browserManagement = self.playwright
+
+    def get_async_keyword_group(self) -> iBrowserManagementAsync:
+        return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
     def new_open_browser(self, url, browser="chrome", alias=None, options=None):
-        library_context = self.ctx.get_library_context(browser)
-        if library_context.is_server_started() is False:
-            self.loop.run_until_complete(library_context.start_server(options))
-        return self.loop.run_until_complete(self.browserManagement.open_browser_async(url, browser, alias, options))
+        library_context = self.ctx.create_library_context(alias, browser)
+        self.loop.run_until_complete(library_context.start_server(options))
+        return self.loop.run_until_complete(library_context.create_new_page(options))
+
+    @keyword
+    def new_close_all_browser(self):
+        """Close all browser
+        """
+        self.loop.run_until_complete(self.get_async_keyword_group().close_all_browser_async())
 
     @keyword
     def open_browser(self, url, browser="chrome", alias=None, options=None):

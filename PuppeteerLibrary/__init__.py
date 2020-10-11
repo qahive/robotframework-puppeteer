@@ -101,12 +101,9 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     }
 
     # new context
+    current_libary_context: iLibraryContext = None
     library_factory: LibraryContextFactory = None
-    library_contexts: dict = {
-        'chrome': None,
-        'webkit': None,
-        'firefox': None
-    }
+    library_contexts: dict = {}
 
     def __init__(self):
         try:
@@ -149,11 +146,14 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         self.library_factory = LibraryContextFactory()
 
     @not_keyword
-    def get_library_context(self, browser_type: str) -> iLibraryContext:
-        library_context = self.library_contexts[browser_type]
-        if library_context is None:
-            library_context = self.library_factory.create(browser_type)
-            self.library_contexts[browser_type] = library_context
+    def get_current_library_context(self) -> iLibraryContext:
+        return self.current_libary_context
+
+    @not_keyword
+    def create_library_context(self, alias: str, browser_type: str) -> iLibraryContext:
+        library_context = self.library_factory.create(browser_type)
+        self.library_contexts[alias] = library_context
+        self.current_libary_context = library_context
         return library_context
 
     @not_keyword

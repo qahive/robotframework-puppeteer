@@ -1,3 +1,4 @@
+from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 try:
     from playwright import async_playwright
@@ -37,6 +38,12 @@ class PlaywrightContext(iLibraryContext):
     async def create_new_page(self, options: dict=None):
         self.current_page = await self.browser.newPage()
         return self.current_page
+
+    async def get_async_keyword_group(self, keyword_group_name: str):
+        switcher = {
+            "BrowserManagementKeywords": PlaywrightBrowserManagement(self)
+        }
+        return switcher.get(keyword_group_name)
 
     def _reset_context(self):
         playwright = None

@@ -1,6 +1,5 @@
 import sys
 from pyppeteer import launch
-from PuppeteerLibrary.library_context.library_context_factory import LibraryContextFactory
 from PuppeteerLibrary.keywords.ibrowsermanagement_async import iBrowserManagementAsync
 from PuppeteerLibrary.custom_elements.SPage import SPage
 
@@ -9,12 +8,9 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.libraryContextFactory = LibraryContextFactory()
 
     async def open_browser_async(self, url, browser, alias=None, options=None):
         self.ctx.get_library_context(browser)
-        libraryContext = self.libraryContextFactory.create(browser)
-        
         if self.ctx.puppeteer_browser is None:
             default_args = []
             default_options = {

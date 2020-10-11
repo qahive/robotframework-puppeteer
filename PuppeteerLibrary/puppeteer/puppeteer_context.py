@@ -2,8 +2,10 @@ import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
 
-class PuppeteerContext(iLibraryContext):
+# class PuppeteerContext(iLibraryContext):
+class PuppeteerContext:
 
     browser: Browser = None
     contexts = {}
@@ -57,6 +59,12 @@ class PuppeteerContext(iLibraryContext):
         if self.browser is not None:
             return True
         return False
+
+    async def get_async_keyword_group(self, keyword_group_name: str):
+        switcher = {
+            "BrowserManagementKeywords": PuppeteerBrowserManagement(self)
+        }
+        return switcher.get(keyword_group_name)
 
     def _reset_context(self):
         browser = None
