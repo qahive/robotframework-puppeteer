@@ -13,9 +13,3 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
 
     async def go_to(self, url):
         return await self.ctx.get_current_page().goto(url)
-        
-        '''
-        async def go_to_async():
-            await self.ctx.get_current_page().goto(url)
-        self.loop.run_until_complete(go_to_async())
-        '''
