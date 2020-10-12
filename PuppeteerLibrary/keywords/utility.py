@@ -1,4 +1,7 @@
 import asyncio
+import inspect
+from PuppeteerLibrary.keywords.browsermanagement import BrowserManagementKeywords
+from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
 from robot.libraries.BuiltIn import _RunKeyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
@@ -64,8 +67,19 @@ class UtilityKeywords(LibraryComponent):
         """
         self.ctx.load_async_keywords()
         run_keyword = _RunKeyword()
-        return self.loop.run_until_complete( self._run_async_keywords(run_keyword._split_run_keywords(list(keywords))) )
-        
+        return self.loop.run_until_complete( self._new_run_async_keywords(run_keyword._split_run_keywords(list(keywords))) )
+
+    async def _new_run_async_keywords(self, iterable):        
+        statements = []
+        for kw, args in iterable:
+            kw_name = kw.lower().replace(' ', '_')
+            async_keywords = self.ctx.keywords[kw_name].__self__.get_async_keyword_group()
+            statements.append(getattr(async_keywords, kw_name)(*args))
+        try:
+            return await asyncio.gather(*statements)
+        except Exception as err:
+            raise Exception(err)
+
     async def _run_async_keywords(self, iterable):
         statements = []
         for kw, args in iterable:
