@@ -42,6 +42,9 @@ class PlaywrightContext(iLibraryContext):
     def get_current_page(self):
         return self.current_page
 
+    async def get_all_pages(self):
+        return await self.browser.pages()
+
     async def close_browser_context(self):
         await self.browser.close()
         self._reset_context()

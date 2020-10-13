@@ -27,7 +27,14 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         return await self.library_ctx.get_current_page().reload()
 
     async def get_window_count(self):
-        pass
+        pages = await self.library_ctx.get_all_pages()
+        for page in pages:
+            # Workaround: for force pages re-cache
+            try:
+                await page.title()
+            except:
+                return -1
+        return len(await self.library_ctx.get_all_pages())
         '''
         pages = await self.library_ctx.get_browser().pages()
         for page in pages:

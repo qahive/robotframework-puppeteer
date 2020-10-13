@@ -5,16 +5,18 @@ Test Teardown    Close All Browser
 
 *** Test Cases ***
 Switch to new browser
-    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    # ${BROWSER} =     Get variable value    ${BROWSER}    chrome
+    ${BROWSER} =     Get variable value    ${BROWSER}    webkit
+    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
-    Open browser    http://127.0.0.1:7272/basic-html-elements.html   options=${options}
+    Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}   options=${options}
     Run Async Keywords
     ...    Wait For New Window Open    AND
     ...    Click Element    id=open-new-tab
-    Switch Window    NEW
-    Wait Until Page Contains Element    id=exampleInputEmail1
-    Switch Window    title=Basic HTML Elements
-    Wait Until Page Contains Element    id=open-new-tab    
+    # Switch Window    NEW
+    # Wait Until Page Contains Element    id=exampleInputEmail1
+    # Switch Window    title=Basic HTML Elements
+    # Wait Until Page Contains Element    id=open-new-tab    
 
 Handle multiple browser
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}

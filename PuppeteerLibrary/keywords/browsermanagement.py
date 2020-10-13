@@ -17,43 +17,14 @@ class BrowserManagementKeywords(LibraryComponent):
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
-    def new_open_browser(self, url, browser="chrome", alias=None, options=None):
-        library_context = self.ctx.create_library_context(alias, browser)
-        self.loop.run_until_complete(library_context.start_server(options))
-        self.loop.run_until_complete(library_context.create_new_page(options))
-        self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
-
-    @keyword
-    def new_close_browser(self, alias=None):
-        """Closes the current browser
-        """
-        library_context = self.ctx.get_current_library_context()
-        if alias is not None:
-            library_context = self.ctx.get_library_context_by_name(alias)
-        self.loop.run_until_complete(library_context.close_browser_context())
-
-    @keyword
-    def new_close_all_browser(self):
-        """Close all browser
-        """
-        library_contexts =  self.ctx.get_all_library_context()
-        for library_context in library_contexts:
-            self.loop.run_until_complete(library_context.close_browser_context())
-
-    @keyword
-    def new_close_puppeteer(self):
-        library_contexts =  self.ctx.get_all_library_context()
-        for library_context in library_contexts:
-            self.loop.run_until_complete(library_context.stop_server())
-
-    @keyword
     def open_browser(self, url, browser="chrome", alias=None, options=None):
         """Opens a new browser instance to the specific ``url``.
 
         The ``browser`` argument specifies which browser to use.
 
-        |    = Browser =    |        = Name(s) =     |
-        | Google Chrome     | chrome                 |
+        |    = Browser =         |    = Name(s) =   |
+        | Google Chrome          | chrome           |
+        | Webkit (Safari engine) | webkit           |
 
 
         The ``options`` argument as a dictionary
@@ -70,60 +41,33 @@ class BrowserManagementKeywords(LibraryComponent):
         | `Open browser` | https://www.w3schools.com/html/html_forms.asp | options=${options} |
 
         """
-        async def open_browser_async():
-            if self.ctx.browser is None:
-                default_args = []
-                default_options = {
-                    'slowMo': 0,
-                    'headless': True,
-                    'devtools': False,
-                    'width': 1366,
-                    'height': 768
-                }
-
-                merged_options = default_options
-
-                if options is not None:
-                    merged_options = {**merged_options, **options}
-
-                if self.ctx.debug_mode is True:
-                    merged_options = {**merged_options, **self.ctx.debug_mode_options}
-
-                if 'win' not in sys.platform.lower():
-                    default_args = ['--no-sandbox', '--disable-setuid-sandbox']
-
-                self.info(('Open browser to ' + url + '\n' +
-                            str(merged_options)))
-                self.ctx.browser = await launch(
-                    slowMo=merged_options['slowMo'],
-                    devtools=merged_options['devtools'],
-                    headless=merged_options['headless'],
-                    defaultViewport={
-                        'width': merged_options['width'],
-                        'height': merged_options['height']
-                    },
-                    args=default_args)
-            await self.ctx.create_context_async(alias)
-            current_page = await self.ctx.create_page_async()
-            await current_page.goto(url)
-            await current_page.screenshot({'path': 'example.png'})
-        self.loop.run_until_complete(open_browser_async())
+        library_context = self.ctx.create_library_context(alias, browser)
+        self.loop.run_until_complete(library_context.start_server(options))
+        self.loop.run_until_complete(library_context.create_new_page(options))
+        self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
 
     @keyword
     def close_browser(self, alias=None):
         """Closes the current browser
         """
-        self.loop.run_until_complete(self.async_func.close_browser_async(alias))
+        library_context = self.ctx.get_current_library_context()
+        if alias is not None:
+            library_context = self.ctx.get_library_context_by_name(alias)
+        self.loop.run_until_complete(library_context.close_browser_context())
 
     @keyword
     def close_all_browser(self):
         """Close all browser
         """
-        self.loop.run_until_complete(self.async_func.close_all_browser_async())
+        library_contexts =  self.ctx.get_all_library_context()
+        for library_context in library_contexts:
+            self.loop.run_until_complete(library_context.close_browser_context())
 
     @keyword
     def close_puppeteer(self):
-        self.loop.run_until_complete(self.async_func.close_puppeteer_async())
+        library_contexts =  self.ctx.get_all_library_context()
+        for library_context in library_contexts:
+            self.loop.run_until_complete(library_context.stop_server())
 
     @keyword
     def maximize_browser_window(self, width=1366, height=768):
@@ -194,7 +138,7 @@ class BrowserManagementKeywords(LibraryComponent):
     def get_window_count(self):
         """ Get windows count
         """
-        
+        pass
         # return  self.loop.run_until_complete(self.async_func.get_window_count_async())
 
     @keyword

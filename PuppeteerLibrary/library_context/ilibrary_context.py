@@ -30,6 +30,10 @@ class iLibraryContext(ABC):
         pass
 
     @abstractmethod
+    async def get_all_pages(self):
+        pass
+
+    @abstractmethod
     async def close_browser_context(self):
         pass
 
