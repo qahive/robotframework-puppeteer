@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 class iLibraryContext(ABC):
 
     browser_type: str = None
+    timeout: int = 30
 
     def __init__(self, browser_type: str):
         self.browser_type = browser_type

@@ -14,6 +14,7 @@ class PlaywrightContext(iLibraryContext):
     browser: any = None
     current_page = None
     current_iframe = None
+    
 
     def __init__(self, browser_type: str):
         super().__init__(browser_type)

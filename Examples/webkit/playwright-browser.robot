@@ -8,8 +8,8 @@ New open browser
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     New Open Browser    https://www.google.com    browser=webkit    alias=B1    options=${options}
-    # Go To    https://www.youtube.com
-    Run Async Keywords    
-    ...    Go To    https://www.youtube.com    AND
-    ...    Go To    https://www.youtube.com
+    Go To    https://www.youtube.com
+    # Run Async Keywords    
+    # ...    Go To    https://www.youtube.com    AND
+    # ...    Go To    https://www.youtube.com
     New Close Browser

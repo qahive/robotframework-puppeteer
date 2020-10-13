@@ -131,12 +131,15 @@ class BrowserManagementKeywords(LibraryComponent):
         """
         self.info(('width: ' + str(width) + '\n' +
                    'height: ' + str(height)))
+        self.loop.run_until_complete(self.get_async_keyword_group().maximize_browser_window(width, height))
+        '''
         async def maximize_browser_window_async():
             await self.ctx.get_current_page().setViewport({
                 'width': width,
                 'height': height
             })
         self.loop.run_until_complete(maximize_browser_window_async())
+        '''
 
     @keyword
     def get_title(self):
@@ -153,9 +156,7 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def go_back(self):
         """Simulate browser go back"""
-        async def go_back_async():
-            await self.ctx.get_current_page().goBack()
-        self.loop.run_until_complete(go_back_async())
+        self.loop.run_until_complete(self.get_async_keyword_group().go_back())
 
     @keyword
     def go_to(self, url):
@@ -165,9 +166,10 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def reload_page(self):
         """Reload the current page"""
-        async def reload_page_async():
-            await self.ctx.get_current_page().reload()
-        self.loop.run_until_complete(reload_page_async())
+        self.loop.run_until_complete(self.get_async_keyword_group().reload_page())
+        # async def reload_page_async():
+        #     await self.ctx.get_current_page().reload()
+        # self.loop.run_until_complete(reload_page_async())
 
     @keyword
     def set_timeout(self, timeout):
@@ -192,7 +194,8 @@ class BrowserManagementKeywords(LibraryComponent):
     def get_window_count(self):
         """ Get windows count
         """
-        return  self.loop.run_until_complete(self.async_func.get_window_count_async())
+        
+        # return  self.loop.run_until_complete(self.async_func.get_window_count_async())
 
     @keyword
     def wait_for_new_window_open(self, timeout=None):

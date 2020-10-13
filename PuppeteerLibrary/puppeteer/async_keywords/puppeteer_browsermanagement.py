@@ -6,12 +6,12 @@ from PuppeteerLibrary.custom_elements.SPage import SPage
 
 class PuppeteerBrowserManagement(iBrowserManagementAsync):
 
-    def __init__(self, ctx):
-        super().__init__(ctx)
+    def __init__(self, library_ctx):
+        super().__init__(library_ctx)
 
     async def open_browser_async(self, url, browser, alias=None, options=None):
-        self.ctx.get_library_context(browser)
-        if self.ctx.puppeteer_browser is None:
+        self.library_ctx.get_library_context(browser)
+        if self.library_ctx.puppeteer_browser is None:
             default_args = []
             default_options = {
                 'slowMo': 0,
@@ -25,9 +25,9 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
             if options is not None:
                 merged_options = {**merged_options, **options}
 
-            if self.ctx.debug_mode is True:
+            if self.library_ctx.debug_mode is True:
                 merged_options = {**merged_options,
-                                  **self.ctx.debug_mode_options}
+                                  **self.library_ctx.debug_mode_options}
 
             if 'win' not in sys.platform.lower():
                 default_args = ['--no-sandbox', '--disable-setuid-sandbox']
@@ -44,7 +44,7 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
                 args=default_args)
 
         browser_context = await self.browser.createIncognitoBrowserContext()
-        await self.ctx.add_context_async(alias, browser_context)
+        await self.library_ctx.add_context_async(alias, browser_context)
         current_page = await self._create_page_async()
         await current_page.goto(url)
 
@@ -58,6 +58,6 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         pass
     
     async def _create_page_async(self) -> SPage:
-        new_page = await self.ctx.get_current_context().newPage()
-        self.ctx.set_current_page(new_page)
-        return self.ctx.get_current_page()
+        new_page = await self.library_ctx.get_current_context().newPage()
+        self.library_ctx.set_current_page(new_page)
+        return self.library_ctx.get_current_page()
