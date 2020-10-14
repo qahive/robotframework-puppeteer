@@ -1,3 +1,4 @@
+from PuppeteerLibrary.keywords.ielement_async import iElementAsync
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.element_async import ElementKeywordsAsync
@@ -9,6 +10,9 @@ class ElementKeywords(LibraryComponent):
         super().__init__(ctx)
         self.async_func = ElementKeywordsAsync(self.ctx)
 
+    def get_async_keyword_group(self) -> iElementAsync:
+        return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
+
     @keyword
     def click_element(self, locator):
         """Clicks element identified by ``locator``.
@@ -17,7 +21,8 @@ class ElementKeywords(LibraryComponent):
 
         | `Click Element`                                  | id:register          |
         """
-        return self.loop.run_until_complete(self.async_func.click_element_async(locator))
+        self.loop.run_until_complete(self.get_async_keyword_group().click_element(locator))
+        # return self.loop.run_until_complete(self.async_func.click_element_async(locator))
 
     @keyword
     def click_link(self, locator):

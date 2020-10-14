@@ -1,3 +1,4 @@
+from PuppeteerLibrary.custom_elements.base_page import BasePage
 from abc import ABC, abstractmethod
 
 
@@ -22,11 +23,11 @@ class iLibraryContext(ABC):
         pass
 
     @abstractmethod
-    async def create_new_page(self, options: dict=None):
+    async def create_new_page(self, options: dict=None) -> BasePage:
         pass
 
     @abstractmethod
-    def get_current_page(self):
+    def get_current_page(self) -> BasePage:
         pass
 
     @abstractmethod

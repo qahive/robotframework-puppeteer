@@ -1,3 +1,6 @@
+from PuppeteerLibrary.custom_elements.base_page import BasePage
+from PuppeteerLibrary.playwright.async_keywords.playwright_element import PlaywrightElement
+from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
 from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 try:
@@ -12,10 +15,9 @@ class PlaywrightContext(iLibraryContext):
 
     playwright: any = None
     browser: any = None
-    current_page = None
+    current_page: any = None
     current_iframe = None
     
-
     def __init__(self, browser_type: str):
         super().__init__(browser_type)
 
@@ -35,11 +37,12 @@ class PlaywrightContext(iLibraryContext):
             return True
         return False
 
-    async def create_new_page(self, options: dict=None):
-        self.current_page = await self.browser.newPage()
+    async def create_new_page(self, options: dict=None) -> BasePage:
+        new_page = await self.browser.newPage()
+        self.current_page = PlaywrightPage(new_page)
         return self.current_page
-
-    def get_current_page(self):
+        
+    def get_current_page(self) -> BasePage:
         return self.current_page
 
     async def get_all_pages(self):
@@ -51,7 +54,8 @@ class PlaywrightContext(iLibraryContext):
 
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
-            "BrowserManagementKeywords": PlaywrightBrowserManagement(self)
+            "BrowserManagementKeywords": PlaywrightBrowserManagement(self),
+            "ElementKeywords": PlaywrightElement(self)
         }
         return switcher.get(keyword_group_name)
 
@@ -63,5 +67,3 @@ class PlaywrightContext(iLibraryContext):
     def _reset_server_context(self):
         self._reset_context()
         self.playwright = None
-
-    

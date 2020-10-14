@@ -12,26 +12,26 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         super().__init__(library_ctx)
 
     async def maximize_browser_window(self, width=1366, height=768):
-        return await self.library_ctx.get_current_page().setViewportSize({
+        return await self.library_ctx.get_current_page().get_page().setViewportSize({
                 width: width,
                 height: height,
             })
 
     async def go_to(self, url):
-        return await self.library_ctx.get_current_page().goto(url)
+        return await self.library_ctx.get_current_page().get_page().goto(url)
 
     async def go_back(self):
-        return await self.library_ctx.get_current_page().goBack()
+        return await self.library_ctx.get_current_page().get_page().goBack()
 
     async def reload_page(self):
-        return await self.library_ctx.get_current_page().reload()
+        return await self.library_ctx.get_current_page().get_page().reload()
 
     async def get_window_count(self):
         pages = await self.library_ctx.get_all_pages()
         for page in pages:
             # Workaround: for force pages re-cache
             try:
-                await page.title()
+                await page.get_page().title()
             except:
                 return -1
         return len(await self.library_ctx.get_all_pages())
