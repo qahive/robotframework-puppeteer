@@ -24,3 +24,6 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
     async def get_window_count(self):
         pass
     
+    @abstractmethod
+    async def wait_for_new_window_open(self, timeout=None):
+        pass

@@ -151,7 +151,8 @@ class BrowserManagementKeywords(LibraryComponent):
         | Run Async Keywords | Click Element              | id:view_conditions          | AND  |
         | ...                | `Wait For New Window Open` |                             |      |
         """
-        self.loop.run_until_complete(self.async_func.wait_for_new_window_open_async(timeout))
+        self.loop.run_until_complete(self.get_async_keyword_group().wait_for_new_window_open(timeout))
+        # self.loop.run_until_complete(self.async_func.wait_for_new_window_open_async(timeout))
 
     @keyword
     def switch_window(self, locator='MAIN'):

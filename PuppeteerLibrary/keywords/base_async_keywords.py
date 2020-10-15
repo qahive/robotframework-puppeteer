@@ -19,5 +19,5 @@ class BaseAsyncKeywords:
 
     def timestr_to_secs_for_default_timeout(self, timeout):
         if timeout is None or timeout == '':
-            timeout = self.ctx.timeout
+            timeout = self.library_ctx.timeout
         return timestr_to_secs(timeout)

@@ -17,6 +17,21 @@ class PlaywrightPage(BasePage):
     def get_page(self) -> Page:
         return self.page
 
+    async def goto(self, url: str):
+        return await self.page.goto(url)
+
+    async def go_back(self):
+        return await self.page.goBack()
+
+    async def reload_page(self):
+        return await self.page.reload()
+
+    async def title(self):
+        return await self.page.title()
+
+    async def set_viewport_size(self, width: int, height: int):
+        return await self.page.setViewportSize(width, height)
+
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):

@@ -35,6 +35,10 @@ class iLibraryContext(ABC):
         pass
 
     @abstractmethod
+    def get_browser_context(self):
+        pass
+
+    @abstractmethod
     async def close_browser_context(self):
         pass
 

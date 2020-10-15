@@ -10,10 +10,10 @@ Switch to new browser
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}   options=${options}
-    Click Element    id=open-new-tab
-    # Run Async Keywords
-    # ...    Wait For New Window Open    AND
-    # ...    Click Element    id=open-new-tab
+    Run Async Keywords
+    ...    Click Element    id=open-new-tab    AND
+    ...    Wait For New Window Open
+    
     # Switch Window    NEW
     # Wait Until Page Contains Element    id=exampleInputEmail1
     # Switch Window    title=Basic HTML Elements
