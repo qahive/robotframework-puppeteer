@@ -152,7 +152,6 @@ class BrowserManagementKeywords(LibraryComponent):
         | ...                | `Wait For New Window Open` |                             |      |
         """
         self.loop.run_until_complete(self.get_async_keyword_group().wait_for_new_window_open(timeout))
-        # self.loop.run_until_complete(self.async_func.wait_for_new_window_open_async(timeout))
 
     @keyword
     def switch_window(self, locator='MAIN'):
@@ -163,6 +162,9 @@ class BrowserManagementKeywords(LibraryComponent):
             - title="QAHive": window title. Page title will have have error if new tab have auto redirection
             - url="https://qahive.com": url support regex Example: url=.*qahive.com
         """
+        self.loop.run_until_complete(self.get_async_keyword_group().switch_window(locator))
+        
+        '''
         async def switch_window_async():
             pages = await self.ctx.get_browser().pages()
             if locator == 'MAIN':
@@ -196,6 +198,7 @@ class BrowserManagementKeywords(LibraryComponent):
             raise Exception('Can\'t find specify page locator.')
 
         return self.loop.run_until_complete(switch_window_async())
+        '''
 
     @keyword
     def switch_browser(self, alias):

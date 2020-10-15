@@ -45,6 +45,10 @@ class PlaywrightContext(iLibraryContext):
     def get_current_page(self) -> BasePage:
         return self.current_page
 
+    def set_current_page(self, page: any) -> BasePage:
+        self.current_page = PlaywrightPage(page)
+        return self.current_page
+
     async def get_all_pages(self):
         return self.browser.contexts[0].pages
 

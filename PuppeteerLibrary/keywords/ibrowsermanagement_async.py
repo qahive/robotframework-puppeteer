@@ -27,3 +27,7 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
     @abstractmethod
     async def wait_for_new_window_open(self, timeout=None):
         pass
+    
+    @abstractmethod
+    async def switch_window(self, locator='MAIN'):
+        pass

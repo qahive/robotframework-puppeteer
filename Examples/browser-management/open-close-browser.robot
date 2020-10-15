@@ -13,8 +13,7 @@ Switch to new browser
     Run Async Keywords
     ...    Click Element    id=open-new-tab    AND
     ...    Wait For New Window Open
-    
-    # Switch Window    NEW
+    Switch Window    NEW
     # Wait Until Page Contains Element    id=exampleInputEmail1
     # Switch Window    title=Basic HTML Elements
     # Wait Until Page Contains Element    id=open-new-tab    

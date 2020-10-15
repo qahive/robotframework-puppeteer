@@ -31,6 +31,10 @@ class iLibraryContext(ABC):
         pass
 
     @abstractmethod
+    def set_current_page(self, page: any) -> BasePage:
+        pass
+
+    @abstractmethod
     async def get_all_pages(self):
         pass
 
