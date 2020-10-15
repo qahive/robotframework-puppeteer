@@ -1,3 +1,4 @@
+from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import PlaywrightWaiting
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.async_keywords.playwright_element import PlaywrightElement
 from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
@@ -62,7 +63,8 @@ class PlaywrightContext(iLibraryContext):
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self),
-            "ElementKeywords": PlaywrightElement(self)
+            "ElementKeywords": PlaywrightElement(self),
+            "WaitingKeywords": PlaywrightWaiting(self)
         }
         return switcher.get(keyword_group_name)
 

@@ -49,3 +49,7 @@ class iLibraryContext(ABC):
     @abstractmethod
     def get_async_keyword_group(self, keyword_group_name: str):
         pass
+
+    @abstractmethod
+    def waitForSelector_with_selenium_locator(self):
+        pass

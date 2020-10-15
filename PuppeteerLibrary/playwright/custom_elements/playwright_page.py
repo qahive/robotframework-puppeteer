@@ -1,7 +1,6 @@
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
-
 try:
     from playwright.page import Page
 except Exception:
@@ -32,6 +31,15 @@ class PlaywrightPage(BasePage):
     async def set_viewport_size(self, width: int, height: int):
         return await self.page.setViewportSize(width, height)
 
+    ############
+    # Click
+    ############
+    async def click(self, selector: str, options: dict = None, **kwargs: Any):
+        if self.selected_iframe is None:
+            return await self.page.click(selector=selector, options=options, kwargs=kwargs)
+        else:
+            return await self.selected_iframe.click(selector=selector, options=options, kwargs=kwargs)
+
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
@@ -42,8 +50,48 @@ class PlaywrightPage(BasePage):
     async def click_xpath(self, selector: str, options: dict = None, **kwargs: Any):
         pass
 
-    async def click(self, selector: str, options: dict = None, **kwargs: Any):
-        if self.selected_iframe is None:
-            return await self.page.click(selector=selector, options=options, kwargs=kwargs)
+    ############
+    # Type
+    ############
+    async def type_with_selenium_locator(self, selenium_locator: str, text: str, options: dict = None, **kwargs: Any):
+        pass
+
+    async def type_xpath(self, selector, text: str, options: dict = None, **kwargs: Any):
+        pass
+
+    ############
+    # Wait
+    ############
+    async def waitForSelector_with_selenium_locator(self, selenium_locator: str, timeout: float, visible=False, hidden=False):
+        pass
+        '''
+        options = {
+            'timeout': timeout * 1000,
+            'visible': visible,
+            'hidden': hidden
+        }
+        selector_value = SelectorAbstraction.get_selector(selenium_locator)
+        if SelectorAbstraction.is_xpath(selenium_locator):
+            return await self.waitForXPath(xpath=selector_value, options=options)
         else:
-            return await self.selected_iframe.click(selector=selector, options=options, kwargs=kwargs)
+            return await self.waitForSelector(selector=selector_value, options=options)
+        '''
+
+    async def waitForXPath(self, xpath: str, options: dict = None, **kwargs: Any):
+        pass
+
+    async def waitForSelector(self, selector: str, options: dict = None, **kwargs: Any):
+        pass
+
+    ############
+    # Query
+    ############
+    async def querySelector(self, selector: str):
+        pass
+
+    async def querySelectorAll_with_selenium_locator(self, selenium_locator: str):
+        pass
+    
+    async def querySelector_with_selenium_locator(self, selenium_locator: str):
+        pass
+
