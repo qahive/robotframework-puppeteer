@@ -201,7 +201,7 @@ class BrowserManagementKeywords(LibraryComponent):
     def switch_browser(self, alias):
         """Switch browser context based on alias name
         """
-        return self.loop.run_until_complete(self.ctx.set_current_context(alias))
+        return self.loop.run_until_complete(self.ctx.set_current_library_context(alias))
 
     @keyword
     def enable_emulate_mode(self, emulate_name):

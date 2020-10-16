@@ -44,7 +44,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
                 return -1
         return len(await self.library_ctx.get_browser().pages())
         '''
-    
+
     async def wait_for_new_window_open(self, timeout=None):
         page_len = 0
         # Workaround:

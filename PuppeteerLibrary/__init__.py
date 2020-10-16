@@ -149,6 +149,12 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     @not_keyword
     def get_current_library_context(self) -> iLibraryContext:
         return self.current_libary_context
+    
+    @not_keyword
+    async def set_current_library_context(self, context_name) -> BrowserContext:
+        self.current_library_context_name = context_name
+        context = self.get_current_library_context()
+        return context
 
     @not_keyword
     def get_library_context_by_name(self, alias: str) -> iLibraryContext:
@@ -163,7 +169,7 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         library_context = self.library_factory.create(browser_type)
         self.library_contexts[alias] = library_context
         self.current_libary_context = library_context
-        return library_context
+        return library_context    
 
     @not_keyword
     def load_async_keywords(self):
