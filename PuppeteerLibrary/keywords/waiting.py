@@ -1,3 +1,4 @@
+from PuppeteerLibrary.keywords.iwaiting_async import iWaitingAsync
 from PuppeteerLibrary.keywords.waiting_async import WaitingKeywordsAsync
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
@@ -8,6 +9,9 @@ class WaitingKeywords(LibraryComponent):
     def __init__(self, ctx):
         super().__init__(ctx)
         self.async_func = WaitingKeywordsAsync(self.ctx)
+
+    def get_async_keyword_group(self) -> iWaitingAsync:
+        return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
     def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
@@ -100,7 +104,8 @@ class WaitingKeywords(LibraryComponent):
         | Open browser                       | ${HOME_PAGE_URL}        | options=${options} |
         | `Wait Until Page Contains Element` | id:username             |                    |
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(locator, timeout))
+        self.loop.run_until_complete(self.get_async_keyword_group().wait_until_page_contains_element(locator, timeout))
+        # return self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(locator, timeout))
 
     @keyword
     def wait_until_element_is_hidden(self, locator, timeout=None):

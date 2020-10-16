@@ -20,7 +20,7 @@ class PlaywrightWaiting(iWaitingAsync):
         pass
 
     async def wait_until_page_contains_element(self, locator, timeout=None):
-        pass
+        return await self._wait_for_selenium_selector(locator, timeout, visible=False, hidden=False)
 
     async def wait_until_element_is_hidden(self, locator, timeout=None):
         pass

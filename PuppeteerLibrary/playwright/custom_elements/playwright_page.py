@@ -63,25 +63,20 @@ class PlaywrightPage(BasePage):
     # Wait
     ############
     async def waitForSelector_with_selenium_locator(self, selenium_locator: str, timeout: float, visible=False, hidden=False):
-        pass
-        '''
         options = {
             'timeout': timeout * 1000,
-            'visible': visible,
-            'hidden': hidden
+            'state': 'visible'
         }
+        if visible is True:
+            options['state'] = 'visible'
+        if hidden is True:
+            options['state'] = 'hidden'
+
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
-        if SelectorAbstraction.is_xpath(selenium_locator):
-            return await self.waitForXPath(xpath=selector_value, options=options)
-        else:
-            return await self.waitForSelector(selector=selector_value, options=options)
-        '''
-
-    async def waitForXPath(self, xpath: str, options: dict = None, **kwargs: Any):
-        pass
-
-    async def waitForSelector(self, selector: str, options: dict = None, **kwargs: Any):
-        pass
+        return await self.get_page().waitForSelector(
+            selector=selector_value, 
+            timeout=options['timeout'], 
+            state=options['state'])
 
     ############
     # Query

@@ -15,8 +15,8 @@ Switch to new browser
     ...    Wait For New Window Open
     Switch Window    NEW
     Wait Until Page Contains Element    id=exampleInputEmail1
-    # Switch Window    title=Basic HTML Elements
-    # Wait Until Page Contains Element    id=open-new-tab    
+    Switch Window    title=Basic HTML Elements
+    Wait Until Page Contains Element    id=open-new-tab    
 
 Handle multiple browser
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
