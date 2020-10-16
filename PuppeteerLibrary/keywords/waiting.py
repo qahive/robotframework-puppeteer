@@ -144,7 +144,8 @@ class WaitingKeywords(LibraryComponent):
         | ...                                | Wait For Navigation           |                             |      |
         | `Wait Until Page Contains`         | Invalid user name or password |                             |      |
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_page_contains_async(text, timeout))
+        self.loop.run_until_complete(self.get_async_keyword_group().wait_until_page_contains(text, timeout))
+        # return self.loop.run_until_complete(self.async_func.wait_until_page_contains_async(text, timeout))
 
     @keyword
     def wait_until_page_does_not_contains(self, text, timeout=None):

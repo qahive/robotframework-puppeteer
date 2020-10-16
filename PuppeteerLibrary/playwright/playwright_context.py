@@ -1,3 +1,4 @@
+from PuppeteerLibrary.playwright.async_keywords.playwright_screenshot import PlaywrightScreenshot
 from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import PlaywrightWaiting
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.async_keywords.playwright_element import PlaywrightElement
@@ -64,6 +65,7 @@ class PlaywrightContext(iLibraryContext):
         switcher = {
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self),
             "ElementKeywords": PlaywrightElement(self),
+            "ScreenshotKeywords": PlaywrightScreenshot(self),
             "WaitingKeywords": PlaywrightWaiting(self)
         }
         return switcher.get(keyword_group_name)

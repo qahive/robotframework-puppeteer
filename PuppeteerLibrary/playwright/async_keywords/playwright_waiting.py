@@ -9,6 +9,14 @@ class PlaywrightWaiting(iWaitingAsync):
     async def _wait_for_selenium_selector(self, selenium_locator, timeout=None, visible=False, hidden=False):
         timeout = self.timestr_to_secs_for_default_timeout(timeout)
         return await self.library_ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
+    
+    def escape_xpath_value(self, value):
+        if '"' in value and '\'' in value:
+            parts_wo_apos = value.split('\'')
+            return "concat('%s')" % "', \"'\", '".join(parts_wo_apos)
+        if '\'' in value:
+            return "\"%s\"" % value
+        return "'%s'" % value
 
     async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
         pass
@@ -20,7 +28,7 @@ class PlaywrightWaiting(iWaitingAsync):
         pass
 
     async def wait_until_page_contains_element(self, locator, timeout=None):
-        return await self._wait_for_selenium_selector(locator, timeout, visible=False, hidden=False)
+        return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
 
     async def wait_until_element_is_hidden(self, locator, timeout=None):
         pass
@@ -29,7 +37,8 @@ class PlaywrightWaiting(iWaitingAsync):
         pass
 
     async def wait_until_page_contains(self, text, timeout=None):
-        pass
+        locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
+        return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
 
     async def wait_until_page_does_not_contains(self, text, timeout=None):
         pass

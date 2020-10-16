@@ -23,6 +23,7 @@ Switch to new browser
     Wait Until Page Contains Element    id=open-new-tab    
 
 Handle multiple browser
+    [Teardown]    Capture Page Screenshot    
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
