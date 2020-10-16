@@ -34,7 +34,7 @@ Handle multiple browser
     Switch Window    NEW
     Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}    options=${options}    alias=Browser 2
     Switch Browser    Browser 1
-    # Wait Until Page Contains    Login form
-    # Switch Browser    Browser 2
-    # Wait Until Page Contains    Browser Management
+    Wait Until Page Contains    Login form
+    Switch Browser    Browser 2
+    Wait Until Page Contains    Browser Management
     

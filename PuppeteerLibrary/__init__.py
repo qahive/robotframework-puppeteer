@@ -151,10 +151,9 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         return self.current_libary_context
     
     @not_keyword
-    async def set_current_library_context(self, context_name) -> BrowserContext:
-        self.current_library_context_name = context_name
-        context = self.get_current_library_context()
-        return context
+    async def set_current_library_context(self, context_name) -> iLibraryContext:
+        self.current_libary_context = self.library_contexts[context_name]
+        return self.current_libary_context
 
     @not_keyword
     def get_library_context_by_name(self, alias: str) -> iLibraryContext:
