@@ -24,8 +24,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        python3 -m pip install --upgrade pip
+        pip3 install -r requirements.txt
     - name: Install webkit
       run: |
         sudo apt-get install libgles2 gstreamer1.0-libav
@@ -40,8 +40,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: System test
       run: |
-        python setup.py install
+        python3 setup.py install
         pyppeteer-install
-        pip install -r demoapp/requirements.txt
-        python demoapp/server.py &
+        pip3 install -r demoapp/requirements.txt
+        python3 demoapp/server.py &
         robot -v HEADLESS:True -v BROWSER:${{ matrix.browser }} -e Ignore Examples
