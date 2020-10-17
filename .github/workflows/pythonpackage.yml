@@ -28,7 +28,8 @@ jobs:
         pip install -r requirements.txt
     - name: Install webkit
       run: |
-        apt-get update && apt-get install -y --no-install-recommends \
+        sudo apt-get update 
+        sudo apt-get install -y --no-install-recommends \
           gstreamer1.0-libav \
           libwoff1 \
           libopus0 \
@@ -50,8 +51,7 @@ jobs:
           libatk-bridge2.0-0 \
           libepoxy0 \
           libgtk-3-0 \
-          libharfbuzz-icu0
-        apt-get install -y --no-install-recommends \
+          libharfbuzz-icu0 \
           xvfb
         pip install playwright
         python -m playwright install
