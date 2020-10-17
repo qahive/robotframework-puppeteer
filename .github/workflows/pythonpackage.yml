@@ -28,7 +28,31 @@ jobs:
         pip install -r requirements.txt
     - name: Install webkit
       run: |
-        sudo apt-get install libgles2 gstreamer1.0-libav
+        apt-get update && apt-get install -y --no-install-recommends \
+          gstreamer1.0-libav \
+          libwoff1 \
+          libopus0 \
+          libwebp6 \
+          libwebpdemux2 \
+          libenchant1c2a \
+          libgudev-1.0-0 \
+          libsecret-1-0 \
+          libhyphen0 \
+          libgdk-pixbuf2.0-0 \
+          libegl1 \
+          libnotify4 \
+          libxslt1.1 \
+          libevent-2.1-6 \
+          libgles2 \
+          libvpx5 \
+          libxcomposite1 \
+          libatk1.0-0 \
+          libatk-bridge2.0-0 \
+          libepoxy0 \
+          libgtk-3-0 \
+          libharfbuzz-icu0
+        apt-get install -y --no-install-recommends \
+          xvfb
         pip install playwright
         python -m playwright install
     - name: Lint with flake8
@@ -39,11 +63,13 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: System test
-      run: |
-        python setup.py install
-        pyppeteer-install
-        pip install -r demoapp/requirements.txt
-        python demoapp/server.py &
-        python -m playwright install
-        ls /home/runner/.cache/ms-playwright/webkit-1343
-        robot -v HEADLESS:True -v BROWSER:${{ matrix.browser }} -e Ignore Examples
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          working-directory: ./ #optional
+          run: |
+            python setup.py install
+            pyppeteer-install
+            pip install -r demoapp/requirements.txt
+            python demoapp/server.py &
+            python -m playwright install
+            robot -v BROWSER:${{ matrix.browser }} -e Ignore Examples
