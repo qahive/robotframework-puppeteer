@@ -1,11 +1,11 @@
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
+from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
 
-# class PuppeteerContext(iLibraryContext):
-class PuppeteerContext:
+class PuppeteerContext(iLibraryContext):
 
     browser: Browser = None
     contexts = {}
@@ -59,6 +59,24 @@ class PuppeteerContext:
         if self.browser is not None:
             return True
         return False
+
+    async def create_new_page(self, options: dict=None) -> BasePage:
+        pass
+
+    def get_current_page(self) -> BasePage:
+        pass
+
+    def set_current_page(self, page: any) -> BasePage:
+        pass
+
+    async def get_all_pages(self):
+        pass
+
+    def get_browser_context(self):
+        pass
+
+    async def close_browser_context(self):
+        pass
 
     async def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {

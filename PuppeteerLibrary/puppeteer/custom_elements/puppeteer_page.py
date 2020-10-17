@@ -1,51 +1,59 @@
 from typing import Any
+from pyppeteer.page import Page
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
-try:
-    from playwright.page import Page
-except Exception:
-    from pyppeteer.page import Page
-    print('import playwright error')
 
-class PlaywrightPage(BasePage):
+
+class PuppeteerPage(BasePage):
 
     def __init__(self, page: Page):
         self.page = page
         self.selected_iframe = None
-    
+
     def get_page(self) -> Page:
         return self.page
 
     async def goto(self, url: str):
-        return await self.page.goto(url)
+        pass
+        # return await self.page.goto(url)
 
     async def go_back(self):
-        return await self.page.goBack()
+        pass
+        # return await self.page.goBack()
 
     async def reload_page(self):
-        return await self.page.reload()
+        pass
+        # return await self.page.reload()
 
     async def title(self):
-        return await self.page.title()
+        pass
+        # return await self.page.title()
 
     async def set_viewport_size(self, width: int, height: int):
-        return await self.page.setViewportSize(width, height)
+        pass
+        # return await self.page.setViewportSize(width, height)
 
     ############
     # Click
     ############
     async def click(self, selector: str, options: dict = None, **kwargs: Any):
+        pass
+        '''
         if self.selected_iframe is None:
             return await self.page.click(selector=selector, options=options, kwargs=kwargs)
         else:
             return await self.selected_iframe.click(selector=selector, options=options, kwargs=kwargs)
+        '''
 
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
+        pass
+        '''
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
             await self.page.click_xpath(selector_value, options, **kwargs)
         else:
             await self.page.click(selector_value, options, **kwargs)
+        '''
 
     async def click_xpath(self, selector: str, options: dict = None, **kwargs: Any):
         pass
@@ -63,6 +71,8 @@ class PlaywrightPage(BasePage):
     # Wait
     ############
     async def waitForSelector_with_selenium_locator(self, selenium_locator: str, timeout: float, visible=False, hidden=False):
+        pass
+        '''
         options = {
             'timeout': timeout * 1000,
             'state': 'visible'
@@ -77,6 +87,7 @@ class PlaywrightPage(BasePage):
             selector=selector_value, 
             timeout=options['timeout'], 
             state=options['state'])
+        '''
 
     ############
     # Query

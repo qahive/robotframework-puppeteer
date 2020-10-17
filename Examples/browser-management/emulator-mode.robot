@@ -1,4 +1,5 @@
 *** Settings ***
+Force Tags    Ignore
 Library    PuppeteerLibrary
 Suite Teardown    Close Puppeteer
 

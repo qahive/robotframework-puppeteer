@@ -1,4 +1,5 @@
 *** Settings ***
+Force Tags    Ignore
 Library    PuppeteerLibrary
 Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
