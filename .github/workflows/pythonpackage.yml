@@ -9,7 +9,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        # python-version: [3.6, 3.7, 3.8]
+        # python-version: [3.7, 3.8, 3.9]
         include:
           - python-version: 3.7
             browser: webkit
@@ -24,8 +24,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        python${{ matrix.python-version }} -m pip${{ matrix.python-version }} install --upgrade pip${{ matrix.python-version }}
+        pip${{ matrix.python-version }} install -r requirements.txt
     - name: Install webkit
       run: |
         sudo apt-get update 
@@ -53,21 +53,20 @@ jobs:
           libgtk-3-0 \
           libharfbuzz-icu0 \
           xvfb
-        pip install playwright
-        python -m playwright install
     - name: Lint with flake8
       run: |
-        pip install flake8
+        pip${{ matrix.python-version }} install flake8
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Run test project
       run: |
-        python setup.py install
+        python${{ matrix.python-version }} setup.py install
+        pip${{ matrix.python-version }} install -r demoapp/requirements.txt
         pyppeteer-install
-        pip install -r demoapp/requirements.txt
-        python demoapp/server.py &
+        python${{ matrix.python-version }} -m playwright install
+        python${{ matrix.python-version }} demoapp/server.py &
     - name: System test
       uses: GabrielBB/xvfb-action@v1
       with:
