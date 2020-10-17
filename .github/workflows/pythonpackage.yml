@@ -24,15 +24,13 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python --version
-        python3 --version
-        python3 -m pip install --upgrade pip
-        pip3 install -r requirements.txt
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
     - name: Install webkit
       run: |
         sudo apt-get install libgles2 gstreamer1.0-libav
-        pip3 install playwright
-        python3 -m playwright install
+        pip install playwright
+        python -m playwright install
     - name: Lint with flake8
       run: |
         pip install flake8
@@ -42,11 +40,10 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: System test
       run: |
-        python3 setup.py install
+        python setup.py install
         pyppeteer-install
-        pip3 install -r demoapp/requirements.txt
-        python3 demoapp/server.py &
-        python3 -m playwright install
+        pip install -r demoapp/requirements.txt
+        python demoapp/server.py &
         python -m playwright install
-        cat /home/runner/.cache/ms-playwright/webkit-1343
+        ls /home/runner/.cache/ms-playwright/webkit-1343
         robot -v HEADLESS:True -v BROWSER:${{ matrix.browser }} -e Ignore Examples
