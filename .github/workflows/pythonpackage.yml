@@ -29,8 +29,8 @@ jobs:
     - name: Install webkit
       run: |
         sudo apt-get install libgles2 gstreamer1.0-libav
-        npm i playwright-webkit
-        python -m playwright install
+        pip3 install playwright
+        python3 -m playwright install
     - name: Lint with flake8
       run: |
         pip install flake8
@@ -42,7 +42,6 @@ jobs:
       run: |
         python setup.py install
         pyppeteer-install
-        python -m playwright install
         pip install -r demoapp/requirements.txt
         python demoapp/server.py &
         robot -v HEADLESS:True -v BROWSER:${{ matrix.browser }} -e Ignore Examples
