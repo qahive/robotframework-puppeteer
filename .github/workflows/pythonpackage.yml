@@ -13,8 +13,8 @@ jobs:
         include:
           - python-version: 3.7
             browser: webkit
-          - python-version: 3.8
-            browser: webkit
+          # - python-version: 3.8
+          #  browser: chrome
 
     steps:
     - uses: actions/checkout@v1
@@ -26,7 +26,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Install webkit
+      run: |
+        sudo add-apt-repository ppa:webkit-team
+        sudo apt-get update
         sudo apt-get install libgles2 gstreamer1.0-libav
+        npm i playwright-webkit
         python -m playwright install
     - name: Lint with flake8
       run: |
