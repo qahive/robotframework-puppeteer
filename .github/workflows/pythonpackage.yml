@@ -68,7 +68,6 @@ jobs:
         pip${{ matrix.python-version }} install -r demoapp/requirements.txt
         pyppeteer-install
         python${{ matrix.python-version }} -m playwright install
-        /home/runner/.cache/ms-playwright/webkit-1343/pw_run.sh
         python${{ matrix.python-version }} demoapp/server.py &
     - name: System test
       uses: GabrielBB/xvfb-action@v1
