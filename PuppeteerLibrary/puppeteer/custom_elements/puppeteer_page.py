@@ -14,8 +14,7 @@ class PuppeteerPage(BasePage):
         return self.page
 
     async def goto(self, url: str):
-        pass
-        # return await self.page.goto(url)
+        return await self.page.goto(url)
 
     async def go_back(self):
         pass

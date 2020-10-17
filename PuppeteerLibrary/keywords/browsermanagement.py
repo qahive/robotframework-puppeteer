@@ -73,14 +73,6 @@ class BrowserManagementKeywords(LibraryComponent):
         self.info(('width: ' + str(width) + '\n' +
                    'height: ' + str(height)))
         self.loop.run_until_complete(self.get_async_keyword_group().maximize_browser_window(width, height))
-        '''
-        async def maximize_browser_window_async():
-            await self.ctx.get_current_page().setViewport({
-                'width': width,
-                'height': height
-            })
-        self.loop.run_until_complete(maximize_browser_window_async())
-        '''
 
     @keyword
     def get_title(self):

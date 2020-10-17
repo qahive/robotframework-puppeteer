@@ -1,3 +1,4 @@
+from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
@@ -39,7 +40,7 @@ class PuppeteerContext(iLibraryContext):
             merged_options = {**merged_options, **self.debug_mode_options}
 
         if 'win' not in sys.platform.lower():
-                default_args = ['--no-sandbox', '--disable-setuid-sandbox']
+            default_args = ['--no-sandbox', '--disable-setuid-sandbox']
 
         self.browser = await launch(
             headless=merged_options['headless'],
@@ -61,10 +62,12 @@ class PuppeteerContext(iLibraryContext):
         return False
 
     async def create_new_page(self, options: dict=None) -> BasePage:
-        pass
+        new_page = await self.browser.newPage()
+        self.current_page = PuppeteerPage(new_page)
+        return self.current_page
 
     def get_current_page(self) -> BasePage:
-        pass
+        return self.current_page
 
     def set_current_page(self, page: any) -> BasePage:
         pass
@@ -78,7 +81,7 @@ class PuppeteerContext(iLibraryContext):
     async def close_browser_context(self):
         pass
 
-    async def get_async_keyword_group(self, keyword_group_name: str):
+    def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
             "BrowserManagementKeywords": PuppeteerBrowserManagement(self)
         }
