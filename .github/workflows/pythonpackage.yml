@@ -63,13 +63,13 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: System test
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          working-directory: ./ #optional
-          run: |
-            python setup.py install
-            pyppeteer-install
-            pip install -r demoapp/requirements.txt
-            python demoapp/server.py &
-            python -m playwright install
-            robot -v BROWSER:${{ matrix.browser }} -e Ignore Examples
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        working-directory: ./ #optional
+        run: |
+          python setup.py install
+          pyppeteer-install
+          pip install -r demoapp/requirements.txt
+          python demoapp/server.py &
+          python -m playwright install
+          robot -v BROWSER:${{ matrix.browser }} -e Ignore Examples
