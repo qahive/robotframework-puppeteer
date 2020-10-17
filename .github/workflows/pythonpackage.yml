@@ -9,7 +9,12 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        # python-version: [3.6, 3.7, 3.8]
+        include:
+          - python-version: 3.7
+            browser: webkit
+          - python-version: 3.8
+            browser: webkit
 
     steps:
     - uses: actions/checkout@v1
@@ -34,4 +39,4 @@ jobs:
         pyppeteer-install
         pip install -r demoapp/requirements.txt
         python demoapp/server.py &
-        robot -v HEADLESS:True -e Ignore Examples
+        robot -v HEADLESS:True -v BROWSER:${{ matrix.browser }} -e Ignore Examples
