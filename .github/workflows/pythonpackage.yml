@@ -44,4 +44,6 @@ jobs:
         pyppeteer-install
         pip3 install -r demoapp/requirements.txt
         python3 demoapp/server.py &
+        python3 -m playwright install
+        python -m playwright install
         robot -v HEADLESS:True -v BROWSER:${{ matrix.browser }} -e Ignore Examples
