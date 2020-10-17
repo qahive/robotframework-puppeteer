@@ -1,6 +1,5 @@
 *** Settings ***
 Library    PuppeteerLibrary
-Library    Dialogs    
 Suite Teardown    Close Puppeteer
 Test Teardown    Close All Browser
 
@@ -22,7 +21,6 @@ Switch to new browser
     Wait Until Page Contains Element    id=exampleInputEmail1
     Switch Window    title=Basic HTML Elements
     Wait Until Page Contains Element    id=open-new-tab    
-    Dialogs.Pause Execution    
 
 Handle multiple browser
     [Teardown]    Capture Page Screenshot    
