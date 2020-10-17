@@ -25,6 +25,7 @@ Installation
 The recommended installation method is using pip_::
 
     pip install --upgrade robotframework-puppeteerlibrary
+    python -m playwright install
     
 Or manually install by running following command
     
