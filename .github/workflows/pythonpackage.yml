@@ -28,6 +28,7 @@ jobs:
         pip install -r requirements.txt
     - name: Install webkit
       run: |
+        sudo apt-get install libgles2 gstreamer1.0-libav
         npm i playwright-webkit
         python -m playwright install
     - name: Lint with flake8
