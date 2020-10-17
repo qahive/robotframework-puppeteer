@@ -38,6 +38,7 @@ jobs:
         python setup.py install
         pyppeteer-install
         python -m playwright install
+        sudo apt-get install libgles2 gstreamer1.0-libav
         pip install -r demoapp/requirements.txt
         python demoapp/server.py &
         robot -v HEADLESS:True -v BROWSER:${{ matrix.browser }} -e Ignore Examples
