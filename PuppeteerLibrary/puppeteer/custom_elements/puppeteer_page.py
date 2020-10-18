@@ -45,14 +45,11 @@ class PuppeteerPage(BasePage):
         '''
 
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
-        pass
-        '''
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
             await self.page.click_xpath(selector_value, options, **kwargs)
         else:
             await self.page.click(selector_value, options, **kwargs)
-        '''
 
     async def click_xpath(self, selector: str, options: dict = None, **kwargs: Any):
         pass

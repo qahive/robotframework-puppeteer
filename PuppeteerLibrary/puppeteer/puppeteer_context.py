@@ -1,10 +1,11 @@
-from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_element import PuppeteerElement
+from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
 
 class PuppeteerContext(iLibraryContext):
 
@@ -73,17 +74,18 @@ class PuppeteerContext(iLibraryContext):
         pass
 
     async def get_all_pages(self):
-        pass
+        return await self.browser.pages()
 
     def get_browser_context(self):
-        pass
+        return self.browser
 
     async def close_browser_context(self):
         pass
 
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
-            "BrowserManagementKeywords": PuppeteerBrowserManagement(self)
+            "BrowserManagementKeywords": PuppeteerBrowserManagement(self),
+            "ElementKeywords": PuppeteerElement(self)
         }
         return switcher.get(keyword_group_name)
 
