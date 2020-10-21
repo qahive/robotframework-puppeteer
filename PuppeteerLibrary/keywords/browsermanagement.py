@@ -164,6 +164,7 @@ class BrowserManagementKeywords(LibraryComponent):
         """Emulate specific mobile or tablet
 
         The ``emulate_name`` argument specifies which emulator to use.
+        Only support for chrome (Puppeteer)
 
         | = Example Options = |
         | iPhone X            |
@@ -172,7 +173,7 @@ class BrowserManagementKeywords(LibraryComponent):
         More emulate_name please visit [device_descriptors.py](https://github.com/qahive/robotframework-puppeteer/tree/master/PuppeteerLibrary/utils/device_descriptors.py)
 
         """
-        return self.loop.run_until_complete(self.async_func.enable_emulate_mode_async(emulate_name))
+        return self.loop.run_until_complete(self.get_async_keyword_group().enable_emulate_mode_async(emulate_name))
 
     @keyword
     def select_frame(self, selenium_locator):

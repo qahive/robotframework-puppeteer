@@ -1,11 +1,8 @@
 import asyncio
 import re
 import time
+from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 from PuppeteerLibrary.keywords.ibrowsermanagement_async import iBrowserManagementAsync
-try:
-    from playwright import async_playwright
-except ImportError:
-    print('import playwright error')
 
 
 class PlaywrightBrowserManagement(iBrowserManagementAsync):
@@ -91,3 +88,6 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         else:
             raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
         raise Exception('Can\'t find specify page locator.')
+
+    async def enable_emulate_mode_async(self, emulate_name):
+        Warning('Playwright not support emulate mode.')
