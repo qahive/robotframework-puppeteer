@@ -17,20 +17,19 @@ class PuppeteerPage(BasePage):
         return await self.page.goto(url)
 
     async def go_back(self):
-        pass
-        # return await self.page.goBack()
+        return await self.page.goBack()
 
     async def reload_page(self):
-        pass
-        # return await self.page.reload()
+        return await self.page.reload()
 
     async def title(self):
-        pass
-        # return await self.page.title()
+        return await self.page.title()
 
     async def set_viewport_size(self, width: int, height: int):
-        pass
-        # return await self.page.setViewportSize(width, height)
+        self.page.setViewport({
+            width: width,
+            height: height
+        })
 
     ############
     # Click

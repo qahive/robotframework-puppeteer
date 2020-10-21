@@ -152,42 +152,6 @@ class BrowserManagementKeywords(LibraryComponent):
             - url="https://qahive.com": url support regex Example: url=.*qahive.com
         """
         self.loop.run_until_complete(self.get_async_keyword_group().switch_window(locator))
-        
-        '''
-        async def switch_window_async():
-            pages = await self.ctx.get_browser().pages()
-            if locator == 'MAIN':
-                page = pages[0]
-                await page.bringToFront()
-                return self.ctx.set_current_page(page)
-
-            elif locator == 'NEW':
-                page = pages[-1]
-                await page.bringToFront()
-                return self.ctx.set_current_page(page)
-
-            elif 'title=' in locator:
-                title = locator.replace('title=', '')
-                for page in pages:
-                    page_title = await page.title()
-                    if page_title == title:
-                        await page.bringToFront()
-                        return self.ctx.set_current_page(page)
-                    self.info('Title mismatch: ' + page_title)
-
-            elif 'url=' in locator:
-                url = locator.replace('url=', '')
-                for page in pages:
-                    if re.match(url, page.url):
-                        await page.bringToFront()
-                        return self.ctx.set_current_page(page)
-                    self.info('Url mismatch: ' + page.url)
-            else:
-                raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
-            raise Exception('Can\'t find specify page locator.')
-
-        return self.loop.run_until_complete(switch_window_async())
-        '''
 
     @keyword
     def switch_browser(self, alias):

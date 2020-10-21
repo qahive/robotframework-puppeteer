@@ -54,4 +54,33 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         return len(await self.library_ctx.get_all_pages())
 
     async def switch_window(self, locator='MAIN'):
-        pass
+        pages = await self.library_ctx.get_all_pages()
+        if locator == 'MAIN':
+            page = pages[0]
+            await page.bringToFront()
+            return self.library_ctx.set_current_page(page)
+
+        elif locator == 'NEW':
+            page = pages[-1]
+            await page.bringToFront()
+            return self.library_ctx.set_current_page(page)
+
+        elif 'title=' in locator:
+            title = locator.replace('title=', '')
+            for page in pages:
+                page_title = await page.title()
+                if page_title == title:
+                    await page.bringToFront()
+                    return self.library_ctx.set_current_page(page)
+                self.info('Title mismatch: ' + page_title)
+
+        elif 'url=' in locator:
+            url = locator.replace('url=', '')
+            for page in pages:
+                if re.match(url, page.url):
+                    await page.bringToFront()
+                    return self.library_ctx.set_current_page(page)
+                self.info('Url mismatch: ' + page.url)
+        else:
+            raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
+        raise Exception('Can\'t find specify page locator.')

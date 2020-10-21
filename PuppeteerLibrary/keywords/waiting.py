@@ -105,7 +105,6 @@ class WaitingKeywords(LibraryComponent):
         | `Wait Until Page Contains Element` | id:username             |                    |
         """
         self.loop.run_until_complete(self.get_async_keyword_group().wait_until_page_contains_element(locator, timeout))
-        # return self.loop.run_until_complete(self.async_func.wait_until_page_contains_element_async(locator, timeout))
 
     @keyword
     def wait_until_element_is_hidden(self, locator, timeout=None):
