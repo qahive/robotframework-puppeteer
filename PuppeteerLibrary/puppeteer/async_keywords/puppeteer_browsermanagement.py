@@ -1,7 +1,6 @@
 import asyncio
 import re
 import time
-from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 from PuppeteerLibrary.keywords.ibrowsermanagement_async import iBrowserManagementAsync
 
 
@@ -84,7 +83,4 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         else:
             raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
         raise Exception('Can\'t find specify page locator.')
-
-    async def enable_emulate_mode_async(self, emulate_name):
-        await self.library_ctx.get_current_page().get_page().emulate(DEVICE_DESCRIPTORS[emulate_name])
 

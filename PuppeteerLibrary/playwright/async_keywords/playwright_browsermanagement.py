@@ -88,6 +88,3 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         else:
             raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
         raise Exception('Can\'t find specify page locator.')
-
-    async def enable_emulate_mode_async(self, emulate_name):
-        Warning('Playwright not support emulate mode.')

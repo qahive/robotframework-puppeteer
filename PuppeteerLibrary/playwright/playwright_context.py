@@ -1,6 +1,6 @@
+from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.async_keywords.playwright_screenshot import PlaywrightScreenshot
 from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import PlaywrightWaiting
-from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.async_keywords.playwright_element import PlaywrightElement
 from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
 from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
@@ -40,7 +40,10 @@ class PlaywrightContext(iLibraryContext):
         return False
 
     async def create_new_page(self, options: dict=None) -> BasePage:
-        new_page = await self.browser.newPage()
+        device_options = {}
+        if 'emulate' in options:
+            device_options = self.playwright.devices[options['emulate']]
+        new_page = await self.browser.newPage(**device_options)
         self.current_page = PlaywrightPage(new_page)
         return self.current_page
         

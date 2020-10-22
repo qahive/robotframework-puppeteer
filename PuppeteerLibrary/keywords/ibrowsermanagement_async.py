@@ -31,7 +31,3 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
     @abstractmethod
     async def switch_window(self, locator='MAIN'):
         pass
-
-    @abstractmethod
-    async def enable_emulate_mode_async(self, emulate_name):
-        pass
