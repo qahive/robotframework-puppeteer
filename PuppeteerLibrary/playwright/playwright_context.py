@@ -1,8 +1,10 @@
+from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.async_keywords.playwright_alert import PlaywrightAlert
 from PuppeteerLibrary.playwright.async_keywords.playwright_screenshot import PlaywrightScreenshot
 from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import PlaywrightWaiting
 from PuppeteerLibrary.playwright.async_keywords.playwright_element import PlaywrightElement
+from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
 from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
 from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
@@ -70,6 +72,7 @@ class PlaywrightContext(iLibraryContext):
         switcher = {
             "AlertKeywords": PlaywrightAlert(self),
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self),
+            "DropdownKeywords": PlaywrightDropdown(self),
             "ElementKeywords": PlaywrightElement(self),
             "ScreenshotKeywords": PlaywrightScreenshot(self),
             "WaitingKeywords": PlaywrightWaiting(self)
