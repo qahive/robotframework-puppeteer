@@ -62,7 +62,8 @@ class PlaywrightContext(iLibraryContext):
         return self.browser
 
     async def close_browser_context(self):
-        await self.browser.close()
+        if self.browser is not None:
+            await self.browser.close()
         self._reset_context()
 
     def get_async_keyword_group(self, keyword_group_name: str):
