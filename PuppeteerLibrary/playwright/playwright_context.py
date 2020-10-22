@@ -1,4 +1,5 @@
 from PuppeteerLibrary.custom_elements.base_page import BasePage
+from PuppeteerLibrary.playwright.async_keywords.playwright_alert import PlaywrightAlert
 from PuppeteerLibrary.playwright.async_keywords.playwright_screenshot import PlaywrightScreenshot
 from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import PlaywrightWaiting
 from PuppeteerLibrary.playwright.async_keywords.playwright_element import PlaywrightElement
@@ -66,6 +67,7 @@ class PlaywrightContext(iLibraryContext):
 
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
+            "AlertKeywords": PlaywrightAlert(self),
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self),
             "ElementKeywords": PlaywrightElement(self),
             "ScreenshotKeywords": PlaywrightScreenshot(self),

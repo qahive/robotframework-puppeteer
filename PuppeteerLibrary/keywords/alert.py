@@ -27,5 +27,8 @@ class AlertKeywords(LibraryComponent):
         | ...    Handle Alert  | ACCEPT           | AND |
         | ...    Click Button  | id=alert_confirm |     |
 
+        Limitation:
+        Not support for webkit
+
         """
         return self.loop.run_until_complete(self.get_async_keyword_group().handle_alert(action, prompt_text))

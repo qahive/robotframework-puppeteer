@@ -1,4 +1,5 @@
 *** Settings ***
+Library    Dialogs    
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page    
 Test Teardown    Close All Browser
@@ -7,12 +8,12 @@ Suite Teardown    Close Puppeteer
 
 *** Variables ***
 ${DEFAULT_BROWSER}    chrome
-# ${DEFAULT_BROWSER}    webkit
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
 *** Test Cases ***
 Accept alert
+    [Tags]    IGNORE_webkit
     Run Async Keywords
     ...    Handle Alert    ACCEPT    AND
     ...    Click Element    id=alert_confirm

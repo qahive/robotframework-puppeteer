@@ -30,6 +30,7 @@ class BrowserManagementKeywords(LibraryComponent):
         | headless           | default True           |
         | width              | default 1366           |
         | height             | default 768            |
+        | emulate            | iPhone 11              |
 
 
         Example:
