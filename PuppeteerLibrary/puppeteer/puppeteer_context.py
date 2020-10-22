@@ -1,3 +1,4 @@
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_dropdown import PuppeteerDropdown
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
@@ -7,6 +8,7 @@ from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_waiting import Puppetee
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_dropdown import PuppeteerDropdown
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_element import PuppeteerElement
 from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
 from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
@@ -87,12 +89,13 @@ class PuppeteerContext(iLibraryContext):
         return self.browser
 
     async def close_browser_context(self):
-        pass
+        await self.browser.close()
 
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
             "AlertKeywords": PuppeteerAlert(self),
             "BrowserManagementKeywords": PuppeteerBrowserManagement(self),
+            "DropdownKeywords": PuppeteerDropdown(self),
             "ElementKeywords": PuppeteerElement(self),
             "ScreenshotKeywords": PuppeteerScreenshot(self),
             "WaitingKeywords": PuppeteerWaiting(self)
