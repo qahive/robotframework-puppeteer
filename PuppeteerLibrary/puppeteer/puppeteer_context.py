@@ -1,4 +1,3 @@
-from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_dropdown import PuppeteerDropdown
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser

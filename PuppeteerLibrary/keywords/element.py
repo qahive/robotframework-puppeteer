@@ -22,7 +22,6 @@ class ElementKeywords(LibraryComponent):
         | `Click Element`                                  | id:register          |
         """
         self.loop.run_until_complete(self.get_async_keyword_group().click_element(locator))
-        # return self.loop.run_until_complete(self.async_func.click_element_async(locator))
 
     @keyword
     def click_link(self, locator):
@@ -79,14 +78,14 @@ class ElementKeywords(LibraryComponent):
         """	Verifies that element identified by locator is disabled.
 
         """
-        return self.loop.run_until_complete(self.async_func.element_should_be_disabled_async(locator))
+        return self.loop.run_until_complete(self.get_async_keyword_group().element_should_be_disabled(locator))
 
     @keyword
     def element_should_be_enabled(self, locator):
         """	Verifies that element identified by locator is enabled.
 
         """
-        return self.loop.run_until_complete(self.async_func.element_should_be_enabled_async(locator))
+        return self.loop.run_until_complete(self.get_async_keyword_group().element_should_be_enabled(locator))
 
     @keyword
     def element_should_be_visible(self, locator):

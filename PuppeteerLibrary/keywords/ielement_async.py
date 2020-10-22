@@ -4,6 +4,20 @@ from abc import ABC, abstractmethod
 
 class iElementAsync(BaseAsyncKeywords, ABC):
 
+    ##############################
+    # Click
+    ##############################
     @abstractmethod
     async def click_element(self, locator: str):
+        pass
+
+    ##############################
+    # Status
+    ##############################
+    @abstractmethod
+    async def element_should_be_enabled(self, locator: str):
+        pass
+
+    @abstractmethod
+    async def element_should_be_disabled(self, locator: str):
         pass
