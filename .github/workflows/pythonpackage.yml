@@ -13,8 +13,10 @@ jobs:
         include:
           - python-version: 3.7
             browser: webkit
-          # - python-version: 3.8
-          #  browser: chrome
+          - python-version: 3.8
+            browser: chrome
+          - python-version: 3.9
+            browser: chrome
 
     steps:
     - uses: actions/checkout@v1
@@ -73,4 +75,4 @@ jobs:
       uses: GabrielBB/xvfb-action@v1
       with:
         working-directory: ./ #optional
-        run: robot -v BROWSER:${{ matrix.browser }} -e Ignore Examples
+        run: robot -v BROWSER:${{ matrix.browser }} -e IgnoreANDIgnore_${{ matrix.browser }} Examples

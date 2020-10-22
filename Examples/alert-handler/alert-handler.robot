@@ -12,14 +12,14 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 *** Test Cases ***
 Accept alert
-    [Tags]    IGNORE_webkit
+    [Tags]    Ignore_webkit
     Run Async Keywords
     ...    Handle Alert    ACCEPT    AND
     ...    Click Element    id=alert_confirm
     Click Element    id:get_ajax
 
 Dismiss alert
-    [Tags]    IGNORE_webkit
+    [Tags]    Ignore_webkit
     Run Async Keywords
     ...    Handle Alert    DISMISS    AND
     ...    Click Element    id=alert_confirm
