@@ -1,6 +1,7 @@
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.alert_async import AlertKeywordsAsync
+from PuppeteerLibrary.keywords.ialert_async import iAlertAsync
 
 
 class AlertKeywords(LibraryComponent):
@@ -8,6 +9,9 @@ class AlertKeywords(LibraryComponent):
     def __init__(self, ctx):
         super().__init__(ctx)
         self.async_func = AlertKeywordsAsync(self.ctx)
+
+    def get_async_keyword_group(self) -> iAlertAsync:
+        return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
     def handle_alert(self, action, prompt_text=''):
@@ -24,4 +28,4 @@ class AlertKeywords(LibraryComponent):
         | ...    Click Button  | id=alert_confirm |     |
 
         """
-        return self.loop.run_until_complete(self.async_func.handle_alert_async(action, prompt_text))
+        return self.loop.run_until_complete(self.get_async_keyword_group().handle_alert(action, prompt_text))

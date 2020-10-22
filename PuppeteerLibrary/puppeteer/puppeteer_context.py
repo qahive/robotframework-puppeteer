@@ -1,6 +1,7 @@
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_alert import PuppeteerAlert
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_screenshot import PuppeteerScreenshot
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_waiting import PuppeteerWaiting
 from PuppeteerLibrary.custom_elements.base_page import BasePage
@@ -90,6 +91,7 @@ class PuppeteerContext(iLibraryContext):
 
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
+            "AlertKeywords": PuppeteerAlert(self),
             "BrowserManagementKeywords": PuppeteerBrowserManagement(self),
             "ElementKeywords": PuppeteerElement(self),
             "ScreenshotKeywords": PuppeteerScreenshot(self),
