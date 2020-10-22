@@ -75,4 +75,4 @@ jobs:
       uses: GabrielBB/xvfb-action@v1
       with:
         working-directory: ./ #optional
-        run: robot -v BROWSER:${{ matrix.browser }} -e IgnoreANDIgnore_${{ matrix.browser }} Examples
+        run: robot -v BROWSER:${{ matrix.browser }} -e IgnoreORIgnore_${{ matrix.browser }} Examples
