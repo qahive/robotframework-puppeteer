@@ -1,5 +1,4 @@
 *** Settings ***
-Library    Dialogs    
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page    
 Test Teardown    Close All Browser
@@ -17,13 +16,13 @@ Accept alert
     Run Async Keywords
     ...    Handle Alert    ACCEPT    AND
     ...    Click Element    id=alert_confirm
-    # ...    Click Button    id=alert_confirm
     Click Element    id:get_ajax
 
 Dismiss alert
+    [Tags]    IGNORE_webkit
     Run Async Keywords
     ...    Handle Alert    DISMISS    AND
-    ...    Click Button    id=alert_confirm
+    ...    Click Element    id=alert_confirm
     Click Element    id:get_ajax
 
     
