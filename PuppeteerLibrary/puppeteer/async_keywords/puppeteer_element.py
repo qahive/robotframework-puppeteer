@@ -13,6 +13,10 @@ class PuppeteerElement(iElementAsync):
     async def click_element(self, locator: str):
         return await self.library_ctx.get_current_page().click_with_selenium_locator(locator)
 
+    async def upload_file(self, locator: str, file_path: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        await element.uploadFile(file_path)
+
     ##############################
     # Status
     ##############################

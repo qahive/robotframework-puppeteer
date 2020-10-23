@@ -5,10 +5,14 @@ from abc import ABC, abstractmethod
 class iElementAsync(BaseAsyncKeywords, ABC):
 
     ##############################
-    # Click
+    # Action
     ##############################
     @abstractmethod
     async def click_element(self, locator: str):
+        pass
+    
+    @abstractmethod
+    async def upload_file(self, locator: str, file_path: str):
         pass
 
     ##############################

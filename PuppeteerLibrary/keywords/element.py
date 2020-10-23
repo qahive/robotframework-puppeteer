@@ -133,4 +133,4 @@ class ElementKeywords(LibraryComponent):
     def upload_file(self, locator, file_path):
         """ Upload file
         """
-        return self.loop.run_until_complete(self.async_func.upload_file_async(locator, file_path))
+        return self.loop.run_until_complete(self.get_async_keyword_group().upload_file(locator, file_path))
