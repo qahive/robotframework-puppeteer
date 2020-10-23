@@ -60,9 +60,9 @@ class BasePage(ABC):
     async def waitForSelector_with_selenium_locator(self, selenium_locator: str, timeout: float, visible=False, hidden=False):
         pass
 
-    ############
+    ##############################
     # Query
-    ############
+    ##############################
     @abstractmethod
     async def querySelector(self, selector: str):
         pass
@@ -73,4 +73,15 @@ class BasePage(ABC):
 
     @abstractmethod
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
+        pass
+
+    ##############################
+    # iframe
+    ##############################
+    @abstractmethod
+    def set_current_iframe(self, iframe):
+        pass
+
+    @abstractmethod
+    def unselect_iframe(self):
         pass

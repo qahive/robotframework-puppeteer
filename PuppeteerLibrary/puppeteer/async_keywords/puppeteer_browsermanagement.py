@@ -84,3 +84,14 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
             raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
         raise Exception('Can\'t find specify page locator.')
 
+    ##############################
+    # iFrame
+    ##############################
+    async def select_frame(self, locator: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator) 
+        iframe = await element.contentFrame()
+        self.library_ctx.get_current_page().set_current_iframe(iframe)
+
+    def unselect_iframe(self):
+        self.library_ctx.get_current_page().unselect_iframe()
+    

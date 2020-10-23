@@ -88,3 +88,13 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         else:
             raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
         raise Exception('Can\'t find specify page locator.')
+
+    ##############################
+    # iFrame
+    ##############################
+    async def select_frame(self, locator: str):
+        raise Exception('Not implemented.')
+
+    async def unselect_frame(self):
+        raise Exception('Not implemented.')
+    

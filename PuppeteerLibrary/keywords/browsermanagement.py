@@ -178,9 +178,9 @@ class BrowserManagementKeywords(LibraryComponent):
         return self.loop.run_until_complete(self.get_async_keyword_group().enable_emulate_mode_async(emulate_name))
 
     @keyword
-    def select_frame(self, selenium_locator):
-        return self.loop.run_until_complete(self.async_func.select_frame_async(selenium_locator))
+    def select_frame(self, locator):
+        return self.loop.run_until_complete(self.get_async_keyword_group().select_frame(locator))
 
     @keyword
     def unselect_frame(self):
-        self.ctx.clear_current_iframe()
+        self.get_async_keyword_group().unselect_iframe()

@@ -111,3 +111,12 @@ class PlaywrightPage(BasePage):
             return (await self.get_page().xpath(selector_value))[0]
         else:
             return await self.get_page().querySelector(selector_value)
+
+    ##############################
+    # iframe
+    ##############################
+    def set_current_iframe(self, iframe):
+        self.selected_iframe = iframe
+
+    def unselect_iframe(self):
+        self.selected_iframe = None

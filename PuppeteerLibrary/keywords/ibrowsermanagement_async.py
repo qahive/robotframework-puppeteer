@@ -31,3 +31,14 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
     @abstractmethod
     async def switch_window(self, locator='MAIN'):
         pass
+
+    ##############################
+    # iFrame
+    ##############################
+    @abstractmethod
+    async def select_frame(self, locator: str):
+        pass
+
+    @abstractmethod
+    def unselect_iframe(self):
+        pass
