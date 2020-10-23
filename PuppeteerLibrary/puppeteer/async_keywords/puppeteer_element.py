@@ -28,3 +28,16 @@ class PuppeteerElement(iElementAsync):
         if not is_disabled:
             raise AssertionError("Element '%s' is enabled. " % locator)
         return element
+
+    async def element_should_be_visible(self, locator:str):
+        try:
+            return await self.library_ctx.get_current_page().waitForSelector_with_selenium_locator(locator, 0.1, visible=True, hidden=False)
+        except:
+            raise AssertionError("Element '%s' is not be visible. " % locator)
+    
+    async def element_should_not_be_visible(self, locator:str):
+        try:
+            return await self.library_ctx.get_current_page().waitForSelector_with_selenium_locator(locator, 0.1, visible=False, hidden=True)
+        except:
+            raise AssertionError("Element '%s' is visible. " % locator)
+

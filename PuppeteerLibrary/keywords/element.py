@@ -92,14 +92,14 @@ class ElementKeywords(LibraryComponent):
         """ Verifies that element identified by locator is visible.
 
         """
-        return self.loop.run_until_complete(self.async_func.element_should_be_visible_async(locator))
+        return self.loop.run_until_complete(self.get_async_keyword_group().element_should_be_visible(locator))
 
     @keyword
     def element_should_not_be_visible(self, locator):
         """ Verifies that element identified by locator is not be visible.
 
         """
-        return self.loop.run_until_complete(self.async_func.element_should_not_be_visible_async(locator))
+        return self.loop.run_until_complete(self.get_async_keyword_group().element_should_not_be_visible(locator))
 
     @keyword
     def element_should_contain(self, locator, expected, ignore_case=False):
