@@ -61,7 +61,7 @@ class ElementKeywords(LibraryComponent):
 
         | ${text}                                    | `Get Text`          | id:username |
         """
-        return self.loop.run_until_complete(self.async_func.get_text_async(locator))
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_text(locator))
 
     @keyword
     def get_value(self, locator):
@@ -106,28 +106,28 @@ class ElementKeywords(LibraryComponent):
         """ Verifies that element locator contains text `expected`.
 
         """
-        return self.loop.run_until_complete(self.async_func.element_should_contain_async(locator, expected, ignore_case))
+        return self.loop.run_until_complete(self.get_async_keyword_group().element_should_contain(locator, expected, ignore_case))
 
     @keyword
     def element_should_not_contain(self, locator, expected, ignore_case=False):
         """ Verifies that element locator should not contains text `expected`.
 
         """
-        return self.loop.run_until_complete(self.async_func.element_should_not_contain_async(locator, expected, ignore_case))
+        return self.loop.run_until_complete(self.get_async_keyword_group().element_should_not_contain(locator, expected, ignore_case))
 
     @keyword
     def element_text_should_be(self, locator, expected, ignore_case=False):
         """ Verifies that element locator contains exact the text `expected`.
 
         """
-        return self.loop.run_until_complete(self.async_func.element_text_should_be_async(locator, expected, ignore_case))
+        return self.loop.run_until_complete(self.get_async_keyword_group().element_text_should_be(locator, expected, ignore_case))
 
     @keyword
     def element_text_should_not_be(self, locator, expected, ignore_case=False):
         """ Verifies that element locator not contains exact the text `expected`.
 
         """
-        return self.loop.run_until_complete(self.async_func.element_text_should_not_be_async(locator, expected, ignore_case))
+        return self.loop.run_until_complete(self.get_async_keyword_group().element_text_should_not_be(locator, expected, ignore_case))
 
     @keyword
     def upload_file(self, locator, file_path):

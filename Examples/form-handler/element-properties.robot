@@ -1,5 +1,4 @@
 *** Settings ***
-Force Tags    Ignore
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page
 Test Teardown    Close All Browser
@@ -21,7 +20,11 @@ Element is visible and not visible
     Element Should Be Visible    id:prop-visible
     Element Should Not Be Visible    id:prop-hide
     Run Keyword And Expect Error    REGEXP:Element 'id:prop-hide' is not be visible    Element Should Be Visible    id:prop-hide
-    
+
+Get Element Text
+    ${text} =    Get Text    id=prop-text    
+    Should Contain    ${text}    Please
+
 Element should containt text
     Element Should Contain    id=prop-text    Please    ${True}
     

@@ -1,3 +1,4 @@
+from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.keywords.ielement_async import iElementAsync
 
 
@@ -40,4 +41,27 @@ class PuppeteerElement(iElementAsync):
             return await self.library_ctx.get_current_page().waitForSelector_with_selenium_locator(locator, 0.1, visible=False, hidden=True)
         except:
             raise AssertionError("Element '%s' is visible. " % locator)
+
+    ##############################
+    # Property
+    ##############################
+    async def element_should_contain(self, locator: str, expected: str, ignore_case=False):
+        text = await self.get_text(locator)
+        return BuiltIn().should_contain(text, expected, ignore_case=ignore_case)
+
+    async def element_should_not_contain(self, locator: str, expected: str, ignore_case=False):
+        text = await self.get_text(locator)
+        return BuiltIn().should_not_contain(text, expected, ignore_case=ignore_case)
+
+    async def get_text(self, locator: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        return (await (await element.getProperty('textContent')).jsonValue())
+
+    async def element_text_should_be(self, locator: str, expected: str, ignore_case=False):
+        text = await self.get_text(locator)
+        return BuiltIn().should_be_equal_as_strings(text, expected, ignore_case=ignore_case)
+
+    async def element_text_should_not_be(self, locator: str, expected: str, ignore_case=False):
+        text = await self.get_text(locator)
+        return BuiltIn().should_not_be_equal_as_strings(text, expected, ignore_case=ignore_case)
 
