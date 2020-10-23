@@ -57,10 +57,15 @@ class PuppeteerPage(BasePage):
     # Type
     ############
     async def type_with_selenium_locator(self, selenium_locator: str, text: str, options: dict = None, **kwargs: Any):
-        pass
+        selector_value = SelectorAbstraction.get_selector(selenium_locator)
+        if SelectorAbstraction.is_xpath(selenium_locator):
+            await self.type_xpath(selector=selector_value, text=text, options=options, kwargs=kwargs)
+        else:
+            await self.get_page().type(selector=selector_value, text=text, options=options, kwargs=kwargs)
 
     async def type_xpath(self, selector, text: str, options: dict = None, **kwargs: Any):
-        pass
+        element = await self.get_page().xpath(selector)
+        await element[0].type(text, options, **kwargs)
 
     ############
     # Wait

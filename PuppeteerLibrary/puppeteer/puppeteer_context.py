@@ -9,6 +9,7 @@ from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_dropdown import PuppeteerDropdown
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_element import PuppeteerElement
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_formelement import PuppeteerFormElement
 from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
 from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 
@@ -97,6 +98,7 @@ class PuppeteerContext(iLibraryContext):
             "BrowserManagementKeywords": PuppeteerBrowserManagement(self),
             "DropdownKeywords": PuppeteerDropdown(self),
             "ElementKeywords": PuppeteerElement(self),
+            "FormElementKeywords": PuppeteerFormElement(self),
             "ScreenshotKeywords": PuppeteerScreenshot(self),
             "WaitingKeywords": PuppeteerWaiting(self)
         }
