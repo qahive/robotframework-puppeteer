@@ -76,22 +76,6 @@ class PuppeteerPage(BasePage):
             return await self._waitForXPath(xpath=selector_value, options=options)
         else:
             return await self._waitForSelector(selector=selector_value, options=options)
-    
-        '''
-        options = {
-            'timeout': timeout * 1000,
-            'state': 'visible'
-        }
-        if visible is True:
-            options['state'] = 'visible'
-        if hidden is True:
-            options['state'] = 'hidden'
-        selector_value = SelectorAbstraction.get_selector(selenium_locator)
-        return await self.get_page().waitForSelector(
-            selector=selector_value,
-            timeout=options['timeout'],
-            state=options['state'])
-        '''
 
     async def _waitForSelector(self, selector: str, options: dict = None):
         if self.selected_iframe is None:

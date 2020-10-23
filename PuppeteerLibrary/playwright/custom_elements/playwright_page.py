@@ -82,11 +82,21 @@ class PlaywrightPage(BasePage):
     # Query
     ############
     async def querySelector(self, selector: str):
-        pass
+        if self.selected_iframe is not None:
+            return await self.selected_iframe.querySelector(selector=selector)
+        else:
+            return await self.get_page().querySelector(selector=selector)
 
     async def querySelectorAll_with_selenium_locator(self, selenium_locator: str):
-        pass
+        selector_value = SelectorAbstraction.get_selector(selenium_locator)
+        if SelectorAbstraction.is_xpath(selenium_locator):
+            return await self.get_page().xpath(selector_value)
+        else:
+            return await self.get_page().querySelectorAll(selector_value)
     
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
-        pass
-
+        selector_value = SelectorAbstraction.get_selector(selenium_locator)
+        if SelectorAbstraction.is_xpath(selenium_locator):
+            return (await self.get_page().xpath(selector_value))[0]
+        else:
+            return await self.get_page().querySelector(selector_value)
