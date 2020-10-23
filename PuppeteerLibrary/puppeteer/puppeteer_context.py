@@ -79,7 +79,8 @@ class PuppeteerContext(iLibraryContext):
         return self.current_page
 
     def set_current_page(self, page: any) -> BasePage:
-        pass
+        self.current_page = PuppeteerPage(page)
+        return self.current_page
 
     async def get_all_pages(self):
         return await self.browser.pages()

@@ -1,11 +1,11 @@
 *** Settings ***
+Library    Dialogs    
 Library    PuppeteerLibrary
 Suite Teardown    Close Puppeteer
 Test Teardown    Close All Browser
 
 *** Variables ***
 ${DEFAULT_BROWSER}    chrome
-# ${DEFAULT_BROWSER}    webkit
 
 
 *** Test Cases ***
@@ -18,6 +18,7 @@ Switch to new browser
     ...    Click Element    id=open-new-tab    AND
     ...    Wait For New Window Open
     Switch Window    NEW
+    Dialogs.Pause Execution    
     Wait Until Page Contains Element    id=exampleInputEmail1
     Switch Window    title=Basic HTML Elements
     Wait Until Page Contains Element    id=open-new-tab    
