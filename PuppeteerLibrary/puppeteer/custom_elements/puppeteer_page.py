@@ -37,7 +37,7 @@ class PuppeteerPage(BasePage):
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            await self.page.click_xpath(selector_value, options, **kwargs)
+            await self.click_xpath(selector_value, options, **kwargs)
         else:
             await self.click(selector_value, options, **kwargs)
 
@@ -45,10 +45,15 @@ class PuppeteerPage(BasePage):
         if self.selected_iframe is not None:
             return await self.selected_iframe.click(selector=selector, options=options, kwargs=kwargs)
         else:
-            return await self.page.click(selector=selector, options=options, kwargs=kwargs)
+            return await self.get_page().click(selector=selector, options=options, kwargs=kwargs)
 
     async def click_xpath(self, selector: str, options: dict = None, **kwargs: Any):
-        pass
+        if self.selected_iframe is not None:
+            elements = await self.selected_iframe.xpath(selector)
+            return await elements[0].click(options, **kwargs)
+        else:
+            elements = await self.get_page().xpath(selector)
+            return await elements[0].click(options, **kwargs)
 
     ############
     # Type
@@ -58,11 +63,21 @@ class PuppeteerPage(BasePage):
         if SelectorAbstraction.is_xpath(selenium_locator):
             await self.type_xpath(selector=selector_value, text=text, options=options, kwargs=kwargs)
         else:
-            await self.get_page().type(selector=selector_value, text=text, options=options, kwargs=kwargs)
+            await self.type(selector=selector_value, text=text, options=options, kwargs=kwargs)
+
+    async def type(self, selector, text: str, options: dict = None, **kwargs: Any):
+        if self.selected_iframe is not None:
+            return await self.selected_iframe.type(selector=selector, text=text, options=options, kwargs=kwargs)
+        else:
+            return await self.get_page().type(selector=selector, text=text, options=options, kwargs=kwargs)
 
     async def type_xpath(self, selector, text: str, options: dict = None, **kwargs: Any):
-        element = await self.get_page().xpath(selector)
-        await element[0].type(text, options, **kwargs)
+        if self.selected_iframe is not None:
+            elements = await self.selected_iframe.xpath(selector)
+            await elements[0].type(text, options, **kwargs)
+        else:
+            elements = await self.get_page().xpath(selector)
+            await elements[0].type(text, options, **kwargs)
 
     ############
     # Wait
