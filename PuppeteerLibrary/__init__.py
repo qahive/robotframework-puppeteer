@@ -164,22 +164,41 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         return list(self.library_contexts.values())
 
     @not_keyword
+    def get_all_library_context_dict(self) -> dict:
+        return self.library_contexts
+
+    @not_keyword
+    def get_browser(self) -> Browser:
+        return self.browser
+
+    @not_keyword
     def create_library_context(self, alias: str, browser_type: str) -> iLibraryContext:
         library_context = self.library_factory.create(browser_type)
         self.library_contexts[alias] = library_context
         self.current_libary_context = library_context
         return library_context    
+    
+    @not_keyword
+    def remove_library_context(self, alias):
+        if alias not in self.library_contexts.keys():
+            return
+        deleted_library_context = self.library_contexts[alias]
+        del self.library_contexts[alias]
+        if self.current_libary_context == deleted_library_context:
+            if len(self.library_contexts) > 0:
+                self.current_libary_context = list(self.library_contexts.values())[-1]
+            else:
+                self.current_libary_context = None
 
+    ##############################
+    # Will obsolted
+    ##############################
     @not_keyword
     def load_async_keywords(self):
         if self.is_load_async_keywords is True:
             return
         self.add_library_components(self.async_libraries)
         self.is_load_async_keywords = True
-
-    @not_keyword
-    def get_browser(self) -> Browser:
-        return self.browser
 
     @not_keyword
     def clear_browser(self):
@@ -190,15 +209,6 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         self.clear_current_iframe()
 
     @not_keyword
-    async def add_context_async(self, alias, browser_context):
-        if alias in self.contexts.keys():
-           await self.contexts[alias].close()
-           del self.contexts[alias]
-        self.current_context_name = alias
-        self.contexts[self.current_context_name] = browser_context
-
-    @not_keyword
-    # Will obsolted
     async def create_context_async(self, alias) -> BrowserContext:
         context = await self.browser.createIncognitoBrowserContext()
         if alias in self.contexts.keys():
@@ -207,6 +217,13 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         self.current_context_name = alias
         self.contexts[self.current_context_name] = context
         return context
+    
+    @not_keyword
+    async def add_context_async(self, alias, browser_context):
+        if alias in self.library_contexts.keys():
+           del self.library_contexts[alias]
+        self.current_context_name = alias
+        self.library_contexts[self.current_context_name] = browser_context
 
     @not_keyword
     def get_current_context(self) -> BrowserContext:

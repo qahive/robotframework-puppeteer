@@ -17,11 +17,11 @@ Select dropdown list by values with id
 Select dropdown list by values with xpath
     Select From List By Value    xpath=//select[@id="cars"]    audi
     
-Select dropdown list by labels with id
-    Select From List By Label    id=cars    Audi
+# Select dropdown list by labels with id
+#    Select From List By Label    id=cars    Audi
     
-Select dropdown list by labels with xpath
-    Select From List By Label    xpath=//select[@id="cars"]    Audi   
+# Select dropdown list by labels with xpath
+#    Select From List By Label    xpath=//select[@id="cars"]    Audi   
 
 *** Keywords ***
 Open browser to test page

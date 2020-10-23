@@ -63,9 +63,10 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def close_puppeteer(self):
-        library_contexts =  self.ctx.get_all_library_context()
-        for library_context in library_contexts:
-            self.loop.run_until_complete(library_context.stop_server())
+        library_contexts_dict =  self.ctx.get_all_library_context_dict()
+        for key in list(library_contexts_dict.keys()):
+            self.loop.run_until_complete(library_contexts_dict[key].stop_server())
+            self.ctx.remove_library_context(key)
 
     @keyword
     def maximize_browser_window(self, width=1366, height=768):
