@@ -4,8 +4,7 @@ Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-# ${DEFAULT_BROWSER}    chrome
-${DEFAULT_BROWSER}    webkit
+${DEFAULT_BROWSER}    chrome
 
 
 *** Test Cases ***

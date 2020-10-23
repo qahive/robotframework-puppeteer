@@ -1,5 +1,6 @@
-from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
 from PuppeteerLibrary.custom_elements.base_page import BasePage
+from PuppeteerLibrary.playwright.async_keywords.playwright_formelement import PlaywrightFormElement
+from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
 from PuppeteerLibrary.playwright.async_keywords.playwright_alert import PlaywrightAlert
 from PuppeteerLibrary.playwright.async_keywords.playwright_screenshot import PlaywrightScreenshot
 from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import PlaywrightWaiting
@@ -74,6 +75,7 @@ class PlaywrightContext(iLibraryContext):
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self),
             "DropdownKeywords": PlaywrightDropdown(self),
             "ElementKeywords": PlaywrightElement(self),
+            "FormElementKeywords": PlaywrightFormElement(self),
             "ScreenshotKeywords": PlaywrightScreenshot(self),
             "WaitingKeywords": PlaywrightWaiting(self)
         }

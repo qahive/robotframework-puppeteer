@@ -41,23 +41,34 @@ class PlaywrightPage(BasePage):
             return await self.selected_iframe.click(selector=selector, options=options, kwargs=kwargs)
 
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
+        if options is None:
+            options = {}
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            await self.page.click_xpath(selector_value, options, **kwargs)
+            await self.page.click_xpath(selector_value, **options)
         else:
-            await self.page.click(selector_value, options, **kwargs)
+            await self.page.click(selector_value, **options)
 
     async def click_xpath(self, selector: str, options: dict = None, **kwargs: Any):
-        pass
+        raise Exception('Not implemented click_xpath.')
 
     ############
     # Type
     ############
     async def type_with_selenium_locator(self, selenium_locator: str, text: str, options: dict = None, **kwargs: Any):
-        pass
+        if options is None:
+            options = {}
+        selector_value = SelectorAbstraction.get_selector(selenium_locator)
+        if SelectorAbstraction.is_xpath(selenium_locator):
+            await self.type_xpath(selector=selector_value, text=text, **options)
+        else:
+            await self.get_page().type(selector=selector_value, text=text, **options)
 
     async def type_xpath(self, selector, text: str, options: dict = None, **kwargs: Any):
-        pass
+        if options is None:
+            options = {}
+        element = await self.get_page().xpath(selector)
+        await element[0].type(text, **options)
 
     ############
     # Wait
