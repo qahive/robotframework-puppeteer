@@ -45,14 +45,14 @@ class PuppeteerPage(BasePage):
         if self.selected_iframe is not None:
             return await self.selected_iframe.click(selector=selector, options=options, kwargs=kwargs)
         else:
-            return await self.get_page().click(selector=selector, options=options, kwargs=kwargs)
+            return await self.page.click(selector=selector, options=options, kwargs=kwargs)
 
     async def click_xpath(self, selector: str, options: dict = None, **kwargs: Any):
         if self.selected_iframe is not None:
             elements = await self.selected_iframe.xpath(selector)
             return await elements[0].click(options, **kwargs)
         else:
-            elements = await self.get_page().xpath(selector)
+            elements = await self.page.xpath(selector)
             return await elements[0].click(options, **kwargs)
 
     ############
@@ -69,14 +69,14 @@ class PuppeteerPage(BasePage):
         if self.selected_iframe is not None:
             return await self.selected_iframe.type(selector=selector, text=text, options=options, kwargs=kwargs)
         else:
-            return await self.get_page().type(selector=selector, text=text, options=options, kwargs=kwargs)
+            return await self.page.type(selector=selector, text=text, options=options, kwargs=kwargs)
 
     async def type_xpath(self, selector, text: str, options: dict = None, **kwargs: Any):
         if self.selected_iframe is not None:
             elements = await self.selected_iframe.xpath(selector)
             await elements[0].type(text, options, **kwargs)
         else:
-            elements = await self.get_page().xpath(selector)
+            elements = await self.page.xpath(selector)
             await elements[0].type(text, options, **kwargs)
 
     ############
@@ -96,13 +96,13 @@ class PuppeteerPage(BasePage):
 
     async def _waitForSelector(self, selector: str, options: dict = None):
         if self.selected_iframe is None:
-            return await self.get_page().waitForSelector(selector=selector, options=options)
+            return await self.page.waitForSelector(selector=selector, options=options)
         else:
             return await self.selected_iframe.waitForSelector(selector=selector, options=options)
 
     async def _waitForXPath(self, xpath: str, options: dict = None):
         if self.selected_iframe is None:
-            return await self.get_page().waitForXPath(xpath=xpath, options=options)
+            return await self.page.waitForXPath(xpath=xpath, options=options)
         else:
             return await self.selected_iframe.waitForXPath(xpath=xpath, options=options)
 
@@ -113,21 +113,21 @@ class PuppeteerPage(BasePage):
         if self.selected_iframe is not None:
             return await self.selected_iframe.querySelector(selector=selector)
         else:
-            return await self.get_page().querySelector(selector=selector)
+            return await self.page.querySelector(selector=selector)
 
     async def querySelectorAll_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            return await self.get_page().xpath(selector_value)
+            return await self.page.xpath(selector_value)
         else:
-            return await self.get_page().querySelectorAll(selector_value)
+            return await self.page.querySelectorAll(selector_value)
     
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if SelectorAbstraction.is_xpath(selenium_locator):
-            return (await self.get_page().xpath(selector_value))[0]
+            return (await self.page.xpath(selector_value))[0]
         else:
-            return await self.get_page().querySelector(selector_value)
+            return await self.page.querySelector(selector_value)
 
     ##############################
     # iframe
