@@ -93,8 +93,10 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
     # iFrame
     ##############################
     async def select_frame(self, locator: str):
-        raise Exception('Not implemented.')
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator) 
+        iframe = await element.contentFrame()
+        self.library_ctx.get_current_page().set_current_iframe(iframe)
 
-    async def unselect_frame(self):
-        raise Exception('Not implemented.')
+    def unselect_iframe(self):
+        self.library_ctx.get_current_page().unselect_iframe()
     

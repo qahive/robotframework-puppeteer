@@ -31,15 +31,7 @@ class BasePage(ABC):
     # Click
     ############
     @abstractmethod
-    async def click(self, selector: str, options: dict = None, **kwargs: Any):
-        pass
-
-    @abstractmethod
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
-        pass
-
-    @abstractmethod
-    async def click_xpath(self, selector: str, options: dict = None, **kwargs: Any):
         pass
 
     ############
@@ -47,10 +39,6 @@ class BasePage(ABC):
     ############
     @abstractmethod
     async def type_with_selenium_locator(self, selenium_locator: str, text: str, options: dict = None, **kwargs: Any):
-        pass
-
-    @abstractmethod
-    async def type_xpath(self, selector, text: str, options: dict = None, **kwargs: Any):
         pass
 
     ############

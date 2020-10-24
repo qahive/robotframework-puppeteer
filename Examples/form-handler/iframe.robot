@@ -6,8 +6,7 @@ Suite Teardown    Close Puppeteer
 
 
 *** Variables ***
-# ${DEFAULT_BROWSER}    chrome
-${DEFAULT_BROWSER}    webkit
+${DEFAULT_BROWSER}    chrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
