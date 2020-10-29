@@ -8,3 +8,4 @@ from .ijavascript_async import iJavascriptAsync
 from .imouseevent_async import iMouseEventAsync
 from .iscreenshot_async import iScreenshotAsync
 from .iwaiting_async import iWaitingAsync
+from .ipdf_async import iPDFAsync

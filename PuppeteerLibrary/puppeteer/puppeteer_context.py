@@ -12,8 +12,9 @@ from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_element import Puppetee
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_formelement import PuppeteerFormElement
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_mouseevent import PuppeteerMouseEvent
 from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
-from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_pdf import PuppeteerPDF
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_javascript import PuppeteerJavascript
+from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 
 
 class PuppeteerContext(iLibraryContext):
@@ -103,6 +104,7 @@ class PuppeteerContext(iLibraryContext):
             "FormElementKeywords": PuppeteerFormElement(self),
             "JavascriptKeywords": PuppeteerJavascript(self),
             "MouseEventKeywords": PuppeteerMouseEvent(self),
+            "PDFKeywords": PuppeteerPDF(self),
             "ScreenshotKeywords": PuppeteerScreenshot(self),
             "WaitingKeywords": PuppeteerWaiting(self)
         }

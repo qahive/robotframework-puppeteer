@@ -1,6 +1,6 @@
-from PuppeteerLibrary.playwright.async_keywords.playwright_javascript import PlaywrightJavascript
 import asyncio
 from PuppeteerLibrary.custom_elements.base_page import BasePage
+from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
 from PuppeteerLibrary.playwright.async_keywords.playwright_formelement import PlaywrightFormElement
 from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
 from PuppeteerLibrary.playwright.async_keywords.playwright_alert import PlaywrightAlert
@@ -9,8 +9,9 @@ from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import Playwr
 from PuppeteerLibrary.playwright.async_keywords.playwright_element import PlaywrightElement
 from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
 from PuppeteerLibrary.playwright.async_keywords.playwright_mouseevent import PlaywrightMouseEvent
-from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
 from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
+from PuppeteerLibrary.playwright.async_keywords.playwright_pdf import PlaywrightPDF
+from PuppeteerLibrary.playwright.async_keywords.playwright_javascript import PlaywrightJavascript
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 try:
     from playwright import async_playwright
@@ -84,6 +85,7 @@ class PlaywrightContext(iLibraryContext):
             "FormElementKeywords": PlaywrightFormElement(self),
             "JavascriptKeywords": PlaywrightJavascript(self),
             "MouseEventKeywords": PlaywrightMouseEvent(self),
+            "PDFKeywords": PlaywrightPDF(self),
             "ScreenshotKeywords": PlaywrightScreenshot(self),
             "WaitingKeywords": PlaywrightWaiting(self)
         }
