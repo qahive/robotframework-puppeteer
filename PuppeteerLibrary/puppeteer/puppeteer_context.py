@@ -1,15 +1,16 @@
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
+from PuppeteerLibrary.custom_elements.base_page import BasePage
+from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_alert import PuppeteerAlert
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_screenshot import PuppeteerScreenshot
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_waiting import PuppeteerWaiting
-from PuppeteerLibrary.custom_elements.base_page import BasePage
-from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_dropdown import PuppeteerDropdown
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_element import PuppeteerElement
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_formelement import PuppeteerFormElement
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_mouseevent import PuppeteerMouseEvent
 from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
 from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 
@@ -99,6 +100,7 @@ class PuppeteerContext(iLibraryContext):
             "DropdownKeywords": PuppeteerDropdown(self),
             "ElementKeywords": PuppeteerElement(self),
             "FormElementKeywords": PuppeteerFormElement(self),
+            "MouseEventKeywords": PuppeteerMouseEvent(self),
             "ScreenshotKeywords": PuppeteerScreenshot(self),
             "WaitingKeywords": PuppeteerWaiting(self)
         }

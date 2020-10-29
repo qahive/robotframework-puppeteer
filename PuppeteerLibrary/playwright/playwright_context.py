@@ -6,6 +6,7 @@ from PuppeteerLibrary.playwright.async_keywords.playwright_screenshot import Pla
 from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import PlaywrightWaiting
 from PuppeteerLibrary.playwright.async_keywords.playwright_element import PlaywrightElement
 from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
+from PuppeteerLibrary.playwright.async_keywords.playwright_mouseevent import PlaywrightMouseEvent
 from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
 from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
@@ -76,6 +77,7 @@ class PlaywrightContext(iLibraryContext):
             "DropdownKeywords": PlaywrightDropdown(self),
             "ElementKeywords": PlaywrightElement(self),
             "FormElementKeywords": PlaywrightFormElement(self),
+            "MouseEventKeywords": PlaywrightMouseEvent(self),
             "ScreenshotKeywords": PlaywrightScreenshot(self),
             "WaitingKeywords": PlaywrightWaiting(self)
         }
