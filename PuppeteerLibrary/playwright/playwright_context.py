@@ -1,3 +1,4 @@
+import asyncio
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.async_keywords.playwright_formelement import PlaywrightFormElement
 from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
@@ -67,7 +68,10 @@ class PlaywrightContext(iLibraryContext):
 
     async def close_browser_context(self):
         if self.browser is not None:
-            await self.browser.close()
+            try:
+                await asyncio.wait_for(self.browser.close(), timeout=3)
+            except asyncio.TimeoutError:
+                None
         self._reset_context()
 
     def get_async_keyword_group(self, keyword_group_name: str):

@@ -1,13 +1,14 @@
 *** Settings ***
 Force Tags    Ignore
+Library    Dialogs    
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page
 Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
-# ${DEFAULT_BROWSER}    webkit
+# ${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    webkit
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
@@ -16,7 +17,7 @@ Run Async Keywords and wait for first completed keyword
     ${result} =    Run Async Keywords And Return First Completed
     ...    Click Element    id=non_existing_id    AND
     ...    Click Element    id=get_ajax
-    Should Be Equal As Integers    1    ${result}    
+    Should Be Equal As Integers    1    ${result}
     Run Keyword If    ${result} == 0    Log    first keyword completed
     Run Keyword If    ${result} == 1    Log    second keyword completed
     

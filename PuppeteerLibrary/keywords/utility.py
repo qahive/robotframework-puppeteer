@@ -1,5 +1,4 @@
 import asyncio
-import inspect
 from PuppeteerLibrary.keywords.browsermanagement import BrowserManagementKeywords
 from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
 from robot.libraries.BuiltIn import _RunKeyword
@@ -8,6 +7,9 @@ from PuppeteerLibrary.base.robotlibcore import keyword
 
 
 class UtilityKeywords(LibraryComponent):
+
+    def __init__(self, ctx):
+        super().__init__(ctx)
 
     @keyword
     def run_async_keywords_and_return_first_completed(self, *keywords):
@@ -19,20 +21,16 @@ class UtilityKeywords(LibraryComponent):
         | `Run Async Keywords And Return First Completed` | Wait for response url | ${HOME_PAGE_URL}/login.html | AND  |
         | ...                                             | Wait for response url | ${HOME_PAGE_URL}/home.html  |      |
         """
-        self.ctx.load_async_keywords()
         run_keyword = _RunKeyword()
         return self.loop.run_until_complete( self._run_async_keywords_first_completed(run_keyword._split_run_keywords(list(keywords))) )
-
-    async def _wrapped_async_keyword_return_index(self, index, future):
-        await future
-        return index
 
     async def _run_async_keywords_first_completed(self, iterable):
         org_statements = []
         index = 0
         for kw, args in iterable:
-            kw_name = kw.lower().replace(' ', '_') + '_async'
-            org_statements.append(self._wrapped_async_keyword_return_index(index, self.ctx.keywords[kw_name](*args)))
+            kw_name = kw.lower().replace(' ', '_')
+            async_keywords = self.ctx.keywords[kw_name].__self__.get_async_keyword_group()
+            org_statements.append(self._wrapped_async_keyword_return_index(index, getattr(async_keywords, kw_name)(*args) ))
             index += 1
         statements = org_statements
         error_stack_trace = ''
@@ -52,7 +50,11 @@ class UtilityKeywords(LibraryComponent):
                     continue
             if len(pending) == 0:
                 raise Exception("All async keywords failed \r\n"+ error_stack_trace)
-        
+
+    async def _wrapped_async_keyword_return_index(self, index, future):
+        await future
+        return index
+
     @keyword
     def run_async_keywords(self, *keywords):
         """Executes all the given keywords in a asynchronous and wait until all keyword is completed
@@ -83,7 +85,7 @@ class UtilityKeywords(LibraryComponent):
     async def _run_async_keywords(self, iterable):
         statements = []
         for kw, args in iterable:
-            kw_name = kw.lower().replace(' ', '_') + '_async'
+            kw_name = kw.lower()
             statements.append(self.ctx.keywords[kw_name](*args))
         try:
             return await asyncio.gather(*statements)
