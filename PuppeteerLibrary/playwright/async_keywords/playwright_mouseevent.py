@@ -8,13 +8,19 @@ class PlaywrightMouseEvent(iMouseEventAsync):
         super().__init__(library_ctx)
 
     async def mouse_over(self, locator):
-        raise Exception('Not implemented')
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        await element.hover()
 
     async def mouse_down(self, locator):
-        raise Exception('Not implemented')
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        bounding_box = await element.boundingBox()
+        await self.library_ctx.get_current_page().get_page().mouse.move(
+            bounding_box['x'] + bounding_box['width'] / 2,
+            bounding_box['y'] + bounding_box['height'] / 2)
+        await self.library_ctx.get_current_page().get_page().mouse.down()
     
     async def mouse_up(self):
-        raise Exception('Not implemented')
+        await self.library_ctx.get_current_page().get_page().mouse.up()
 
     async def mouse_move(self, x, y):
-        raise Exception('Not implemented')
+        await self.library_ctx.get_current_page().get_page().mouse.move(int(x), int(y))

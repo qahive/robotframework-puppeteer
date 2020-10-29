@@ -3,6 +3,7 @@ Force Tags    Ignore
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page    
 Test Teardown    Close All Browser
+Suite Teardown    Close Puppeteer
 
 *** Variables ***
 ${DEFAULT_BROWSER}    chrome
@@ -29,4 +30,3 @@ Open browser to test page
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   browser=${BROWSER}    options=${options}
-
