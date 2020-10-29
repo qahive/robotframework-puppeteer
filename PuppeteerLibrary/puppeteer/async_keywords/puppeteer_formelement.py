@@ -1,5 +1,5 @@
 from robot.libraries.BuiltIn import BuiltIn
-from PuppeteerLibrary.keywords.iformelement_async import iFormElementAsync
+from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
 
 
 class PuppeteerFormElement(iFormElementAsync):

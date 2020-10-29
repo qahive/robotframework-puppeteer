@@ -1,7 +1,7 @@
-from PuppeteerLibrary.keywords.ielement_async import iElementAsync
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.element_async import ElementKeywordsAsync
+from PuppeteerLibrary.ikeywords.ielement_async import iElementAsync
 
 
 class ElementKeywords(LibraryComponent):

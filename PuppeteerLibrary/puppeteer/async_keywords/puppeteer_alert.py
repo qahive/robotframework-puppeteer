@@ -1,5 +1,5 @@
 import asyncio
-from PuppeteerLibrary.keywords.ialert_async import iAlertAsync
+from PuppeteerLibrary.ikeywords.ialert_async import iAlertAsync
 
 
 class PuppeteerAlert(iAlertAsync):

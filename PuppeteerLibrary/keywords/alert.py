@@ -1,14 +1,12 @@
+from PuppeteerLibrary.ikeywords.ialert_async import iAlertAsync
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.keywords.alert_async import AlertKeywordsAsync
-from PuppeteerLibrary.keywords.ialert_async import iAlertAsync
 
 
 class AlertKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = AlertKeywordsAsync(self.ctx)
 
     def get_async_keyword_group(self) -> iAlertAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)

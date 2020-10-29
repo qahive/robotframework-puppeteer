@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.iformelement_async import iFormElementAsync
+from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.formelement_async import FormElementKeywordsAsync

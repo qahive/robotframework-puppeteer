@@ -1,5 +1,5 @@
 from robot.libraries.BuiltIn import BuiltIn
-from PuppeteerLibrary.keywords.ielement_async import iElementAsync
+from PuppeteerLibrary.ikeywords.ielement_async import iElementAsync
 
 
 class PuppeteerElement(iElementAsync):

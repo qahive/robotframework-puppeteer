@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.idropdown_async import iDropdownAsync
+from PuppeteerLibrary.ikeywords.idropdown_async import iDropdownAsync
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
 
 

@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.iwaiting_async import iWaitingAsync
+from PuppeteerLibrary.ikeywords.iwaiting_async import iWaitingAsync
 from PuppeteerLibrary.keywords.waiting_async import WaitingKeywordsAsync
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword

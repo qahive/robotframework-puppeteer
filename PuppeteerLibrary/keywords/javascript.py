@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.ijavascript_async import iJavascriptAsync
+from PuppeteerLibrary.ikeywords.ijavascript_async import iJavascriptAsync
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 

@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.iscreenshot_async import iScreenshotAsync
+from PuppeteerLibrary.ikeywords.iscreenshot_async import iScreenshotAsync
 
 
 class PuppeteerScreenshot(iScreenshotAsync):

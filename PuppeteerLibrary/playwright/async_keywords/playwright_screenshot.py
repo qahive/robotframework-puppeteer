@@ -1,5 +1,5 @@
 from PuppeteerLibrary.playwright.async_keywords.playwright_waiting import PlaywrightWaiting
-from PuppeteerLibrary.keywords.iscreenshot_async import iScreenshotAsync
+from PuppeteerLibrary.ikeywords.iscreenshot_async import iScreenshotAsync
 
 
 class PlaywrightScreenshot(iScreenshotAsync):

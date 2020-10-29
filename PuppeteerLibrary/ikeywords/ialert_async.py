@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.base_async_keywords import BaseAsyncKeywords
+from PuppeteerLibrary.ikeywords.base_async_keywords import BaseAsyncKeywords
 from abc import ABC, abstractmethod
 
 

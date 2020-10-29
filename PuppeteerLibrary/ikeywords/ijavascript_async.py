@@ -1,5 +1,5 @@
-from PuppeteerLibrary.keywords.base_async_keywords import BaseAsyncKeywords
 from abc import ABC, abstractmethod
+from PuppeteerLibrary.ikeywords.base_async_keywords import BaseAsyncKeywords
 
 
 class iJavascriptAsync(BaseAsyncKeywords, ABC):

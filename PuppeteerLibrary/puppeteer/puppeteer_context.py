@@ -1,4 +1,3 @@
-from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_javascript import PuppeteerJavascript
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
@@ -14,6 +13,7 @@ from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_formelement import Pupp
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_mouseevent import PuppeteerMouseEvent
 from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
 from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_javascript import PuppeteerJavascript
 
 
 class PuppeteerContext(iLibraryContext):

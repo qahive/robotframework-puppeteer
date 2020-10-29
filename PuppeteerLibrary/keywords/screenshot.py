@@ -1,9 +1,9 @@
-from PuppeteerLibrary.keywords.iscreenshot_async import iScreenshotAsync
 import os
 from robot.utils import get_link_path
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.screenshot_async import ScreenshotKeywordsAsync, DEFAULT_FILENAME_PAGE
+from PuppeteerLibrary.ikeywords.iscreenshot_async import iScreenshotAsync
 
 
 class ScreenshotKeywords(LibraryComponent):

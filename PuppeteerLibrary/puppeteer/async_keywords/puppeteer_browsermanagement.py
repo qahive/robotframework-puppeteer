@@ -1,7 +1,7 @@
 import asyncio
 import re
 import time
-from PuppeteerLibrary.keywords.ibrowsermanagement_async import iBrowserManagementAsync
+from PuppeteerLibrary.ikeywords.ibrowsermanagement_async import iBrowserManagementAsync
 
 
 class PuppeteerBrowserManagement(iBrowserManagementAsync):

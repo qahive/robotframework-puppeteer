@@ -1,5 +1,5 @@
 from robot.libraries.BuiltIn import BuiltIn
-from PuppeteerLibrary.keywords.imouseevent_async import iMouseEventAsync
+from PuppeteerLibrary.ikeywords.imouseevent_async import iMouseEventAsync
 
 
 class PuppeteerMouseEvent(iMouseEventAsync):

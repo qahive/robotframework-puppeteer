@@ -2,7 +2,7 @@ import asyncio
 import re
 import time
 from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
-from PuppeteerLibrary.keywords.ibrowsermanagement_async import iBrowserManagementAsync
+from PuppeteerLibrary.ikeywords.ibrowsermanagement_async import iBrowserManagementAsync
 
 
 class PlaywrightBrowserManagement(iBrowserManagementAsync):

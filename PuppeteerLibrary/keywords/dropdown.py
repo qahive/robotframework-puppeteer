@@ -1,7 +1,7 @@
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.dropdown_async import DropdownKeywordsAsync
-from PuppeteerLibrary.keywords.idropdown_async import iDropdownAsync
+from PuppeteerLibrary.ikeywords.idropdown_async import iDropdownAsync
 
 
 class DropdownKeywords(LibraryComponent):

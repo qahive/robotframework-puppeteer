@@ -1,8 +1,9 @@
-from PuppeteerLibrary.keywords.ibrowsermanagement_async import iBrowserManagementAsync
 from robot.utils import timestr_to_secs
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.keywords.browsermanagement_async import BrowserManagementKeywordsAsync
+from PuppeteerLibrary.ikeywords.ibrowsermanagement_async import iBrowserManagementAsync
+
 
 class BrowserManagementKeywords(LibraryComponent):
 

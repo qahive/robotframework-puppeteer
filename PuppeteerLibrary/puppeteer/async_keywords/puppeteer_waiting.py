@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.iwaiting_async import iWaitingAsync
+from PuppeteerLibrary.ikeywords.iwaiting_async import iWaitingAsync
 
 
 class PuppeteerWaiting(iWaitingAsync):

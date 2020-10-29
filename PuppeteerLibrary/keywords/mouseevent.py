@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.imouseevent_async import iMouseEventAsync
+from PuppeteerLibrary.ikeywords.imouseevent_async import iMouseEventAsync
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.keywords.mouseevent_async import MouseEventKeywordsAsync

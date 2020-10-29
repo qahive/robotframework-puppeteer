@@ -1,4 +1,4 @@
-from PuppeteerLibrary.keywords.iformelement_async import iFormElementAsync
+from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
 
 
