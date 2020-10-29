@@ -1,3 +1,4 @@
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_javascript import PuppeteerJavascript
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
@@ -100,6 +101,7 @@ class PuppeteerContext(iLibraryContext):
             "DropdownKeywords": PuppeteerDropdown(self),
             "ElementKeywords": PuppeteerElement(self),
             "FormElementKeywords": PuppeteerFormElement(self),
+            "JavascriptKeywords": PuppeteerJavascript(self),
             "MouseEventKeywords": PuppeteerMouseEvent(self),
             "ScreenshotKeywords": PuppeteerScreenshot(self),
             "WaitingKeywords": PuppeteerWaiting(self)

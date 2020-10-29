@@ -1,13 +1,16 @@
+from PuppeteerLibrary.keywords.ijavascript_async import iJavascriptAsync
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
-from PuppeteerLibrary.keywords.javascript_async import JavascriptKeywordsAsync
+
 
 
 class JavascriptKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = JavascriptKeywordsAsync(self.ctx)
+
+    def get_async_keyword_group(self) -> iJavascriptAsync:
+        return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
     def execute_javascript(self, code):
@@ -22,4 +25,4 @@ class JavascriptKeywords(LibraryComponent):
         | `Execute Javascript` | console.log('Hi 5');  |
 
         """
-        return self.loop.run_until_complete(self.async_func.execute_javascript_async(code))
+        return self.loop.run_until_complete(self.get_async_keyword_group().execute_javascript(code))

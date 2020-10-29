@@ -1,3 +1,4 @@
+from PuppeteerLibrary.playwright.async_keywords.playwright_javascript import PlaywrightJavascript
 import asyncio
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.async_keywords.playwright_formelement import PlaywrightFormElement
@@ -81,6 +82,7 @@ class PlaywrightContext(iLibraryContext):
             "DropdownKeywords": PlaywrightDropdown(self),
             "ElementKeywords": PlaywrightElement(self),
             "FormElementKeywords": PlaywrightFormElement(self),
+            "JavascriptKeywords": PlaywrightJavascript(self),
             "MouseEventKeywords": PlaywrightMouseEvent(self),
             "ScreenshotKeywords": PlaywrightScreenshot(self),
             "WaitingKeywords": PlaywrightWaiting(self)

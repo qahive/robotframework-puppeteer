@@ -1,6 +1,4 @@
-*** Settings ***
-Force Tags    Ignore
-Library    Dialogs    
+*** Settings *** 
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page
 Test Teardown    Close All Browser
