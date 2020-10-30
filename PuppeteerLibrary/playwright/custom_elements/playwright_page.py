@@ -35,25 +35,25 @@ class PlaywrightPage(BasePage):
     # Click
     ############
     async def click_with_selenium_locator(self, selenium_locator: str, options: dict = None, **kwargs: Any):
-        if options is None:
-            options = {}
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
-
+        if options is None:
+            options = {}    
         if self.selected_iframe is not None:
-            return await self.selected_iframe.click(selector=selenium_locator, **options)
+            return await self.selected_iframe.click(selector=selector_value, **options)
         else:
-            return await self.page.click(selector=selenium_locator, **options)
+            return await self.page.click(selector=selector_value, **options)
 
     ############
     # Type
     ############
     async def type_with_selenium_locator(self, selenium_locator: str, text: str, options: dict = None, **kwargs: Any):
+        selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if options is None:
             options = {}
         if self.selected_iframe is not None:
-            return await self.selected_iframe.type(selector=selenium_locator, text=text, **options)
+            return await self.selected_iframe.type(selector=selector_value, text=text, **options)
         else:
-            return await self.page.type(selector=selenium_locator, text=text, **options)
+            return await self.page.type(selector=selector_value, text=text, **options)
 
     ############
     # Wait
