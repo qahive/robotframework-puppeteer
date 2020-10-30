@@ -91,16 +91,47 @@ class PlaywrightWaiting(iWaitingAsync):
             self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_location_contains(self, expected, timeout=None):
-        raise Exception('Not implemented.')
+        async def validate_url_contains_text():
+            return expected in self.library_ctx.get_current_page().get_page().url
+        return await self._wait_until_worker(
+            validate_url_contains_text,
+            self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_location_does_not_contains(self, expected, timeout=None):
-        raise Exception('Not implemented.')
+        async def validate_url_not_contains_text():
+            return expected not in self.library_ctx.get_current_page().get_page().url
+        return await self._wait_until_worker(
+            validate_url_not_contains_text,
+            self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_element_is_enabled(self, locator, timeout=None):
-        raise Exception('Not implemented.')
+        async def validate_is_enabled():
+            element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+            is_disabled = await (await element.getProperty('disabled')).jsonValue()
+            return is_disabled == False
+        return await self._wait_until_worker(
+            validate_is_enabled,
+            self.timestr_to_secs_for_default_timeout(timeout),
+            'Element '+locator+' was not enabled.')
 
     async def wait_until_element_finished_animating(self, locator, timeout=None):
-        raise Exception('Not implemented.')
+        prev_rect_tmp = { 'value': None }
+        async def check_finished_animating():
+            element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+            if prev_rect_tmp['value'] is None:
+                prev_rect_tmp['value'] = await element.boundingBox()
+                return False
+            prev_rect = prev_rect_tmp['value']
+            next_rect = await element.boundingBox()
+            if next_rect['x'] == prev_rect['x'] and next_rect['y'] == prev_rect['y']:
+                return True
+            else:
+                prev_rect_tmp['value'] = next_rect
+                return False
+        return await self._wait_until_worker(
+            check_finished_animating,
+            self.timestr_to_secs_for_default_timeout(timeout),
+            'Element '+locator+' was not enabled.')
 
     async def _wait_for_selenium_selector(self, selenium_locator, timeout=None, visible=False, hidden=False):
         timeout = self.timestr_to_secs_for_default_timeout(timeout)
