@@ -47,7 +47,7 @@ class WaitingKeywords(LibraryComponent):
         | ...                | `Wait For Request Url` | ${URL_API}/login     | POST | username=demo |
 
         """
-        return self.loop.run_until_complete(self.async_func.wait_for_request_url_async(url, method, body, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_for_request_url_async(url, method, body, timeout))
 
     @keyword
     def wait_for_response_url(self, url, status=200, body=None, timeout=None):
@@ -77,10 +77,10 @@ class WaitingKeywords(LibraryComponent):
         | ...                | `Wait For Response Url` | ${URL_API}/login            | 200  | username=demo |
 
         """
-        return self.loop.run_until_complete(self.async_func.wait_for_response_url_async(url, status, body, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_for_response_url(url, status, body, timeout))
 
     @keyword
-    def wait_for_navigation(self):
+    def wait_for_navigation(self, timeout=None):
         """
         Waits until web page navigates to new url or reloads.
 
@@ -92,7 +92,7 @@ class WaitingKeywords(LibraryComponent):
         | Run Async Keywords | Click Element           | id:login_button             | AND  |
         | ...                | `Wait For Navigation`   |                             |      |
         """
-        return self.loop.run_until_complete(self.async_func.wait_for_navigation_async())
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_for_navigation(timeout))
 
     @keyword
     def wait_until_page_contains_element(self, locator, timeout=None):
@@ -117,7 +117,7 @@ class WaitingKeywords(LibraryComponent):
         | ...                                | Wait For Navigation     |                             |      |
         | `Wait Until Element Is Hidden`     | id:login_button         |                             |      |
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_element_is_hidden_async(locator, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_element_is_hidden(locator, timeout))
 
     @keyword
     def wait_until_element_is_visible(self, locator, timeout=None):
@@ -130,7 +130,7 @@ class WaitingKeywords(LibraryComponent):
         | ...                                | Wait For Navigation     |                             |      |
         | `Wait Until Element Is Visible`    | id:welcome              |                             |      |
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_element_is_visible_async(locator, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_element_is_visible(locator, timeout))
 
     @keyword
     def wait_until_page_contains(self, text, timeout=None):
@@ -157,7 +157,7 @@ class WaitingKeywords(LibraryComponent):
         | ...                                 | Wait For Navigation           |                             |      |
         | `Wait Until Page Does Not Contains` | Please input your user name   |                             |      |
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_page_does_not_contains_async(text, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_page_does_not_contains(text, timeout))
 
     @keyword
     def wait_until_element_contains(self, locator, text, timeout=None):
@@ -169,7 +169,7 @@ class WaitingKeywords(LibraryComponent):
         | Open browser                       | ${HOME_PAGE_URL}        | options=${options}          |
         | `Wait Until Element Contains`      | css:#container p        | Please input your user name |
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_element_contains_async(locator, text, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_element_contains(locator, text, timeout))
 
     @keyword
     def wait_until_element_does_not_contains(self, locator, text, timeout=None):
@@ -182,7 +182,7 @@ class WaitingKeywords(LibraryComponent):
         | ...                                    | Wait For Navigation           |                             |      |
         | `Wait Until Element Does Not Contains` | css:#container p              | Please input your user name |      |
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_element_does_not_contains_async(locator, text, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_element_does_not_contains(locator, text, timeout))
 
     @keyword
     def wait_until_location_contains(self, expected, timeout=None):
@@ -191,7 +191,7 @@ class WaitingKeywords(LibraryComponent):
 
         The `expected` argument contains the expected value in url.
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_location_contains_async(expected, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_location_contains(expected, timeout))
 
     @keyword
     def wait_until_location_does_not_contains(self, expected, timeout=None):
@@ -200,7 +200,7 @@ class WaitingKeywords(LibraryComponent):
 
         The `expected` argument contains the expected value must not in url.
         """
-        return self.loop.run_until_complete(self.async_func.wait_until_location_does_not_contains_async(expected, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_location_does_not_contains(expected, timeout))
 
     @keyword
     def wait_until_element_is_enabled(self, selenium_locator, timeout=None):
@@ -208,8 +208,7 @@ class WaitingKeywords(LibraryComponent):
         Waits until the specific element is Enabled.
 
         """
-        return self.loop.run_until_complete(
-            self.async_func.wait_until_element_is_enabled_async(selenium_locator, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_element_is_enabled(selenium_locator, timeout))
 
     @keyword
     def wait_until_element_finished_animating(self, selenium_locator, timeout=None):
@@ -218,5 +217,4 @@ class WaitingKeywords(LibraryComponent):
         Check by check element position.
 
         """
-        return self.loop.run_until_complete(
-            self.async_func.wait_until_element_finished_animating_async(selenium_locator, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_until_element_finished_animating(selenium_locator, timeout))

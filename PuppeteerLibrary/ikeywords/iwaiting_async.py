@@ -13,7 +13,7 @@ class iWaitingAsync(BaseAsyncKeywords, ABC):
         pass
 
     @abstractmethod
-    async def wait_for_navigation(self):
+    async def wait_for_navigation(self, timeout=None):
         pass
 
     @abstractmethod
@@ -53,9 +53,9 @@ class iWaitingAsync(BaseAsyncKeywords, ABC):
         pass
 
     @abstractmethod
-    async def wait_until_element_is_enabled(self, selenium_locator, timeout=None):
+    async def wait_until_element_is_enabled(self, locator, timeout=None):
         pass
 
     @abstractmethod
-    async def wait_until_element_finished_animating(self, selenium_locator, timeout=None):
+    async def wait_until_element_finished_animating(self, locator, timeout=None):
         pass
