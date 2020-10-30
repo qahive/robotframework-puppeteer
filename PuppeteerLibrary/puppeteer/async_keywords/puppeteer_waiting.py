@@ -1,3 +1,5 @@
+import re
+from robot.utils.dotdict import DotDict
 from PuppeteerLibrary.ikeywords.iwaiting_async import iWaitingAsync
 
 
@@ -19,10 +21,55 @@ class PuppeteerWaiting(iWaitingAsync):
         return "'%s'" % value
 
     async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
-        pass
+        req = await self.library_ctx.get_current_page().get_page().waitForRequest(
+            lambda req: re.search(url, req.url) is not None
+                        and req.method == method
+            , options={
+                'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
+            })
+
+        try:
+            pos_data = (await req.postData())
+        except:
+            pos_data = ''
+
+        if body is None or re.search(body, pos_data.replace('\n', '')):
+            log_str = 'Wait for request url: '+req.method+' - '+req.url
+            if pos_data != '':
+                log_str + '\n' + pos_data
+            self.info(log_str)
+        else:
+            raise Exception('Can\'t match request body with ' + body + ' \n ' + pos_data)
+
+        return DotDict({
+            'url': req.url,
+            'method': req.method,
+            'body':  pos_data
+        })
 
     async def wait_for_response_url(self, url, status=200, body=None, timeout=None):
-        pass
+        res = await self.library_ctx.get_current_page().get_page().waitForResponse(
+            lambda res: re.search(url, res.url) is not None
+                        and res.status == int(status)
+            , options={
+                'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
+            })
+        try:
+            res_text = (await res.text())
+        except:
+            res_text = ''
+        if body is None or re.search(body, res_text.replace('\n','')):
+            log_str = 'Wait for request url: ' + res.url
+            if res_text != '':
+                log_str += '\n' + res_text
+            self.info(log_str)
+        else:
+            raise Exception('Can\'t match response body with '+body+' \n '+res_text)
+        return DotDict({
+            'url': res.url,
+            'status': res.status,
+            'body': res_text
+        })
 
     async def wait_for_navigation(self):
         pass

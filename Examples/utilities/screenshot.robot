@@ -18,6 +18,6 @@ Capture page screenshot
 *** Keywords ***
 Open browser to test page
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
-    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${True}
+    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}    browser=${BROWSER}    options=${options}
