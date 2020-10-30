@@ -12,5 +12,4 @@ class PlaywrightPDF(iPDFAsync):
         await self.library_ctx.get_current_page().get_page().pdf(
             path=path
         )
-        return True
         self.info('Print as pdf: '+path)
