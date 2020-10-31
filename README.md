@@ -16,10 +16,11 @@ Example:
 
 Browser Support
 ---------------------
-|          | Support | Library |
-|   :---   | :---: | :---: | :---:   |
-| Chromium  | ✅ | Puppeteer | 
-| WebKit  | ✅ | Playwright | 
+
+| Browser  | Support | Library |
+|   :---   | :---: | :---: |
+| Chromium | ✅ | Puppeteer | 
+| WebKit   | ✅ | Playwright | 
 | Firefox  | ✅ | Playwright | 
 
 
