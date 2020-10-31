@@ -1,3 +1,4 @@
+from PuppeteerLibrary.playwright.async_keywords.playwright_mockresponse import PlaywrightMockResponse
 import asyncio
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
@@ -84,6 +85,7 @@ class PlaywrightContext(iLibraryContext):
             "ElementKeywords": PlaywrightElement(self),
             "FormElementKeywords": PlaywrightFormElement(self),
             "JavascriptKeywords": PlaywrightJavascript(self),
+            "MockResponseKeywords": PlaywrightMockResponse(self),
             "MouseEventKeywords": PlaywrightMouseEvent(self),
             "PDFKeywords": PlaywrightPDF(self),
             "ScreenshotKeywords": PlaywrightScreenshot(self),

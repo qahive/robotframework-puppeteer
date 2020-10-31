@@ -17,7 +17,7 @@ class PuppeteerMockResponse(iMockResponseAsync):
             asyncio.ensure_future(self.mock_api_response(request, url, mock_response, method, body)))
 
     async def mock_api_response(self, request: Request, url, mock_response, method, body):
-        if re.search(url, request.url) is not None and request.method == method:
+        if re.search(re.escape(url), request.url) is not None and request.method == method:
             try:
                 pos_data = (await request.postData())
             except:
