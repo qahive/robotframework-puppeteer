@@ -1,3 +1,4 @@
+from PuppeteerLibrary.ikeywords.imockresponse_async import iMockResponseAsync
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.keywords.mockresponse_async import MockResponseKeywordsAsync
@@ -8,6 +9,9 @@ class MockResponseKeywords(LibraryComponent):
     def __init__(self, ctx):
         super().__init__(ctx)
         self.async_func = MockResponseKeywordsAsync(self.ctx)
+
+    def get_async_keyword_group(self) -> iMockResponseAsync:
+        return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
     def mock_current_page_api_response(self, url, mock_response, method='GET', body=None):
@@ -44,4 +48,4 @@ class MockResponseKeywords(LibraryComponent):
         | Mock Current Page Api Response | /ajax_info.json\\?count=3  | ${response}              |
 
         """
-        return self.loop.run_until_complete(self.async_func.mock_current_page_api_response_async(url, mock_response, method, body))
+        return self.loop.run_until_complete(self.get_async_keyword_group().mock_current_page_api_response(url, mock_response, method, body))

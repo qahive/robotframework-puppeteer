@@ -1,3 +1,4 @@
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_mockresponse import PuppeteerMockResponse
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
@@ -103,6 +104,7 @@ class PuppeteerContext(iLibraryContext):
             "ElementKeywords": PuppeteerElement(self),
             "FormElementKeywords": PuppeteerFormElement(self),
             "JavascriptKeywords": PuppeteerJavascript(self),
+            "MockResponseKeywords": PuppeteerMockResponse(self),
             "MouseEventKeywords": PuppeteerMouseEvent(self),
             "PDFKeywords": PuppeteerPDF(self),
             "ScreenshotKeywords": PuppeteerScreenshot(self),
