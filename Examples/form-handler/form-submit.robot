@@ -3,18 +3,21 @@ Library    PuppeteerLibrary
 Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
+*** Variables ***
+${DEFAULT_BROWSER}    chrome
+
 
 *** Test Cases ***
 Submit login form
     Open browser to test page    http://127.0.0.1:7272/login-form-example.html
     Input Text    id=exampleInputEmail1    demo@qahive.com
-    Input Text    id=exampleInputPassword1    123456789
+    Input Text    xpath=//*[@id='exampleInputPassword1']    123456789
     Click Element    id=exampleCheck1
     Run Async Keywords
     ...    Wait For New Window Open    AND
     ...    Click Element    css=button[type="submit"]
     Switch Window    NEW
-    Wait Until Page Contains    Login succeeded    
+    Wait Until Page Contains    Login succeeded
     
 Submit register form
     Open browser to test page    http://127.0.0.1:7272/register-form-example.html
@@ -29,6 +32,7 @@ Submit register form
 *** Keywords ***
 Open browser to test page
     [Arguments]    ${url}
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
-    Open browser    ${url}   options=${options}
+    Open browser    ${url}    browser=${BROWSER}   options=${options}

@@ -1,23 +1,19 @@
 import os
-from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.base.librarycomponent import LibraryComponent
-
+from abc import ABC, abstractmethod
+from PuppeteerLibrary.ikeywords.base_async_keywords import BaseAsyncKeywords
 
 DEFAULT_FILENAME_PAGE = 'pdf-{index}.pdf'
 
-class PDFKeywordsAsync(LibraryComponent):
+class iPDFAsync(BaseAsyncKeywords, ABC):
 
-    def __init__(self, ctx):
-        self.ctx = ctx
+    def __init__(self, library_ctx):
+        super().__init__(library_ctx)
         self.log_dir = os.curdir
     
-    @keyword
-    async def print_as_pdf_async(self, filename):
-        path = self._get_pdf_path(filename)
-        await self.ctx.current_page.emulateMedia('screen')
-        await self.ctx.current_page.pdf({'path': path})
-        self.info('Print as pdf: '+path)
-
+    @abstractmethod
+    async def print_as_pdf(self, filename=DEFAULT_FILENAME_PAGE):
+        pass
+    
     def _get_pdf_path(self, filename):
         directory = self.log_dir
         filename = filename.replace('/', os.sep)

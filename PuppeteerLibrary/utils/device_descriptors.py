@@ -430,6 +430,17 @@ DEVICE_DESCRIPTORS = {
       'isLandscape': True
     }
   },
+  'iPhone 11': {
+    'userAgent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Mobile/15E148 Safari/604.1',
+    'viewport': {
+      'width': 414,
+      'height': 896,
+      'deviceScaleFactor': 2,
+      'isMobile': True,
+      'hasTouch': True,
+      'isLandscape': False
+    }
+  },
   'JioPhone 2': {
     'userAgent': 'Mozilla/5.0 (Mobile; LYF/F300B/LYF-F300B-001-01-15-130718-i;Android; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5',
     'viewport': {

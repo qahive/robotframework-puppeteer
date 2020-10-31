@@ -1,16 +1,29 @@
 import asyncio
-import time
 import re
-from robot.utils import DotDict
-from PuppeteerLibrary.base.librarycomponent import LibraryComponent
-from PuppeteerLibrary.base.robotlibcore import keyword
+import time
+from robot.utils.dotdict import DotDict
+from PuppeteerLibrary.ikeywords.iwaiting_async import iWaitingAsync
 
 
-class WaitingKeywordsAsync(LibraryComponent):
+class PuppeteerWaiting(iWaitingAsync):
 
-    @keyword
-    async def wait_for_request_url_async(self, url, method='GET', body=None, timeout=None):
-        req = await self.ctx.get_current_page().waitForRequest(
+    def __init__(self, library_ctx):
+        super().__init__(library_ctx)
+
+    async def _wait_for_selenium_selector(self, selenium_locator, timeout=None, visible=False, hidden=False):
+        timeout = self.timestr_to_secs_for_default_timeout(timeout)
+        return await self.library_ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
+    
+    def escape_xpath_value(self, value):
+        if '"' in value and '\'' in value:
+            parts_wo_apos = value.split('\'')
+            return "concat('%s')" % "', \"'\", '".join(parts_wo_apos)
+        if '\'' in value:
+            return "\"%s\"" % value
+        return "'%s'" % value
+
+    async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
+        req = await self.library_ctx.get_current_page().get_page().waitForRequest(
             lambda req: re.search(url, req.url) is not None
                         and req.method == method
             , options={
@@ -36,9 +49,8 @@ class WaitingKeywordsAsync(LibraryComponent):
             'body':  pos_data
         })
 
-    @keyword
-    async def wait_for_response_url_async(self, url, status=200, body=None, timeout=None):
-        res = await self.ctx.get_current_page().waitForResponse(
+    async def wait_for_response_url(self, url, status=200, body=None, timeout=None):
+        res = await self.library_ctx.get_current_page().get_page().waitForResponse(
             lambda res: re.search(url, res.url) is not None
                         and res.status == int(status)
             , options={
@@ -61,87 +73,73 @@ class WaitingKeywordsAsync(LibraryComponent):
             'body': res_text
         })
 
-    @keyword
-    async def wait_for_navigation_async(self, timeout=None):
-        await self.ctx.get_current_page().waitForNavigation(options={
+    async def wait_for_navigation(self, timeout=None):
+        await self.library_ctx.get_current_page().get_page().waitForNavigation(
+            options={
                 'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
             })
 
-    @keyword
-    async def wait_for_selenium_selector(self, selenium_locator, timeout=None, visible=False, hidden=False):
-        timeout = self.timestr_to_secs_for_default_timeout(timeout)
-        return await self.ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
+    async def wait_until_page_contains_element(self, locator, timeout=None):
+        return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
 
-    @keyword
-    async def wait_until_page_contains_element_async(self, selenium_locator, timeout=None):
-        return await self.wait_for_selenium_selector(selenium_locator, timeout, visible=False, hidden=False)
+    async def wait_until_element_is_hidden(self, locator, timeout=None):
+        return await self._wait_for_selenium_selector(locator, timeout, visible=False, hidden=True)
 
-    @keyword
-    async def wait_until_element_is_hidden_async(self, locator, timeout=None):
-        return await self.wait_for_selenium_selector(locator, timeout, visible=False, hidden=True)
+    async def wait_until_element_is_visible(self, locator, timeout=None):
+        return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
 
-    @keyword
-    async def wait_until_element_is_visible_async(self, locator, timeout=None):
-        return await self.wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
-
-    @keyword
-    async def wait_until_page_contains_async(self, text, timeout=None):
+    async def wait_until_page_contains(self, text, timeout=None):
         locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
-        return await self.wait_for_selenium_selector(locator, timeout)
+        return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
 
-    @keyword
-    async def wait_until_page_does_not_contains_async(self, text, timeout=None):
+    async def wait_until_page_does_not_contains(self, text, timeout=None):
         locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
-        return await self.wait_for_selenium_selector(locator, timeout, visible=False, hidden=True)
+        return await self._wait_for_selenium_selector(locator, timeout, visible=False, hidden=True)
 
-    @keyword
-    async def wait_until_element_contains_async(self, selenium_locator, text, timeout=None):
+    async def wait_until_element_contains(self, locator, text, timeout=None):
         async def validate_element_contains_text():
-            return (text in (await (await ( await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)).getProperty('textContent')).jsonValue()))
+            return (text in (await (await ( await self.library_ctx.get_current_page().
+                querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
-    @keyword
-    async def wait_until_element_does_not_contains_async(self, selenium_locator, text, timeout=None):
+    async def wait_until_element_does_not_contains(self, locator, text, timeout=None):
         async def validate_element_contains_text():
-            return (text not in (await (await ( await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)).getProperty('textContent')).jsonValue()))
+            return (text not in (await (await ( await self.library_ctx.get_current_page().
+                querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
-    @keyword
-    async def wait_until_location_contains_async(self, expected, timeout=None):
+    async def wait_until_location_contains(self, expected, timeout=None):
         async def validate_url_contains_text():
-            return expected in self.ctx.get_current_page().url
+            return expected in self.library_ctx.get_current_page().get_page().url
         return await self._wait_until_worker(
             validate_url_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
-    @keyword
-    async def wait_until_location_does_not_contains_async(self, expected, timeout=None):
+    async def wait_until_location_does_not_contains(self, expected, timeout=None):
         async def validate_url_not_contains_text():
-            return expected not in self.ctx.get_current_page().url
+            return expected not in self.library_ctx.get_current_page().get_page().url
         return await self._wait_until_worker(
             validate_url_not_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
-    @keyword
-    async def wait_until_element_is_enabled_async(self, selenium_locator, timeout=None):
+    async def wait_until_element_is_enabled(self, locator, timeout=None):
         async def validate_is_enabled():
-            element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+            element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
             is_disabled = await (await element.getProperty('disabled')).jsonValue()
             return is_disabled == False
         return await self._wait_until_worker(
             validate_is_enabled,
             self.timestr_to_secs_for_default_timeout(timeout),
-            'Element '+selenium_locator+' was not enabled.')
+            'Element '+locator+' was not enabled.')
 
-    @keyword
-    async def wait_until_element_finished_animating_async(self, selenium_locator, timeout=None):
+    async def wait_until_element_finished_animating(self, locator, timeout=None):
         prev_rect_tmp = { 'value': None }
         async def check_finished_animating():
-            element = await self.ctx.get_current_page().querySelector_with_selenium_locator(selenium_locator)
+            element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
             if prev_rect_tmp['value'] is None:
                 prev_rect_tmp['value'] = await element.boundingBox()
                 return False
@@ -155,7 +153,7 @@ class WaitingKeywordsAsync(LibraryComponent):
         return await self._wait_until_worker(
             check_finished_animating,
             self.timestr_to_secs_for_default_timeout(timeout),
-            'Element '+selenium_locator+' was not enabled.')
+            'Element '+locator+' was not enabled.')
 
     async def _wait_until_worker(self, condition, timeout, error=None):
         max_time = time.time() + timeout

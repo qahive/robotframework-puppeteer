@@ -9,7 +9,14 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        # python-version: [3.7, 3.8, 3.9]
+        include:
+          - python-version: 3.7
+            browser: webkit
+          - python-version: 3.8
+            browser: chrome
+          - python-version: 3.9
+            browser: firefox
 
     steps:
     - uses: actions/checkout@v1
@@ -21,6 +28,35 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    - name: Install webkit
+      run: |
+        sudo apt-get update 
+        sudo apt-get install -y --no-install-recommends \
+          gstreamer1.0-libav \
+          gstreamer1.0-plugins-bad \
+          libgstreamer-plugins-bad1.0-0 \
+          libwoff1 \
+          libopus0 \
+          libwebp6 \
+          libwebpdemux2 \
+          libenchant1c2a \
+          libgudev-1.0-0 \
+          libsecret-1-0 \
+          libhyphen0 \
+          libgdk-pixbuf2.0-0 \
+          libegl1 \
+          libnotify4 \
+          libxslt1.1 \
+          libevent-2.1-6 \
+          libgles2 \
+          libvpx5 \
+          libxcomposite1 \
+          libatk1.0-0 \
+          libatk-bridge2.0-0 \
+          libepoxy0 \
+          libgtk-3-0 \
+          libharfbuzz-icu0 \
+          xvfb
     - name: Lint with flake8
       run: |
         pip install flake8
@@ -28,10 +64,15 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: System test
+    - name: Run test project
       run: |
         python setup.py install
-        pyppeteer-install
         pip install -r demoapp/requirements.txt
+        pyppeteer-install
+        python -m playwright install
         python demoapp/server.py &
-        robot -v HEADLESS:True -e Ignore Examples
+    - name: System test
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        working-directory: ./ #optional
+        run: robot -v BROWSER:${{ matrix.browser }} -e IgnoreORIgnore_${{ matrix.browser }} Examples

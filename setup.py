@@ -39,7 +39,8 @@ setup(
     platforms='any',
     install_requires=[
         'robotframework>=3.2.1',
-        'pyppeteer>=0.2.2'
+        'playwright>=0.151.0',
+        'pyppeteer>=0.2.2',
     ],
     # python_requires='>3.5',
     # test_suite='nose.collector',

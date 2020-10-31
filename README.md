@@ -2,7 +2,7 @@
 
 # robotframework-puppeteer
 Robot Framework Puppeteer Library powered by [Pyppeteer](https://github.com/pyppeteer/pyppeteer). 
-Improve automated web testing with native functionality from [Puppeteer](https://github.com/puppeteer/puppeteer) by Google.
+Improve automated web testing with chrome native functionality from [Puppeteer](https://github.com/puppeteer/puppeteer) by Google and webkit from [Playwright](https://github.com/microsoft/playwright-python).
 
 More detail please visit [Robot Framework Puppeteer Homepage](https://qahive.github.io/robotframework-puppeteer.github.io/)
 
@@ -12,6 +12,15 @@ Example:
 - _Handle HTTP Response_ 
 - _Intercepter Http_
 - _Intercepter javascript function_
+
+
+Browser Support
+---------------------
+|          | Support | Library |
+|   :---   | :---: | :---: | :---:   |
+| Chromium  | ✅ | Puppeteer | 
+| WebKit  | ✅ | Playwright | 
+| Firefox  | ✅ | Playwright | 
 
 
 Keyword documentation
@@ -25,6 +34,7 @@ Installation
 The recommended installation method is using pip_::
 
     pip install --upgrade robotframework-puppeteerlibrary
+    python -m playwright install
     
 Or manually install by running following command
     

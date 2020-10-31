@@ -1,13 +1,15 @@
-from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.keywords.formelement_async import FormElementKeywordsAsync
+from PuppeteerLibrary.base.librarycomponent import LibraryComponent
+from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
 
 
 class FormElementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = FormElementKeywordsAsync(self.ctx)
+
+    def get_async_keyword_group(self) -> iFormElementAsync:
+        return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
     def input_text(self, locator, text, clear=True):
@@ -21,7 +23,7 @@ class FormElementKeywords(LibraryComponent):
         | `Input Text` | id:username | john        | True |
 
         """
-        self.loop.run_until_complete(self.async_func.input_text_async(locator, text, clear))
+        self.loop.run_until_complete(self.get_async_keyword_group().input_text(locator, text, clear))
 
     @keyword
     def clear_element_text(self, locator):
@@ -31,5 +33,5 @@ class FormElementKeywords(LibraryComponent):
 
         | `Clear Element Text`                   | id:name          |
         """
-        self.loop.run_until_complete(self.async_func.clear_element_text_async(locator))
+        self.loop.run_until_complete(self.get_async_keyword_group().clear_element_text(locator))
 

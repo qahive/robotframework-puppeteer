@@ -1,10 +1,12 @@
 *** Settings ***
 Library    PuppeteerLibrary
-Test Setup    Open test browser
+Test Setup    Open browser to test page
 Test Teardown    Close Browser
+Suite Teardown    Close Puppeteer
 
 
 *** Variables ***
+${DEFAULT_BROWSER}    chrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
@@ -20,8 +22,9 @@ Timeout wait for new window open
     ...    Click Element    id:open-new-tab
 
 *** Keywords ***
-Open test browser
-    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+Open browser to test page
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
-    Open browser    ${HOME_PAGE_URL}   options=${options}
-    Maximize Browser Window
+    Open browser    ${HOME_PAGE_URL}    browser=${BROWSER}    options=${options}
+
