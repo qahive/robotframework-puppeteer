@@ -16,7 +16,7 @@ jobs:
           - python-version: 3.8
             browser: chrome
           - python-version: 3.9
-            browser: chrome
+            browser: firefox
 
     steps:
     - uses: actions/checkout@v1

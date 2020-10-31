@@ -15,5 +15,7 @@ class LibraryContextFactory:
             return PlaywrightContext(browser_type)
         elif browser_type.lower() == 'webkit':
             return PlaywrightContext(browser_type)
+        elif browser_type.lower() == 'firefox':
+            return PlaywrightContext(browser_type)    
         else:
             raise Exception('Sorry, not supported for library type '+str(browser_type)+'.')
