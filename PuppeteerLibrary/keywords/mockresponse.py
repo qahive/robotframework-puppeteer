@@ -1,14 +1,12 @@
 from PuppeteerLibrary.ikeywords.imockresponse_async import iMockResponseAsync
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
-from PuppeteerLibrary.keywords.mockresponse_async import MockResponseKeywordsAsync
 
 
 class MockResponseKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = MockResponseKeywordsAsync(self.ctx)
 
     def get_async_keyword_group(self) -> iMockResponseAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)

@@ -1,6 +1,5 @@
-from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.keywords.dropdown_async import DropdownKeywordsAsync
+from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.ikeywords.idropdown_async import iDropdownAsync
 
 
@@ -8,7 +7,6 @@ class DropdownKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = DropdownKeywordsAsync(self.ctx)
 
     def get_async_keyword_group(self) -> iDropdownAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)

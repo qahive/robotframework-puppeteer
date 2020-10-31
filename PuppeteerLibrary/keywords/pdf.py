@@ -27,4 +27,3 @@ class PDFKeywords(LibraryComponent):
 
         """
         return self.loop.run_until_complete(self.get_async_keyword_group().print_as_pdf(filename))
-        # return self.loop.run_until_complete(self.async_func.print_as_pdf_async(filename))

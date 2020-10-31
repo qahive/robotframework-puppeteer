@@ -13,7 +13,7 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 *** Test Cases ***
 Execute javascript command
-    [Tags]    Ignore_webkit
+    [Tags]    Ignore_webkit    Ignore_firefox
     Handle Alert    ACCEPT
     Execute Javascript    alert('Hello world');
     

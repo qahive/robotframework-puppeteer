@@ -1,14 +1,12 @@
 from PuppeteerLibrary.ikeywords.imouseevent_async import iMouseEventAsync
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
-from PuppeteerLibrary.keywords.mouseevent_async import MouseEventKeywordsAsync
 
 
 class MouseEventKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = MouseEventKeywordsAsync(self.ctx)
 
     def get_async_keyword_group(self) -> iMouseEventAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)

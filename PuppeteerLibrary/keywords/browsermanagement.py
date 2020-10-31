@@ -1,6 +1,5 @@
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.keywords.browsermanagement_async import BrowserManagementKeywordsAsync
 from PuppeteerLibrary.ikeywords.ibrowsermanagement_async import iBrowserManagementAsync
 
 
@@ -8,7 +7,6 @@ class BrowserManagementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = BrowserManagementKeywordsAsync(self.ctx)
 
     def get_async_keyword_group(self) -> iBrowserManagementAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
@@ -22,7 +20,7 @@ class BrowserManagementKeywords(LibraryComponent):
         |    = Browser =         |    = Name(s) =   |
         | Google Chrome          | chrome           |
         | Webkit (Safari engine) | webkit           |
-
+        | Firefox                | firefox          |
 
         The ``options`` argument as a dictionary
 
@@ -31,7 +29,6 @@ class BrowserManagementKeywords(LibraryComponent):
         | width              | default 1366           |
         | height             | default 768            |
         | emulate            | iPhone 11              |
-
 
         Example:
 

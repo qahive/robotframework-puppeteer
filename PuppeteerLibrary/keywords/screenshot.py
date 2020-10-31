@@ -2,8 +2,7 @@ import os
 from robot.utils import get_link_path
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.keywords.screenshot_async import ScreenshotKeywordsAsync, DEFAULT_FILENAME_PAGE
-from PuppeteerLibrary.ikeywords.iscreenshot_async import iScreenshotAsync
+from PuppeteerLibrary.ikeywords.iscreenshot_async import DEFAULT_FILENAME_PAGE, iScreenshotAsync
 
 
 class ScreenshotKeywords(LibraryComponent):
@@ -11,7 +10,6 @@ class ScreenshotKeywords(LibraryComponent):
     def __init__(self, ctx):
         super().__init__(ctx)
         self.log_dir = os.curdir
-        self.async_func = ScreenshotKeywordsAsync(self.ctx)
 
     def get_async_keyword_group(self) -> iScreenshotAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)

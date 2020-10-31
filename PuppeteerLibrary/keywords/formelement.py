@@ -1,14 +1,12 @@
-from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
-from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.keywords.formelement_async import FormElementKeywordsAsync
+from PuppeteerLibrary.base.librarycomponent import LibraryComponent
+from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
 
 
 class FormElementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = FormElementKeywordsAsync(self.ctx)
 
     def get_async_keyword_group(self) -> iFormElementAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)

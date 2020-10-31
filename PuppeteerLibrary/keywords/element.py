@@ -1,6 +1,5 @@
-from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.keywords.element_async import ElementKeywordsAsync
+from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.ikeywords.ielement_async import iElementAsync
 
 
@@ -8,7 +7,6 @@ class ElementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
-        self.async_func = ElementKeywordsAsync(self.ctx)
 
     def get_async_keyword_group(self) -> iElementAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)

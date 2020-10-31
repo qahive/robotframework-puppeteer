@@ -87,7 +87,6 @@ class UtilityKeywords(LibraryComponent):
         | ...                  | Wait for response url | ${HOME_PAGE_URL}/home.html  |     |
 
         """
-        self.ctx.load_async_keywords()
         run_keyword = _RunKeyword()
         return self.loop.run_until_complete( self._new_run_async_keywords(run_keyword._split_run_keywords(list(keywords))) )
 
