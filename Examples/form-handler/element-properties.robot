@@ -18,6 +18,8 @@ Element property is disable
     Run Keyword And Expect Error    REGEXP:Element 'id:prop-enable' is enabled    Element Should Be Disabled    id:prop-enable
     
 Element is visible and not visible
+    [Tags]    Ignore_firefox
+    #TODO Need to recheck why firefox unstable
     Element Should Be Visible    id:prop-visible
     Element Should Not Be Visible    id:prop-hide
     Run Keyword And Expect Error    REGEXP:Element 'id:prop-hide' is not be visible    Element Should Be Visible    id:prop-hide
