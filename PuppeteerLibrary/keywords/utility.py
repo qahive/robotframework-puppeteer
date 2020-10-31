@@ -1,7 +1,8 @@
 import asyncio
+from robot.utils import timestr_to_secs
+from robot.libraries.BuiltIn import _RunKeyword
 from PuppeteerLibrary.keywords.browsermanagement import BrowserManagementKeywords
 from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement import PlaywrightBrowserManagement
-from robot.libraries.BuiltIn import _RunKeyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 
@@ -10,6 +11,25 @@ class UtilityKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
+
+    @keyword
+    def set_timeout(self, timeout):
+        """Sets the timeout that is used by various keywords.
+        The value can be given as a number that is considered to be seconds or as a human-readable string like 1 second.
+        The previous value is returned and can be used to restore the original value later if needed.
+        See the Timeout section above for more information.
+
+        Example:
+
+        | ${orig timeout} =	          | Set Timeout	     | 15 seconds |
+        | Open page that loads slowly |	                 |            |
+        | Set Timeout	              | ${orig timeout}	 |            |
+
+        """
+        orig_timeout = self.ctx.timeout
+        self.ctx.get_current_library_context().timeout = timestr_to_secs(timeout)
+        self.info('Original timeout is ' + str(orig_timeout) + ' seconds')
+        return orig_timeout
 
     @keyword
     def run_async_keywords_and_return_first_completed(self, *keywords):
