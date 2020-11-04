@@ -15,12 +15,14 @@ class ScreenshotKeywords(LibraryComponent):
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
-    def capture_page_screenshot(self, filename=DEFAULT_FILENAME_PAGE):
+    def capture_page_screenshot(self, filename=DEFAULT_FILENAME_PAGE, fullPage=False):
         """
         Capture current web page as image png file.
 
         The ``filename`` argument specifies filename and path to save the file.
         Default valid is 'puppeteer-screenshot-{index}.png'.
+        
+        The ``fullPage`` argument specifieds capture screenshot as full page.
 
         Example:
 
@@ -29,7 +31,7 @@ class ScreenshotKeywords(LibraryComponent):
 
         """
         path = self._get_screenshot_path(filename)
-        self.loop.run_until_complete(self.get_async_keyword_group().capture_page_screenshot(path))
+        self.loop.run_until_complete(self.get_async_keyword_group().capture_page_screenshot(path, bool(fullPage)))
         self._embed_to_log_as_file(path, 800)
     
     def _get_screenshot_path(self, filename):
