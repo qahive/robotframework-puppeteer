@@ -6,7 +6,7 @@ DEFAULT_FILENAME_PAGE = 'puppeteer-screenshot-{index}.png'
 class iScreenshotAsync(BaseAsyncKeywords, ABC):
 
     @abstractmethod
-    async def capture_page_screenshot(self, path: str):
+    async def capture_page_screenshot(self, path: str, fullPage: bool):
         pass
     
     

@@ -13,6 +13,7 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 Capture page screenshot
     Capture Page Screenshot
     Capture Page Screenshot    test-{index}.png
+    Capture Page Screenshot    fullPage=True
 
 
 *** Keywords ***
