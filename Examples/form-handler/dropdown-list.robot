@@ -22,6 +22,11 @@ Select dropdown list by labels with id
     
 Select dropdown list by labels with xpath
     Select From List By Label    xpath=//select[@id="cars"]    Audi   
+    
+Get selected dropdown list Label
+    Select From List By Label    id=cars    Audi
+    ${Label} =    Get Selected List Label    xpath=//select[@id="cars"]
+    Should Be Equal As Strings    Audi    ${Label}
 
 *** Keywords ***
 Open browser to test page

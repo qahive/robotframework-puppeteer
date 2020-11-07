@@ -16,7 +16,7 @@ Count element
 
 Get element attribute
     ${type value} =   Get Element Attribute    id=alert_confirm    type
-    Should Be Equal As Strings    button    ${type value}    
+    Should Be Equal As Strings    button    ${type value}
 
 Element proprty is enable
     Element Should Be Enabled    id:prop-enable
