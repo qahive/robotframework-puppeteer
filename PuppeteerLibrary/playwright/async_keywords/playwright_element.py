@@ -72,6 +72,10 @@ class PlaywrightElement(iElementAsync):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
         return (await (await element.getProperty('textContent')).jsonValue())
 
+    async def get_attribute(self, locator: str, attribute: str) -> str:
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        return (await (await element.getProperty(attribute)).jsonValue())
+
     async def element_text_should_be(self, locator: str, expected: str, ignore_case=False):
         text = await self.get_text(locator)
         return BuiltIn().should_be_equal_as_strings(text, expected, ignore_case=ignore_case)

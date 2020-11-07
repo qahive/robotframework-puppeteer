@@ -60,6 +60,10 @@ class iElementAsync(BaseAsyncKeywords, ABC):
     @abstractmethod
     async def get_text(self, locator: str):
         pass
+
+    @abstractmethod
+    async def get_attribute(self, locator: str, attribute: str) -> str:
+        pass
     
     @abstractmethod
     async def element_text_should_be(self, locator: str, expected: str, ignore_case=False):

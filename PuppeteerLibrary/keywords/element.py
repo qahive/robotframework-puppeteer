@@ -133,7 +133,13 @@ class ElementKeywords(LibraryComponent):
 
         | ${value}                                    | `Get Value`          | id:comment |
         """
-        return self.loop.run_until_complete(self.async_func.get_text_async(locator))
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_text(locator))
+
+    @keyword
+    def get_element_attribute(self, locator, attribute):
+        """ Return the value of ``attribute`` from the element.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_attribute(locator, attribute))
 
     @keyword
     def element_should_contain(self, locator, expected, ignore_case=False):
@@ -163,7 +169,9 @@ class ElementKeywords(LibraryComponent):
         """
         return self.loop.run_until_complete(self.get_async_keyword_group().element_text_should_not_be(locator, expected, ignore_case))
 
-    
+    ##############################
+    # Query Element
+    ##############################
     @keyword
     def get_element_count(self, locator):
         """ Returns the number of elements matching ``locator``.
