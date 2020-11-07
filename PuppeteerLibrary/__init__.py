@@ -1,3 +1,4 @@
+from PuppeteerLibrary.keywords.checkbox import CheckboxKeywords
 from typing import List
 from PuppeteerLibrary.base.ipuppeteer_library import iPuppeteerLibrary
 import asyncio
@@ -102,6 +103,7 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         libraries = [
             AlertKeywords(self),
             BrowserManagementKeywords(self),
+            CheckboxKeywords(self),
             DropdownKeywords(self),
             ElementKeywords(self),
             FormElementKeywords(self),

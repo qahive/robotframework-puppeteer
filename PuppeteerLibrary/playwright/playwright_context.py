@@ -1,3 +1,4 @@
+from PuppeteerLibrary.playwright.async_keywords.playwright_checkbox import PlaywrightCheckbox
 from PuppeteerLibrary.playwright.async_keywords.playwright_mockresponse import PlaywrightMockResponse
 import asyncio
 from PuppeteerLibrary.custom_elements.base_page import BasePage
@@ -81,6 +82,7 @@ class PlaywrightContext(iLibraryContext):
         switcher = {
             "AlertKeywords": PlaywrightAlert(self),
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self),
+            "CheckboxKeywords": PlaywrightCheckbox(self),
             "DropdownKeywords": PlaywrightDropdown(self),
             "ElementKeywords": PlaywrightElement(self),
             "FormElementKeywords": PlaywrightFormElement(self),
