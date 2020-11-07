@@ -19,6 +19,13 @@ class PlaywrightElement(iElementAsync):
     async def click_element(self, locator: str):
         return await self.library_ctx.get_current_page().click_with_selenium_locator(locator)
 
+    async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        await element.click(position={
+            'x': int(xoffset),
+            'y': int(yoffset)
+        })
+
     async def upload_file(self, locator: str, file_path: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
         await element.setInputFiles(file_path)

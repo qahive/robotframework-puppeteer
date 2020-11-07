@@ -18,6 +18,10 @@ class iElementAsync(BaseAsyncKeywords, ABC):
     @abstractmethod
     async def click_element(self, locator: str):
         pass
+
+    @abstractmethod
+    async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
+        pass
     
     @abstractmethod
     async def upload_file(self, locator: str, file_path: str):

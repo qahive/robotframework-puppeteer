@@ -33,7 +33,7 @@ class ElementKeywords(LibraryComponent):
 
         | `Click Link`                                  | id:view_more          |
         """
-        return self.loop.run_until_complete(self.async_func.click_link_async(locator))
+        return self.loop.run_until_complete(self.get_async_keyword_group().click_link(locator))
 
     @keyword
     def click_button(self, locator):
@@ -43,7 +43,7 @@ class ElementKeywords(LibraryComponent):
 
         | `Click Button`                                | id:submit          |
         """
-        self.loop.run_until_complete(self.async_func.click_button_async(locator))
+        self.loop.run_until_complete(self.get_async_keyword_group().click_button(locator))
 
     @keyword
     def click_image(self, locator):
@@ -53,7 +53,13 @@ class ElementKeywords(LibraryComponent):
 
         | `Click Image`                                 | id:cat_image          |
         """
-        self.loop.run_until_complete(self.async_func.click_image_async(locator))
+        self.loop.run_until_complete(self.get_async_keyword_group().click_image(locator))
+
+    @keyword
+    def click_element_at_coordinate(self, locator, xoffset, yoffset):
+        """ Click element at specifict coordiate x and y offset
+        """
+        self.loop.run_until_complete(self.get_async_keyword_group().click_element_at_coordinate(locator, xoffset, yoffset))
 
     @keyword
     def upload_file(self, locator, file_path):
