@@ -96,6 +96,11 @@ class PuppeteerContext(iLibraryContext):
 
     async def close_browser_context(self):
         await self.browser.close()
+    
+    async def close_window(self):
+        await self.get_current_page().get_page().close()
+        pages = await self.get_all_pages()
+        self.set_current_page(pages[-1])
 
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {

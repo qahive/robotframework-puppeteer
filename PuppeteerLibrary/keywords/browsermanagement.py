@@ -42,6 +42,12 @@ class BrowserManagementKeywords(LibraryComponent):
         self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
 
     @keyword
+    def close_window(self):
+        """ Close current browser tab/page
+        """
+        self.loop.run_until_complete(self.ctx.get_current_library_context().close_window())
+
+    @keyword
     def close_browser(self, alias=None):
         """Closes the current browser
         """
