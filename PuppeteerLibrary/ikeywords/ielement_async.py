@@ -1,3 +1,4 @@
+from typing import Optional
 from PuppeteerLibrary.ikeywords.base_async_keywords import BaseAsyncKeywords
 from abc import ABC, abstractmethod
 
@@ -13,6 +14,10 @@ class iElementAsync(BaseAsyncKeywords, ABC):
     
     @abstractmethod
     async def upload_file(self, locator: str, file_path: str):
+        pass
+
+    @abstractmethod
+    async def press_keys(self, locator: str, *keys: str):
         pass
 
     ##############################

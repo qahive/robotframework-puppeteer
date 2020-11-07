@@ -17,6 +17,11 @@ class PlaywrightElement(iElementAsync):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
         await element.setInputFiles(file_path)
 
+    async def press_keys(self, locator: str, *keys: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        for key in keys:
+            await element.press(key)
+
     ##############################
     # Status
     ##############################
