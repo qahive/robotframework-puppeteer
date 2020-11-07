@@ -15,3 +15,7 @@ class iDropdownAsync(BaseAsyncKeywords, ABC):
     @abstractmethod
     async def get_selected_list_labels(self, locator: str) -> str:
         pass
+
+    @abstractmethod
+    async def get_selected_list_values(self, locator: str) -> str:
+        pass

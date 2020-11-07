@@ -39,6 +39,10 @@ class PlaywrightDropdown(iDropdownAsync):
             selected_labels.append((await (await option.getProperty('textContent')).jsonValue()))
         return selected_labels
 
-    async def get_selected_list_value(self, locator: str) -> str:
+    async def get_selected_list_values(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        return (await (await element.getProperty('value')).jsonValue())
+        options = await element.querySelectorAll('option:checked')
+        selected_labels = []
+        for option in options:
+            selected_labels.append((await (await option.getProperty('value')).jsonValue()))
+        return selected_labels
