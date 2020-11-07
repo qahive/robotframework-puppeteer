@@ -6,6 +6,13 @@ from abc import ABC, abstractmethod
 class iElementAsync(BaseAsyncKeywords, ABC):
 
     ##############################
+    # Query Element
+    ##############################
+    @abstractmethod
+    async def find_elements(self, locator: str):
+        pass
+
+    ##############################
     # Action
     ##############################
     @abstractmethod

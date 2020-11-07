@@ -10,6 +10,10 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
 *** Test Cases ***
+Count element
+    ${No of h2} =    Get Element Count    css=h2
+    Should Be Equal As Numbers    12    ${No of h2}
+
 Element proprty is enable
     Element Should Be Enabled    id:prop-enable
 

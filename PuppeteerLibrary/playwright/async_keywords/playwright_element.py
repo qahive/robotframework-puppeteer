@@ -8,6 +8,12 @@ class PlaywrightElement(iElementAsync):
         super().__init__(library_ctx)
 
     ##############################
+    # Query Element
+    ##############################
+    async def find_elements(self, locator: str):
+        return await self.library_ctx.get_current_page().querySelectorAll_with_selenium_locator(locator)
+
+    ##############################
     # Click
     ##############################
     async def click_element(self, locator: str):

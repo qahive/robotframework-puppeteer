@@ -164,3 +164,8 @@ class ElementKeywords(LibraryComponent):
         return self.loop.run_until_complete(self.get_async_keyword_group().element_text_should_not_be(locator, expected, ignore_case))
 
     
+    @keyword
+    def get_element_count(self, locator):
+        """ Returns the number of elements matching ``locator``.
+        """
+        return len(self.loop.run_until_complete(self.get_async_keyword_group().find_elements(locator)))
