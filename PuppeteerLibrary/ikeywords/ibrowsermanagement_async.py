@@ -42,3 +42,9 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
     @abstractmethod
     def unselect_iframe(self):
         pass
+
+    ##############################
+    # Cookies
+    ##############################
+    async def delete_all_cookies(self):
+        pass

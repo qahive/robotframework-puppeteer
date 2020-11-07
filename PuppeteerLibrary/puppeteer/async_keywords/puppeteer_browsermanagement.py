@@ -95,3 +95,11 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
     def unselect_iframe(self):
         self.library_ctx.get_current_page().unselect_iframe()
     
+    ##############################
+    # Cookies
+    ##############################
+    async def delete_all_cookies(self):
+        cookies = await self.library_ctx.get_current_page().get_page().cookies()
+        for cookie in cookies:
+            await self.library_ctx.get_current_page().get_page().deleteCookie(cookie)
+

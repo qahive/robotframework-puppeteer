@@ -100,3 +100,8 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
     def unselect_iframe(self):
         self.library_ctx.get_current_page().unselect_iframe()
     
+    ##############################
+    # Cookies
+    ##############################
+    async def delete_all_cookies(self):
+        await self.library_ctx.get_browser_context().contexts[0].clearCookies()

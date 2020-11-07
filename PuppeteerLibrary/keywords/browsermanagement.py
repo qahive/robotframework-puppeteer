@@ -152,6 +152,9 @@ class BrowserManagementKeywords(LibraryComponent):
         """
         return self.loop.run_until_complete(self.get_async_keyword_group().enable_emulate_mode_async(emulate_name))
 
+    ##############################
+    # iFrame
+    ##############################
     @keyword
     def select_frame(self, locator):
         return self.loop.run_until_complete(self.get_async_keyword_group().select_frame(locator))
@@ -159,3 +162,12 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def unselect_frame(self):
         self.get_async_keyword_group().unselect_iframe()
+
+    ##############################
+    # Cookies
+    ##############################
+    @keyword
+    def delete_all_cookies(self):
+        """ Deletes all cookies.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().delete_all_cookies())
