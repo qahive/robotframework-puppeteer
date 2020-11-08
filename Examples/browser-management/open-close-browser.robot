@@ -1,11 +1,10 @@
 *** Settings ***
-Library    Dialogs    
 Library    PuppeteerLibrary
 Suite Teardown    Close Puppeteer
 Test Teardown    Close All Browser
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    webkit
 
 
 *** Test Cases ***
@@ -50,3 +49,17 @@ Close current window
     Switch Window    NEW    
     Wait Until Page Contains    Login form
     Close Window    
+
+Window count
+    [Teardown]    Capture Page Screenshot    
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}    options=${options}    alias=Browser 1
+    ${no of window} =    Get Window Count
+    Should Be Equal As Numbers    1    ${no of window}
+    Run Async Keywords
+    ...    Wait For New Window Open    AND
+    ...    Click Element    id=open-new-tab
+    ${no of window} =    Get Window Count
+    Should Be Equal As Numbers    2    ${no of window}

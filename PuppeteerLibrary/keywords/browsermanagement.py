@@ -110,8 +110,7 @@ class BrowserManagementKeywords(LibraryComponent):
     def get_window_count(self):
         """ Get windows count
         """
-        pass
-        # return  self.loop.run_until_complete(self.async_func.get_window_count_async())
+        return  self.loop.run_until_complete(self.get_async_keyword_group().get_window_count())
 
     @keyword
     def wait_for_new_window_open(self, timeout=None):
