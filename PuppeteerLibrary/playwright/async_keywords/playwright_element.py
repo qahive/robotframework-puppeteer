@@ -8,14 +8,32 @@ class PlaywrightElement(iElementAsync):
         super().__init__(library_ctx)
 
     ##############################
+    # Query Element
+    ##############################
+    async def find_elements(self, locator: str):
+        return await self.library_ctx.get_current_page().querySelectorAll_with_selenium_locator(locator)
+
+    ##############################
     # Click
     ##############################
     async def click_element(self, locator: str):
         return await self.library_ctx.get_current_page().click_with_selenium_locator(locator)
 
+    async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        await element.click(position={
+            'x': int(xoffset),
+            'y': int(yoffset)
+        })
+
     async def upload_file(self, locator: str, file_path: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
         await element.setInputFiles(file_path)
+
+    async def press_keys(self, locator: str, *keys: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        for key in keys:
+            await element.press(key)
 
     ##############################
     # Status
@@ -61,6 +79,10 @@ class PlaywrightElement(iElementAsync):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
         return (await (await element.getProperty('textContent')).jsonValue())
 
+    async def get_attribute(self, locator: str, attribute: str) -> str:
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        return (await (await element.getProperty(attribute)).jsonValue())
+        
     async def element_text_should_be(self, locator: str, expected: str, ignore_case=False):
         text = await self.get_text(locator)
         return BuiltIn().should_be_equal_as_strings(text, expected, ignore_case=ignore_case)
@@ -68,3 +90,10 @@ class PlaywrightElement(iElementAsync):
     async def element_text_should_not_be(self, locator: str, expected: str, ignore_case=False):
         text = await self.get_text(locator)
         return BuiltIn().should_not_be_equal_as_strings(text, expected, ignore_case=ignore_case)
+
+    ##############################
+    # Scrolling
+    ##############################
+    async def scroll_element_into_view(self, locator: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)        
+        await element.scrollIntoViewIfNeeded()

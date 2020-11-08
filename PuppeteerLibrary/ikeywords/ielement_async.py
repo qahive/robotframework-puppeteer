@@ -5,14 +5,29 @@ from abc import ABC, abstractmethod
 class iElementAsync(BaseAsyncKeywords, ABC):
 
     ##############################
+    # Query Element
+    ##############################
+    @abstractmethod
+    async def find_elements(self, locator: str):
+        pass
+
+    ##############################
     # Action
     ##############################
     @abstractmethod
     async def click_element(self, locator: str):
         pass
+
+    @abstractmethod
+    async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
+        pass
     
     @abstractmethod
     async def upload_file(self, locator: str, file_path: str):
+        pass
+
+    @abstractmethod
+    async def press_keys(self, locator: str, *keys: str):
         pass
 
     ##############################
@@ -48,6 +63,10 @@ class iElementAsync(BaseAsyncKeywords, ABC):
     @abstractmethod
     async def get_text(self, locator: str):
         pass
+
+    @abstractmethod
+    async def get_attribute(self, locator: str, attribute: str) -> str:
+        pass
     
     @abstractmethod
     async def element_text_should_be(self, locator: str, expected: str, ignore_case=False):
@@ -55,4 +74,11 @@ class iElementAsync(BaseAsyncKeywords, ABC):
 
     @abstractmethod
     async def element_text_should_not_be(self, locator: str, expected: str, ignore_case=False):
+        pass
+
+    ##############################
+    # Scrolling
+    ##############################
+    @abstractmethod
+    async def scroll_element_into_view(self, locator: str):
         pass

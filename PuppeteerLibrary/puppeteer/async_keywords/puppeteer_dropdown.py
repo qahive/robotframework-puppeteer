@@ -31,3 +31,19 @@ class PuppeteerDropdown(iDropdownAsync):
                 element.selected = true;
             '''.format(selector_value=selector_value, label=labels))
 
+    async def get_selected_list_labels(self, locator: str) -> str:
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        options = await element.querySelectorAll('option:checked')
+        selected_labels = []
+        for option in options:
+            selected_labels.append((await (await option.getProperty('textContent')).jsonValue()))
+        return selected_labels
+
+    async def get_selected_list_values(self, locator: str) -> str:
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        options = await element.querySelectorAll('option:checked')
+        selected_labels = []
+        for option in options:
+            selected_labels.append((await (await option.getProperty('value')).jsonValue()))
+        return selected_labels
+

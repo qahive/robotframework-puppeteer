@@ -1,7 +1,8 @@
-from PuppeteerLibrary.playwright.async_keywords.playwright_mockresponse import PlaywrightMockResponse
 import asyncio
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
+from PuppeteerLibrary.playwright.async_keywords.playwright_checkbox import PlaywrightCheckbox
+from PuppeteerLibrary.playwright.async_keywords.playwright_mockresponse import PlaywrightMockResponse
 from PuppeteerLibrary.playwright.async_keywords.playwright_formelement import PlaywrightFormElement
 from PuppeteerLibrary.playwright.async_keywords.playwright_dropdown import PlaywrightDropdown
 from PuppeteerLibrary.playwright.async_keywords.playwright_alert import PlaywrightAlert
@@ -77,10 +78,16 @@ class PlaywrightContext(iLibraryContext):
                 None
         self._reset_context()
 
+    async def close_window(self):
+        await self.get_current_page().get_page().close()
+        pages = await self.get_all_pages()
+        self.set_current_page(pages[-1])
+
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
             "AlertKeywords": PlaywrightAlert(self),
             "BrowserManagementKeywords": PlaywrightBrowserManagement(self),
+            "CheckboxKeywords": PlaywrightCheckbox(self),
             "DropdownKeywords": PlaywrightDropdown(self),
             "ElementKeywords": PlaywrightElement(self),
             "FormElementKeywords": PlaywrightFormElement(self),

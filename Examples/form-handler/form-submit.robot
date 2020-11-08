@@ -28,6 +28,7 @@ Submit register form
     Select From List By Value    id=inputState    5
     Input Text    id=inputZip    1234
     Click Element    css=button[type="submit"]
+    
 
 *** Keywords ***
 Open browser to test page

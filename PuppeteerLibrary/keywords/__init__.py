@@ -1,5 +1,6 @@
 from .alert import AlertKeywords
 from .browsermanagement import BrowserManagementKeywords
+from .checkbox import CheckboxKeywords
 from .dropdown import DropdownKeywords
 from .element import ElementKeywords
 from .formelement import FormElementKeywords

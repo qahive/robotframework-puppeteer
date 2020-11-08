@@ -42,6 +42,12 @@ class BrowserManagementKeywords(LibraryComponent):
         self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
 
     @keyword
+    def close_window(self):
+        """ Close current browser tab/page
+        """
+        self.loop.run_until_complete(self.ctx.get_current_library_context().close_window())
+
+    @keyword
     def close_browser(self, alias=None):
         """Closes the current browser
         """
@@ -104,8 +110,7 @@ class BrowserManagementKeywords(LibraryComponent):
     def get_window_count(self):
         """ Get windows count
         """
-        pass
-        # return  self.loop.run_until_complete(self.async_func.get_window_count_async())
+        return  self.loop.run_until_complete(self.get_async_keyword_group().get_window_count())
 
     @keyword
     def wait_for_new_window_open(self, timeout=None):
@@ -152,6 +157,9 @@ class BrowserManagementKeywords(LibraryComponent):
         """
         return self.loop.run_until_complete(self.get_async_keyword_group().enable_emulate_mode_async(emulate_name))
 
+    ##############################
+    # iFrame
+    ##############################
     @keyword
     def select_frame(self, locator):
         return self.loop.run_until_complete(self.get_async_keyword_group().select_frame(locator))
@@ -159,3 +167,12 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def unselect_frame(self):
         self.get_async_keyword_group().unselect_iframe()
+
+    ##############################
+    # Cookies
+    ##############################
+    @keyword
+    def delete_all_cookies(self):
+        """ Deletes all cookies.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().delete_all_cookies())

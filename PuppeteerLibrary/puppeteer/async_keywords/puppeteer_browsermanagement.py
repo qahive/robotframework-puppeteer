@@ -25,7 +25,14 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         return await self.library_ctx.get_current_page().reload_page()
 
     async def get_window_count(self):
-        pass
+        pages = await self.library_ctx.get_all_pages()
+        for page in pages:
+            # Workaround: for force pages re-cache
+            try:
+                await page.title()
+            except:
+                return -1
+        return len(await self.library_ctx.get_all_pages()) - 1
 
     async def wait_for_new_window_open(self, timeout=None):
         page_len = 0
@@ -95,3 +102,11 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
     def unselect_iframe(self):
         self.library_ctx.get_current_page().unselect_iframe()
     
+    ##############################
+    # Cookies
+    ##############################
+    async def delete_all_cookies(self):
+        cookies = await self.library_ctx.get_current_page().get_page().cookies()
+        for cookie in cookies:
+            await self.library_ctx.get_current_page().get_page().deleteCookie(cookie)
+

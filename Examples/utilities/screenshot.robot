@@ -15,6 +15,9 @@ Capture page screenshot
     Capture Page Screenshot    test-{index}.png
     Capture Page Screenshot    fullPage=True
 
+Set page screenshot path
+    Set Screenshot Directory    ./logs
+    Capture Page Screenshot
 
 *** Keywords ***
 Open browser to test page

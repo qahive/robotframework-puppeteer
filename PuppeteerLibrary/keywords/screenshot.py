@@ -15,6 +15,12 @@ class ScreenshotKeywords(LibraryComponent):
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
+    def set_screenshot_directory(self, path):
+        self.log_dir = path
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+    @keyword
     def capture_page_screenshot(self, filename=DEFAULT_FILENAME_PAGE, fullPage=False):
         """
         Capture current web page as image png file.

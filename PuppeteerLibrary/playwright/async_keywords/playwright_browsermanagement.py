@@ -31,16 +31,6 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
             except:
                 return -1
         return len(await self.library_ctx.get_all_pages())
-        '''
-        pages = await self.library_ctx.get_browser().pages()
-        for page in pages:
-            # Workaround: for force pages re-cache
-            try:
-                await page.title()
-            except:
-                return -1
-        return len(await self.library_ctx.get_browser().pages())
-        '''
 
     async def wait_for_new_window_open(self, timeout=None):
         page_len = 0
@@ -100,3 +90,8 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
     def unselect_iframe(self):
         self.library_ctx.get_current_page().unselect_iframe()
     
+    ##############################
+    # Cookies
+    ##############################
+    async def delete_all_cookies(self):
+        await self.library_ctx.get_browser_context().contexts[0].clearCookies()

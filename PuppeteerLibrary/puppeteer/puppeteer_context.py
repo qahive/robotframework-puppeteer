@@ -1,10 +1,10 @@
-from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_mockresponse import PuppeteerMockResponse
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_alert import PuppeteerAlert
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_checkbox import PuppeteerCheckbox
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_screenshot import PuppeteerScreenshot
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_waiting import PuppeteerWaiting
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_browsermanagement import PuppeteerBrowserManagement
@@ -15,6 +15,7 @@ from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_mouseevent import Puppe
 from PuppeteerLibrary.puppeteer.custom_elements.puppeteer_page import PuppeteerPage
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_pdf import PuppeteerPDF
 from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_javascript import PuppeteerJavascript
+from PuppeteerLibrary.puppeteer.async_keywords.puppeteer_mockresponse import PuppeteerMockResponse
 from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 
 
@@ -95,11 +96,17 @@ class PuppeteerContext(iLibraryContext):
 
     async def close_browser_context(self):
         await self.browser.close()
+    
+    async def close_window(self):
+        await self.get_current_page().get_page().close()
+        pages = await self.get_all_pages()
+        self.set_current_page(pages[-1])
 
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {
             "AlertKeywords": PuppeteerAlert(self),
             "BrowserManagementKeywords": PuppeteerBrowserManagement(self),
+            "CheckboxKeywords": PuppeteerCheckbox(self),
             "DropdownKeywords": PuppeteerDropdown(self),
             "ElementKeywords": PuppeteerElement(self),
             "FormElementKeywords": PuppeteerFormElement(self),

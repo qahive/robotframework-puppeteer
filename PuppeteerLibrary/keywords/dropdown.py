@@ -18,3 +18,31 @@ class DropdownKeywords(LibraryComponent):
     @keyword
     def select_from_list_by_label(self, locator, labels):
         return self.loop.run_until_complete(self.get_async_keyword_group().select_from_list_by_label(locator, labels))
+
+    @keyword
+    def get_selected_list_label(self, locator):
+        """ Return the label of selected option from element.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_selected_list_labels(locator))[0]
+
+    @keyword
+    def get_selected_list_labels(self, locator):
+        """ Return the label list of selected options from element.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_selected_list_labels(locator))
+
+
+    @keyword
+    def get_selected_list_value(self, locator):
+        """ Return the value of selected option from element.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_selected_list_values(locator))[0]
+
+
+    @keyword
+    def get_selected_list_values(self, locator):
+        """ Return the value list of selected options from element.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_selected_list_values(locator))
+
+

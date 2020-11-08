@@ -47,5 +47,9 @@ class iLibraryContext(ABC):
         pass
 
     @abstractmethod
+    async def close_window(self):
+        pass
+
+    @abstractmethod
     def get_async_keyword_group(self, keyword_group_name: str):
         pass
