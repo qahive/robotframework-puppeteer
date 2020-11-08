@@ -183,3 +183,12 @@ class ElementKeywords(LibraryComponent):
         """ Returns the number of elements matching ``locator``.
         """
         return len(self.loop.run_until_complete(self.get_async_keyword_group().find_elements(locator)))
+
+    ##############################
+    # Scrolling
+    ##############################
+    @keyword
+    def scroll_element_into_view(self, locator):
+        """ Scroll element into view
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().scroll_element_into_view(locator))

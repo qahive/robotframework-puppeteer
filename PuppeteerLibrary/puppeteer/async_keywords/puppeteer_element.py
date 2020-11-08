@@ -89,3 +89,9 @@ class PuppeteerElement(iElementAsync):
         text = await self.get_text(locator)
         return BuiltIn().should_not_be_equal_as_strings(text, expected, ignore_case=ignore_case)
 
+    ##############################
+    # Scrolling
+    ##############################
+    async def scroll_element_into_view(self, locator: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)        
+        await element.focus()

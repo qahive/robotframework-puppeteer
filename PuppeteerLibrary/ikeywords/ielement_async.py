@@ -1,4 +1,3 @@
-from typing import Optional
 from PuppeteerLibrary.ikeywords.base_async_keywords import BaseAsyncKeywords
 from abc import ABC, abstractmethod
 
@@ -75,4 +74,11 @@ class iElementAsync(BaseAsyncKeywords, ABC):
 
     @abstractmethod
     async def element_text_should_not_be(self, locator: str, expected: str, ignore_case=False):
+        pass
+
+    ##############################
+    # Scrolling
+    ##############################
+    @abstractmethod
+    async def scroll_element_into_view(self, locator: str):
         pass
