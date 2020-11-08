@@ -79,10 +79,9 @@ class PlaywrightContext(iLibraryContext):
         self._reset_context()
 
     async def close_window(self):
-        raise Exception('Not implemented')
-        # await self.get_current_page().get_page().close()
-        # pages = await self.get_all_pages()
-        # self.set_current_page(pages[-1])
+        await self.get_current_page().get_page().close()
+        pages = await self.get_all_pages()
+        self.set_current_page(pages[-1])
 
     def get_async_keyword_group(self, keyword_group_name: str):
         switcher = {

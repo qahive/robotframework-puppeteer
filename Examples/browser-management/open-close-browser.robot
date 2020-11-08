@@ -5,7 +5,7 @@ Suite Teardown    Close Puppeteer
 Test Teardown    Close All Browser
 
 *** Variables ***
-${DEFAULT_BROWSER}    webkit
+${DEFAULT_BROWSER}    chrome
 
 
 *** Test Cases ***
@@ -47,7 +47,6 @@ Close current window
     Run Async Keywords
     ...    Wait For New Window Open    AND
     ...    Click Element    id=open-new-tab
-    Dialogs.Pause Execution    
-    Close Window
-    Dialogs.Pause Execution    
+    Switch Window    NEW    
     Wait Until Page Contains    Login form
+    Close Window    
