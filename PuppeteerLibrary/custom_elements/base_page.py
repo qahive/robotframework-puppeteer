@@ -52,10 +52,6 @@ class BasePage(ABC):
     # Query
     ##############################
     @abstractmethod
-    async def querySelector(self, selector: str):
-        pass
-
-    @abstractmethod
     async def querySelectorAll_with_selenium_locator(self, selenium_locator: str):
         pass
 
