@@ -15,14 +15,23 @@ class PlaywrightPage(BasePage):
     
     def get_page(self) -> Page:
         return self.page
+    
+    def get_selected_frame_or_page(self):
+        if self.selected_iframe is not None:
+            return self.selected_iframe
+        else:
+            return self.page
 
     async def goto(self, url: str):
+        self.unselect_iframe()
         return await self.page.goto(url)
 
     async def go_back(self):
+        self.unselect_iframe()
         return await self.page.goBack()
 
     async def reload_page(self):
+        self.unselect_iframe()
         return await self.page.reload()
 
     async def title(self):
@@ -77,19 +86,31 @@ class PlaywrightPage(BasePage):
     ############
     # Query
     ############
-    async def querySelector(self, selector: str):
-        if self.selected_iframe is not None:
-            return await self.selected_iframe.querySelector(selector=selector)
-        else:
-            return await self.get_page().querySelector(selector=selector)
-
     async def querySelectorAll_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
-        return await self.get_page().querySelectorAll(selector_value)
+        if self.selected_iframe is not None:
+            return await self.selected_iframe.querySelectorAll(selector_value)
+        else:
+            return await self.get_page().querySelectorAll(selector_value)
     
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
-        return await self.get_page().querySelector(selector_value)
+        if self.selected_iframe is not None:
+            return await self.selected_iframe.querySelector(selector_value)
+        else:
+            return await self.get_page().querySelector(selector_value)
+
+    ############
+    # Select
+    ############
+    async def select_with_selenium_locator(self, selenium_locator: str, values: str):
+        raise Exception('Not implemented')
+
+    ############
+    # Evaluate
+    ############
+    async def evaluate_with_selenium_locator(self, evaluate: str):
+        return await self.get_selected_frame_or_page().evaluate(evaluate)
 
     ##############################
     # iframe

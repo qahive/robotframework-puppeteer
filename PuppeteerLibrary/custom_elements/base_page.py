@@ -8,6 +8,10 @@ class BasePage(ABC):
         pass
 
     @abstractmethod
+    def get_selected_frame_or_page(self) -> any:
+        pass
+
+    @abstractmethod
     async def goto(self, url: str):
         pass
 
@@ -52,15 +56,25 @@ class BasePage(ABC):
     # Query
     ##############################
     @abstractmethod
-    async def querySelector(self, selector: str):
-        pass
-
-    @abstractmethod
     async def querySelectorAll_with_selenium_locator(self, selenium_locator: str):
         pass
 
     @abstractmethod
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
+        pass
+
+    ############
+    # Select
+    ############
+    @abstractmethod
+    async def select_with_selenium_locator(self, selenium_locator: str, values: str):
+        pass
+
+    ############
+    # Evaluate
+    ############
+    @abstractmethod
+    async def evaluate_with_selenium_locator(self, evaluate: str):
         pass
 
     ##############################
