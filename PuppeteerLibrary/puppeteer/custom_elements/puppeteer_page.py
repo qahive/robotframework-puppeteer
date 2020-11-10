@@ -173,7 +173,7 @@ class PuppeteerPage(BasePage):
     # Evaluate
     ############
     async def evaluate_with_selenium_locator(self, evaluate: str):
-        return await self.library_ctx.get_current_page().get_selected_frame_or_page().evaluate(evaluate)
+        return await self.get_selected_frame_or_page().evaluate(evaluate)
 
     ##############################
     # iframe
