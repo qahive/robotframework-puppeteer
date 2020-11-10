@@ -59,6 +59,20 @@ class BasePage(ABC):
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
         pass
 
+    ############
+    # Select
+    ############
+    @abstractmethod
+    async def select_with_selenium_locator(self, selenium_locator: str, values: str):
+        pass
+
+    ############
+    # Evaluate
+    ############
+    @abstractmethod
+    async def evaluate_with_selenium_locator(self, evaluate: str):
+        pass
+
     ##############################
     # iframe
     ##############################

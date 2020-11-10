@@ -91,6 +91,18 @@ class PlaywrightPage(BasePage):
         else:
             return await self.get_page().querySelector(selector_value)
 
+    ############
+    # Select
+    ############
+    async def select_with_selenium_locator(self, selenium_locator: str, values: str):
+        raise Exception('Not implemented: select_with_selenium_locator')
+
+    ############
+    # Evaluate
+    ############
+    async def evaluate_with_selenium_locator(self, evaluate: str):
+        raise Exception('Not implemented: evaluate_with_selenium_locator')
+
     ##############################
     # iframe
     ##############################

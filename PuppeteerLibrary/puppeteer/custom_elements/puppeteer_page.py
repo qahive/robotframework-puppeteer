@@ -13,6 +13,12 @@ class PuppeteerPage(BasePage):
     def get_page(self) -> Page:
         return self.page
 
+    def get_selected_frame_or_page(self):
+        if self.selected_iframe is not None:
+            return self.selected_iframe
+        else:
+            return self.page
+
     async def goto(self, url: str):
         self.unselect_iframe()
         return await self.page.goto(url)
@@ -149,6 +155,25 @@ class PuppeteerPage(BasePage):
             return (await self.selected_iframe.xpath(selector=selector))
         else:
             return (await self.page.xpath(selector))
+
+    ############
+    # Select
+    ############
+    async def select_with_selenium_locator(self, selenium_locator: str, values: str):
+        selector_value = SelectorAbstraction.get_selector(selenium_locator)
+        if SelectorAbstraction.is_xpath(selenium_locator):
+            await self.get_selected_frame_or_page().evaluate('''
+                element = document.evaluate('{selector_value}//option[contains(@value, "{values}")]', document, null, XPathResult.ANY_TYPE, null).iterateNext();
+                element.selected = true;
+            '''.format(selector_value=selector_value, values=values))
+        else:
+            return await self.get_selected_frame_or_page().select(selector_value, values)
+
+    ############
+    # Evaluate
+    ############
+    async def evaluate_with_selenium_locator(self, evaluate: str):
+        return await self.library_ctx.get_current_page().get_selected_frame_or_page().evaluate(evaluate)
 
     ##############################
     # iframe
