@@ -21,6 +21,21 @@ Interact with iframe element
     Unselect Frame
     Wait Until Page Contains Element    id=ifrm
     
+Get text under iframe element
+    Wait Until Page Contains Element    id=ifrm
+    Select Frame    id=ifrm
+    ${label text} =    Get Text    css=h2
+    Should Be Equal As Strings    Login form    ${label text}
+    ${label text} =    Get Text    xpath=//h2
+    Should Be Equal As Strings    Login form    ${label text}
+    
+Get value under iframe element
+    Wait Until Page Contains Element    id=ifrm
+    Select Frame    id=ifrm
+    Input Text    id=exampleInputEmail1    demo@qahive.com
+    ${email value} =    Get Value    id=exampleInputEmail1
+    Should Be Equal As Strings    demo@qahive.com    ${email value}
+        
 *** Keywords ***
 Open browser to test page
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}

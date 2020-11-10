@@ -140,7 +140,7 @@ class PuppeteerPage(BasePage):
 
     async def _querySelectorForXpath(self, selector: str):
         if self.selected_iframe is not None:
-            return (await self.selected_iframe.xpath(selector=selector))[0]
+            return (await self.selected_iframe.xpath(selector))[0]
         else:
             return (await self.page.xpath(selector))[0]
 
@@ -152,7 +152,7 @@ class PuppeteerPage(BasePage):
 
     async def _querySelectorAllForXpath(self, selector: str):
         if self.selected_iframe is not None:
-            return (await self.selected_iframe.xpath(selector=selector))
+            return (await self.selected_iframe.xpath(selector))
         else:
             return (await self.page.xpath(selector))
 

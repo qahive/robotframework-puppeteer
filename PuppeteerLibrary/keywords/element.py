@@ -139,7 +139,7 @@ class ElementKeywords(LibraryComponent):
 
         | ${value}                                    | `Get Value`          | id:comment |
         """
-        return self.loop.run_until_complete(self.get_async_keyword_group().get_text(locator))
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_attribute(locator, "value"))
 
     @keyword
     def get_element_attribute(self, locator, attribute):
