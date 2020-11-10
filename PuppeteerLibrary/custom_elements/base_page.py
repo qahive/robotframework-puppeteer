@@ -8,6 +8,10 @@ class BasePage(ABC):
         pass
 
     @abstractmethod
+    def get_selected_frame_or_page(self) -> any:
+        pass
+
+    @abstractmethod
     async def goto(self, url: str):
         pass
 

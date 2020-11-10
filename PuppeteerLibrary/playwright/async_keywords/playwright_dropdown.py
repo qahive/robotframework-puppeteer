@@ -9,28 +9,16 @@ class PlaywrightDropdown(iDropdownAsync):
 
     async def select_from_list_by_value(self, locator, values):
         selector_value = SelectorAbstraction.get_selector(locator)
-        if SelectorAbstraction.is_xpath(locator):
-            await self.library_ctx.get_current_page().get_page().evaluate('''
-                element = document.evaluate('{selector_value}//option[contains(@value, "{values}")]', document, null, XPathResult.ANY_TYPE, null).iterateNext();
-                element.selected = true;
-            '''.format(selector_value=selector_value, values=values))
-        else:
-            await self.library_ctx.get_current_page().get_page().selectOption(selector_value, {
+        return await self.library_ctx.get_current_page().get_selected_frame_or_page().selectOption(selector_value, {
                 'value': values
             })
 
     async def select_from_list_by_label(self, locator, labels):
         selector_value = SelectorAbstraction.get_selector(locator)
-        if SelectorAbstraction.is_xpath(locator):
-            await self.library_ctx.get_current_page().get_page().evaluate('''
-                element = document.evaluate('{selector_value}//option[text()=\"{label}\"]', document, null, XPathResult.ANY_TYPE, null).iterateNext();
-                element.selected = true;
-            '''.format(selector_value=selector_value, label=labels))
-        else:
-            await self.library_ctx.get_current_page().get_page().selectOption(selector_value, {
+        return await self.library_ctx.get_current_page().get_selected_frame_or_page().selectOption(selector_value, {
                 'label': labels
             })
-
+        
     async def get_selected_list_labels(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
         options = await element.querySelectorAll('option:checked')
