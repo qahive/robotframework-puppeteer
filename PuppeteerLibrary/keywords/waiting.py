@@ -45,7 +45,7 @@ class WaitingKeywords(LibraryComponent):
         | ...                | `Wait For Request Url` | ${URL_API}/login     | POST | username=demo |
 
         """
-        return self.loop.run_until_complete(self.get_async_keyword_group().wait_for_request_url_async(url, method, body, timeout))
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_for_request_url(url, method, body, timeout))
 
     @keyword
     def wait_for_response_url(self, url, status=200, body=None, timeout=None):
@@ -142,7 +142,6 @@ class WaitingKeywords(LibraryComponent):
         | `Wait Until Page Contains`         | Invalid user name or password |                             |      |
         """
         self.loop.run_until_complete(self.get_async_keyword_group().wait_until_page_contains(text, timeout))
-        # return self.loop.run_until_complete(self.async_func.wait_until_page_contains_async(text, timeout))
 
     @keyword
     def wait_until_page_does_not_contains(self, text, timeout=None):
