@@ -1,3 +1,4 @@
+from PuppeteerLibrary.utils.coverter import str2bool
 from typing import Optional
 from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.ikeywords.ielement_async import iElementAsync
@@ -17,8 +18,9 @@ class PuppeteerElement(iElementAsync):
     ##############################
     # Click
     ##############################
-    async def click_element(self, locator: str):
-        return await self.library_ctx.get_current_page().click_with_selenium_locator(locator)
+    async def click_element(self, locator: str, noWaitAfter: str):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        await element.click()
 
     async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)

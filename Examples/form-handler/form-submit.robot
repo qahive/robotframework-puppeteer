@@ -4,7 +4,7 @@ Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    webkit
 
 
 *** Test Cases ***
@@ -28,7 +28,18 @@ Submit register form
     Select From List By Value    id=inputState    5
     Input Text    id=inputZip    1234
     Click Element    css=button[type="submit"]
-    
+
+Webkit demo skip wait after click
+    [Tags]    Ignore
+    Open browser to test page    https://www.w3schools.com/html/html_forms.asp
+    Wait Until Element Is Visible    id=fname
+    Input Text     id=fname     123
+    Input Text     id=lname     321
+    Run Async Keywords
+    ...    Wait For New Window Open    AND
+    ...    Click Element     xpath=(//input[@value="Submit"])[1]    ${True}
+    Switch Window    NEW
+    Wait Until Page Contains    Submitted Form Data
 
 *** Keywords ***
 Open browser to test page
