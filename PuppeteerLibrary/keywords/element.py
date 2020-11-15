@@ -15,7 +15,7 @@ class ElementKeywords(LibraryComponent):
     # Action
     ##############################
     @keyword
-    def click_element(self, locator, noWaitAfter=False):
+    def click_element(self, locator, noWaitAfter='False'):
         """Clicks element identified by ``locator``.
 
         The ``noWaitAfter`` argument specifies skip wait for animation after click.
