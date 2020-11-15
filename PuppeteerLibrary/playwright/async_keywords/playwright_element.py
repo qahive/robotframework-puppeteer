@@ -17,7 +17,7 @@ class PlaywrightElement(iElementAsync):
     ##############################
     # Click
     ##############################
-    async def click_element(self, locator: str, noWaitAfter: str):
+    async def click_element(self, locator: str, noWaitAfter: str='False'):
         noWaitAfter = str2bool(noWaitAfter)
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
         await element.click(

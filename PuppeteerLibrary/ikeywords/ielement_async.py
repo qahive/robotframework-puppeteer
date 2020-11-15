@@ -15,7 +15,7 @@ class iElementAsync(BaseAsyncKeywords, ABC):
     # Action
     ##############################
     @abstractmethod
-    async def click_element(self, locator: str, noWaitAfter: str):
+    async def click_element(self, locator: str, noWaitAfter: str='False'):
         pass
 
     @abstractmethod
