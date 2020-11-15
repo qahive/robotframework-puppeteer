@@ -23,6 +23,14 @@ class iElementAsync(BaseAsyncKeywords, ABC):
         pass
 
     @abstractmethod
+    async def click_button(self, locator: str):
+        pass
+
+    @abstractmethod
+    async def click_image(self, locator: str):
+        pass
+
+    @abstractmethod
     async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
         pass
     

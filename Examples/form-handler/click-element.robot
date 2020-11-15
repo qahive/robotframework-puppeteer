@@ -14,11 +14,11 @@ Click link
     
 Click Button
     Open browser to test page    http://127.0.0.1:7272/basic-html-elements.html
-    Click Button    locator
+    Click Button    id=get_ajax
     
 Click Image
     Open browser to test page    http://127.0.0.1:7272/basic-html-elements.html
-    Click Image    locator
+    Click Image    id=gate
 
 Click element at coordiator
     Open browser to test page    http://127.0.0.1:7272/login-form-example.html
