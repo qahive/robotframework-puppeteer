@@ -19,6 +19,10 @@ class iElementAsync(BaseAsyncKeywords, ABC):
         pass
 
     @abstractmethod
+    async def click_link(self, locator: str):
+        pass
+
+    @abstractmethod
     async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
         pass
     
