@@ -139,6 +139,7 @@ class PuppeteerWaiting(iWaitingAsync):
     async def wait_until_element_finished_animating(self, locator, timeout=None):
         prev_rect_tmp = { 'value': None }
         async def check_finished_animating():
+            await self.wait_until_element_is_visible(locator)
             element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
             if prev_rect_tmp['value'] is None:
                 prev_rect_tmp['value'] = await element.boundingBox()

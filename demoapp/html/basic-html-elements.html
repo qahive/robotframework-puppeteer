@@ -5,10 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="css/basic-html-elements.css" media="all" type="text/css">
     <title>Basic HTML Elements</title>
+
+    <style>
+      .fade2 {
+          opacity: 0;
+          transition: all 0.5s linear;
+      }
+
+      .fade2.show {
+          opacity: 1;
+      }
+    </style>
   </head>
   <body>
 
@@ -226,6 +239,11 @@
           Launch demo modal
         </button>
       </div>
+      <div class="row" style="margin-top: 20px;">
+        <button id="popup_modal_fade" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalFade">
+          Launch demo modal fade
+        </button>
+      </div>
       <hr>
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -245,6 +263,26 @@
           </div>
         </div>
       </div>
+
+      <div class="modal fade2" id="exampleModalFade" tabindex="-1" role="dialog" aria-labelledby="exampleModalFade" aria-hidden="true">
+        <div class="modal-dialog" id="exampleModalFadeDialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalFadeTitle">Fade Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button id="close_modal_fade" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="container">

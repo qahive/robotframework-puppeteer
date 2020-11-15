@@ -58,6 +58,23 @@ Wait for element is enabled
     Wait Until Element Is Enabled    id=prop-enable
     Click Element    id=prop-enable
 
+Wait for element finished moving animation
+    Open browser to test page    ${HOME_PAGE_URL}
+    Run Async Keywords    
+    ...    Wait Until Element Is Visible    id=close_modal    AND
+    ...    Click Element    id=popup_modal
+    Wait Until Element Finished Animating    id=close_modal
+    Click Element    id=close_modal
+    Wait Until Element Is Hidden    id=close_modal
+    
+Wait for element finished fading animation
+    Open browser to test page    ${HOME_PAGE_URL}
+    Run Async Keywords    
+    ...    Wait Until Element Is Visible    id=close_modal_fade    AND
+    ...    Click Element    id=popup_modal_fade
+    Wait Until Element Finished Animating    id=close_modal_fade    timeout=1s
+    Click Element    id=close_modal_fade
+    Wait Until Element Is Hidden    id=close_modal_fade
 
 *** Keywords ***
 Open browser to test page
