@@ -8,12 +8,23 @@ ${DEFAULT_BROWSER}    chrome
 
 
 *** Test Cases ***
+Click link
+    Open browser to test page    http://127.0.0.1:7272/basic-html-elements.html
+    Click Link    id=goto-login-page
+    
+Click Button
+    Open browser to test page    http://127.0.0.1:7272/basic-html-elements.html
+    Click Button    id=get_ajax
+    
+Click Image
+    Open browser to test page    http://127.0.0.1:7272/basic-html-elements.html
+    Click Image    id=gate
+
 Click element at coordiator
     Open browser to test page    http://127.0.0.1:7272/login-form-example.html
     Run Async Keywords
     ...    Wait For New Window Open    AND
     ...    Click Element At Coordinate    css=button[type="submit"]    1    1
-
 
 *** Keywords ***
 Open browser to test page

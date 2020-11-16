@@ -1,3 +1,4 @@
+from PuppeteerLibrary.utils.coverter import str2bool
 from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.ikeywords.ielement_async import iElementAsync
 
@@ -16,15 +17,37 @@ class PlaywrightElement(iElementAsync):
     ##############################
     # Click
     ##############################
-    async def click_element(self, locator: str):
-        return await self.library_ctx.get_current_page().click_with_selenium_locator(locator)
+    async def click_element(self, locator: str, noWaitAfter: str='False'):
+        noWaitAfter = str2bool(noWaitAfter)
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        await element.click(
+            noWaitAfter=noWaitAfter
+        )
+
+    async def click_link(self, locator: str):
+        await self._click_with_specific_tag(locator,'a')
+
+    async def click_button(self, locator: str):
+        await self._click_with_specific_tag(locator,'button')
+
+    async def click_image(self, locator: str):
+        await self._click_with_specific_tag(locator,'img')
+
+    async def _click_with_specific_tag(self, locator: str, expect_tag_name: str):
+        elements = await self.library_ctx.get_current_page().querySelectorAll_with_selenium_locator(locator)
+        for element in elements:
+            tag_name = await (await element.getProperty('tagName')).jsonValue()
+            if tag_name.lower() == expect_tag_name:
+                return await element.click()
+        raise Exception('Can\'t find the specific '+ expect_tag_name +' element for '+locator)
 
     async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        await element.click(position={
-            'x': int(xoffset),
-            'y': int(yoffset)
-        })
+        await element.click(
+            position={
+                'x': int(xoffset),
+                'y': int(yoffset)
+            })
 
     async def upload_file(self, locator: str, file_path: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)

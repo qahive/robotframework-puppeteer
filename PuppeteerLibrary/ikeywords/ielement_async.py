@@ -15,7 +15,19 @@ class iElementAsync(BaseAsyncKeywords, ABC):
     # Action
     ##############################
     @abstractmethod
-    async def click_element(self, locator: str):
+    async def click_element(self, locator: str, noWaitAfter: str='False'):
+        pass
+
+    @abstractmethod
+    async def click_link(self, locator: str):
+        pass
+
+    @abstractmethod
+    async def click_button(self, locator: str):
+        pass
+
+    @abstractmethod
+    async def click_image(self, locator: str):
         pass
 
     @abstractmethod

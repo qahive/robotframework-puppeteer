@@ -1,4 +1,3 @@
-from typing import NamedTuple, Optional
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.ikeywords.ielement_async import iElementAsync
@@ -16,14 +15,21 @@ class ElementKeywords(LibraryComponent):
     # Action
     ##############################
     @keyword
-    def click_element(self, locator):
+    def click_element(self, locator, noWaitAfter='False'):
         """Clicks element identified by ``locator``.
+
+        The ``noWaitAfter`` argument specifies skip wait for animation after click.
+        Only support for webkit and safari (Puppeteer)
 
         Example:
 
-        | `Click Element`                                  | id:register          |
+        | `Click Element`         | id:register          |            |
+        | `Click Element`         | id:register          | ${True}    |
         """
-        self.loop.run_until_complete(self.get_async_keyword_group().click_element(locator))
+        self.loop.run_until_complete(self.get_async_keyword_group().click_element(
+            locator=locator, 
+            noWaitAfter=noWaitAfter
+        ))
 
     @keyword
     def click_link(self, locator):
