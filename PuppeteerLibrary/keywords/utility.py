@@ -20,8 +20,7 @@ class UtilityKeywords(LibraryComponent):
         See the Timeout section above for more information.
 
         Example:
-
-        | ${orig timeout} =	          | Set Timeout	     | 15 seconds |
+        
         | Open page that loads slowly |	                 |            |
         | Set Timeout	              | ${orig timeout}	 |            |
 
