@@ -56,7 +56,7 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
             try:
                 await page.title()
             except:
-                return []
+                return -1
         return len(await self.library_ctx.get_all_pages())
 
     async def switch_window(self, locator='MAIN'):
