@@ -23,6 +23,7 @@ class FormElementKeywords(LibraryComponent):
         | `Input Text` | id:username | john        | True |
 
         """
+        self.info(text)
         self.loop.run_until_complete(self.get_async_keyword_group().input_text(locator, text, clear))
 
     @keyword
