@@ -94,7 +94,7 @@ class PuppeteerElement(iElementAsync):
 
     async def get_text(self, locator: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        return (await (await element.getProperty('textContent')).jsonValue())
+        return (await (await element.getProperty('innerText')).jsonValue())
 
     async def get_attribute(self, locator: str, attribute: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)

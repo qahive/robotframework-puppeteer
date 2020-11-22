@@ -36,6 +36,7 @@ class BrowserManagementKeywords(LibraryComponent):
         | `Open browser` | https://www.w3schools.com/html/html_forms.asp | options=${options} |
 
         """
+        self.info(url)
         library_context = self.ctx.create_library_context(alias, browser)
         self.loop.run_until_complete(library_context.start_server(options))
         self.loop.run_until_complete(library_context.create_new_page(options))
@@ -99,6 +100,7 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def go_to(self, url):
         """Navigates the current page to the ``url``"""
+        self.info(url)
         self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
 
     @keyword
