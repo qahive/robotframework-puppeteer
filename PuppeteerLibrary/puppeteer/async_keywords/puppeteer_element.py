@@ -41,7 +41,12 @@ class PuppeteerElement(iElementAsync):
 
     async def click_element_at_coordinate(self, locator: str, xoffset: str, yoffset: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        await element.click()
+        bounding_box = await element.boundingBox()
+        await self.library_ctx.get_current_page().get_page().mouse.move(
+            bounding_box['x'] + int(xoffset),
+            bounding_box['y'] + int(yoffset))
+        await self.library_ctx.get_current_page().get_page().mouse.down()
+        await self.library_ctx.get_current_page().get_page().mouse.up()
 
     async def upload_file(self, locator: str, file_path: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
