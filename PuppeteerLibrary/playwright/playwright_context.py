@@ -38,7 +38,8 @@ class PlaywrightContext(iLibraryContext):
         if self.browser_type == "webkit":
             self.browser = await self.playwright.webkit.launch(headless=False)
         elif self.browser_type == "firefox":
-            self.browser = await self.playwright.firefox.launch(headless=False)
+            self.browser = await self.playwright.firefox.launch(headless=False)    
+        self.browser.acceptDownloads = True
 
     async def stop_server(self):
         await self.playwright.stop()
@@ -50,7 +51,9 @@ class PlaywrightContext(iLibraryContext):
         return False
 
     async def create_new_page(self, options: dict=None) -> BasePage:
-        device_options = {}
+        device_options = {
+            'acceptDownloads': True
+        }
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]
         new_page = await self.browser.newPage(**device_options)
