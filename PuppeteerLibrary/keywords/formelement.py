@@ -1,3 +1,4 @@
+import asyncio
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
@@ -36,3 +37,6 @@ class FormElementKeywords(LibraryComponent):
         """
         self.loop.run_until_complete(self.get_async_keyword_group().clear_element_text(locator))
 
+    @keyword
+    def download_file(self, locator):
+        return self.loop.run_until_complete(self.get_async_keyword_group().download_file(locator))

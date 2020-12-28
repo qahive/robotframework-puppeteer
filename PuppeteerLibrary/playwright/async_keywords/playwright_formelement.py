@@ -1,3 +1,4 @@
+import asyncio
 from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
 
@@ -15,8 +16,12 @@ class PlaywrightFormElement(iFormElementAsync):
     async def clear_element_text(self, locator: str):
         await self._clear_input_text(locator)
     
+    async def download_file(self, locator: str):
+        page = self.library_ctx.get_current_page().get_page()
+        tasks = self.library_ctx.get_current_page().click_with_selenium_locator(locator), page.waitForEvent('download')
+        _, b = await asyncio.gather(*tasks)
+        return await b.path()
+
     async def _clear_input_text(self, selenium_locator):
         await self.library_ctx.get_current_page().click_with_selenium_locator(selenium_locator, {'clickCount': 3})
         await self.library_ctx.get_current_page().get_page().keyboard.press('Backspace')
-
-    

@@ -12,3 +12,6 @@ class iFormElementAsync(BaseAsyncKeywords, ABC):
     async def clear_element_text(self, locator: str):
         pass
     
+    @abstractmethod
+    async def download_file(self, locator: str):
+        pass

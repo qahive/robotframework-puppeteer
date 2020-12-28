@@ -1,4 +1,3 @@
-from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.ikeywords.iformelement_async import iFormElementAsync
 
 
@@ -14,6 +13,9 @@ class PuppeteerFormElement(iFormElementAsync):
     
     async def clear_element_text(self, locator: str):
         await self._clear_input_text(locator)
+
+    async def download_file(self, locator: str):
+        raise Exception("Sorry, keyword: download_file not support.")
     
     async def _clear_input_text(self, selenium_locator):
         await self.library_ctx.get_current_page().click_with_selenium_locator(selenium_locator, {'clickCount': 3})
