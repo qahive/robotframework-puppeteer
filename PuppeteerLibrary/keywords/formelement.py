@@ -40,3 +40,7 @@ class FormElementKeywords(LibraryComponent):
     @keyword
     def download_file(self, locator):
         return self.loop.run_until_complete(self.get_async_keyword_group().download_file(locator))
+
+    # @keyword
+    # def upload_file(self, locator):
+    #    return self.loop.run_until_complete(self.get_async_keyword_group().upload_file(locator))

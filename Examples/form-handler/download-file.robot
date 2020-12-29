@@ -1,19 +1,20 @@
 *** Settings ***
+Library    OperatingSystem    
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page
 Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    webkit
+${DEFAULT_BROWSER}    chrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
 *** Test Cases ***
-Download file
-    [Tags]    Ignore_chrome
+Download file  
     ${file path} =    Download File    id=download-file
     Should Not Be Empty    ${file path}    Download file failed
+    Get File    ${file path}    
 
 *** Keywords ***
 Open browser to test page
