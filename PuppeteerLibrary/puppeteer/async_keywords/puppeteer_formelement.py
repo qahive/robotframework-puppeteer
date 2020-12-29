@@ -18,7 +18,7 @@ class PuppeteerFormElement(iFormElementAsync):
     async def clear_element_text(self, locator: str):
         await self._clear_input_text(locator)
 
-    async def download_file(self, locator: str):
+    async def download_file(self, locator: str, timeout=None):
         path = os.getcwd()+'\\tmp-download'
         try:
             shutil.rmtree(path)
@@ -30,12 +30,11 @@ class PuppeteerFormElement(iFormElementAsync):
             'downloadPath': path
         })
         await self.library_ctx.get_current_page().click_with_selenium_locator(locator)
-        max_wait_time = 30 # 30 seconds
-        retry = 0
+        timeout = self.timestr_to_secs_for_default_timeout(timeout)
+        max_time = time.time() + timeout
         file = None
-        while retry < max_wait_time:
+        while time.time() < max_time:
             time.sleep(1)
-            retry = retry + 1
             files = glob.glob(path+'\\*')
             if len(files) == 1: 
                 file = files[0]

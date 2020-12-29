@@ -38,8 +38,8 @@ class FormElementKeywords(LibraryComponent):
         self.loop.run_until_complete(self.get_async_keyword_group().clear_element_text(locator))
 
     @keyword
-    def download_file(self, locator):
-        return self.loop.run_until_complete(self.get_async_keyword_group().download_file(locator))
+    def download_file(self, locator, timeout=None):
+        return self.loop.run_until_complete(self.get_async_keyword_group().download_file(locator, timeout))
 
     # @keyword
     # def upload_file(self, locator):

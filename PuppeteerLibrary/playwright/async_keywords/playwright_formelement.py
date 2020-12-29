@@ -16,9 +16,10 @@ class PlaywrightFormElement(iFormElementAsync):
     async def clear_element_text(self, locator: str):
         await self._clear_input_text(locator)
     
-    async def download_file(self, locator: str):
+    async def download_file(self, locator: str, timeout=None):
+        timeout = self.timestr_to_secs_for_default_timeout(timeout)* 1000
         page = self.library_ctx.get_current_page().get_page()
-        tasks = self.library_ctx.get_current_page().click_with_selenium_locator(locator), page.waitForEvent('download')
+        tasks = self.library_ctx.get_current_page().click_with_selenium_locator(locator), page.waitForEvent('download', timeout=timeout)
         _, b = await asyncio.gather(*tasks)
         return await b.path()
 
