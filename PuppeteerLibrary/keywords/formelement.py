@@ -41,6 +41,6 @@ class FormElementKeywords(LibraryComponent):
     def download_file(self, locator, timeout=None):
         return self.loop.run_until_complete(self.get_async_keyword_group().download_file(locator, timeout))
 
-    # @keyword
-    # def upload_file(self, locator):
-    #    return self.loop.run_until_complete(self.get_async_keyword_group().upload_file(locator))
+    @keyword
+    def upload_file(self, locator, file_path):
+        return self.loop.run_until_complete(self.get_async_keyword_group().upload_file(locator, file_path))

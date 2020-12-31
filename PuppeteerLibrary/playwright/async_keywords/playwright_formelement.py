@@ -23,6 +23,10 @@ class PlaywrightFormElement(iFormElementAsync):
         _, b = await asyncio.gather(*tasks)
         return await b.path()
 
+    async def upload_file(self, locator: str, file_path: str):
+        handle = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        await handle.setInputFiles(file_path)
+
     async def _clear_input_text(self, selenium_locator):
         await self.library_ctx.get_current_page().click_with_selenium_locator(selenium_locator, {'clickCount': 3})
         await self.library_ctx.get_current_page().get_page().keyboard.press('Backspace')

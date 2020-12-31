@@ -1,5 +1,5 @@
 *** Settings ***
-Library    OperatingSystem    
+Library    OperatingSystem
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page
 Test Teardown    Close All Browser
@@ -15,6 +15,9 @@ Download file
     ${file path} =    Download File    id=download-file
     Should Not Be Empty    ${file path}    Download file failed
     Get File    ${file path}    
+    
+Upload file
+    Upload File    id=fileToUpload    ${CURDIR}\\iframe.robot
 
 *** Keywords ***
 Open browser to test page
