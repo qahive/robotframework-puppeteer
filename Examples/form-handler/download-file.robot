@@ -17,7 +17,8 @@ Download file
     Get File    ${file path}    
     
 Upload file
-    Upload File    id=fileToUpload    ${CURDIR}\\iframe.robot
+    ${file} =    OperatingSystem.Join Path    ${CURDIR}    iframe.robot
+    Upload File    id=fileToUpload    ${file}
 
 *** Keywords ***
 Open browser to test page
