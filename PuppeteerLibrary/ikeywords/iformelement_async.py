@@ -13,5 +13,9 @@ class iFormElementAsync(BaseAsyncKeywords, ABC):
         pass
     
     @abstractmethod
-    async def download_file(self, locator: str):
+    async def download_file(self, locator: str, timeout=None):
+        pass
+
+    @abstractmethod
+    async def upload_file(self, locator: str, file_path: str):
         pass
