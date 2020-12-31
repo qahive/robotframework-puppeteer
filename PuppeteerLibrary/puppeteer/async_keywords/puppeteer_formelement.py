@@ -19,11 +19,11 @@ class PuppeteerFormElement(iFormElementAsync):
         await self._clear_input_text(locator)
 
     async def download_file(self, locator: str, timeout=None):
-        path = os.getcwd()+'\\tmp-download'
+        path = os.getcwd()+''+os.sep+'tmp-download'
         try:
             shutil.rmtree(path)
         except:
-            print('')
+            self.info('Cannot cleanup the tmp download folder.')
         page = self.library_ctx.get_current_page().get_page()
         await page._client.send('Page.setDownloadBehavior', {
             'behavior': 'allow', 
@@ -35,11 +35,14 @@ class PuppeteerFormElement(iFormElementAsync):
         file = None
         while time.time() < max_time:
             time.sleep(1)
-            files = glob.glob(path+'\\*')
+            files = glob.glob(path+''+os.sep+'*')
             if len(files) == 1: 
                 file = files[0]
                 break
         return file
+
+    async def upload_file(self, locator: str):
+        raise Exception('Not implemented')
 
     async def _clear_input_text(self, selenium_locator):
         await self.library_ctx.get_current_page().click_with_selenium_locator(selenium_locator, {'clickCount': 3})

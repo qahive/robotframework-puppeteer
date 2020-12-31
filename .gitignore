@@ -24,3 +24,4 @@ report.html
 *.pdf
 Examples/logs/
 Examples/tmp-download/test.csv
+Examples;tmp-download/test.csv
