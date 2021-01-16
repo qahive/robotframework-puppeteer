@@ -26,6 +26,7 @@ class ElementKeywords(LibraryComponent):
         | `Click Element`         | id:register          |            |
         | `Click Element`         | id:register          | ${True}    |
         """
+        self.info(f"Clicking element '{locator}'.")
         self.loop.run_until_complete(self.get_async_keyword_group().click_element(
             locator=locator, 
             noWaitAfter=noWaitAfter
@@ -39,6 +40,7 @@ class ElementKeywords(LibraryComponent):
 
         | `Click Link`                                  | id:view_more          |
         """
+        self.info(f"Clicking link '{locator}'.")
         return self.loop.run_until_complete(self.get_async_keyword_group().click_link(locator))
 
     @keyword
@@ -49,6 +51,7 @@ class ElementKeywords(LibraryComponent):
 
         | `Click Button`                                | id:submit          |
         """
+        self.info(f"Clicking button '{locator}'.")
         self.loop.run_until_complete(self.get_async_keyword_group().click_button(locator))
 
     @keyword
@@ -59,12 +62,14 @@ class ElementKeywords(LibraryComponent):
 
         | `Click Image`                                 | id:cat_image          |
         """
+        self.info(f"Clicking image '{locator}'.")
         self.loop.run_until_complete(self.get_async_keyword_group().click_image(locator))
 
     @keyword
     def click_element_at_coordinate(self, locator, xoffset, yoffset):
         """ Click element at specifict coordiate x and y offset
         """
+        self.info(f"Clicking element at coordinate '{locator}' at {}.")
         self.loop.run_until_complete(self.get_async_keyword_group().click_element_at_coordinate(locator, xoffset, yoffset))
 
     @keyword
@@ -90,6 +95,7 @@ class ElementKeywords(LibraryComponent):
         | `Press Keys`        | id=password       | Enter    |       |
         | `Press Keys`        | id=password       | A        | Enter |
         """
+        self.info(f"Sending key(s) {keys} to {locator} element.")
         return self.loop.run_until_complete(self.get_async_keyword_group().press_keys(locator, *keys))
 
     ##############################

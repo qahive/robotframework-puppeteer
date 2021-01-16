@@ -15,12 +15,14 @@ class CheckboxKeywords(LibraryComponent):
     def select_checkbox(self, locator):
         """ Select checkbox based on locator
         """
+        self.info(f"Select checkbox {locator}.")
         return self.loop.run_until_complete(self.get_async_keyword_group().select_checkbox(locator))
 
     @keyword
     def unselect_checkbox(self, locator):
         """ Unselect checkbox based on locator
         """
+        self.info(f"Unselect checkbox {locator}.")
         return self.loop.run_until_complete(self.get_async_keyword_group().unselect_checkbox(locator))
 
     @keyword
