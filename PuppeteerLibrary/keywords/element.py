@@ -69,7 +69,7 @@ class ElementKeywords(LibraryComponent):
     def click_element_at_coordinate(self, locator, xoffset, yoffset):
         """ Click element at specifict coordiate x and y offset
         """
-        self.info(f"Clicking element at coordinate '{locator}' at {}.")
+        self.info(f"Clicking element at coordinate '{locator}' at xoffset: '{xoffset}', yoffset: '{yoffset}'.")
         self.loop.run_until_complete(self.get_async_keyword_group().click_element_at_coordinate(locator, xoffset, yoffset))
 
     @keyword
