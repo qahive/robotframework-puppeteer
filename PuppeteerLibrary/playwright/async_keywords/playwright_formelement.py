@@ -13,6 +13,9 @@ class PlaywrightFormElement(iFormElementAsync):
             await self._clear_input_text(locator)
         await self.library_ctx.get_current_page().type_with_selenium_locator(locator, text)
     
+    async def input_password(self, locator: str, text: str, clear=True):
+        await self.input_text(locator, text, clear)
+
     async def clear_element_text(self, locator: str):
         await self._clear_input_text(locator)
     

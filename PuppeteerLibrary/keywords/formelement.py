@@ -24,9 +24,18 @@ class FormElementKeywords(LibraryComponent):
         | `Input Text` | id:username | john        | True |
 
         """
-        self.info(text)
+        self.info(f"Typing text '{text}' into text field '{locator}'.")
         self.loop.run_until_complete(self.get_async_keyword_group().input_text(locator, text, clear))
 
+    @keyword
+    def input_password(self, locator, text, clear=True):
+        """Types the given text into text field same as ``Input Text`` Keyword.
+
+        Differentiate is only not log the input value into log file. 
+        """
+        self.info(f"Typing password into text field '{locator}'.")
+        self.loop.run_until_complete(self.get_async_keyword_group().input_password(locator, text, clear))
+        
     @keyword
     def clear_element_text(self, locator):
         """Clears value of text field identified by ``locator``.
