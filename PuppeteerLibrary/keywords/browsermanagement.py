@@ -174,6 +174,28 @@ class BrowserManagementKeywords(LibraryComponent):
     # Cookies
     ##############################
     @keyword
+    def get_cookie(self, name):
+        """ Get cookie by name
+
+            Returns Cookie value
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_cookie(name))
+
+    @keyword
+    def get_cookies(self):
+        """ Get all cookies
+
+            Returns Dictionary for all cookies of the current page.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_cookies())
+
+    @keyword
+    def add_cookie(self, name, value):
+        """ Add cookie
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().add_cookie(name, value))
+
+    @keyword
     def delete_all_cookies(self):
         """ Deletes all cookies.
         """

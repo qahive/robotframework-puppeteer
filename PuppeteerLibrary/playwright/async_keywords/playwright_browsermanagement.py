@@ -93,5 +93,24 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
     ##############################
     # Cookies
     ##############################
+    async def get_cookie(self, name: str):
+        cookies = await self.get_cookies()
+        return cookies[name]
+
+    async def get_cookies(self):
+        cookies = await self.library_ctx.get_browser_context().contexts[0].cookies()
+        pairs = {}
+        for cookie in cookies:
+            pairs[cookie["name"]] = cookie["value"]
+        return pairs
+
+    async def add_cookie(self, name: str, value: str):
+        url = self.library_ctx.get_current_page().get_page().url
+        await self.library_ctx.get_browser_context().contexts[0].addCookies([{
+            'url': url,
+            'name': name,
+            'value': value
+        }])
+
     async def delete_all_cookies(self):
         await self.library_ctx.get_browser_context().contexts[0].clearCookies()
