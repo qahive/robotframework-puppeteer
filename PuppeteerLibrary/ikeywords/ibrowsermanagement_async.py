@@ -46,6 +46,9 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
     ##############################
     # Cookies
     ##############################
+    async def get_cookie(self, name: str):
+        pass
+
     async def get_cookies(self):
         pass
     

@@ -14,7 +14,16 @@ Get all cookies
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    https://www.blognone.com/    browser=${BROWSER}   options=${options}
     &{cookies} =    Get Cookies
-    Should Not Be Empty    ${cookies}[value]
+    Log    ${cookies}[name]
+    Should Not Be Empty    ${cookies}[name]
+    
+Get cookie
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    https://www.blognone.com/    browser=${BROWSER}   options=${options}
+    ${cookie value} =    Get Cookie    name
+    Should Not Be Empty    ${cookie value}
 
 Delete all cookies
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
