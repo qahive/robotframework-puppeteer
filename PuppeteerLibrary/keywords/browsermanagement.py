@@ -190,6 +190,12 @@ class BrowserManagementKeywords(LibraryComponent):
         return self.loop.run_until_complete(self.get_async_keyword_group().get_cookies())
 
     @keyword
+    def add_cookie(self, name, value):
+        """ Add cookie
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().add_cookie(name, value))
+
+    @keyword
     def delete_all_cookies(self):
         """ Deletes all cookies.
         """

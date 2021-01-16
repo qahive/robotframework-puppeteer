@@ -4,7 +4,7 @@ Suite Teardown    Close Puppeteer
 Test Teardown    Close All Browser
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    webkit
 
 
 *** Test Cases ***
@@ -14,16 +14,24 @@ Get all cookies
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    https://www.blognone.com/    browser=${BROWSER}   options=${options}
     &{cookies} =    Get Cookies
-    Log    ${cookies}[name]
-    Should Not Be Empty    ${cookies}[name]
+    Should Not Be Empty    ${cookies}[_gat]
     
 Get cookie
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    https://www.blognone.com/    browser=${BROWSER}   options=${options}
-    ${cookie value} =    Get Cookie    name
+    ${cookie value} =    Get Cookie    _gat
     Should Not Be Empty    ${cookie value}
+    
+Add cookie
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    https://www.blognone.com/    browser=${BROWSER}   options=${options}
+    Add Cookie    Test    1111
+    &{cookies} =    Get Cookies
+    Should Be Equal As Strings    1111    ${cookies}[Test]    
 
 Delete all cookies
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
