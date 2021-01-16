@@ -15,12 +15,14 @@ class MouseEventKeywords(LibraryComponent):
     def mouse_over(self, locator):
         """Mouse over the element.
         """
+        self.info(f"Mouse over '{locator}'.")
         return self.loop.run_until_complete(self.get_async_keyword_group().mouse_over(locator))
 
     @keyword
     def mouse_down(self, locator):
         """Mouse down on the element.
         """
+        self.info(f"Mouse down '{locator}'.")
         return self.loop.run_until_complete(self.get_async_keyword_group().mouse_down(locator))
 
     @keyword
@@ -33,4 +35,5 @@ class MouseEventKeywords(LibraryComponent):
     def mouse_move(self, x, y):
         """Move mouse to position x, y.
         """
+        self.info(f"Mouse move to x: '{x}', y: '{y}'.")
         return self.loop.run_until_complete(self.get_async_keyword_group().mouse_move(x, y))
