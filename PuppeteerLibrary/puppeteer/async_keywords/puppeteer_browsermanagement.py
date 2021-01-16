@@ -105,8 +105,14 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
     ##############################
     # Cookies
     ##############################
+    async def get_cookies(self):
+        cookies = await self.library_ctx.get_current_page().get_page().cookies()
+        if len(cookies) == 0:
+            return dict()
+        else:
+            return cookies[0]
+
     async def delete_all_cookies(self):
         cookies = await self.library_ctx.get_current_page().get_page().cookies()
         for cookie in cookies:
             await self.library_ctx.get_current_page().get_page().deleteCookie(cookie)
-
