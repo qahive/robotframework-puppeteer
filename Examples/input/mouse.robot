@@ -5,8 +5,7 @@ Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
-# ${DEFAULT_BROWSER}    webkit
+${DEFAULT_BROWSER}    firefox
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
@@ -19,6 +18,7 @@ Mouse over event
     Wait Until Page Contains    Login form
 
 Mouse drag
+    [Tags]    Ignore_firefox    
     Mouse Down    id=ball
     Mouse Move    40    50
     Mouse Up        
