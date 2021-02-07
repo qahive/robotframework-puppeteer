@@ -44,6 +44,7 @@ Or manually install by running following command
     
     pip install -r requirements.txt
     python setup.py install
+    python -m playwright install
 
 
 Usage

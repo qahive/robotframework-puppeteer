@@ -9,7 +9,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 # Get the version from the _version.py versioneer file. For a git checkout,
 # this is computed based on the number of commits since the last tag.
-from PuppeteerLibrary._version import get_versions
+from _version import get_versions
 VERSION = str(get_versions()['version']).split('+')[0]
 del get_versions
 
@@ -40,9 +40,9 @@ setup(
     install_requires=[
         'robotframework>=3.2.1',
         'playwright>=0.171.1',
-        'pyppeteer>=0.2.2',
+        'pyppeteer>=0.2.5',
     ],
-    # python_requires='>3.5',
+    python_requires='>3.6',
     # test_suite='nose.collector',
     # tests_require=['nose', 'parameterized'],
     zip_safe=False,
