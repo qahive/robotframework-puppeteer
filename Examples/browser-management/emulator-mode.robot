@@ -4,11 +4,10 @@ Suite Teardown    Close Puppeteer
 
 *** Variables ***
 ${DEFAULT_BROWSER}    chrome
-# ${DEFAULT_BROWSER}    webkit
 
 *** Test Cases ***
 Example enable emulator mode
-    [Tags]    Ignore_firefox    Ignore_pwchrome
+    [Tags]    Ignore_firefox
     [Teardown]    Close All Browser
     ${BROWSER} =     Get variable value    ${BROWSER}     ${DEFAULT_BROWSER}
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
