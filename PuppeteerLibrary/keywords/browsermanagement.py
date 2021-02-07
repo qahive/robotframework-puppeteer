@@ -17,10 +17,11 @@ class BrowserManagementKeywords(LibraryComponent):
 
         The ``browser`` argument specifies which browser to use.
 
-        |    = Browser =         |    = Name(s) =   |
-        | Google Chrome          | chrome           |
-        | Webkit (Safari engine) | webkit           |
-        | Firefox                | firefox          |
+        |    = Browser =           |    = Name(s) =   |    = Engine =   |
+        | Google Chrome            | chrome           | Puppeteer       |
+        | Google Chrome Playwright | pwchrome         | Playwright      |
+        | Webkit (Safari engine)   | webkit           | Playwright      |
+        | Firefox                  | firefox          | Playwright      |
 
         The ``options`` argument as a dictionary
 

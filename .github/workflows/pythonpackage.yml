@@ -12,6 +12,8 @@ jobs:
         # python-version: [3.7, 3.8, 3.9]
         include:
           - python-version: 3.7
+            browser: pwchrome
+          - python-version: 3.7
             browser: webkit
           - python-version: 3.8
             browser: chrome

@@ -8,7 +8,7 @@ ${DEFAULT_BROWSER}    chrome
 
 *** Test Cases ***
 Example enable emulator mode
-    [Tags]    Ignore_firefox
+    [Tags]    Ignore_firefox    Ignore_pwchrome
     [Teardown]    Close All Browser
     ${BROWSER} =     Get variable value    ${BROWSER}     ${DEFAULT_BROWSER}
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
