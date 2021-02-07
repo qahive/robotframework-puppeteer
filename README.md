@@ -33,6 +33,8 @@ See [`keyword documentation`](https://qahive.github.io/robotframework-puppeteer/
 
 Installation
 ------------
+Please ensure you have Python version >= 3.7 installed.
+
 The recommended installation method is using pip_::
 
     pip install --upgrade robotframework-puppeteerlibrary
