@@ -34,13 +34,27 @@ class PlaywrightContext(iLibraryContext):
         super().__init__(browser_type)
 
     async def start_server(self, options: dict=None):
+        default_options = {
+            'slowMo': 0,
+            'headless': True,
+            'devtools': False,
+            'width': 1366,
+            'height': 768
+        }
+        merged_options = default_options
+        if options is not None:
+            merged_options = {**merged_options, **options}
+
         self.playwright = await async_playwright().start()
         if self.browser_type == "pwchrome":
-            self.browser = await self.playwright.chromium.launch(headless=False)
+            self.browser = await self.playwright.chromium.launch(
+                headless=merged_options['headless'])
         elif self.browser_type == "webkit":
-            self.browser = await self.playwright.webkit.launch(headless=False)
+            self.browser = await self.playwright.webkit.launch(
+                headless=merged_options['headless'])
         elif self.browser_type == "firefox":
-            self.browser = await self.playwright.firefox.launch(headless=False)    
+            self.browser = await self.playwright.firefox.launch(
+                headless=merged_options['headless'])    
         self.browser.acceptDownloads = True
 
     async def stop_server(self):

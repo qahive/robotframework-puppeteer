@@ -6,13 +6,13 @@ Suite Teardown    Close Puppeteer
 
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    firefox
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
 *** Test Cases ***
 Generate pdf file
-    [Tags]    Ignore_webkit    Ignore_firefox    Ignore_pwchrome
+    [Tags]    Ignore_webkit    Ignore_firefox
     [Documentation]    Only support on chrome headless mode
     Print as pdf 
 
@@ -20,7 +20,7 @@ Generate pdf file
 *** Keywords ***
 Open browser to test page
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
-    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${True}
+    ${HEADLESS} =    Set Variable    ${True}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}    browser=${BROWSER}    options=${options}
 

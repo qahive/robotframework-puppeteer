@@ -1,3 +1,4 @@
+import time
 from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.ikeywords.imouseevent_async import iMouseEventAsync
 
@@ -18,6 +19,8 @@ class PlaywrightMouseEvent(iMouseEventAsync):
             bounding_box['x'] + bounding_box['width'] / 2,
             bounding_box['y'] + bounding_box['height'] / 2)
         await self.library_ctx.get_current_page().get_page().mouse.down()
+        # TODO: Workaround for firefox not throw exception when mouse down and then mouse move
+        time.sleep(0.5)
     
     async def mouse_up(self):
         await self.library_ctx.get_current_page().get_page().mouse.up()
