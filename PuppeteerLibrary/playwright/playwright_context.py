@@ -35,7 +35,9 @@ class PlaywrightContext(iLibraryContext):
 
     async def start_server(self, options: dict=None):
         self.playwright = await async_playwright().start()
-        if self.browser_type == "webkit":
+        if self.browser_type == "pwchrome":
+            self.browser = await self.playwright.chromium.launch(headless=False)
+        elif self.browser_type == "webkit":
             self.browser = await self.playwright.webkit.launch(headless=False)
         elif self.browser_type == "firefox":
             self.browser = await self.playwright.firefox.launch(headless=False)    
