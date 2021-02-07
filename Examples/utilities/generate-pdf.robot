@@ -12,7 +12,7 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 *** Test Cases ***
 Generate pdf file
-    [Tags]    Ignore_webkit    Ignore_firefox
+    [Tags]    Ignore_webkit    Ignore_firefox    Ignore_pwchrome
     [Documentation]    Only support on chrome headless mode
     Print as pdf 
 
