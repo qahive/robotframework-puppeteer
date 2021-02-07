@@ -18,8 +18,8 @@ Mouse over event
     Wait Until Page Contains    Login form
 
 Mouse drag
+    [Tags]    Ignore_firefox    
     Mouse Down    id=ball
-    Sleep    2s
     Mouse Move    40    50
     Mouse Up        
 
