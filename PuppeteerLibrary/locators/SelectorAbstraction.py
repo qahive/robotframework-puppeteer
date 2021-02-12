@@ -1,7 +1,4 @@
-from PuppeteerLibrary.locators import LocatorParserImplementation
-from PuppeteerLibrary.locators import CssLocatorParser, LinkLocatorParser, PartialLinkLocatorParser
-from PuppeteerLibrary.locators import IdLocatorParser
-from PuppeteerLibrary.locators import XPathLocatorParser
+from PuppeteerLibrary.locators import *
 import re
 
 
@@ -25,7 +22,9 @@ class SelectorAbstraction:
 
     @staticmethod
     def _get_locator_parser(selector_type: str) -> LocatorParserImplementation:
-        if selector_type == 'id':
+        if selector_type == 'chain':
+            return ChainLocatorParser()
+        elif selector_type == 'id':
             return IdLocatorParser()
         elif selector_type == 'xpath':
             return XPathLocatorParser()
@@ -40,7 +39,7 @@ class SelectorAbstraction:
 
     @staticmethod
     def _get_selector_pair(selenium_selector: str):
-        parser_regexp_types = ['^id', '^xpath', '^css', '^link', '^partial link']
+        parser_regexp_types = ['^chain', '^id', '^xpath', '^css', '^link', '^partial link']
         for parser_regexp in parser_regexp_types:
             match_obj = re.match('('+parser_regexp+')[=:](.*)', selenium_selector)
             if match_obj:
