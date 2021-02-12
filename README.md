@@ -18,11 +18,11 @@ Example:
 Browser Support
 ---------------------
 
-| Browser  | Support | Library |
-|   :---   | :---: | :---: |
-| Chromium | ✅ | Puppeteer | 
-| WebKit   | ✅ | Playwright | 
-| Firefox  | ✅ | Playwright | 
+| Browser  | Support | Library               |
+| :--- | :---: | :---:|
+| Chromium | ✅     | Puppeteer & Playwright | 
+| WebKit   | ✅     | Playwright             | 
+| Firefox  | ✅     | Playwright             | 
 
 
 Keyword documentation

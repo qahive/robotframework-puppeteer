@@ -51,6 +51,20 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     | link	       | Exact text a link has.	             | ``link:Home page``             |
     | partial link | Partial link text   	             | ``partial link:Home``          |
 
+    == Chain Locator only for Playwright ==
+    Playwright support ``Chaining selectors`` strategy. This allow us to chain following support locator.
+    Selectors can be combined with the ``>>`` token, e.g. selector1 >> selector2 >> selectors3. 
+    When selectors are chained, next one is queried relative to the previous one's result.
+
+    Support chaining locator strategy: css and xpath
+
+    More detail [Chaining selectors](https://playwright.dev/docs/selectors#chaining-selectors)
+
+    Example:
+
+    chain=css=article >> css=.bar > css=.baz >> css=span[attr=value]
+
+
     == Timeout ==
     Timeout will use for Wait.. keywords. By default Puppeteer will use default timeout value if you
     didn't specific in keywords argument.
