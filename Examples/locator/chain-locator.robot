@@ -1,5 +1,5 @@
 *** Settings ***
-Force Tags    Ingore_chrome
+Force Tags    Ignore_chrome
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page
 Test Teardown    Close All Browser
