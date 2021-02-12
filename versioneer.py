@@ -1477,7 +1477,7 @@ def get_versions(verbose=False):
 
 def get_version():
     """Get the short version string for this project."""
-    return get_versions()["version"].split('+')[0] 
+    return get_versions()
 
 
 def get_cmdclass():
