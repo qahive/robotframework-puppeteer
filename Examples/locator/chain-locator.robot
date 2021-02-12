@@ -1,4 +1,5 @@
 *** Settings ***
+Force Tags    Ingore_chrome
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page
 Test Teardown    Close All Browser
@@ -11,15 +12,12 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/register-form-example.html
 
 *** Test Cases ***
 Chain css selector
-    [Tags]    Ingore_Chrome
     Input Text    chain=form >> input[type="email"]    Test
 
 Chain xpath selector
-    [Tags]    Ingore_Chrome
     Input Text    chain=//form >> //input[@type="email"]    Test
 
 Chain mix between xpath and css
-    [Tags]    Ingore_Chrome
     Input Text    chain=(//form)[1] >> input[type="email"]    Test            
 
 *** Keywords ***
