@@ -1,7 +1,10 @@
+import asyncio
+import os
+import warnings
+import logging
 from PuppeteerLibrary.keywords.checkbox import CheckboxKeywords
 from typing import List
 from PuppeteerLibrary.base.ipuppeteer_library import iPuppeteerLibrary
-import asyncio
 from robot.api.deco import not_keyword
 from robot.api import logger
 from robot.libraries.BuiltIn import BuiltIn
@@ -106,7 +109,11 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     library_factory: LibraryContextFactory = None
     library_contexts: dict = {}
 
-    def __init__(self):
+    def __init__(self, disable_python_logging=True):
+        
+        if disable_python_logging:
+            self._disable_python_logging()
+
         try:
             self.loop = asyncio.get_event_loop()
         except:
@@ -193,6 +200,15 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         except Exception as err:
             logger.warn("Keyword '%s' could not be run on failure: %s"
                         % (self.run_on_failure_keyword, err))
+
+    def _disable_python_logging(self):
+        # Force node not throw any unhandled task
+        os.environ['NODE_OPTIONS'] = '--unhandled-rejections=none'
+        warnings.filterwarnings('ignore')
+        logging.getLogger('asyncio').setLevel(logging.ERROR)
+        logging.getLogger('asyncio.coroutines').setLevel(logging.ERROR)
+        logging.disable(logging.CRITICAL)
+        logging.warning('Protocol problem:')
 
 from ._version import get_versions
 __version__ = get_versions()['version']
