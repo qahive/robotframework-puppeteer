@@ -2,6 +2,8 @@ import asyncio
 import os
 import warnings
 import logging
+import signal
+import sys
 from PuppeteerLibrary.keywords.checkbox import CheckboxKeywords
 from typing import List
 from PuppeteerLibrary.base.ipuppeteer_library import iPuppeteerLibrary
@@ -114,6 +116,8 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         if disable_python_logging:
             self._disable_python_logging()
 
+        signal.signal(signal.SIGINT, self.signal_handler)
+
         try:
             self.loop = asyncio.get_event_loop()
         except:
@@ -200,6 +204,11 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         except Exception as err:
             logger.warn("Keyword '%s' could not be run on failure: %s"
                         % (self.run_on_failure_keyword, err))
+
+    def signal_handler(self, sig, frame):
+        print('You pressed Ctrl+C!')
+        BuiltIn().run_keyword_and_ignore_error('Close Puppeteer')
+        sys.exit(0)
 
     def _disable_python_logging(self):
         # Force node not throw any unhandled task
