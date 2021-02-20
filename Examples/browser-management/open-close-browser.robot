@@ -3,6 +3,7 @@ Library    PuppeteerLibrary
 Suite Teardown    Close Puppeteer
 Test Teardown    Close All Browser
 
+
 *** Variables ***
 ${DEFAULT_BROWSER}    chrome
 
@@ -21,8 +22,7 @@ Switch to new browser
     Switch Window    title=Basic HTML Elements
     Wait Until Page Contains Element    id=open-new-tab    
 
-Handle multiple browser
-    [Teardown]    Capture Page Screenshot    
+Handle multiple browser    
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
@@ -38,7 +38,6 @@ Handle multiple browser
     Wait Until Page Contains    Browser Management
     
 Close current window
-    [Teardown]    Capture Page Screenshot    
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
@@ -51,7 +50,6 @@ Close current window
     Close Window    
 
 Window count
-    [Teardown]    Capture Page Screenshot    
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
@@ -63,3 +61,15 @@ Window count
     ...    Click Element    id=open-new-tab
     ${no of window} =    Get Window Count
     Should Be Equal As Numbers    2    ${no of window}
+
+Close browser before task finished should not throw error message
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    ${HEADLESS}     Get variable value    ${HEADLESS}    ${True}
+    &{options} =    create dictionary   headless=${HEADLESS}
+    Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}    options=${options}    alias=Browser 1
+    Click Element    id=open-new-tab
+    Click Element    id=open-new-tab
+    Click Element    id=open-new-tab
+    Click Element    id=open-new-tab
+    Click Element    id=open-new-tab
+    
