@@ -116,7 +116,7 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         if disable_python_logging:
             self._disable_python_logging()
 
-        signal.signal(signal.SIGINT, self.signal_handler)
+        signal.signal(signal.SIGINT, self.terminal_signal_handler)
 
         try:
             self.loop = asyncio.get_event_loop()
@@ -193,7 +193,8 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         try:
             return DynamicCore.run_keyword(self, name, args, kwargs)
         except Exception:
-            self.failure_occurred()
+            if name.lower().replace(' ', '_') != 'capture_page_screenshot':
+                self.failure_occurred()
             raise
         finally:
             self._running_keyword = None
@@ -205,7 +206,7 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
             logger.warn("Keyword '%s' could not be run on failure: %s"
                         % (self.run_on_failure_keyword, err))
 
-    def signal_handler(self, sig, frame):
+    def terminal_signal_handler(self, sig, frame):
         print('You pressed Ctrl+C!')
         BuiltIn().run_keyword_and_ignore_error('Close Puppeteer')
         sys.exit(0)

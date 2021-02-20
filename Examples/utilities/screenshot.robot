@@ -18,6 +18,10 @@ Capture page screenshot
 Set page screenshot path
     Set Screenshot Directory    ./logs
     Capture Page Screenshot
+    
+Capture page screenshot should not run again if keyword failed
+    Close All Browser
+    Run Keyword And Expect Error    *    Capture Page Screenshot
 
 *** Keywords ***
 Open browser to test page
