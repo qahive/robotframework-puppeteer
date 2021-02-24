@@ -16,7 +16,7 @@ from PuppeteerLibrary.playwright.async_keywords.playwright_pdf import Playwright
 from PuppeteerLibrary.playwright.async_keywords.playwright_javascript import PlaywrightJavascript
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 try:
-    from playwright import async_playwright
+    from playwright.async_api import async_playwright
     from playwright.playwright import Playwright as AsyncPlaywright
     from playwright.browser import Browser
 except ImportError:
@@ -72,7 +72,7 @@ class PlaywrightContext(iLibraryContext):
         }
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]
-        new_page = await self.browser.newPage(**device_options)
+        new_page = await self.browser.new_page(**device_options)
         self.current_page = PlaywrightPage(new_page)
         return self.current_page
         
