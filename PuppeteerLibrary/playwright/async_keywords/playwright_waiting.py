@@ -85,7 +85,7 @@ class PlaywrightWaiting(iWaitingAsync):
     async def wait_until_element_does_not_contains(self, locator, text, timeout=None):
         async def validate_element_contains_text():
             return (text not in (await (await ( await self.library_ctx.get_current_page().
-                querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
+                querySelector_with_selenium_locator(locator)).get_property('textContent')).jsonValue()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
@@ -107,7 +107,7 @@ class PlaywrightWaiting(iWaitingAsync):
     async def wait_until_element_is_enabled(self, locator, timeout=None):
         async def validate_is_enabled():
             element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-            is_disabled = await (await element.getProperty('disabled')).jsonValue()
+            is_disabled = await (await element.get_property('disabled')).jsonValue()
             return is_disabled == False
         return await self._wait_until_worker(
             validate_is_enabled,
