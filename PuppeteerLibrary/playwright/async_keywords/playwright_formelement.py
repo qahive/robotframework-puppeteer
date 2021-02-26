@@ -24,7 +24,8 @@ class PlaywrightFormElement(iFormElementAsync):
         page = self.library_ctx.get_current_page().get_page()
         tasks = self.library_ctx.get_current_page().click_with_selenium_locator(locator), page.wait_for_event('download', timeout=timeout)
         _, b = await asyncio.gather(*tasks)
-        return await b.path()
+        path = str(await b.path())
+        return path.replace('\\', '\\\\')
 
     async def upload_file(self, locator: str, file_path: str):
         handle = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)

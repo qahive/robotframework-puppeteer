@@ -5,16 +5,17 @@ Test Setup    Open browser to test page
 Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
+
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    pwchrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
 *** Test Cases ***
-Download file  
+Download file
     ${file path} =    Download File    id=download-file
-    Should Not Be Empty    ${file path}    Download file failed
-    Get File    ${file path}    
+    Wait Until Keyword Succeeds    3x    2s    Copy File    ${file path}    test.csv   
+    Get File    test.csv
     
 Upload file
     ${file} =    OperatingSystem.Join Path    ${CURDIR}    iframe.robot

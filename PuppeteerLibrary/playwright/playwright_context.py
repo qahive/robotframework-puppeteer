@@ -39,7 +39,8 @@ class PlaywrightContext(iLibraryContext):
             'headless': True,
             'devtools': False,
             'width': 1366,
-            'height': 768
+            'height': 768,
+            'accept_downloads': True
         }
         merged_options = default_options
         if options is not None:
