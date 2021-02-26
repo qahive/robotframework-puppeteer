@@ -23,7 +23,7 @@ class PuppeteerWaiting(iWaitingAsync):
         return "'%s'" % value
 
     async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
-        req = await self.library_ctx.get_current_page().get_page().waitForRequest(
+        req = await self.library_ctx.get_current_page().get_page().wait_for_request(
             lambda req: re.search(url, req.url) is not None
                         and req.method == method
             , options={
@@ -50,7 +50,7 @@ class PuppeteerWaiting(iWaitingAsync):
         })
 
     async def wait_for_response_url(self, url, status=200, body=None, timeout=None):
-        res = await self.library_ctx.get_current_page().get_page().waitForResponse(
+        res = await self.library_ctx.get_current_page().get_page().wait_for_request(
             lambda res: re.search(url, res.url) is not None
                         and res.status == int(status)
             , options={
@@ -74,7 +74,7 @@ class PuppeteerWaiting(iWaitingAsync):
         })
 
     async def wait_for_navigation(self, timeout=None):
-        await self.library_ctx.get_current_page().get_page().waitForNavigation(
+        await self.library_ctx.get_current_page().get_page().wait_for_navigation(
             options={
                 'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
             })
@@ -99,7 +99,7 @@ class PuppeteerWaiting(iWaitingAsync):
     async def wait_until_element_contains(self, locator, text, timeout=None):
         async def validate_element_contains_text():
             return (text in (await (await ( await self.library_ctx.get_current_page().
-                querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
+                querySelector_with_selenium_locator(locator)).get_property('textContent')).jsonValue()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
@@ -107,7 +107,7 @@ class PuppeteerWaiting(iWaitingAsync):
     async def wait_until_element_does_not_contains(self, locator, text, timeout=None):
         async def validate_element_contains_text():
             return (text not in (await (await ( await self.library_ctx.get_current_page().
-                querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
+                querySelector_with_selenium_locator(locator)).get_property('textContent')).jsonValue()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
@@ -129,7 +129,7 @@ class PuppeteerWaiting(iWaitingAsync):
     async def wait_until_element_is_enabled(self, locator, timeout=None):
         async def validate_is_enabled():
             element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-            is_disabled = await (await element.getProperty('disabled')).jsonValue()
+            is_disabled = await (await element.get_property('disabled')).jsonValue()
             return is_disabled == False
         return await self._wait_until_worker(
             validate_is_enabled,
@@ -142,10 +142,10 @@ class PuppeteerWaiting(iWaitingAsync):
             await self.wait_until_element_is_visible(locator)
             element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
             if prev_rect_tmp['value'] is None:
-                prev_rect_tmp['value'] = await element.boundingBox()
+                prev_rect_tmp['value'] = await element.bounding_box()
                 return False
             prev_rect = prev_rect_tmp['value']
-            next_rect = await element.boundingBox()
+            next_rect = await element.bounding_box()
             if next_rect['x'] == prev_rect['x'] and next_rect['y'] == prev_rect['y']:
                 return True
             else:

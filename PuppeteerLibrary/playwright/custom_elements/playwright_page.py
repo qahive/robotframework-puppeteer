@@ -78,7 +78,7 @@ class PlaywrightPage(BasePage):
             options['state'] = 'hidden'
 
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
-        return await self.get_page().waitForSelector(
+        return await self.get_page().wait_for_selector(
             selector=selector_value, 
             timeout=options['timeout'], 
             state=options['state'])

@@ -28,32 +28,32 @@ class PuppeteerDropdown(iDropdownAsync):
 
     async def get_selected_list_labels(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        options = await element.querySelectorAll('option:checked')
+        options = await element.query_selector_all('option:checked')
         selected_labels = []
         for option in options:
-            selected_labels.append((await (await option.getProperty('textContent')).jsonValue()))
+            selected_labels.append((await (await option.get_property('textContent')).jsonValue()))
         return selected_labels
 
     async def get_list_labels(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        options = await element.querySelectorAll('option')
+        options = await element.query_selector_all('option')
         selected_labels = []
         for option in options:
-            selected_labels.append((await (await option.getProperty('textContent')).jsonValue()))
+            selected_labels.append((await (await option.get_property('textContent')).jsonValue()))
         return selected_labels
 
     async def get_selected_list_values(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        options = await element.querySelectorAll('option:checked')
+        options = await element.query_selector_all('option:checked')
         selected_labels = []
         for option in options:
-            selected_labels.append((await (await option.getProperty('value')).jsonValue()))
+            selected_labels.append((await (await option.get_property('value')).jsonValue()))
         return selected_labels
 
     async def get_list_values(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        options = await element.querySelectorAll('option')
+        options = await element.query_selector_all('option')
         selected_labels = []
         for option in options:
-            selected_labels.append((await (await option.getProperty('value')).jsonValue()))
+            selected_labels.append((await (await option.get_property('value')).jsonValue()))
         return selected_labels
