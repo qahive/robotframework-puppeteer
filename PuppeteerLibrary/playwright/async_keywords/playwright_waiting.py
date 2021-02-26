@@ -12,8 +12,9 @@ class PlaywrightWaiting(iWaitingAsync):
 
     async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
         req = await self.library_ctx.get_current_page().get_page().wait_for_event(
-            "request", lambda request: re.search(url, request.url) is not None and request.method == method,
-            self.timestr_to_secs_for_default_timeout(timeout) * 1000 
+            "request", 
+            predicate=lambda request: re.search(url, request.url) is not None and request.method == method,
+            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
         )
         try:
             pos_data = (await req.postData())
@@ -36,8 +37,9 @@ class PlaywrightWaiting(iWaitingAsync):
 
     async def wait_for_response_url(self, url, status=200, body=None, timeout=None):
         res = await self.library_ctx.get_current_page().get_page().wait_for_event(
-            "response", lambda response: re.search(url, response.url) is not None and response.status == int(status),
-            self.timestr_to_secs_for_default_timeout(timeout) * 1000 
+            "response", 
+            predicate=lambda response: re.search(url, response.url) is not None and response.status == int(status),
+            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
         )
         try:
             res_text = (await res.text())
@@ -57,9 +59,13 @@ class PlaywrightWaiting(iWaitingAsync):
         })
 
     async def wait_for_navigation(self, timeout=None):
-        await self.library_ctx.get_current_page().get_page().wait_for_navigation(
-            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
-        )
+        # page = self.library_ctx.get_current_page().get_page()
+        # return page.on('dialog', lambda dialog: asyncio.ensure_future(self.handle_dialog(dialog, action, prompt_text)))
+        # self.library_ctx.get_current_page().get_page().expect_navigation(timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 )
+        return await self.library_ctx.get_current_page().get_page().wait_for_event(
+            'load', 
+            predicate=None, 
+            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000)
 
     async def wait_until_page_contains_element(self, locator, timeout=None):
         return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
