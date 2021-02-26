@@ -5,7 +5,7 @@ Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    pwchrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
@@ -17,7 +17,7 @@ Mock ajax response with raw text
     Wait Until Page Contains    I'm a mock response text
     
 Mock ajax response with json response
-    &{response}    Create Dictionary    body={ 'data': 'I\'m a mock response json'}    contentType=application/json
+    &{response}    Create Dictionary    body={"data":"I\'m a mock response json"}    content_type=application/json
     Mock Current Page Api Response    /ajax_info.json?count=3    ${response}        
     Click Element    id=get_ajax
     Wait Until Page Contains    I'm a mock response json
