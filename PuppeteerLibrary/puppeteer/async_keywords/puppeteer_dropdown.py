@@ -28,7 +28,7 @@ class PuppeteerDropdown(iDropdownAsync):
 
     async def get_selected_list_labels(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        options = await element.query_selector_all('option:checked')
+        options = await element.querySelectorAll('option:checked')
         selected_labels = []
         for option in options:
             selected_labels.append((await (await option.getProperty('textContent')).jsonValue()))
@@ -36,7 +36,7 @@ class PuppeteerDropdown(iDropdownAsync):
 
     async def get_list_labels(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        options = await element.query_selector_all('option')
+        options = await element.querySelectorAll('option')
         selected_labels = []
         for option in options:
             selected_labels.append((await (await option.getProperty('textContent')).jsonValue()))
@@ -44,7 +44,7 @@ class PuppeteerDropdown(iDropdownAsync):
 
     async def get_selected_list_values(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        options = await element.query_selector_all('option:checked')
+        options = await element.querySelectorAll('option:checked')
         selected_labels = []
         for option in options:
             selected_labels.append((await (await option.getProperty('value')).jsonValue()))
@@ -52,7 +52,7 @@ class PuppeteerDropdown(iDropdownAsync):
 
     async def get_list_values(self, locator: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        options = await element.query_selector_all('option')
+        options = await element.querySelectorAll('option')
         selected_labels = []
         for option in options:
             selected_labels.append((await (await option.getProperty('value')).jsonValue()))
