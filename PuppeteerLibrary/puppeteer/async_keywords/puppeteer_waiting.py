@@ -50,7 +50,7 @@ class PuppeteerWaiting(iWaitingAsync):
         })
 
     async def wait_for_response_url(self, url, status=200, body=None, timeout=None):
-        res = await self.library_ctx.get_current_page().get_page().waitForRequest(
+        res = await self.library_ctx.get_current_page().get_page().waitForResponse(
             lambda res: re.search(url, res.url) is not None
                         and res.status == int(status)
             , options={

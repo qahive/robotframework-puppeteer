@@ -4,7 +4,7 @@ Test Teardown    Close Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    pwchrome
+${DEFAULT_BROWSER}    chrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 ${LOGIN_PAGE_URL}    http://127.0.0.1:7272/login-form-example.html
 
