@@ -59,9 +59,6 @@ class PlaywrightWaiting(iWaitingAsync):
         })
 
     async def wait_for_navigation(self, timeout=None):
-        # page = self.library_ctx.get_current_page().get_page()
-        # return page.on('dialog', lambda dialog: asyncio.ensure_future(self.handle_dialog(dialog, action, prompt_text)))
-        # self.library_ctx.get_current_page().get_page().expect_navigation(timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 )
         return await self.library_ctx.get_current_page().get_page().wait_for_event(
             'load', 
             predicate=None, 
