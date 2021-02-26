@@ -6,7 +6,7 @@ Suite Teardown    Close Puppeteer
 
 
 *** Variables ***
-${DEFAULT_BROWSER}    firefox
+${DEFAULT_BROWSER}    pwchrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
