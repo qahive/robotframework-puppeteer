@@ -55,7 +55,7 @@ class PlaywrightContext(iLibraryContext):
         elif self.browser_type == "firefox":
             self.browser = await self.playwright.firefox.launch(
                 headless=merged_options['headless'])    
-        self.browser.acceptDownloads = True
+        self.browser.accept_downloads = True
 
     async def stop_server(self):
         await self.playwright.stop()
@@ -68,7 +68,7 @@ class PlaywrightContext(iLibraryContext):
 
     async def create_new_page(self, options: dict=None) -> BasePage:
         device_options = {
-            'acceptDownloads': True
+            'accept_downloads': True
         }
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]
