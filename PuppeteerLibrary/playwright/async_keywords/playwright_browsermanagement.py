@@ -51,12 +51,12 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         pages = await self.library_ctx.get_all_pages()
         if locator == 'MAIN':
             page = pages[0]
-            await page.bringToFront()
+            await page.bring_to_front()
             return self.library_ctx.set_current_page(page)
 
         elif locator == 'NEW':
             page = pages[-1]
-            await page.bringToFront()
+            await page.bring_to_front()
             return self.library_ctx.set_current_page(page)
 
         elif 'title=' in locator:
@@ -64,7 +64,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
             for page in pages:
                 page_title = await page.title()
                 if page_title == title:
-                    await page.bringToFront()
+                    await page.bring_to_front()
                     return self.library_ctx.set_current_page(page)
                 self.info('Title mismatch: ' + page_title)
 
@@ -72,7 +72,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
             url = locator.replace('url=', '')
             for page in pages:
                 if re.match(url, page.url):
-                    await page.bringToFront()
+                    await page.bring_to_front()
                     return self.library_ctx.set_current_page(page)
                 self.info('Url mismatch: ' + page.url)
         else:
