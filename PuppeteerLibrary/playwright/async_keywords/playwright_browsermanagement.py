@@ -51,12 +51,12 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         pages = await self.library_ctx.get_all_pages()
         if locator == 'MAIN':
             page = pages[0]
-            await page.bringToFront()
+            await page.bring_to_front()
             return self.library_ctx.set_current_page(page)
 
         elif locator == 'NEW':
             page = pages[-1]
-            await page.bringToFront()
+            await page.bring_to_front()
             return self.library_ctx.set_current_page(page)
 
         elif 'title=' in locator:
@@ -64,7 +64,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
             for page in pages:
                 page_title = await page.title()
                 if page_title == title:
-                    await page.bringToFront()
+                    await page.bring_to_front()
                     return self.library_ctx.set_current_page(page)
                 self.info('Title mismatch: ' + page_title)
 
@@ -72,7 +72,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
             url = locator.replace('url=', '')
             for page in pages:
                 if re.match(url, page.url):
-                    await page.bringToFront()
+                    await page.bring_to_front()
                     return self.library_ctx.set_current_page(page)
                 self.info('Url mismatch: ' + page.url)
         else:
@@ -84,7 +84,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
     ##############################
     async def select_frame(self, locator: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator) 
-        iframe = await element.contentFrame()
+        iframe = await element.content_frame()
         self.library_ctx.get_current_page().set_current_iframe(iframe)
 
     def unselect_iframe(self):
@@ -106,11 +106,11 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
 
     async def add_cookie(self, name: str, value: str):
         url = self.library_ctx.get_current_page().get_page().url
-        await self.library_ctx.get_browser_context().contexts[0].addCookies([{
+        await self.library_ctx.get_browser_context().contexts[0].add_cookies([{
             'url': url,
             'name': name,
             'value': value
         }])
 
     async def delete_all_cookies(self):
-        await self.library_ctx.get_browser_context().contexts[0].clearCookies()
+        await self.library_ctx.get_browser_context().contexts[0].clear_cookies()

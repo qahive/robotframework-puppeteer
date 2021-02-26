@@ -28,4 +28,4 @@ class PlaywrightCheckbox(iCheckboxAsync):
     
     async def is_checked(self, locator):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        return (await (await element.getProperty('checked')).jsonValue())
+        return (await (await element.get_property('checked')).json_value())

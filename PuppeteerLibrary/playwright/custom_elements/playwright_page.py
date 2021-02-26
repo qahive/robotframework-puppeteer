@@ -78,7 +78,7 @@ class PlaywrightPage(BasePage):
             options['state'] = 'hidden'
 
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
-        return await self.get_page().waitForSelector(
+        return await self.get_page().wait_for_selector(
             selector=selector_value, 
             timeout=options['timeout'], 
             state=options['state'])
@@ -89,16 +89,16 @@ class PlaywrightPage(BasePage):
     async def querySelectorAll_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if self.selected_iframe is not None:
-            return await self.selected_iframe.querySelectorAll(selector_value)
+            return await self.selected_iframe.query_selector_all(selector_value)
         else:
-            return await self.get_page().querySelectorAll(selector_value)
+            return await self.get_page().query_selector_all(selector_value)
     
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if self.selected_iframe is not None:
-            return await self.selected_iframe.querySelector(selector_value)
+            return await self.selected_iframe.query_selector(selector_value)
         else:
-            return await self.get_page().querySelector(selector_value)
+            return await self.get_page().query_selector(selector_value)
 
     ############
     # Select

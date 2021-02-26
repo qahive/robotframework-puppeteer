@@ -36,7 +36,7 @@ Wait for http response
 Wait for navigation
     Open browser to test page    ${HOME_PAGE_URL}
     Run Async Keywords
-    ...    Wait For Navigation    AND
+    ...    Wait For Navigation    2s    AND
     ...    Click Element    id=goto-login-page
 
 Wait for element hidden and visible

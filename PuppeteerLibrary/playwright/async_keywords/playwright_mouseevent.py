@@ -14,7 +14,7 @@ class PlaywrightMouseEvent(iMouseEventAsync):
 
     async def mouse_down(self, locator):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        bounding_box = await element.boundingBox()
+        bounding_box = await element.bounding_box()
         await self.library_ctx.get_current_page().get_page().mouse.move(
             bounding_box['x'] + bounding_box['width'] / 2,
             bounding_box['y'] + bounding_box['height'] / 2)

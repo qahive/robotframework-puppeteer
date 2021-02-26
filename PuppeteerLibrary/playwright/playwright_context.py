@@ -16,7 +16,7 @@ from PuppeteerLibrary.playwright.async_keywords.playwright_pdf import Playwright
 from PuppeteerLibrary.playwright.async_keywords.playwright_javascript import PlaywrightJavascript
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 try:
-    from playwright import async_playwright
+    from playwright.async_api import async_playwright
     from playwright.playwright import Playwright as AsyncPlaywright
     from playwright.browser import Browser
 except ImportError:
@@ -39,7 +39,8 @@ class PlaywrightContext(iLibraryContext):
             'headless': True,
             'devtools': False,
             'width': 1366,
-            'height': 768
+            'height': 768,
+            'accept_downloads': True
         }
         merged_options = default_options
         if options is not None:
@@ -55,7 +56,7 @@ class PlaywrightContext(iLibraryContext):
         elif self.browser_type == "firefox":
             self.browser = await self.playwright.firefox.launch(
                 headless=merged_options['headless'])    
-        self.browser.acceptDownloads = True
+        self.browser.accept_downloads = True
 
     async def stop_server(self):
         await self.playwright.stop()
@@ -68,11 +69,11 @@ class PlaywrightContext(iLibraryContext):
 
     async def create_new_page(self, options: dict=None) -> BasePage:
         device_options = {
-            'acceptDownloads': True
+            'accept_downloads': True
         }
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]
-        new_page = await self.browser.newPage(**device_options)
+        new_page = await self.browser.new_page(**device_options)
         self.current_page = PlaywrightPage(new_page)
         return self.current_page
         

@@ -21,7 +21,7 @@ class PlaywrightElement(iElementAsync):
         noWaitAfter = str2bool(noWaitAfter)
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
         await element.click(
-            noWaitAfter=noWaitAfter
+            no_wait_after=noWaitAfter
         )
 
     async def click_link(self, locator: str):
@@ -36,7 +36,7 @@ class PlaywrightElement(iElementAsync):
     async def _click_with_specific_tag(self, locator: str, expect_tag_name: str):
         elements = await self.library_ctx.get_current_page().querySelectorAll_with_selenium_locator(locator)
         for element in elements:
-            tag_name = await (await element.getProperty('tagName')).jsonValue()
+            tag_name = await (await element.get_property('tagName')).json_value()
             if tag_name.lower() == expect_tag_name:
                 return await element.click()
         raise Exception('Can\'t find the specific '+ expect_tag_name +' element for '+locator)
@@ -51,7 +51,7 @@ class PlaywrightElement(iElementAsync):
 
     async def upload_file(self, locator: str, file_path: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        await element.setInputFiles(file_path)
+        await element.set_input_files(file_path)
 
     async def press_keys(self, locator: str, *keys: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
@@ -63,14 +63,14 @@ class PlaywrightElement(iElementAsync):
     ##############################
     async def element_should_be_enabled(self, locator: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        is_disabled = await (await element.getProperty('disabled')).jsonValue()
+        is_disabled = await (await element.get_property('disabled')).json_value()
         if is_disabled:
             raise AssertionError("Element '%s' is disabled. " % locator)
         return element
 
     async def element_should_be_disabled(self, locator: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        is_disabled = await (await element.getProperty('disabled')).jsonValue()
+        is_disabled = await (await element.get_property('disabled')).json_value()
         if not is_disabled:
             raise AssertionError("Element '%s' is enabled. " % locator)
         return element
@@ -100,11 +100,11 @@ class PlaywrightElement(iElementAsync):
 
     async def get_text(self, locator: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        return (await (await element.getProperty('innerText')).jsonValue())
+        return (await (await element.get_property('innerText')).json_value())
 
     async def get_attribute(self, locator: str, attribute: str) -> str:
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        return (await (await element.getProperty(attribute)).jsonValue())
+        return (await (await element.get_property(attribute)).json_value())
         
     async def element_text_should_be(self, locator: str, expected: str, ignore_case=False):
         text = await self.get_text(locator)
@@ -119,4 +119,4 @@ class PlaywrightElement(iElementAsync):
     ##############################
     async def scroll_element_into_view(self, locator: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)        
-        await element.scrollIntoViewIfNeeded()
+        await element.scroll_into_view_if_needed()

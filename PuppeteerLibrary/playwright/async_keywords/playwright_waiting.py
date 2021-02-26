@@ -11,9 +11,10 @@ class PlaywrightWaiting(iWaitingAsync):
         super().__init__(library_ctx)
 
     async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
-        req = await self.library_ctx.get_current_page().get_page().waitForEvent(
-            "request", lambda request: re.search(url, request.url) is not None and request.method == method,
-            self.timestr_to_secs_for_default_timeout(timeout) * 1000 
+        req = await self.library_ctx.get_current_page().get_page().wait_for_event(
+            "request", 
+            predicate=lambda request: re.search(url, request.url) is not None and request.method == method,
+            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
         )
         try:
             pos_data = (await req.postData())
@@ -35,9 +36,10 @@ class PlaywrightWaiting(iWaitingAsync):
         })
 
     async def wait_for_response_url(self, url, status=200, body=None, timeout=None):
-        res = await self.library_ctx.get_current_page().get_page().waitForEvent(
-            "response", lambda response: re.search(url, response.url) is not None and response.status == int(status),
-            self.timestr_to_secs_for_default_timeout(timeout) * 1000 
+        res = await self.library_ctx.get_current_page().get_page().wait_for_event(
+            "response", 
+            predicate=lambda response: re.search(url, response.url) is not None and response.status == int(status),
+            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
         )
         try:
             res_text = (await res.text())
@@ -57,9 +59,10 @@ class PlaywrightWaiting(iWaitingAsync):
         })
 
     async def wait_for_navigation(self, timeout=None):
-        await self.library_ctx.get_current_page().get_page().waitForNavigation(
-            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
-        )
+        return await self.library_ctx.get_current_page().get_page().wait_for_event(
+            'load', 
+            predicate=None, 
+            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000)
 
     async def wait_until_page_contains_element(self, locator, timeout=None):
         return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
@@ -85,7 +88,7 @@ class PlaywrightWaiting(iWaitingAsync):
     async def wait_until_element_does_not_contains(self, locator, text, timeout=None):
         async def validate_element_contains_text():
             return (text not in (await (await ( await self.library_ctx.get_current_page().
-                querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
+                querySelector_with_selenium_locator(locator)).get_property('textContent')).json_value()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
@@ -107,7 +110,7 @@ class PlaywrightWaiting(iWaitingAsync):
     async def wait_until_element_is_enabled(self, locator, timeout=None):
         async def validate_is_enabled():
             element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-            is_disabled = await (await element.getProperty('disabled')).jsonValue()
+            is_disabled = await (await element.get_property('disabled')).json_value()
             return is_disabled == False
         return await self._wait_until_worker(
             validate_is_enabled,
@@ -120,10 +123,10 @@ class PlaywrightWaiting(iWaitingAsync):
             await self.wait_until_element_is_visible(locator)
             element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
             if prev_rect_tmp['value'] is None:
-                prev_rect_tmp['value'] = await element.boundingBox()
+                prev_rect_tmp['value'] = await element.bounding_box()
                 return False
             prev_rect = prev_rect_tmp['value']
-            next_rect = await element.boundingBox()
+            next_rect = await element.bounding_box()
             if next_rect['x'] == prev_rect['x'] and next_rect['y'] == prev_rect['y']:
                 return True
             else:
