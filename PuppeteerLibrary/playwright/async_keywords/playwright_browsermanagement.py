@@ -106,11 +106,11 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
 
     async def add_cookie(self, name: str, value: str):
         url = self.library_ctx.get_current_page().get_page().url
-        await self.library_ctx.get_browser_context().contexts[0].addCookies([{
+        await self.library_ctx.get_browser_context().contexts[0].add_cookies([{
             'url': url,
             'name': name,
             'value': value
         }])
 
     async def delete_all_cookies(self):
-        await self.library_ctx.get_browser_context().contexts[0].clearCookies()
+        await self.library_ctx.get_browser_context().contexts[0].clear_cookies()

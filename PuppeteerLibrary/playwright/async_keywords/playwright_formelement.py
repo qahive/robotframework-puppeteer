@@ -22,14 +22,14 @@ class PlaywrightFormElement(iFormElementAsync):
     async def download_file(self, locator: str, timeout=None):
         timeout = self.timestr_to_secs_for_default_timeout(timeout)* 1000
         page = self.library_ctx.get_current_page().get_page()
-        tasks = self.library_ctx.get_current_page().click_with_selenium_locator(locator), page.waitForEvent('download', timeout=timeout)
+        tasks = self.library_ctx.get_current_page().click_with_selenium_locator(locator), page.wait_for_event('download', timeout=timeout)
         _, b = await asyncio.gather(*tasks)
         return await b.path()
 
     async def upload_file(self, locator: str, file_path: str):
         handle = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        await handle.setInputFiles(file_path)
+        await handle.set_input_files(file_path)
 
     async def _clear_input_text(self, selenium_locator):
-        await self.library_ctx.get_current_page().click_with_selenium_locator(selenium_locator, {'clickCount': 3})
+        await self.library_ctx.get_current_page().click_with_selenium_locator(selenium_locator, {'click_count': 3})
         await self.library_ctx.get_current_page().get_page().keyboard.press('Backspace')

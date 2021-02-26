@@ -24,7 +24,7 @@ class PlaywrightDropdown(iDropdownAsync):
         options = await element.querySelectorAll('option:checked')
         selected_labels = []
         for option in options:
-            selected_labels.append((await (await option.get_property('textContent')).jsonValue()))
+            selected_labels.append((await (await option.get_property('textContent')).json_value()))
         return selected_labels
 
     async def get_list_labels(self, locator: str) -> str:
@@ -32,7 +32,7 @@ class PlaywrightDropdown(iDropdownAsync):
         options = await element.querySelectorAll('option')
         selected_labels = []
         for option in options:
-            selected_labels.append((await (await option.get_property('textContent')).jsonValue()))
+            selected_labels.append((await (await option.get_property('textContent')).json_value()))
         return selected_labels
 
     async def get_selected_list_values(self, locator: str) -> str:
@@ -40,7 +40,7 @@ class PlaywrightDropdown(iDropdownAsync):
         options = await element.querySelectorAll('option:checked')
         selected_labels = []
         for option in options:
-            selected_labels.append((await (await option.get_property('value')).jsonValue()))
+            selected_labels.append((await (await option.get_property('value')).json_value()))
         return selected_labels
 
     async def get_list_values(self, locator: str) -> str:
@@ -48,5 +48,5 @@ class PlaywrightDropdown(iDropdownAsync):
         options = await element.querySelectorAll('option')
         selected_labels = []
         for option in options:
-            selected_labels.append((await (await option.get_property('value')).jsonValue()))
+            selected_labels.append((await (await option.get_property('value')).json_value()))
         return selected_labels
