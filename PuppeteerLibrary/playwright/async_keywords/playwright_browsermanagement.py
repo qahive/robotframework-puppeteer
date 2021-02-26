@@ -84,7 +84,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
     ##############################
     async def select_frame(self, locator: str):
         element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator) 
-        iframe = await element.contentFrame()
+        iframe = await element.content_frame()
         self.library_ctx.get_current_page().set_current_iframe(iframe)
 
     def unselect_iframe(self):

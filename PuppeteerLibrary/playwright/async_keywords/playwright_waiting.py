@@ -57,7 +57,7 @@ class PlaywrightWaiting(iWaitingAsync):
         })
 
     async def wait_for_navigation(self, timeout=None):
-        await self.library_ctx.get_current_page().get_page().waitForNavigation(
+        await self.library_ctx.get_current_page().get_page().wait_for_navigation(
             timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
         )
 
