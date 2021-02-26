@@ -9,13 +9,13 @@ class PlaywrightDropdown(iDropdownAsync):
 
     async def select_from_list_by_value(self, locator, values):
         selector_value = SelectorAbstraction.get_selector(locator)
-        return await self.library_ctx.get_current_page().get_selected_frame_or_page().selectOption(selector_value, {
+        return await self.library_ctx.get_current_page().get_selected_frame_or_page().select_option(selector_value, {
                 'value': values
             })
 
     async def select_from_list_by_label(self, locator, labels):
         selector_value = SelectorAbstraction.get_selector(locator)
-        return await self.library_ctx.get_current_page().get_selected_frame_or_page().selectOption(selector_value, {
+        return await self.library_ctx.get_current_page().get_selected_frame_or_page().select_option(selector_value, {
                 'label': labels
             })
         
