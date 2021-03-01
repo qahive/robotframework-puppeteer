@@ -39,7 +39,7 @@ setup(
     platforms='any',
     install_requires=[
         'robotframework>=3.2.1',
-        'playwright==1.9.0',
+        'playwright==1.9.1',
         'pyppeteer==0.2.5',
     ],
     python_requires='>3.6',
