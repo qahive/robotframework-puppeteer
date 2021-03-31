@@ -49,7 +49,7 @@ jobs:
           libegl1 \
           libnotify4 \
           libxslt1.1 \
-          libevent-2.1-6 \
+          libevent-2.1-7 \
           libgles2 \
           libvpx5 \
           libxcomposite1 \
