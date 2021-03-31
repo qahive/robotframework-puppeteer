@@ -12,7 +12,7 @@ class BrowserManagementKeywords(LibraryComponent):
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
-    def open_browser(self, url, browser="chrome", alias=None, options=None):
+    def open_browser(self, url, browser="chrome", alias=None, options={}):
         """Opens a new browser instance to the specific ``url``.
 
         The ``browser`` argument specifies which browser to use.
