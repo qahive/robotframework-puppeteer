@@ -5,10 +5,14 @@ Test Teardown    Close All Browser
 
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    pwchrome
 
 
 *** Test Cases ***
+Open browser without option
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}
+    
 Switch to new browser
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}

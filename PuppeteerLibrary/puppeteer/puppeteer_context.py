@@ -35,7 +35,7 @@ class PuppeteerContext(iLibraryContext):
     def __init__(self, browser_type: str):
         super().__init__(browser_type)
 
-    async def start_server(self, options: dict=None):
+    async def start_server(self, options: dict={}):
         default_args = []
         default_options = {
             'slowMo': 0,
@@ -74,7 +74,7 @@ class PuppeteerContext(iLibraryContext):
             return True
         return False
 
-    async def create_new_page(self, options: dict=None) -> BasePage:
+    async def create_new_page(self, options: dict={}) -> BasePage:
         new_page = await self.browser.newPage()
         self.current_page = PuppeteerPage(new_page)
         if 'emulate' in options:
