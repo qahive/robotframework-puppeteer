@@ -13,15 +13,6 @@ Open browser without option
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}
     
-Ignore https error
-    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
-    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
-    &{options} =    create dictionary
-    ...   headless=${HEADLESS}
-    ...   ignore_https_errors=${True}
-    ...   ignoreHTTPSErrors=${True}
-    Open browser    https://http-password.badssl.com    browser=${BROWSER}   options=${options}
-    
 Switch to new browser
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
