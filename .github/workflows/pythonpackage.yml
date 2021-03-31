@@ -57,6 +57,7 @@ jobs:
           libatk-bridge2.0-0 \
           libepoxy0 \
           libgtk-3-0 \
+          libgstreamer-gl1.0-0 \
           libharfbuzz-icu0 \
           xvfb
     - name: Lint with flake8
