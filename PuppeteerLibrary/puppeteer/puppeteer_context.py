@@ -55,19 +55,17 @@ class PuppeteerContext(iLibraryContext):
         if 'win' not in sys.platform.lower():
             default_args = ['--no-sandbox', '--disable-setuid-sandbox']
 
+        merged_options['defaultViewport'] = {
+            'width': merged_options['width'],
+            'height': merged_options['height']
+        }
+
         support_options = {}
         for support_key in self.page_support_options:
             if support_key in options:
-               support_options[support_key] = options[support_key]
+               merged_options[support_key] = options[support_key]
 
         self.browser = await launch(
-            headless=merged_options['headless'],
-            slowMo=merged_options['slowMo'],
-            devtools=merged_options['devtools'],
-            defaultViewport={
-                'width': merged_options['width'],
-                'height': merged_options['height']
-            },
             **support_options,
             args=default_args)
 
