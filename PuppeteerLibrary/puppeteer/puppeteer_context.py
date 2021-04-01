@@ -32,6 +32,8 @@ class PuppeteerContext(iLibraryContext):
         'devtools': False
     }
 
+    page_support_options = ['accept_downloads', 'bypass_csp', 'color_scheme', 'device_scale_factor', 'extra_http_headers', 'ignore_https_errors', 'ignoreHTTPSErrors', 'locale', 'no_viewport', 'permissions', 'viewport ']
+
     def __init__(self, browser_type: str):
         super().__init__(browser_type)
 
@@ -45,15 +47,18 @@ class PuppeteerContext(iLibraryContext):
             'height': 768
         }
         merged_options = default_options
-
-        if options is not None:
-            merged_options = {**merged_options, **options}
+        merged_options = {**merged_options, **options}
 
         if self.debug_mode is True:
             merged_options = {**merged_options, **self.debug_mode_options}
 
         if 'win' not in sys.platform.lower():
             default_args = ['--no-sandbox', '--disable-setuid-sandbox']
+
+        support_options = {}
+        for support_key in self.page_support_options:
+            if support_key in options:
+               support_options[support_key] = options[support_key]
 
         self.browser = await launch(
             headless=merged_options['headless'],
@@ -63,6 +68,7 @@ class PuppeteerContext(iLibraryContext):
                 'width': merged_options['width'],
                 'height': merged_options['height']
             },
+            **support_options,
             args=default_args)
 
     async def stop_server(self):

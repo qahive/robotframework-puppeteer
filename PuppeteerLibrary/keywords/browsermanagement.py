@@ -37,6 +37,9 @@ class BrowserManagementKeywords(LibraryComponent):
         | `Open browser` | https://www.w3schools.com/html/html_forms.asp | options=${options} |
 
         """
+        if options is None:
+            options = {}
+            
         self.info(url)
         library_context = self.ctx.create_library_context(alias, browser)
         self.loop.run_until_complete(library_context.start_server(options))

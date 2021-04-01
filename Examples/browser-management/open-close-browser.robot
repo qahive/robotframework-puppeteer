@@ -5,14 +5,24 @@ Test Teardown    Close All Browser
 
 
 *** Variables ***
-${DEFAULT_BROWSER}    pwchrome
+${DEFAULT_BROWSER}    chrome
 
 
 *** Test Cases ***
 Open browser without option
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}
-    
+
+Open ssl issue page
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary
+    ...   headless=${HEADLESS}
+    ...   ignore_https_errors=${True}
+    ...   ignoreHTTPSErrors=${True}
+    Open browser    https://expired.badssl.com/    browser=${BROWSER}   options=${options}
+    Capture Page Screenshot
+
 Switch to new browser
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}

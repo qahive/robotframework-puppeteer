@@ -29,6 +29,8 @@ class PlaywrightContext(iLibraryContext):
     browser: any = None
     current_page: any = None
     current_iframe = None
+
+    page_support_options = ['accept_downloads', 'bypass_csp', 'color_scheme', 'device_scale_factor', 'extra_http_headers', 'ignore_https_errors', 'locale', 'no_viewport', 'permissions', 'viewport ']
     
     def __init__(self, browser_type: str):
         super().__init__(browser_type)
@@ -43,8 +45,7 @@ class PlaywrightContext(iLibraryContext):
             'accept_downloads': True
         }
         merged_options = default_options
-        if options is not None:
-            merged_options = {**merged_options, **options}
+        merged_options = {**merged_options, **options}
 
         self.playwright = await async_playwright().start()
         if self.browser_type == "pwchrome":
@@ -55,7 +56,7 @@ class PlaywrightContext(iLibraryContext):
                 headless=merged_options['headless'])
         elif self.browser_type == "firefox":
             self.browser = await self.playwright.firefox.launch(
-                headless=merged_options['headless'])    
+                headless=merged_options['headless'])
         self.browser.accept_downloads = True
 
     async def stop_server(self):
@@ -71,8 +72,14 @@ class PlaywrightContext(iLibraryContext):
         device_options = {
             'accept_downloads': True
         }
+
+        for support_key in self.page_support_options:
+            if support_key in options:
+               device_options[support_key] = options[support_key]
+            
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]
+
         new_page = await self.browser.new_page(**device_options)
         self.current_page = PlaywrightPage(new_page)
         return self.current_page
