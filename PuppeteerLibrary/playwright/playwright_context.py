@@ -30,7 +30,7 @@ class PlaywrightContext(iLibraryContext):
     current_page: any = None
     current_iframe = None
 
-    page_support_options = ['accept_downloads', 'bypass_csp', 'color_scheme', 'device_scale_factor', 'extra_http_headers', 'ignore_https_errors', 'locale', 'no_viewport', 'permissions', 'viewport ']
+    page_support_options = ['accept_downloads', 'bypass_csp', 'color_scheme', 'device_scale_factor', 'extra_http_headers', 'geolocation', 'has_touch', 'http_credentials', 'ignore_https_errors', 'is_mobile', 'java_script_enabled', 'locale', 'no_viewport', 'offline', 'permissions', 'proxy', 'record_har_omit_content', 'record_har_path', 'record_video_dir', 'record_video_size', 'timezone_id', 'user_agent', 'viewport']
     
     def __init__(self, browser_type: str):
         super().__init__(browser_type)

@@ -32,7 +32,7 @@ class PuppeteerContext(iLibraryContext):
         'devtools': False
     }
 
-    page_support_options = ['accept_downloads', 'bypass_csp', 'color_scheme', 'device_scale_factor', 'extra_http_headers', 'ignore_https_errors', 'ignoreHTTPSErrors', 'locale', 'no_viewport', 'permissions', 'viewport ']
+    page_support_options = ['ignoreHTTPSErrors', 'headless', 'executablePath', 'slowMo', 'defaultViewport', 'handleSIGINT', 'handleSIGTERM', 'handleSIGHUP', 'userDataDir', 'env', 'devtools']
 
     def __init__(self, browser_type: str):
         super().__init__(browser_type)
