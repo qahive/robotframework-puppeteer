@@ -31,6 +31,10 @@ class BrowserManagementKeywords(LibraryComponent):
         | height             | default 768            |
         | emulate            | iPhone 11              |
 
+        **Other options**
+        pwchrome, webkit and firefox please visit: https://playwright.dev/python/docs/api/class-browser?_highlight=new_page#browsernew_pagekwargs
+        chrome please visit: https://pptr.dev/#?product=Puppeteer&version=v8.0.0&show=api-puppeteerlaunchoptions
+
         Example:
 
         | &{options} =   | create dictionary                             | headless=${False}  |
