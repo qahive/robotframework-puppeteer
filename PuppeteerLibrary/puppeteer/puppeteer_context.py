@@ -39,14 +39,15 @@ class PuppeteerContext(iLibraryContext):
 
     async def start_server(self, options: dict={}):
         default_args = []
-        default_options = {
+        merged_options = {
             'slowMo': 0,
             'headless': True,
             'devtools': False,
-            'width': 1366,
-            'height': 768
+            'defaultViewport': {
+                'width': 1366,
+                'height': 768
+            }
         }
-        merged_options = default_options
         merged_options = {**merged_options, **options}
 
         if self.debug_mode is True:
@@ -54,19 +55,13 @@ class PuppeteerContext(iLibraryContext):
 
         if 'win' not in sys.platform.lower():
             default_args = ['--no-sandbox', '--disable-setuid-sandbox']
-
-        merged_options['defaultViewport'] = {
-            'width': merged_options['width'],
-            'height': merged_options['height']
-        }
-
-        support_options = {}
+            
         for support_key in self.page_support_options:
             if support_key in options:
                merged_options[support_key] = options[support_key]
 
         self.browser = await launch(
-            **support_options,
+            **merged_options,
             args=default_args)
 
     async def stop_server(self):
