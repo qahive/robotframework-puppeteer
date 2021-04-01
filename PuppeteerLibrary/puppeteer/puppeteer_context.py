@@ -32,37 +32,36 @@ class PuppeteerContext(iLibraryContext):
         'devtools': False
     }
 
+    page_support_options = ['ignoreHTTPSErrors', 'headless', 'executablePath', 'slowMo', 'defaultViewport', 'handleSIGINT', 'handleSIGTERM', 'handleSIGHUP', 'userDataDir', 'env', 'devtools']
+
     def __init__(self, browser_type: str):
         super().__init__(browser_type)
 
     async def start_server(self, options: dict={}):
         default_args = []
-        default_options = {
+        merged_options = {
             'slowMo': 0,
             'headless': True,
             'devtools': False,
-            'width': 1366,
-            'height': 768
+            'defaultViewport': {
+                'width': 1366,
+                'height': 768
+            }
         }
-        merged_options = default_options
-
-        if options is not None:
-            merged_options = {**merged_options, **options}
+        merged_options = {**merged_options, **options}
 
         if self.debug_mode is True:
             merged_options = {**merged_options, **self.debug_mode_options}
 
         if 'win' not in sys.platform.lower():
             default_args = ['--no-sandbox', '--disable-setuid-sandbox']
+            
+        for support_key in self.page_support_options:
+            if support_key in options:
+               merged_options[support_key] = options[support_key]
 
         self.browser = await launch(
-            headless=merged_options['headless'],
-            slowMo=merged_options['slowMo'],
-            devtools=merged_options['devtools'],
-            defaultViewport={
-                'width': merged_options['width'],
-                'height': merged_options['height']
-            },
+            **merged_options,
             args=default_args)
 
     async def stop_server(self):

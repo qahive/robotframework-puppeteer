@@ -31,12 +31,19 @@ class BrowserManagementKeywords(LibraryComponent):
         | height             | default 768            |
         | emulate            | iPhone 11              |
 
+        **Other options**
+        pwchrome, webkit and firefox please visit: https://playwright.dev/python/docs/api/class-browser?_highlight=new_page#browsernew_pagekwargs
+        chrome please visit: https://pptr.dev/#?product=Puppeteer&version=v8.0.0&show=api-puppeteerlaunchoptions
+
         Example:
 
         | &{options} =   | create dictionary                             | headless=${False}  |
         | `Open browser` | https://www.w3schools.com/html/html_forms.asp | options=${options} |
 
         """
+        if options is None:
+            options = {}
+            
         self.info(url)
         library_context = self.ctx.create_library_context(alias, browser)
         self.loop.run_until_complete(library_context.start_server(options))
