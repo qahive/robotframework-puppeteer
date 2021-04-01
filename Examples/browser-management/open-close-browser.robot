@@ -5,7 +5,7 @@ Test Teardown    Close All Browser
 
 
 *** Variables ***
-${DEFAULT_BROWSER}    chrome
+${DEFAULT_BROWSER}    pwchrome
 
 
 *** Test Cases ***
