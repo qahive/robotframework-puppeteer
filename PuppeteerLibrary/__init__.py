@@ -116,7 +116,11 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         if disable_python_logging:
             self._disable_python_logging()
 
-        signal.signal(signal.SIGINT, self.terminal_signal_handler)
+        # Support RIDE
+        try:
+            signal.signal(signal.SIGINT, self.terminal_signal_handler)
+        except:
+            print('Warning: Not handle ternial signal')
 
         try:
             self.loop = asyncio.get_event_loop()
