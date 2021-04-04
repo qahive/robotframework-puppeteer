@@ -12,7 +12,7 @@ class BrowserManagementKeywords(LibraryComponent):
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
-    def open_browser(self, url, browser="chrome", alias=None, options=None):
+    def open_browser(self, url, browser="chrome", alias=None, options={}):
         """Opens a new browser instance to the specific ``url``.
 
         The ``browser`` argument specifies which browser to use.
@@ -31,12 +31,19 @@ class BrowserManagementKeywords(LibraryComponent):
         | height             | default 768            |
         | emulate            | iPhone 11              |
 
+        **Other options**
+        pwchrome, webkit and firefox please visit: https://playwright.dev/python/docs/api/class-browser?_highlight=new_page#browsernew_pagekwargs
+        chrome please visit: https://pptr.dev/#?product=Puppeteer&version=v8.0.0&show=api-puppeteerlaunchoptions
+
         Example:
 
         | &{options} =   | create dictionary                             | headless=${False}  |
         | `Open browser` | https://www.w3schools.com/html/html_forms.asp | options=${options} |
 
         """
+        if options is None:
+            options = {}
+            
         self.info(url)
         library_context = self.ctx.create_library_context(alias, browser)
         self.loop.run_until_complete(library_context.start_server(options))

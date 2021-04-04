@@ -14,7 +14,7 @@ class iLibraryContext(ABC):
         self.screenshot_path = os.curdir
     
     @abstractmethod
-    async def start_server(self, options: dict=None):
+    async def start_server(self, options: dict={}):
         pass
 
     @abstractmethod
@@ -26,7 +26,7 @@ class iLibraryContext(ABC):
         pass
 
     @abstractmethod
-    async def create_new_page(self, options: dict=None) -> BasePage:
+    async def create_new_page(self, options: dict={}) -> BasePage:
         pass
 
     @abstractmethod
