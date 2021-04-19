@@ -5,10 +5,6 @@ from PuppeteerLibrary.ikeywords.base_async_keywords import BaseAsyncKeywords
 class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
 
     @abstractmethod
-    async def maximize_browser_window(self, width=1366, height=768):
-        pass
-
-    @abstractmethod
     async def go_to(self, url):
         pass
 

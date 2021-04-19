@@ -81,14 +81,6 @@ class BrowserManagementKeywords(LibraryComponent):
             self.ctx.remove_library_context(key)
 
     @keyword
-    def maximize_browser_window(self, width=1366, height=768):
-        """Maximize view port not actual browser and set default size to 1366 x 768
-        """
-        self.info(('width: ' + str(width) + '\n' +
-                   'height: ' + str(height)))
-        self.loop.run_until_complete(self.get_async_keyword_group().maximize_browser_window(width, height))
-
-    @keyword
     def get_title(self):
         """Get page title"""
         async def get_title_async():

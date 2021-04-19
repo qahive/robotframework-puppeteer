@@ -9,10 +9,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
 
     def __init__(self, library_ctx):
         super().__init__(library_ctx)
-
-    async def maximize_browser_window(self, width=1366, height=768):
-        return await self.library_ctx.get_current_page().set_viewport_size(width, height)
-
+        
     async def go_to(self, url):
         return await self.library_ctx.get_current_page().goto(url)
 
