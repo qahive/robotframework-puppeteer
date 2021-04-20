@@ -1,3 +1,4 @@
+from PuppeteerLibrary.utils.coverter import str2bool
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
@@ -49,6 +50,10 @@ class PuppeteerContext(iLibraryContext):
             }
         }
         merged_options = {**merged_options, **options}
+        if 'headless' in merged_options:
+            merged_options['headless'] = str2bool(merged_options['headless'])
+        if 'devtools' in merged_options:
+            merged_options['devtools'] = str2bool(merged_options['devtools'])
 
         if self.debug_mode is True:
             merged_options = {**merged_options, **self.debug_mode_options}
