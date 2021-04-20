@@ -15,7 +15,7 @@ from PuppeteerLibrary.playwright.async_keywords.playwright_browsermanagement imp
 from PuppeteerLibrary.playwright.async_keywords.playwright_pdf import PlaywrightPDF
 from PuppeteerLibrary.playwright.async_keywords.playwright_javascript import PlaywrightJavascript
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
-from PuppeteerLibrary.utils.coverter import str2bool
+from PuppeteerLibrary.utils.coverter import str2bool, str2int
 try:
     from playwright.async_api import async_playwright
     from playwright.playwright import Playwright as AsyncPlaywright
@@ -47,12 +47,11 @@ class PlaywrightContext(iLibraryContext):
         }
         merged_options = default_options
         merged_options = {**merged_options, **options}
-        if 'headless' in merged_options:
-            merged_options['headless'] = str2bool(merged_options['headless'])
-        if 'devtools' in merged_options:
-            merged_options['devtools'] = str2bool(merged_options['devtools'])
-        if 'accept_downloads' in merged_options:
-            merged_options['accept_downloads'] = str2bool(merged_options['accept_downloads'])
+        for key in merged_options.keys:
+            if key in ['headless', 'devtools', 'accept_downloads', 'is_mobile']:
+                merged_options[key] = str2bool(merged_options[key])
+            elif key in ['slowMo', 'width', 'height']:
+                merged_options[key] = str2int(merged_options[key])
 
         self.playwright = await async_playwright().start()
         if self.browser_type == "pwchrome":
@@ -82,7 +81,9 @@ class PlaywrightContext(iLibraryContext):
 
         for support_key in self.page_support_options:
             if support_key in options:
-               device_options[support_key] = options[support_key]
+                device_options[support_key] = options[support_key]
+                if support_key in ['accept_downloads', 'ignore_https_errors']:
+                    device_options[support_key] = str2bool(device_options[support_key])
             
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]

@@ -1,4 +1,4 @@
-from PuppeteerLibrary.utils.coverter import str2bool
+from PuppeteerLibrary.utils.coverter import str2bool, str2int
 import sys
 from pyppeteer import launch
 from pyppeteer.browser import Browser
@@ -50,10 +50,16 @@ class PuppeteerContext(iLibraryContext):
             }
         }
         merged_options = {**merged_options, **options}
-        if 'headless' in merged_options:
-            merged_options['headless'] = str2bool(merged_options['headless'])
-        if 'devtools' in merged_options:
-            merged_options['devtools'] = str2bool(merged_options['devtools'])
+        for key in merged_options.keys:
+            if key in ['headless', 'devtools', 'ignoreHTTPSErrors']:
+                merged_options[key] = str2bool(merged_options[key])
+            elif key in ['slowMo']:
+                merged_options[key] = str2int(merged_options[key])
+            elif key == 'defaultViewport':
+                merged_options[key] = {
+                    'width': str2int(merged_options[key]['width']),
+                    'height': str2int(merged_options[key]['height'])
+                }
 
         if self.debug_mode is True:
             merged_options = {**merged_options, **self.debug_mode_options}
