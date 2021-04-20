@@ -18,7 +18,10 @@ Chain xpath selector
     Input Text    chain=//form >> //input[@type="email"]    Test
 
 Chain mix between xpath and css
-    Input Text    chain=(//form)[1] >> input[type="email"]    Test            
+    Input Text    chain=(//form)[1] >> input[type="email"]    Test
+    
+Force input text
+    Input Text    chain=form >> input[type="email"]    ${123}
 
 *** Keywords ***
 Open browser to test page

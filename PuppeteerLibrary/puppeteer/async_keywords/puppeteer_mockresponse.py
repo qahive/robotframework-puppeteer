@@ -1,3 +1,4 @@
+from PuppeteerLibrary.utils.coverter import str2str
 import asyncio
 import re
 from pyppeteer.network_manager import Request
@@ -11,12 +12,16 @@ class PuppeteerMockResponse(iMockResponseAsync):
         super().__init__(library_ctx)
 
     async def mock_current_page_api_response(self, url, mock_response, method='GET', body=None):
+        url = str2str(url)
+        method = str2str(method)
         page = self.library_ctx.get_current_page().get_page()
         await page.setRequestInterception(True)
         page.on('request', lambda request:
             asyncio.ensure_future(self.mock_api_response(request, url, mock_response, method, body)))
 
     async def mock_api_response(self, request: Request, url, mock_response, method, body):
+        url = str2str(url)
+        method = str2str(method)
         if re.search(re.escape(url), request.url) is not None and request.method == method:
             try:
                 pos_data = (await request.postData())

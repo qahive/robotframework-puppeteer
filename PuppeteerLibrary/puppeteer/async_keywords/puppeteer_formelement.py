@@ -1,3 +1,4 @@
+from PuppeteerLibrary.utils.coverter import str2bool, str2str
 import os
 import glob
 import shutil
@@ -11,11 +12,15 @@ class PuppeteerFormElement(iFormElementAsync):
         super().__init__(library_ctx)
 
     async def input_text(self, locator: str, text: str, clear=True):
+        text = str2str(text)
+        clear = str2bool(clear)
         if clear:
             await self._clear_input_text(locator)
         await self.library_ctx.get_current_page().type_with_selenium_locator(locator, text)
     
     async def input_password(self, locator: str, text: str, clear=True):
+        text = str2str(text)
+        clear = str2bool(clear)
         await self.input_text(locator, text, clear)
 
     async def clear_element_text(self, locator: str):

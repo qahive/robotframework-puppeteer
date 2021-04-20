@@ -1,3 +1,4 @@
+from PuppeteerLibrary.utils.coverter import str2str
 import asyncio
 import re
 import time
@@ -10,6 +11,7 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         super().__init__(library_ctx)
 
     async def go_to(self, url):
+        url = str2str(url)
         return await self.library_ctx.get_current_page().goto(url)
 
     async def go_back(self):
@@ -100,6 +102,7 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
     # Cookies
     ##############################
     async def get_cookie(self, name: str):
+        name = str2str(name)
         cookies = await self.get_cookies()
         return cookies[name]
     
@@ -111,6 +114,8 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         return pairs
 
     async def add_cookie(self, name: str, value: str):
+        name = str2str(name)
+        value = str2str(value)
         await self.library_ctx.get_current_page().get_page().setCookie({
             'name': name,
             'value': value,

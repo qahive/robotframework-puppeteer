@@ -1,4 +1,5 @@
 from PuppeteerLibrary.ikeywords.icheckbox_async import iCheckboxAsync
+from PuppeteerLibrary.utils.coverter import str2str
 
 
 class PlaywrightCheckbox(iCheckboxAsync):
