@@ -1,3 +1,4 @@
+from PuppeteerLibrary.utils.coverter import str2int, str2str
 import asyncio
 import re
 import time
@@ -23,6 +24,8 @@ class PuppeteerWaiting(iWaitingAsync):
         return "'%s'" % value
 
     async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
+        url = str2str(url)
+        method = str2str(method)
         req = await self.library_ctx.get_current_page().get_page().waitForRequest(
             lambda req: re.search(url, req.url) is not None
                         and req.method == method
@@ -50,9 +53,11 @@ class PuppeteerWaiting(iWaitingAsync):
         })
 
     async def wait_for_response_url(self, url, status=200, body=None, timeout=None):
+        url = str2str(url)
+        status = str2int(status)
         res = await self.library_ctx.get_current_page().get_page().waitForResponse(
             lambda res: re.search(url, res.url) is not None
-                        and res.status == int(status)
+                        and res.status == status
             , options={
                 'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
             })
@@ -89,14 +94,17 @@ class PuppeteerWaiting(iWaitingAsync):
         return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
 
     async def wait_until_page_contains(self, text, timeout=None):
+        text = str2str(text)
         locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
         return await self._wait_for_selenium_selector(locator, timeout, visible=True, hidden=False)
 
     async def wait_until_page_does_not_contains(self, text, timeout=None):
+        text = str2str(text)
         locator = "xpath://*[contains(., %s)]" % self.escape_xpath_value(text)
         return await self._wait_for_selenium_selector(locator, timeout, visible=False, hidden=True)
 
     async def wait_until_element_contains(self, locator, text, timeout=None):
+        text = str2str(text)
         async def validate_element_contains_text():
             return (text in (await (await ( await self.library_ctx.get_current_page().
                 querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
@@ -105,6 +113,7 @@ class PuppeteerWaiting(iWaitingAsync):
             self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_element_does_not_contains(self, locator, text, timeout=None):
+        text = str2str(text)
         async def validate_element_contains_text():
             return (text not in (await (await ( await self.library_ctx.get_current_page().
                 querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
@@ -113,6 +122,7 @@ class PuppeteerWaiting(iWaitingAsync):
             self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_location_contains(self, expected, timeout=None):
+        expected = str2str(expected)
         async def validate_url_contains_text():
             return expected in self.library_ctx.get_current_page().get_page().url
         return await self._wait_until_worker(
@@ -120,6 +130,7 @@ class PuppeteerWaiting(iWaitingAsync):
             self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_location_does_not_contains(self, expected, timeout=None):
+        expected = str2str(expected)
         async def validate_url_not_contains_text():
             return expected not in self.library_ctx.get_current_page().get_page().url
         return await self._wait_until_worker(
