@@ -39,12 +39,14 @@ The recommended installation method is using pip_::
 
     pip install --upgrade robotframework-puppeteerlibrary
     python -m playwright install
+    pyppeteer-install
     
 Or manually install by running following command
     
     pip install -r requirements.txt
     python setup.py install
     python -m playwright install
+    pyppeteer-install
 
 
 Usage
