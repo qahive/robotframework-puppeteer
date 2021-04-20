@@ -47,7 +47,7 @@ class PlaywrightContext(iLibraryContext):
         }
         merged_options = default_options
         merged_options = {**merged_options, **options}
-        for key in merged_options.keys:
+        for key in merged_options.keys():
             if key in ['headless', 'devtools', 'accept_downloads', 'is_mobile']:
                 merged_options[key] = str2bool(merged_options[key])
             elif key in ['slowMo', 'width', 'height']:

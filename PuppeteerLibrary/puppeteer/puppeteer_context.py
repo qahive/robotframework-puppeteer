@@ -50,7 +50,7 @@ class PuppeteerContext(iLibraryContext):
             }
         }
         merged_options = {**merged_options, **options}
-        for key in merged_options.keys:
+        for key in merged_options.keys():
             if key in ['headless', 'devtools', 'ignoreHTTPSErrors']:
                 merged_options[key] = str2bool(merged_options[key])
             elif key in ['slowMo']:
