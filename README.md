@@ -62,7 +62,6 @@ Usage
         ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
         &{options} =    create dictionary   headless=${HEADLESS}
         Open browser    http://127.0.0.1:7272   options=${options}
-        Maximize Browser Window
         Input text    id:username_field    demo
         Input text    id:password_field    mode
         Click Element    id:login_button
