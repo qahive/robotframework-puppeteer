@@ -1,3 +1,4 @@
+from PuppeteerLibrary.utils.coverter import str2int, str2str
 import time
 from robot.libraries.BuiltIn import BuiltIn
 from PuppeteerLibrary.ikeywords.imouseevent_async import iMouseEventAsync
@@ -26,4 +27,6 @@ class PlaywrightMouseEvent(iMouseEventAsync):
         await self.library_ctx.get_current_page().get_page().mouse.up()
 
     async def mouse_move(self, x, y):
-        await self.library_ctx.get_current_page().get_page().mouse.move(int(x), int(y))
+        x = str2int(x)
+        y = str2int(y)
+        await self.library_ctx.get_current_page().get_page().mouse.move(x, y)

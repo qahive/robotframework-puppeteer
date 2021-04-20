@@ -9,3 +9,8 @@ def str2str(s):
     if s is None:
         return None
     return str(s)
+
+def str2int(s):
+    if s is None:
+        return 0
+    return int(s)

@@ -2,6 +2,7 @@ import asyncio
 import re
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.ikeywords.imockresponse_async import iMockResponseAsync
+from PuppeteerLibrary.utils.coverter import str2str
 
 
 class PlaywrightMockResponse(iMockResponseAsync):
@@ -10,6 +11,8 @@ class PlaywrightMockResponse(iMockResponseAsync):
         super().__init__(library_ctx)
 
     async def mock_current_page_api_response(self, url, mock_response, method='GET', body=None):
+        url = str2str(url)
+        method = str2str(method)
         page = self.library_ctx.get_current_page().get_page()
         await page.route(url, lambda route, request: asyncio.ensure_future(self.mock_api_response(route, request, mock_response, method, body)))
 

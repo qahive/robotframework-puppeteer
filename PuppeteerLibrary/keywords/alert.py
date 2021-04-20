@@ -1,7 +1,7 @@
 from PuppeteerLibrary.ikeywords.ialert_async import iAlertAsync
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
-from PuppeteerLibrary.utils.coverter import str2str
+
 
 class AlertKeywords(LibraryComponent):
 
@@ -29,4 +29,4 @@ class AlertKeywords(LibraryComponent):
         Not support for webkit
 
         """
-        return self.loop.run_until_complete(self.get_async_keyword_group().handle_alert(str2str(action), str2str(prompt_text)))
+        return self.loop.run_until_complete(self.get_async_keyword_group().handle_alert(action, prompt_text))

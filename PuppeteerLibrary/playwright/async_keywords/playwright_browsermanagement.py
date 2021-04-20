@@ -3,6 +3,7 @@ import re
 import time
 from PuppeteerLibrary.utils.device_descriptors import DEVICE_DESCRIPTORS
 from PuppeteerLibrary.ikeywords.ibrowsermanagement_async import iBrowserManagementAsync
+from PuppeteerLibrary.utils.coverter import str2str
 
 
 class PlaywrightBrowserManagement(iBrowserManagementAsync):
@@ -11,6 +12,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         super().__init__(library_ctx)
         
     async def go_to(self, url):
+        url = str2str(url)
         return await self.library_ctx.get_current_page().goto(url)
 
     async def go_back(self):
@@ -91,6 +93,7 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
     # Cookies
     ##############################
     async def get_cookie(self, name: str):
+        name = str2str(name)
         cookies = await self.get_cookies()
         return cookies[name]
 
@@ -102,6 +105,8 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         return pairs
 
     async def add_cookie(self, name: str, value: str):
+        name = str2str(name)
+        value = str2str(value)
         url = self.library_ctx.get_current_page().get_page().url
         await self.library_ctx.get_browser_context().contexts[0].add_cookies([{
             'url': url,

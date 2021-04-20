@@ -1,5 +1,6 @@
 from PuppeteerLibrary.ikeywords.idropdown_async import iDropdownAsync
 from PuppeteerLibrary.locators.SelectorAbstraction import SelectorAbstraction
+from PuppeteerLibrary.utils.coverter import str2str
 
 
 class PlaywrightDropdown(iDropdownAsync):
@@ -8,10 +9,12 @@ class PlaywrightDropdown(iDropdownAsync):
         super().__init__(library_ctx)
 
     async def select_from_list_by_value(self, locator, values):
+        values = str2str(values)
         selector_value = SelectorAbstraction.get_selector(locator)
         return await self.library_ctx.get_current_page().get_selected_frame_or_page().select_option(selector_value, value=values)
 
     async def select_from_list_by_label(self, locator, labels):
+        labels = str2str(labels)
         selector_value = SelectorAbstraction.get_selector(locator)
         return await self.library_ctx.get_current_page().get_selected_frame_or_page().select_option(selector_value, label=labels)
         
