@@ -160,6 +160,13 @@ class BrowserManagementKeywords(LibraryComponent):
         return self.loop.run_until_complete(self.get_async_keyword_group().enable_emulate_mode_async(emulate_name))
 
     ##############################
+    # Page
+    ##############################
+    @keyword
+    def set_view_port_size(self, width, height):
+        return self.loop.run_until_complete(self.get_async_keyword_group().set_view_port_size(width, height))
+
+    ##############################
     # iFrame
     ##############################
     @keyword
