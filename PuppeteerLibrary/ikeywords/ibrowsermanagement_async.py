@@ -29,6 +29,13 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
         pass
 
     ##############################
+    # Page
+    ##############################
+    @abstractmethod
+    async def set_view_port_size(self, width, height):
+        pass
+
+    ##############################
     # iFrame
     ##############################
     @abstractmethod

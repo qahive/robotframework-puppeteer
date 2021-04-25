@@ -1,4 +1,5 @@
-from PuppeteerLibrary.utils.coverter import str2str
+from PuppeteerLibrary.utils.coverter import str2str 
+from PuppeteerLibrary.utils.coverter import str2int
 import asyncio
 import re
 import time
@@ -86,6 +87,15 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         else:
             raise Exception('Sorry Switch window support only NEW, MAIN, title and url')
         raise Exception('Can\'t find specify page locator.')
+
+    ##############################
+    # Page
+    ##############################
+    async def set_view_port_size(self, width, height):
+        await self.library_ctx.get_current_page().get_page().setViewport({
+            "width":  str2int(width), 
+            "height": str2int(height)
+        })
 
     ##############################
     # iFrame
