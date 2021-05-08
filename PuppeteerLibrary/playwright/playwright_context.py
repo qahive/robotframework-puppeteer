@@ -41,8 +41,10 @@ class PlaywrightContext(iLibraryContext):
             'slowMo': 0,
             'headless': True,
             'devtools': False,
-            'width': 1366,
-            'height': 768,
+            'viewport': {
+                'width': 1366,
+                'height': 768,
+            },
             'accept_downloads': True
         }
         merged_options = default_options
@@ -50,7 +52,11 @@ class PlaywrightContext(iLibraryContext):
         for key in merged_options.keys():
             if key in ['headless', 'devtools', 'accept_downloads', 'is_mobile']:
                 merged_options[key] = str2bool(merged_options[key])
-            elif key in ['slowMo', 'width', 'height']:
+            elif key == 'width':
+                merged_options['viewport']['width'] = str2int(merged_options[key])
+            elif key == 'height':
+                merged_options['viewport']['height'] = str2int(merged_options[key])
+            elif key in ['slowMo']:
                 merged_options[key] = str2int(merged_options[key])
 
         self.playwright = await async_playwright().start()
@@ -76,7 +82,11 @@ class PlaywrightContext(iLibraryContext):
 
     async def create_new_page(self, options: dict={}) -> BasePage:
         device_options = {
-            'accept_downloads': True
+            'accept_downloads': True,
+            'viewport': {
+                'width': 1366,
+                'height': 768
+            }
         }
 
         for support_key in self.page_support_options:
@@ -84,7 +94,14 @@ class PlaywrightContext(iLibraryContext):
                 device_options[support_key] = options[support_key]
                 if support_key in ['accept_downloads', 'ignore_https_errors']:
                     device_options[support_key] = str2bool(device_options[support_key])
-            
+
+            # Force support viewport
+            if support_key == 'viewport':
+                if 'width' in options.keys():
+                    device_options['viewport']['width'] = str2int(options['width'])
+                if 'height' in device_options.keys():
+                    device_options['viewport']['height'] = str2int(options['height'])
+
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]
 

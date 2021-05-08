@@ -87,9 +87,16 @@ Close browser before task finished should not throw error message
     Click Element    id=open-new-tab
     Click Element    id=open-new-tab
     
+Open with view port
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
+    &{options} =    create dictionary   headless=${HEADLESS}    width=${200}    height=${300}
+    Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}    options=${options}
+
 Set view port
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    http://127.0.0.1:7272/basic-html-elements.html    browser=${BROWSER}    options=${options}
     Set View Port Size    200    200
+    
