@@ -45,7 +45,10 @@ class BrowserManagementKeywords(LibraryComponent):
             options = {}
             
         self.info(url)
-        library_context = self.ctx.create_library_context(alias, browser)
+        library_context = self.ctx.get_library_context_by_name(alias)
+        if library_context is None:
+            library_context = self.ctx.create_library_context(alias, browser)
+        self.loop.run_until_complete(self.ctx.set_current_library_context(alias))
         self.loop.run_until_complete(library_context.start_server(options))
         self.loop.run_until_complete(library_context.create_new_page(options))
         self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
@@ -75,7 +78,7 @@ class BrowserManagementKeywords(LibraryComponent):
 
     @keyword
     def close_puppeteer(self):
-        library_contexts_dict =  self.ctx.get_all_library_context_dict()
+        library_contexts_dict = self.ctx.get_all_library_context_dict()
         for key in list(library_contexts_dict.keys()):
             self.loop.run_until_complete(library_contexts_dict[key].stop_server())
             self.ctx.remove_library_context(key)
