@@ -45,7 +45,9 @@ class BrowserManagementKeywords(LibraryComponent):
             options = {}
             
         self.info(url)
-        library_context = self.ctx.create_library_context(alias, browser)
+        library_context = self.ctx.get_library_context_by_name(alias)
+        if library_context is None:
+            library_context = self.ctx.create_library_context(alias, browser)
         self.loop.run_until_complete(library_context.start_server(options))
         self.loop.run_until_complete(library_context.create_new_page(options))
         self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))

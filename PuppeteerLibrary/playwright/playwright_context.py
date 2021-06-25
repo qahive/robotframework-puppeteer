@@ -59,7 +59,10 @@ class PlaywrightContext(iLibraryContext):
             elif key in ['slowMo']:
                 merged_options[key] = str2int(merged_options[key])
 
-        self.playwright = await async_playwright().start()
+        # Only start new Playwright server. If server didn't start before
+        if self.playwright is None:
+            self.playwright = await async_playwright().start()
+
         if self.browser_type == "pwchrome":
             self.browser = await self.playwright.chromium.launch(
                 headless=merged_options['headless'])

@@ -158,7 +158,9 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
 
     @not_keyword
     def get_library_context_by_name(self, alias: str) -> iLibraryContext:
-        return self.library_contexts[alias]
+        if alias in self.library_contexts:
+            return self.library_contexts[alias]
+        return None
 
     @not_keyword
     def get_all_library_context(self) -> List[iLibraryContext]:
