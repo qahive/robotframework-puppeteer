@@ -78,10 +78,16 @@ class PlaywrightPage(BasePage):
             options['state'] = 'hidden'
 
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
-        return await self.get_page().wait_for_selector(
-            selector=selector_value, 
-            timeout=options['timeout'], 
-            state=options['state'])
+        if self.selected_iframe is not None:
+            return await self.selected_iframe.wait_for_selector(
+                selector=selector_value, 
+                timeout=options['timeout'], 
+                state=options['state'])
+        else:
+            return await self.get_page().wait_for_selector(
+                selector=selector_value, 
+                timeout=options['timeout'], 
+                state=options['state'])
 
     ############
     # Query
