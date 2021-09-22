@@ -8,18 +8,12 @@ ${DEFAULT_BROWSER}    pwchrome
 
 
 *** Test Cases ***
-Select Checkbox element 
+Tracing log without path
     Open browser to test page    http://127.0.0.1:7272/login-form-example.html
+    Start tracing
     Select Checkbox    id=exampleCheck1
     Checkbox Should Be Selected    id=exampleCheck1
-    
-Unselect Checkbox element
-    Open browser to test page    http://127.0.0.1:7272/login-form-example.html
-    Select Checkbox    id=exampleCheck1
-    Unselect Checkbox    id=exampleCheck1
-    Checkbox Should Not Be Selected    id=exampleCheck1
-    
-
+    Stop Tracing    
 
 *** Keywords ***
 Open browser to test page

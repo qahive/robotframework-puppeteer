@@ -29,6 +29,17 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
         pass
 
     ##############################
+    # Trace
+    ##############################
+    @abstractmethod
+    async def start_tracing(self):
+        pass
+
+    @abstractmethod
+    async def stop_tracing(self, path=None):
+        pass
+
+    ##############################
     # Page
     ##############################
     @abstractmethod

@@ -80,6 +80,17 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
         raise Exception('Can\'t find specify page locator.')
 
     ##############################
+    # Trace
+    ##############################
+    async def start_tracing(self):
+        await self.library_ctx.start_tracing()
+        
+    async def stop_tracing(self, path=None):
+        if path is None:
+            path = 'trace.zip'
+        await self.library_ctx.stop_tracing(path)
+
+    ##############################
     # Page
     ##############################
     async def set_view_port_size(self, width, height):

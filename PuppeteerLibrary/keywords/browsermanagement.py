@@ -163,6 +163,17 @@ class BrowserManagementKeywords(LibraryComponent):
         return self.loop.run_until_complete(self.get_async_keyword_group().enable_emulate_mode_async(emulate_name))
 
     ##############################
+    # Trace
+    ##############################
+    @keyword
+    def start_tracing(self):
+        return self.loop.run_until_complete(self.get_async_keyword_group().start_tracing())
+
+    @keyword
+    def stop_tracing(self, path=None):
+        return self.loop.run_until_complete(self.get_async_keyword_group().stop_tracing(path))
+
+    ##############################
     # Page
     ##############################
     @keyword
