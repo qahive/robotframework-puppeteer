@@ -4,16 +4,25 @@ Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    pwchrome
+${DEFAULT_BROWSER}    chrome
 
 
 *** Test Cases ***
 Tracing log without path
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
     Open browser to test page    http://127.0.0.1:7272/login-form-example.html
-    Start tracing
+    Run Keyword If    '${BROWSER}' != 'ptchrome'    Start tracing    
     Select Checkbox    id=exampleCheck1
     Checkbox Should Be Selected    id=exampleCheck1
-    Stop Tracing    
+    Run Keyword If    '${BROWSER}' != 'ptchrome'    Stop Tracing
+
+Tracing log with specific path
+    ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}
+    Open browser to test page    http://127.0.0.1:7272/login-form-example.html
+    Run Keyword If    '${BROWSER}' != 'ptchrome'    Start tracing    
+    Select Checkbox    id=exampleCheck1
+    Checkbox Should Be Selected    id=exampleCheck1
+    Run Keyword If    '${BROWSER}' != 'ptchrome'    Stop Tracing    trace2.zip
 
 *** Keywords ***
 Open browser to test page

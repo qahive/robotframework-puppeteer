@@ -7,12 +7,14 @@ class LibraryContextFactory:
     def create(self, browser_type: str) -> iLibraryContext:
         """Return iLibraryContext based on specific browser_type
 
-        Create context based on browser type (chrome, pwchrome, safari, webkit)
+        Create context based on browser type (chrome, pwchrome, ptchrome, safari, webkit)
         """
         if browser_type.lower() == 'chrome':
-            return PuppeteerContext(browser_type)
-        if browser_type.lower() == 'pwchrome':
             return PlaywrightContext(browser_type)
+        elif browser_type.lower() == 'pwchrome':
+            return PlaywrightContext(browser_type)
+        elif browser_type.lower() == 'ptchrome':
+            return PuppeteerContext(browser_type)
         elif browser_type.lower() == 'safari':
             return PlaywrightContext(browser_type)
         elif browser_type.lower() == 'webkit':

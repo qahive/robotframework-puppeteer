@@ -64,7 +64,7 @@ class PlaywrightContext(iLibraryContext):
         if self.playwright is None:
             self.playwright = await async_playwright().start()
 
-        if self.browser_type == "pwchrome":
+        if self.browser_type == "chrome" or self.browser_type == "pwchrome":
             self.browser = await self.playwright.chromium.launch(
                 headless=merged_options['headless'])
         elif self.browser_type == "webkit":

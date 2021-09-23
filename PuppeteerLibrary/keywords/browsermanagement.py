@@ -1,6 +1,7 @@
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.ikeywords.ibrowsermanagement_async import iBrowserManagementAsync
+from robot.libraries.BuiltIn import BuiltIn
 
 
 class BrowserManagementKeywords(LibraryComponent):
@@ -18,8 +19,9 @@ class BrowserManagementKeywords(LibraryComponent):
         The ``browser`` argument specifies which browser to use.
 
         |    = Browser =           |    = Name(s) =   |    = Engine =   |
-        | Google Chrome            | chrome           | Puppeteer       |
+        | Google Chrome Default    | chrome           | Playwright      |
         | Google Chrome Playwright | pwchrome         | Playwright      |
+        | Google Chrome Puppeteer  | ptchrome         | Puppeteer       |
         | Webkit (Safari engine)   | webkit           | Playwright      |
         | Firefox                  | firefox          | Playwright      |
 
@@ -167,10 +169,23 @@ class BrowserManagementKeywords(LibraryComponent):
     ##############################
     @keyword
     def start_tracing(self):
+        """Create trace log file
+
+        # View the trace by running following command
+
+        playwright show-trace trace.zip
+        """
         return self.loop.run_until_complete(self.get_async_keyword_group().start_tracing())
 
     @keyword
     def stop_tracing(self, path=None):
+        """Stop trace and generate the trace file.
+
+        Default will be ``traces/<testcasename>.zip``
+        """
+        if path is None:
+            test_name = BuiltIn().get_variable_value("${TEST_NAME}")
+            path = 'traces/'+test_name+'.zip'
         return self.loop.run_until_complete(self.get_async_keyword_group().stop_tracing(path))
 
     ##############################
