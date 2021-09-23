@@ -1,12 +1,12 @@
 *** Settings ***
-Force Tags    Ignore_chrome
+Force Tags    Ignore_ptchrome
 Library    PuppeteerLibrary
 Test Setup    Open browser to test page
 Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    pwchrome
+${DEFAULT_BROWSER}    chrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/register-form-example.html
 
 
