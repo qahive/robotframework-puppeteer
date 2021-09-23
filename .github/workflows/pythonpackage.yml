@@ -12,11 +12,11 @@ jobs:
         # python-version: [3.7, 3.8, 3.9]
         include:
           - python-version: 3.7
-            browser: pwchrome
-          - python-version: 3.7
-            browser: webkit
-          - python-version: 3.8
             browser: chrome
+          - python-version: 3.7
+            browser: ptchrome
+          - python-version: 3.8
+            browser: webkit
           - python-version: 3.9
             browser: firefox
 
@@ -73,6 +73,7 @@ jobs:
         pip install -r demoapp/requirements.txt
         pyppeteer-install
         python -m playwright install
+        npx playwright install-deps
         python demoapp/server.py &
     - name: System test
       uses: GabrielBB/xvfb-action@v1

@@ -89,6 +89,15 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         raise Exception('Can\'t find specify page locator.')
 
     ##############################
+    # Trace
+    ##############################
+    async def start_tracing(self):
+        raise Exception('Not support')
+
+    async def stop_tracing(self, path=None):
+        raise Exception('Not support')
+
+    ##############################
     # Page
     ##############################
     async def set_view_port_size(self, width, height):

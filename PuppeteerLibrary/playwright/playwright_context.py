@@ -28,6 +28,7 @@ class PlaywrightContext(iLibraryContext):
 
     playwright: any = None
     browser: any = None
+    current_context: any = None
     current_page: any = None
     current_iframe = None
 
@@ -63,7 +64,7 @@ class PlaywrightContext(iLibraryContext):
         if self.playwright is None:
             self.playwright = await async_playwright().start()
 
-        if self.browser_type == "pwchrome":
+        if self.browser_type == "chrome" or self.browser_type == "pwchrome":
             self.browser = await self.playwright.chromium.launch(
                 headless=merged_options['headless'])
         elif self.browser_type == "webkit":
@@ -73,6 +74,7 @@ class PlaywrightContext(iLibraryContext):
             self.browser = await self.playwright.firefox.launch(
                 headless=merged_options['headless'])
         self.browser.accept_downloads = True
+        # self.current_context = await self.browser.new_context()
 
     async def stop_server(self):
         await self.playwright.stop()
@@ -155,8 +157,17 @@ class PlaywrightContext(iLibraryContext):
         }
         return switcher.get(keyword_group_name)
 
+    async def start_tracing(self):
+        if len(self.browser.contexts) > 0:
+            await self.browser.contexts[0].tracing.start(screenshots=True, snapshots=True)
+
+    async def stop_tracing(self, path):
+        if len(self.browser.contexts) > 0:
+            await self.browser.contexts[0].tracing.stop(path=path)
+        
     def _reset_context(self):
         self.browser = None
+        self.current_context = None
         self.current_page = None
         self.current_iframe = None
     
