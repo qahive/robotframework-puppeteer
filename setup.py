@@ -40,7 +40,7 @@ setup(
     install_requires=[
         'robotframework>=3.2.1',
         'playwright==1.15.3',
-        'pyppeteer==0.2.5',
+        'pyppeteer==0.2.6',
     ],
     python_requires='>3.6',
     # test_suite='nose.collector',
