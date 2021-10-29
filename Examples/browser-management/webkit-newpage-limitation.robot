@@ -6,7 +6,7 @@ Test Teardown    Close All Browser
 
 *** Test Cases ***
 Webkit new page cause exception require ignore waiting
-    [Tags]    Ignore_chrome    Ignore_pwchrome    Ignore_firefox
+    [Tags]    Ignore_chrome    Ignore_pwchrome    Ignore_firefox    Ignore_ptchrome
     ${BROWSER} =    Get variable value    ${BROWSER}    webkit
     ${HEADLESS} =    Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary    headless=${HEADLESS}
