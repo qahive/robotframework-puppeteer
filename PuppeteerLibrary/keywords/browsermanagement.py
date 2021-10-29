@@ -88,14 +88,12 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def get_title(self):
         """Get page title"""
-        async def get_title_async():
-            return await self.ctx.get_current_page().title()
-        return self.loop.run_until_complete(get_title_async())
+        return self.loop.run_until_complete(self.ctx.get_current_library_context().get_current_page().title())
 
     @keyword
     def get_location(self):
         """Get page location"""
-        return self.ctx.get_current_page().url
+        return self.ctx.get_current_library_context().get_current_page().get_page().url
 
     @keyword
     def go_back(self):

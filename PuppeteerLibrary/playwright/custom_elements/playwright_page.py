@@ -58,11 +58,13 @@ class PlaywrightPage(BasePage):
     async def type_with_selenium_locator(self, selenium_locator: str, text: str, options: dict = None, **kwargs: Any):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if options is None:
-            options = {}
+            options = { 'state': 'visible' }
         if self.selected_iframe is not None:
-            return await self.selected_iframe.type(selector=selector_value, text=text, **options)
+            await self.selected_iframe.wait_for_selector(selector=selector_value, **options)
+            return await self.selected_iframe.type(selector=selector_value, text=text)
         else:
-            return await self.page.type(selector=selector_value, text=text, **options)
+            await self.page.wait_for_selector(selector=selector_value, **options)
+            return await self.page.type(selector=selector_value, text=text)
 
     ############
     # Wait
@@ -95,15 +97,19 @@ class PlaywrightPage(BasePage):
     async def querySelectorAll_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if self.selected_iframe is not None:
+            await self.selected_iframe.wait_for_selector(selector=selector_value)
             return await self.selected_iframe.query_selector_all(selector_value)
         else:
+            await self.get_page().wait_for_selector(selector=selector_value)
             return await self.get_page().query_selector_all(selector_value)
     
     async def querySelector_with_selenium_locator(self, selenium_locator: str):
         selector_value = SelectorAbstraction.get_selector(selenium_locator)
         if self.selected_iframe is not None:
+            await self.selected_iframe.wait_for_selector(selector=selector_value)
             return await self.selected_iframe.query_selector(selector_value)
         else:
+            await self.get_page().wait_for_selector(selector=selector_value)
             return await self.get_page().query_selector(selector_value)
 
     ############
