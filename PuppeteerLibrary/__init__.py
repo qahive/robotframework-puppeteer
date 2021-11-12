@@ -10,6 +10,7 @@ from PuppeteerLibrary.base.ipuppeteer_library import iPuppeteerLibrary
 from robot.api.deco import not_keyword
 from robot.api import logger
 from robot.libraries.BuiltIn import BuiltIn
+from robot.errors import ExecutionFailed
 from pyppeteer.browser import Browser
 from PuppeteerLibrary.library_context.ilibrary_context import iLibraryContext
 from PuppeteerLibrary.library_context.library_context_factory import LibraryContextFactory
@@ -120,7 +121,7 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         try:
             signal.signal(signal.SIGINT, self.terminal_signal_handler)
         except:
-            print('Warning: Not handle ternial signal')
+            print('Warning: Not handle terminal signal')
 
         try:
             self.loop = asyncio.get_event_loop()
@@ -215,7 +216,7 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     def terminal_signal_handler(self, sig, frame):
         print('You pressed Ctrl+C!')
         BuiltIn().run_keyword_and_ignore_error('Close Puppeteer')
-        sys.exit(0)
+        self._stop_execution_gracefully()
 
     def _disable_python_logging(self):
         # Force node not throw any unhandled task
@@ -225,6 +226,9 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         logging.getLogger('asyncio.coroutines').setLevel(logging.ERROR)
         logging.disable(logging.CRITICAL)
         logging.warning('Protocol problem:')
+
+    def _stop_execution_gracefully(self):
+        raise ExecutionFailed('Execution terminated by signal', exit=True)
 
 from ._version import get_versions
 __version__ = get_versions()['version']
