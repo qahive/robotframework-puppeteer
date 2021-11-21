@@ -37,3 +37,10 @@ class MouseEventKeywords(LibraryComponent):
         """
         self.info(f"Mouse move to x: '{x}', y: '{y}'.")
         return self.loop.run_until_complete(self.get_async_keyword_group().mouse_move(x, y))
+
+    @keyword
+    def drag_and_drop(self, src_locator, desc_locator):
+        """Drag item form sort locator to destination locator
+        """
+        self.info(f"Draf from '{src_locator}' to '{desc_locator}'.")
+        return self.loop.run_until_complete(self.get_async_keyword_group().drag_and_drop(src_locator, desc_locator))

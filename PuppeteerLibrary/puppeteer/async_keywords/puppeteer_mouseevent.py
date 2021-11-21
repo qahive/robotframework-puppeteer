@@ -26,3 +26,6 @@ class PuppeteerMouseEvent(iMouseEventAsync):
         x = str2int(x)
         y = str2int(y)
         await self.library_ctx.get_current_page().get_page().mouse.move(x, y)
+
+    async def drag_and_drop(self, src_locator, desc_locator):
+        raise Exception('Not supported for ptchrome. Please use pwchrome')
