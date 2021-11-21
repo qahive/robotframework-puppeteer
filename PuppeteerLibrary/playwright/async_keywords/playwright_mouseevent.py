@@ -1,3 +1,4 @@
+from PuppeteerLibrary.locators import SelectorAbstraction
 from PuppeteerLibrary.utils.coverter import str2int, str2str
 import time
 from robot.libraries.BuiltIn import BuiltIn
@@ -32,4 +33,6 @@ class PlaywrightMouseEvent(iMouseEventAsync):
         await self.library_ctx.get_current_page().get_page().mouse.move(x, y)
 
     async def drag_and_drop(self, src_locator, desc_locator):
-        await self.library_ctx.get_current_page().get_page().drag_and_drop(src_locator, desc_locator)
+        src_locator_value = SelectorAbstraction.get_selector(src_locator)
+        desc_locator_value = SelectorAbstraction.get_selector(desc_locator)
+        await self.library_ctx.get_current_page().get_page().drag_and_drop(src_locator_value, desc_locator_value)
