@@ -29,3 +29,6 @@ Examples/test.csv
 .venv/
 Examples/trace.zip
 Examples/traces/
+Examples/state-admin.json
+Examples/test-report/
+test-report/

@@ -137,3 +137,10 @@ class PlaywrightBrowserManagement(iBrowserManagementAsync):
 
     async def delete_all_cookies(self):
         await self.library_ctx.get_browser_context().contexts[0].clear_cookies()
+
+    ##############################
+    # State
+    ##############################
+    async def save_browser_storage_state(self, state_folder, ref='user'):
+        storage  = await self.library_ctx.get_browser_context().contexts[0].storage_state(path=state_folder+"/state-"+ ref +".json")
+        return storage

@@ -144,3 +144,9 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
         cookies = await self.library_ctx.get_current_page().get_page().cookies()
         for cookie in cookies:
             await self.library_ctx.get_current_page().get_page().deleteCookie(cookie)
+
+    ##############################
+    # State
+    ##############################
+    async def save_browser_storage_state(self, state_folder, ref='user'):
+        raise Exception('Not support for puppeteer browser')

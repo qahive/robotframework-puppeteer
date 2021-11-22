@@ -79,4 +79,11 @@ jobs:
       uses: GabrielBB/xvfb-action@v1
       with:
         working-directory: ./ #optional
-        run: robot -v BROWSER:${{ matrix.browser }} -e IgnoreORIgnore_${{ matrix.browser }} Examples
+        run: robot --outputdir test-report -v BROWSER:${{ matrix.browser }} -e IgnoreORIgnore_${{ matrix.browser }} Examples
+    - name: Upload a test report
+      if: always()
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        # Artifact name
+        name: test-report
+        path: test-report
