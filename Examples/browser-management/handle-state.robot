@@ -18,9 +18,7 @@ Save and Reuse browser authen state into json file
     [Tags]    Ignore_ptchrome
     Input Text    id=userName    ${USERNAME}
     Input Password    id=password    ${PASSWORD}
-    Run Async Keywords    
-    ...    Wait For Navigation    AND
-    ...    Click Element    id=login
+    Click Element    id=login
     Wait Until Page Contains Element    id=userName-value
     Wait Until Page Contains    ${USERNAME}    
     Save Browser Storage State    admin
@@ -42,3 +40,5 @@ Open browser to test page
     ${HEADLESS}     Get variable value    ${HEADLESS}    ${False}
     &{options} =    create dictionary   headless=${HEADLESS}
     Open browser    ${HOME_PAGE_URL}   browser=${BROWSER}    options=${options}
+    Set Screenshot Directory    test-report
+    Capture Page Screenshot        
