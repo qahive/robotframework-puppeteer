@@ -74,7 +74,6 @@ class PlaywrightContext(iLibraryContext):
             self.browser = await self.playwright.firefox.launch(
                 headless=merged_options['headless'])
         self.browser.accept_downloads = True
-        # self.current_context = await self.browser.new_context()
 
     async def stop_server(self):
         await self.playwright.stop()
@@ -84,6 +83,10 @@ class PlaywrightContext(iLibraryContext):
         if self.browser is not None:
             return True
         return False
+
+    def set_default_timeout(self, timeout):
+        self.timeout = timeout
+        self.get_current_page().get_page().set_default_timeout(timeout * 1000)
 
     async def create_new_page(self, options: dict={}) -> BasePage:
         device_options = {
@@ -174,3 +177,4 @@ class PlaywrightContext(iLibraryContext):
     def _reset_server_context(self):
         self._reset_context()
         self.playwright = None
+    

@@ -23,7 +23,6 @@ Dismiss alert
     ...    Click Element    id=alert_confirm
     Click Element    id:get_ajax
 
-    
 *** Keywords ***
 Open browser to test page
     ${BROWSER} =     Get variable value    ${BROWSER}     ${DEFAULT_BROWSER}

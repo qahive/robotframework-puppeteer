@@ -84,6 +84,9 @@ class PuppeteerContext(iLibraryContext):
             return True
         return False
 
+    def set_default_timeout(self, timeout):
+        self.timeout = timeout
+
     async def create_new_page(self, options: dict={}) -> BasePage:
         new_page = await self.browser.newPage()
         self.current_page = PuppeteerPage(new_page)

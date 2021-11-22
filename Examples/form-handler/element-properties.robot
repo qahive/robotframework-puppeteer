@@ -10,9 +10,14 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
 *** Test Cases ***
-Count element
+Count elements
     ${No of h2} =    Get Element Count    css=h2
     Should Be Equal As Numbers    14    ${No of h2}
+    
+Count non existing element
+    Set Timeout    1s
+    ${No of h2} =    Get Element Count    css=Hnotexisting
+    Should Be Equal As Numbers    0    ${No of h2}
 
 Get element attribute
     ${type value} =   Get Element Attribute    id=alert_confirm    type

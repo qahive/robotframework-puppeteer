@@ -5,7 +5,7 @@ Test Teardown    Close All Browser
 Suite Teardown    Close Puppeteer
 
 *** Variables ***
-${DEFAULT_BROWSER}    firefox
+${DEFAULT_BROWSER}    chrome
 ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 
 
@@ -22,7 +22,11 @@ Mouse drag
     Mouse Down    id=ball
     Mouse Move    40    50
     Mouse Up        
-
+   
+Mouse drag and drop
+    [Tags]    Ignore_firefox    Ignore_ptchrome
+    Drag And Drop    id=ball    id=dropdown-menu
+    
 *** Keywords ***
 Open browser to test page
     ${BROWSER} =     Get variable value    ${BROWSER}    ${DEFAULT_BROWSER}

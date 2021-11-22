@@ -26,7 +26,7 @@ class UtilityKeywords(LibraryComponent):
 
         """
         orig_timeout = self.ctx.timeout
-        self.ctx.get_current_library_context().timeout = timestr_to_secs(timeout)
+        self.ctx.get_current_library_context().set_default_timeout(timestr_to_secs(timeout))
         self.info('Original timeout is ' + str(orig_timeout) + ' seconds')
         return orig_timeout
 
