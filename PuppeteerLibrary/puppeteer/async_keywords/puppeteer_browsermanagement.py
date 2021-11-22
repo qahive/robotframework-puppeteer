@@ -148,5 +148,5 @@ class PuppeteerBrowserManagement(iBrowserManagementAsync):
     ##############################
     # State
     ##############################
-    async def save_browser_storage_state(self, ref='user'):
+    async def save_browser_storage_state(self, state_folder, ref='user'):
         raise Exception('Not support for puppeteer browser')

@@ -1,3 +1,5 @@
+import os
+import shutil
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.ikeywords.ibrowsermanagement_async import iBrowserManagementAsync
@@ -8,6 +10,7 @@ class BrowserManagementKeywords(LibraryComponent):
 
     def __init__(self, ctx):
         super().__init__(ctx)
+        self.STATES_FOLDER = './states'
 
     def get_async_keyword_group(self) -> iBrowserManagementAsync:
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
@@ -241,11 +244,41 @@ class BrowserManagementKeywords(LibraryComponent):
     ##############################
     @keyword
     def save_browser_storage_state(self, ref='user'):
-        """ Save browser storate state that can resue Authentication state
+        """ Save browser storage state that can resue Authentication state
 
             *ref* : reference state name
 
             *Limitation* only support Playwright browser
         """
         self.info('Save storate state for ' + ref)
-        return self.loop.run_until_complete(self.get_async_keyword_group().save_browser_storage_state(ref))
+        try:
+            os.mkdir(self.STATES_FOLDER)
+        except:
+            self.info('states folder already exists.')
+        return self.loop.run_until_complete(self.get_async_keyword_group().save_browser_storage_state(self.STATES_FOLDER, ref))
+
+    @keyword
+    def delete_browser_storage_state(self, ref):
+        """ Delete browser storage state
+
+            *ref* : reference state name
+
+            *Limitation* only support Playwright browser
+        """
+        file_path = self.STATES_FOLDER +'/state-'+ ref + '.json'
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        else:
+            self.warn('Can not delete the storate '+ref+' as it doesn\'t exists')
+
+    @keyword
+    def delete_all_browser_storage_states(self):
+        """ Delete all browser storage state
+
+            *Limitation* only support Playwright browser
+        """
+        try:
+            shutil.rmtree(self.STATES_FOLDER)
+        except OSError as e:
+            self.warn("Error: %s - %s." % (e.filename, e.strerror))
+
