@@ -26,6 +26,10 @@ class iLibraryContext(ABC):
         pass
 
     @abstractmethod
+    def set_default_timeout(self, timeout):
+        pass
+
+    @abstractmethod
     async def create_new_page(self, options: dict={}) -> BasePage:
         pass
 

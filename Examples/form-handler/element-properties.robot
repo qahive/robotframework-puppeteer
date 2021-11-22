@@ -15,7 +15,7 @@ Count elements
     Should Be Equal As Numbers    14    ${No of h2}
     
 Count non existing element
-    Set Timeout    2s
+    Set Timeout    1s
     ${No of h2} =    Get Element Count    css=Hnotexisting
     Should Be Equal As Numbers    0    ${No of h2}
 
