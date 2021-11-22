@@ -113,6 +113,9 @@ class PlaywrightContext(iLibraryContext):
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]
 
+        if 'state_ref' in options:
+            device_options['storage_state'] = 'state-'+ options['state_ref'] + '.json'
+
         new_page = await self.browser.new_page(**device_options)
         self.current_page = PlaywrightPage(new_page)
         return self.current_page

@@ -71,3 +71,9 @@ class iBrowserManagementAsync(BaseAsyncKeywords, ABC):
 
     async def delete_all_cookies(self):
         pass
+    
+    ##############################
+    # State
+    ##############################
+    async def save_browser_storage_state(self, ref='user'):
+        pass

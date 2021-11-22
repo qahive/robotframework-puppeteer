@@ -32,6 +32,7 @@ class BrowserManagementKeywords(LibraryComponent):
         | width              | default 1366           |
         | height             | default 768            |
         | emulate            | iPhone 11              |
+        | state_ref          | State Reference        |
 
         **Other options**
         pwchrome, webkit and firefox please visit: https://playwright.dev/python/docs/api/class-browser?_highlight=new_page#browsernew_pagekwargs
@@ -234,3 +235,17 @@ class BrowserManagementKeywords(LibraryComponent):
         """ Deletes all cookies.
         """
         return self.loop.run_until_complete(self.get_async_keyword_group().delete_all_cookies())
+
+    ##############################
+    # State
+    ##############################
+    @keyword
+    def save_browser_storage_state(self, ref='user'):
+        """ Save browser storate state that can resue Authentication state
+
+            *ref* : reference state name
+
+            *Limitation* only support Playwright browser
+        """
+        self.info('Save storate state for ' + ref)
+        return self.loop.run_until_complete(self.get_async_keyword_group().save_browser_storage_state(ref))
