@@ -98,6 +98,25 @@ class ElementKeywords(LibraryComponent):
         self.info(f"Sending key(s) {keys} to {locator} element.")
         return self.loop.run_until_complete(self.get_async_keyword_group().press_keys(locator, *keys))
 
+    @keyword
+    def double_click_element(self, locator, noWaitAfter='False'):
+        """Double clicks element identified by ``locator``.
+
+        The ``noWaitAfter`` argument specifies skip wait for animation after click.
+        Only support for webkit and safari (Puppeteer)
+
+        Example:
+
+        | `Double Click Element`         | id:register          |            |
+        | `Double Click Element`         | id:register          | ${True}    |
+        """
+        self.info(f"Double Clicking element '{locator}'.")
+        self.loop.run_until_complete(self.get_async_keyword_group().double_click_element(
+            locator=locator, 
+            noWaitAfter=noWaitAfter
+        ))
+
+
     ##############################
     # Status
     ##############################
