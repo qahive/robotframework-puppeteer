@@ -12,7 +12,7 @@ ${HOME_PAGE_URL}    http://127.0.0.1:7272/basic-html-elements.html
 *** Test Cases ***
 Count elements
     ${No of h2} =    Get Element Count    css=h2
-    Should Be Equal As Numbers    14    ${No of h2}
+    Should Be Equal As Numbers    15    ${No of h2}
     
 Count non existing element
     Set Timeout    1s
