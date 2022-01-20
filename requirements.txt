@@ -1,6 +1,6 @@
 versioneer>=0.18
 robotframework>=3.2.1
-playwright==1.17.2
+playwright==1.18.0
 pyppeteer==0.2.6
 # git+https://github.com/qahive/pyppeteer.git@dev2
 robotframework-libdoc2json>=0.4
