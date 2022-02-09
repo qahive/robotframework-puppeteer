@@ -57,6 +57,11 @@ class PuppeteerElement(iElementAsync):
         for key in keys:
             await element.press(key)
 
+    async def double_click_element(self, locator: str, noWaitAfter: str='False'):
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        await element.clickCount(2)
+
+
     ##############################
     # Status
     ##############################

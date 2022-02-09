@@ -68,6 +68,32 @@
 
     <div class="container">
       <div class="row" style="margin-top: 20px;">
+        <h2>Double Click</h2>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <button type="button" class="btn btn-primary" ondblclick="loadDocDblAjax()" id="double_click_get_id">
+          Double Click to Change Content
+        </button>
+        <span id="ajax-dblc-content">Content...</span>
+        <script type="text/javascript">
+          function loadDocDblAjax() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("ajax-dblc-content").innerHTML =
+                this.responseText;
+              }
+            };
+            xhttp.open("GET", "contents/ajax_info.json?count=3", true);
+            xhttp.send();
+          }
+        </script>
+      </div>
+      <hr>
+    </div>
+
+    <div class="container">
+      <div class="row" style="margin-top: 20px;">
         <h2>Browser Management</h2>
       </div>
       <div class="row" style="margin-top: 20px;">

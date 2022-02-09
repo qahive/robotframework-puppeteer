@@ -42,6 +42,10 @@ class iElementAsync(BaseAsyncKeywords, ABC):
     async def press_keys(self, locator: str, *keys: str):
         pass
 
+    @abstractmethod
+    async def double_click_element(self, locator: str, noWaitAfter: str='False'):
+        pass
+
     ##############################
     # Status
     ##############################

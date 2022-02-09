@@ -15,7 +15,11 @@ Click link
 Click Button
     Open browser to test page    http://127.0.0.1:7272/basic-html-elements.html
     Click Button    id=get_ajax
-    
+
+Double Click Element
+    Open browser to test page    http://127.0.0.1:7272/basic-html-elements.html
+    Double Click Element    id=double_click_get_id
+
 Click Image
     Open browser to test page    http://127.0.0.1:7272/basic-html-elements.html
     Click Image    id=gate
