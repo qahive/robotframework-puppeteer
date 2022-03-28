@@ -32,12 +32,13 @@ class PlaywrightContext(iLibraryContext):
     current_page: any = None
     current_iframe = None
 
-    page_support_options = ['accept_downloads', 'bypass_csp', 'color_scheme', 'device_scale_factor', 'extra_http_headers', 'geolocation', 'has_touch', 'http_credentials', 'ignore_https_errors', 'is_mobile', 'java_script_enabled', 'locale', 'no_viewport', 'offline', 'permissions', 'proxy', 'record_har_omit_content', 'record_har_path', 'record_video_dir', 'record_video_size', 'timezone_id', 'user_agent', 'viewport']
-    
+    page_support_options = ['accept_downloads', 'bypass_csp', 'color_scheme', 'device_scale_factor', 'extra_http_headers', 'geolocation', 'has_touch', 'http_credentials', 'ignore_https_errors', 'is_mobile',
+                            'java_script_enabled', 'locale', 'no_viewport', 'offline', 'permissions', 'proxy', 'record_har_omit_content', 'record_har_path', 'record_video_dir', 'record_video_size', 'timezone_id', 'user_agent', 'viewport']
+
     def __init__(self, browser_type: str):
         super().__init__(browser_type)
 
-    async def start_server(self, options: dict={}):
+    async def start_server(self, options: dict = {}):
         default_options = {
             'slowMo': 0,
             'headless': True,
@@ -54,9 +55,11 @@ class PlaywrightContext(iLibraryContext):
             if key in ['headless', 'devtools', 'accept_downloads', 'is_mobile']:
                 merged_options[key] = str2bool(merged_options[key])
             elif key == 'width':
-                merged_options['viewport']['width'] = str2int(merged_options[key])
+                merged_options['viewport']['width'] = str2int(
+                    merged_options[key])
             elif key == 'height':
-                merged_options['viewport']['height'] = str2int(merged_options[key])
+                merged_options['viewport']['height'] = str2int(
+                    merged_options[key])
             elif key in ['slowMo']:
                 merged_options[key] = str2int(merged_options[key])
 
@@ -65,8 +68,14 @@ class PlaywrightContext(iLibraryContext):
             self.playwright = await async_playwright().start()
 
         if self.browser_type == "chrome" or self.browser_type == "pwchrome":
+            proxy = None
+            if 'proxy' in merged_options:
+                proxy = merged_options['proxy']
+                # Chromium can use proxy only via global launch
+                del merged_options['proxy']
             self.browser = await self.playwright.chromium.launch(
-                headless=merged_options['headless'])
+                headless=merged_options['headless'], proxy=proxy)
+            merged_options
         elif self.browser_type == "webkit":
             self.browser = await self.playwright.webkit.launch(
                 headless=merged_options['headless'])
@@ -78,7 +87,7 @@ class PlaywrightContext(iLibraryContext):
     async def stop_server(self):
         await self.playwright.stop()
         self._reset_server_context()
-    
+
     def is_server_started(self) -> bool:
         if self.browser is not None:
             return True
@@ -88,7 +97,7 @@ class PlaywrightContext(iLibraryContext):
         self.timeout = timeout
         self.get_current_page().get_page().set_default_timeout(timeout * 1000)
 
-    async def create_new_page(self, options: dict={}) -> BasePage:
+    async def create_new_page(self, options: dict = {}) -> BasePage:
         device_options = {
             'accept_downloads': True,
             'viewport': {
@@ -101,25 +110,29 @@ class PlaywrightContext(iLibraryContext):
             if support_key in options:
                 device_options[support_key] = options[support_key]
                 if support_key in ['accept_downloads', 'ignore_https_errors']:
-                    device_options[support_key] = str2bool(device_options[support_key])
+                    device_options[support_key] = str2bool(
+                        device_options[support_key])
 
             # Force support viewport
             if support_key == 'viewport':
                 if 'width' in options.keys():
-                    device_options['viewport']['width'] = str2int(options['width'])
+                    device_options['viewport']['width'] = str2int(
+                        options['width'])
                 if 'height' in device_options.keys():
-                    device_options['viewport']['height'] = str2int(options['height'])
+                    device_options['viewport']['height'] = str2int(
+                        options['height'])
 
         if 'emulate' in options:
             device_options = self.playwright.devices[options['emulate']]
 
         if 'state_ref' in options:
-            device_options['storage_state'] = './states/state-'+ options['state_ref'] + '.json'
+            device_options['storage_state'] = './states/state-' + \
+                options['state_ref'] + '.json'
 
         new_page = await self.browser.new_page(**device_options)
         self.current_page = PlaywrightPage(new_page)
         return self.current_page
-        
+
     def get_current_page(self) -> BasePage:
         return self.current_page
 
@@ -170,14 +183,13 @@ class PlaywrightContext(iLibraryContext):
     async def stop_tracing(self, path):
         if len(self.browser.contexts) > 0:
             await self.browser.contexts[0].tracing.stop(path=path)
-        
+
     def _reset_context(self):
         self.browser = None
         self.current_context = None
         self.current_page = None
         self.current_iframe = None
-    
+
     def _reset_server_context(self):
         self._reset_context()
         self.playwright = None
-    
