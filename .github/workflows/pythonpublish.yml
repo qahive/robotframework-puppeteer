@@ -25,11 +25,11 @@ jobs:
     - name: Update visual studio keywords document
       run: |
         python -m libdoc2json PuppeteerLibrary vscode-PuppeteerLibrary.json
-    - name: Git Commit and Push
-      uses: github-actions-x/commit@v2.8
-      with:
-        github-token: ${{ secrets.GH_TOKEN }}
-        commit-message: This a commit from Github Actions
+    # - name: Git Commit and Push
+    #  uses: github-actions-x/commit@v2.8
+    #  with:
+    #    github-token: ${{ secrets.GH_TOKEN }}
+    #    commit-message: This a commit from Github Actions
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
