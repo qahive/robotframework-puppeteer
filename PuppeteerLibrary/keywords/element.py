@@ -28,7 +28,7 @@ class ElementKeywords(LibraryComponent):
         """
         self.info(f"Clicking element '{locator}'.")
         self.loop.run_until_complete(self.get_async_keyword_group().click_element(
-            locator=locator, 
+            locator=locator,
             noWaitAfter=noWaitAfter
         ))
 
@@ -52,7 +52,8 @@ class ElementKeywords(LibraryComponent):
         | `Click Button`                                | id:submit          |
         """
         self.info(f"Clicking button '{locator}'.")
-        self.loop.run_until_complete(self.get_async_keyword_group().click_button(locator))
+        self.loop.run_until_complete(
+            self.get_async_keyword_group().click_button(locator))
 
     @keyword
     def click_image(self, locator):
@@ -63,14 +64,17 @@ class ElementKeywords(LibraryComponent):
         | `Click Image`                                 | id:cat_image          |
         """
         self.info(f"Clicking image '{locator}'.")
-        self.loop.run_until_complete(self.get_async_keyword_group().click_image(locator))
+        self.loop.run_until_complete(
+            self.get_async_keyword_group().click_image(locator))
 
     @keyword
     def click_element_at_coordinate(self, locator, xoffset, yoffset):
         """ Click element at specifict coordiate x and y offset
         """
-        self.info(f"Clicking element at coordinate '{locator}' at xoffset: '{xoffset}', yoffset: '{yoffset}'.")
-        self.loop.run_until_complete(self.get_async_keyword_group().click_element_at_coordinate(locator, xoffset, yoffset))
+        self.info(
+            f"Clicking element at coordinate '{locator}' at xoffset: '{xoffset}', yoffset: '{yoffset}'.")
+        self.loop.run_until_complete(self.get_async_keyword_group(
+        ).click_element_at_coordinate(locator, xoffset, yoffset))
 
     @keyword
     def upload_file(self, locator, file_path):
@@ -78,7 +82,7 @@ class ElementKeywords(LibraryComponent):
         """
         return self.loop.run_until_complete(self.get_async_keyword_group().upload_file(locator, file_path))
 
-    @keyword    
+    @keyword
     def press_keys(self, locator, *keys):
         """ Press Keys
 
@@ -129,10 +133,10 @@ class ElementKeywords(LibraryComponent):
         """
         return self.loop.run_until_complete(self.get_async_keyword_group().element_should_not_be_visible(locator))
 
-
     ##############################
     # Property
     ##############################
+
     @keyword
     def get_text(self, locator):
         """Returns text value of element identified by ``locator``.
@@ -191,7 +195,7 @@ class ElementKeywords(LibraryComponent):
     # Query Element
     ##############################
     @keyword
-    def get_element_count(self, locator):
+    def get_element_count(self, locator, timeout=None):
         """ Returns the number of elements matching ``locator``.
         """
         try:
