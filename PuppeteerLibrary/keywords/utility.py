@@ -26,9 +26,12 @@ class UtilityKeywords(LibraryComponent):
 
         """
         orig_timeout = self.ctx.timeout
-        self.loop.run_until_complete(
+        if self.ctx.get_current_library_context().browser_type.lower() == 'ptchrome':
             self.ctx.get_current_library_context().set_default_timeout(timestr_to_secs(timeout))
-        )
+        else:
+            self.loop.run_until_complete(
+                self.ctx.get_current_library_context().set_default_timeout(timestr_to_secs(timeout))
+            )
         self.info('Original timeout is ' + str(orig_timeout) + ' seconds')
         return orig_timeout
 
