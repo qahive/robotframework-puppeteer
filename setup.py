@@ -1,3 +1,4 @@
+import versioneer
 import re
 from os.path import abspath, dirname, join
 from setuptools import setup, find_packages
@@ -9,7 +10,6 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 # Get the version from the _version.py versioneer file. For a git checkout,
 # this is computed based on the number of commits since the last tag.
-import versioneer
 VERSION = str(versioneer.get_versions()['version']).split('+')[0]
 del versioneer.get_versions
 
@@ -39,8 +39,8 @@ setup(
     platforms='any',
     install_requires=[
         'robotframework>=3.2.1',
-        'playwright==1.17.2',
-        'pyppeteer==0.2.6',
+        'playwright==1.21.0',
+        'pyppeteer==1.0.2',
     ],
     python_requires='>3.6',
     # test_suite='nose.collector',

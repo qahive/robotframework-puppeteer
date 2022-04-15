@@ -93,7 +93,7 @@ class PlaywrightContext(iLibraryContext):
             return True
         return False
 
-    def set_default_timeout(self, timeout):
+    async def set_default_timeout(self, timeout):
         self.timeout = timeout
         self.get_current_page().get_page().set_default_timeout(timeout * 1000)
 
