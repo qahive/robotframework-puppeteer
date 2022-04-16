@@ -22,9 +22,9 @@ jobs:
     - name: Update keywords document
       run: |
         python -m robot.libdoc -f html PuppeteerLibrary docs/PuppeteerLibrary.html
-    - name: Update visual studio keywords document
+    - name: Update Visual Studio code Robot Framework Language Server
       run: |
-        python -m libdoc2json PuppeteerLibrary vscode-PuppeteerLibrary.json
+        python -m robot.libdoc PuppeteerLibrary PuppeteerLibrary.libspec
     # - name: Git Commit and Push
     #  uses: github-actions-x/commit@v2.8
     #  with:
