@@ -1,9 +1,12 @@
 import asyncio
 import os
+import traceback
 import warnings
 import logging
 import signal
 import sys
+
+import robot
 from PuppeteerLibrary.keywords.checkbox import CheckboxKeywords
 from typing import List
 from PuppeteerLibrary.base.ipuppeteer_library import iPuppeteerLibrary
@@ -113,7 +116,7 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     library_contexts: dict = {}
 
     def __init__(self, disable_python_logging=True):
-        
+
         if disable_python_logging:
             self._disable_python_logging()
 
@@ -151,7 +154,7 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
     @not_keyword
     def get_current_library_context(self) -> iLibraryContext:
         return self.current_libary_context
-    
+
     @not_keyword
     async def set_current_library_context(self, context_name) -> iLibraryContext:
         self.current_libary_context = self.library_contexts[context_name]
@@ -180,8 +183,8 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         library_context = self.library_factory.create(browser_type)
         self.library_contexts[alias] = library_context
         self.current_libary_context = library_context
-        return library_context    
-    
+        return library_context
+
     @not_keyword
     def remove_library_context(self, alias):
         if alias not in self.library_contexts.keys():
@@ -190,7 +193,8 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         del self.library_contexts[alias]
         if self.current_libary_context == deleted_library_context:
             if len(self.library_contexts) > 0:
-                self.current_libary_context = list(self.library_contexts.values())[-1]
+                self.current_libary_context = list(
+                    self.library_contexts.values())[-1]
             else:
                 self.current_libary_context = None
 
@@ -199,8 +203,16 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
         self._running_keyword = name
         try:
             return DynamicCore.run_keyword(self, name, args, kwargs)
+        except robot.errors.TimeoutError:
+            logger.warn('Test timeout. Force stop puppeteer server')
+            # Force
+            self.loop.run_until_complete(
+                self.get_current_library_context().stop_server())
+            raise
         except Exception:
-            if name.lower().replace(' ', '_') != 'capture_page_screenshot':
+            if name.lower().replace(' ', '_') == 'close_puppeteer' or name.lower().replace(' ', '_') == 'open_browser':
+                logger.warn('Can\'t close puppeteer...')
+            elif name.lower().replace(' ', '_') != 'capture_page_screenshot':
                 self.failure_occurred()
             raise
         finally:
@@ -229,7 +241,3 @@ class PuppeteerLibrary(DynamicCore, iPuppeteerLibrary):
 
     def _stop_execution_gracefully(self):
         raise ExecutionFailed('Execution terminated by signal', exit=True)
-
-from ._version import get_versions
-__version__ = get_versions()['version']
-del get_versions
