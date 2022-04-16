@@ -23,8 +23,8 @@ Interact with iframe element
     Wait Until Page Contains Element    id=ifrm
 
 Scroll element under iframe
-    Wait Until Page Contains Element    id=ifrm2
-    Select Frame    id=ifrm2
+    Wait Until Page Contains Element    id=ifrm
+    Select Frame    id=ifrm
     Scroll Element Into View    id=exampleCheck1
 
 Get text under iframe element
