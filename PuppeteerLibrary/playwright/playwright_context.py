@@ -152,7 +152,7 @@ class PlaywrightContext(iLibraryContext):
     async def close_browser_context(self):
         if self.browser is not None:
             try:
-                await asyncio.wait_for(self.browser.close(), timeout=3)
+                await asyncio.wait_for(self.browser.close(), timeout=5)
             except asyncio.TimeoutError:
                 None
         self._reset_context()
