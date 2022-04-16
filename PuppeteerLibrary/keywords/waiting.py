@@ -12,6 +12,13 @@ class WaitingKeywords(LibraryComponent):
         return self.ctx.get_current_library_context().get_async_keyword_group(type(self).__name__)
 
     @keyword
+    def wait_for_network_idle(self, timeout=None):
+        """
+        Wait until there are no network connections for at least 500 ms.
+        """
+        return self.loop.run_until_complete(self.get_async_keyword_group().wait_for_network_idle(timeout))
+
+    @keyword
     def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
         """
         Wait until web application sent request to ``url``.
@@ -102,7 +109,8 @@ class WaitingKeywords(LibraryComponent):
         | Open browser                       | ${HOME_PAGE_URL}        | options=${options} |
         | `Wait Until Page Contains Element` | id:username             |                    |
         """
-        self.loop.run_until_complete(self.get_async_keyword_group().wait_until_page_contains_element(locator, timeout))
+        self.loop.run_until_complete(self.get_async_keyword_group(
+        ).wait_until_page_contains_element(locator, timeout))
 
     @keyword
     def wait_until_element_is_hidden(self, locator, timeout=None):
@@ -141,7 +149,8 @@ class WaitingKeywords(LibraryComponent):
         | ...                                | Wait For Navigation           |                             |      |
         | `Wait Until Page Contains`         | Invalid user name or password |                             |      |
         """
-        self.loop.run_until_complete(self.get_async_keyword_group().wait_until_page_contains(text, timeout))
+        self.loop.run_until_complete(
+            self.get_async_keyword_group().wait_until_page_contains(text, timeout))
 
     @keyword
     def wait_until_page_does_not_contains(self, text, timeout=None):

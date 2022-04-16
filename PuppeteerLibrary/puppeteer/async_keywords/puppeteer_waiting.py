@@ -11,10 +11,13 @@ class PuppeteerWaiting(iWaitingAsync):
     def __init__(self, library_ctx):
         super().__init__(library_ctx)
 
+    async def wait_for_network_idle(self, timeout=None):
+        pass
+
     async def _wait_for_selenium_selector(self, selenium_locator, timeout=None, visible=False, hidden=False):
         timeout = self.timestr_to_secs_for_default_timeout(timeout)
         return await self.library_ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
-    
+
     def escape_xpath_value(self, value):
         if '"' in value and '\'' in value:
             parts_wo_apos = value.split('\'')
@@ -28,8 +31,7 @@ class PuppeteerWaiting(iWaitingAsync):
         method = str2str(method)
         req = await self.library_ctx.get_current_page().get_page().waitForRequest(
             lambda req: re.search(url, req.url) is not None
-                        and req.method == method
-            , options={
+            and req.method == method, options={
                 'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
             })
 
@@ -44,7 +46,8 @@ class PuppeteerWaiting(iWaitingAsync):
                 log_str + '\n' + pos_data
             self.info(log_str)
         else:
-            raise Exception('Can\'t match request body with ' + body + ' \n ' + pos_data)
+            raise Exception('Can\'t match request body with ' +
+                            body + ' \n ' + pos_data)
 
         return DotDict({
             'url': req.url,
@@ -57,21 +60,21 @@ class PuppeteerWaiting(iWaitingAsync):
         status = str2int(status)
         res = await self.library_ctx.get_current_page().get_page().waitForResponse(
             lambda res: re.search(url, res.url) is not None
-                        and res.status == status
-            , options={
+            and res.status == status, options={
                 'timeout': self.timestr_to_secs_for_default_timeout(timeout) * 1000
             })
         try:
             res_text = (await res.text())
         except:
             res_text = ''
-        if body is None or re.search(body, res_text.replace('\n','')):
+        if body is None or re.search(body, res_text.replace('\n', '')):
             log_str = 'Wait for request url: ' + res.url
             if res_text != '':
                 log_str += '\n' + res_text
             self.info(log_str)
         else:
-            raise Exception('Can\'t match response body with '+body+' \n '+res_text)
+            raise Exception(
+                'Can\'t match response body with '+body+' \n '+res_text)
         return DotDict({
             'url': res.url,
             'status': res.status,
@@ -105,24 +108,27 @@ class PuppeteerWaiting(iWaitingAsync):
 
     async def wait_until_element_contains(self, locator, text, timeout=None):
         text = str2str(text)
+
         async def validate_element_contains_text():
-            return (text in (await (await ( await self.library_ctx.get_current_page().
-                querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
+            return (text in (await (await (await self.library_ctx.get_current_page().
+                                           querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_element_does_not_contains(self, locator, text, timeout=None):
         text = str2str(text)
+
         async def validate_element_contains_text():
-            return (text not in (await (await ( await self.library_ctx.get_current_page().
-                querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
+            return (text not in (await (await (await self.library_ctx.get_current_page().
+                                               querySelector_with_selenium_locator(locator)).getProperty('textContent')).jsonValue()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_location_contains(self, expected, timeout=None):
         expected = str2str(expected)
+
         async def validate_url_contains_text():
             return expected in self.library_ctx.get_current_page().get_page().url
         return await self._wait_until_worker(
@@ -131,6 +137,7 @@ class PuppeteerWaiting(iWaitingAsync):
 
     async def wait_until_location_does_not_contains(self, expected, timeout=None):
         expected = str2str(expected)
+
         async def validate_url_not_contains_text():
             return expected not in self.library_ctx.get_current_page().get_page().url
         return await self._wait_until_worker(
@@ -148,7 +155,8 @@ class PuppeteerWaiting(iWaitingAsync):
             'Element '+locator+' was not enabled.')
 
     async def wait_until_element_finished_animating(self, locator, timeout=None):
-        prev_rect_tmp = { 'value': None }
+        prev_rect_tmp = {'value': None}
+
         async def check_finished_animating():
             await self.wait_until_element_is_visible(locator)
             element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)

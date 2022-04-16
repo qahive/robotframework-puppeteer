@@ -5,6 +5,10 @@ from PuppeteerLibrary.ikeywords.base_async_keywords import BaseAsyncKeywords
 class iWaitingAsync(BaseAsyncKeywords, ABC):
 
     @abstractmethod
+    async def wait_for_network_idle(self, timeout=None):
+        pass
+
+    @abstractmethod
     async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
         pass
 
