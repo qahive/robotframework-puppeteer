@@ -11,13 +11,17 @@ class PlaywrightWaiting(iWaitingAsync):
     def __init__(self, library_ctx):
         super().__init__(library_ctx)
 
+    async def wait_for_network_idle(self, timeout=None):
+        await self.library_ctx.get_current_page().get_page().wait_for_load_state('networkidle', timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000)
+
     async def wait_for_request_url(self, url, method='GET', body=None, timeout=None):
         url = str2str(url)
         method = str2str(method)
         req = await self.library_ctx.get_current_page().get_page().wait_for_event(
-            "request", 
-            predicate=lambda request: re.search(url, request.url) is not None and request.method == method,
-            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
+            "request",
+            predicate=lambda request: re.search(
+                url, request.url) is not None and request.method == method,
+            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000
         )
         try:
             pos_data = (await req.postData())
@@ -30,7 +34,8 @@ class PlaywrightWaiting(iWaitingAsync):
                 log_str + '\n' + pos_data
             self.info(log_str)
         else:
-            raise Exception('Can\'t match request body with ' + body + ' \n ' + pos_data)
+            raise Exception('Can\'t match request body with ' +
+                            body + ' \n ' + pos_data)
 
         return DotDict({
             'url': req.url,
@@ -42,21 +47,23 @@ class PlaywrightWaiting(iWaitingAsync):
         url = str2str(url)
         status = str2int(status)
         res = await self.library_ctx.get_current_page().get_page().wait_for_event(
-            "response", 
-            predicate=lambda response: re.search(url, response.url) is not None and response.status == status,
-            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000 
+            "response",
+            predicate=lambda response: re.search(
+                url, response.url) is not None and response.status == status,
+            timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000
         )
         try:
             res_text = (await res.text())
         except:
             res_text = ''
-        if body is None or re.search(body, res_text.replace('\n','')):
+        if body is None or re.search(body, res_text.replace('\n', '')):
             log_str = 'Wait for request url: ' + res.url
             if res_text != '':
                 log_str += '\n' + res_text
             self.info(log_str)
         else:
-            raise Exception('Can\'t match response body with '+body+' \n '+res_text)
+            raise Exception(
+                'Can\'t match response body with '+body+' \n '+res_text)
         return DotDict({
             'url': res.url,
             'status': res.status,
@@ -65,8 +72,8 @@ class PlaywrightWaiting(iWaitingAsync):
 
     async def wait_for_navigation(self, timeout=None):
         return await self.library_ctx.get_current_page().get_page().wait_for_event(
-            'load', 
-            predicate=None, 
+            'load',
+            predicate=None,
             timeout=self.timestr_to_secs_for_default_timeout(timeout) * 1000)
 
     async def wait_until_page_contains_element(self, locator, timeout=None):
@@ -95,15 +102,17 @@ class PlaywrightWaiting(iWaitingAsync):
 
     async def wait_until_element_does_not_contains(self, locator, text, timeout=None):
         text = str2str(text)
+
         async def validate_element_contains_text():
-            return (text not in (await (await ( await self.library_ctx.get_current_page().
-                querySelector_with_selenium_locator(locator)).get_property('textContent')).json_value()))
+            return (text not in (await (await (await self.library_ctx.get_current_page().
+                                               querySelector_with_selenium_locator(locator)).get_property('textContent')).json_value()))
         return await self._wait_until_worker(
             validate_element_contains_text,
             self.timestr_to_secs_for_default_timeout(timeout))
 
     async def wait_until_location_contains(self, expected, timeout=None):
         expected = str2str(expected)
+
         async def validate_url_contains_text():
             return expected in self.library_ctx.get_current_page().get_page().url
         return await self._wait_until_worker(
@@ -112,6 +121,7 @@ class PlaywrightWaiting(iWaitingAsync):
 
     async def wait_until_location_does_not_contains(self, expected, timeout=None):
         expected = str2str(expected)
+
         async def validate_url_not_contains_text():
             return expected not in self.library_ctx.get_current_page().get_page().url
         return await self._wait_until_worker(
@@ -129,7 +139,8 @@ class PlaywrightWaiting(iWaitingAsync):
             'Element '+locator+' was not enabled.')
 
     async def wait_until_element_finished_animating(self, locator, timeout=None):
-        prev_rect_tmp = { 'value': None }
+        prev_rect_tmp = {'value': None}
+
         async def check_finished_animating():
             await self.wait_until_element_is_visible(locator)
             element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
@@ -151,7 +162,7 @@ class PlaywrightWaiting(iWaitingAsync):
     async def _wait_for_selenium_selector(self, selenium_locator, timeout=None, visible=False, hidden=False):
         timeout = self.timestr_to_secs_for_default_timeout(timeout)
         return await self.library_ctx.get_current_page().waitForSelector_with_selenium_locator(selenium_locator, timeout, visible, hidden)
-    
+
     async def _wait_until_worker(self, condition, timeout, error=None):
         max_time = time.time() + timeout
         not_found = None
