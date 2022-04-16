@@ -1,4 +1,5 @@
 import asyncio
+from robot.api import logger
 from PuppeteerLibrary.custom_elements.base_page import BasePage
 from PuppeteerLibrary.playwright.custom_elements.playwright_page import PlaywrightPage
 from PuppeteerLibrary.playwright.async_keywords.playwright_checkbox import PlaywrightCheckbox
@@ -75,7 +76,6 @@ class PlaywrightContext(iLibraryContext):
                 del merged_options['proxy']
             self.browser = await self.playwright.chromium.launch(
                 headless=merged_options['headless'], proxy=proxy)
-            merged_options
         elif self.browser_type == "webkit":
             self.browser = await self.playwright.webkit.launch(
                 headless=merged_options['headless'])
@@ -85,7 +85,10 @@ class PlaywrightContext(iLibraryContext):
         self.browser.accept_downloads = True
 
     async def stop_server(self):
-        await self.playwright.stop()
+        try:
+            await asyncio.wait_for(self.playwright.stop(), timeout=5.0)
+        except Exception:
+            logger.warn('Can\'t stop server properly...')
         self._reset_server_context()
 
     def is_server_started(self) -> bool:
@@ -149,7 +152,7 @@ class PlaywrightContext(iLibraryContext):
     async def close_browser_context(self):
         if self.browser is not None:
             try:
-                await asyncio.wait_for(self.browser.close(), timeout=3)
+                await asyncio.wait_for(self.browser.close(), timeout=5)
             except asyncio.TimeoutError:
                 None
         self._reset_context()

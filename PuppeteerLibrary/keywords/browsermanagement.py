@@ -1,5 +1,6 @@
 import os
 import shutil
+from robot.api import logger
 from PuppeteerLibrary.base.librarycomponent import LibraryComponent
 from PuppeteerLibrary.base.robotlibcore import keyword
 from PuppeteerLibrary.ikeywords.ibrowsermanagement_async import iBrowserManagementAsync
@@ -49,12 +50,13 @@ class BrowserManagementKeywords(LibraryComponent):
         """
         if options is None:
             options = {}
-            
+
         self.info(url)
         library_context = self.ctx.get_library_context_by_name(alias)
         if library_context is None:
             library_context = self.ctx.create_library_context(alias, browser)
-        self.loop.run_until_complete(self.ctx.set_current_library_context(alias))
+        self.loop.run_until_complete(
+            self.ctx.set_current_library_context(alias))
         self.loop.run_until_complete(library_context.start_server(options))
         self.loop.run_until_complete(library_context.create_new_page(options))
         self.loop.run_until_complete(self.get_async_keyword_group().go_to(url))
@@ -63,7 +65,8 @@ class BrowserManagementKeywords(LibraryComponent):
     def close_window(self):
         """ Close current browser tab/page
         """
-        self.loop.run_until_complete(self.ctx.get_current_library_context().close_window())
+        self.loop.run_until_complete(
+            self.ctx.get_current_library_context().close_window())
 
     @keyword
     def close_browser(self, alias=None):
@@ -78,15 +81,17 @@ class BrowserManagementKeywords(LibraryComponent):
     def close_all_browser(self):
         """Close all browser
         """
-        library_contexts =  self.ctx.get_all_library_context()
+        library_contexts = self.ctx.get_all_library_context()
         for library_context in library_contexts:
-            self.loop.run_until_complete(library_context.close_browser_context())
+            self.loop.run_until_complete(
+                library_context.close_browser_context())
 
     @keyword
     def close_puppeteer(self):
         library_contexts_dict = self.ctx.get_all_library_context_dict()
         for key in list(library_contexts_dict.keys()):
-            self.loop.run_until_complete(library_contexts_dict[key].stop_server())
+            self.loop.run_until_complete(
+                library_contexts_dict[key].stop_server())
             self.ctx.remove_library_context(key)
 
     @keyword
@@ -113,13 +118,14 @@ class BrowserManagementKeywords(LibraryComponent):
     @keyword
     def reload_page(self):
         """Reload the current page"""
-        self.loop.run_until_complete(self.get_async_keyword_group().reload_page())
+        self.loop.run_until_complete(
+            self.get_async_keyword_group().reload_page())
 
     @keyword
     def get_window_count(self):
         """ Get windows count
         """
-        return  self.loop.run_until_complete(self.get_async_keyword_group().get_window_count())
+        return self.loop.run_until_complete(self.get_async_keyword_group().get_window_count())
 
     @keyword
     def wait_for_new_window_open(self, timeout=None):
@@ -131,7 +137,8 @@ class BrowserManagementKeywords(LibraryComponent):
         | Run Async Keywords | Click Element              | id:view_conditions          | AND  |
         | ...                | `Wait For New Window Open` |                             |      |
         """
-        self.loop.run_until_complete(self.get_async_keyword_group().wait_for_new_window_open(timeout))
+        self.loop.run_until_complete(
+            self.get_async_keyword_group().wait_for_new_window_open(timeout))
 
     @keyword
     def switch_window(self, locator='MAIN'):
@@ -142,7 +149,8 @@ class BrowserManagementKeywords(LibraryComponent):
             - title="QAHive": window title. Page title will have have error if new tab have auto redirection
             - url="https://qahive.com": url support regex Example: url=.*qahive.com
         """
-        self.loop.run_until_complete(self.get_async_keyword_group().switch_window(locator))
+        self.loop.run_until_complete(
+            self.get_async_keyword_group().switch_window(locator))
 
     @keyword
     def switch_browser(self, alias):
@@ -265,11 +273,12 @@ class BrowserManagementKeywords(LibraryComponent):
 
             *Limitation* only support Playwright browser
         """
-        file_path = self.STATES_FOLDER +'/state-'+ ref + '.json'
+        file_path = self.STATES_FOLDER + '/state-' + ref + '.json'
         if os.path.exists(file_path):
             os.remove(file_path)
         else:
-            self.warn('Can not delete the storate '+ref+' as it doesn\'t exists')
+            self.warn('Can not delete the storate ' +
+                      ref+' as it doesn\'t exists')
 
     @keyword
     def delete_all_browser_storage_states(self):
@@ -281,4 +290,3 @@ class BrowserManagementKeywords(LibraryComponent):
             shutil.rmtree(self.STATES_FOLDER)
         except OSError as e:
             self.warn("Error: %s - %s." % (e.filename, e.strerror))
-
