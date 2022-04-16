@@ -1,0 +1,1375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keywordspec name="PuppeteerLibrary" type="LIBRARY" format="HTML" scope="GLOBAL" namedargs="true" generated="2022-04-16T06:48:39Z" specversion="2" source="C:\Users\attha\Documents\Git\QAHive\robotframework-puppeteer\PuppeteerLibrary\__init__.py" lineno="43">
+<version>3.1.4</version>
+<scope>global</scope>
+<namedargs>yes</namedargs>
+<doc>&lt;p&gt;PuppeteerLibrary is a web testing library for Robot Framework. PuppeteerLibrary uses the pyppeteer library internally to control a web browser.&lt;/p&gt;
+&lt;p&gt;This document explains how to use keywords provided by PuppeteerLibrary.&lt;/p&gt;
+&lt;h3&gt;Locator syntax&lt;/h3&gt;
+&lt;p&gt;PuppeteerLibrary supports finding elements based on different strategies such as the element id, XPath expressions, or CSS selectors same as SeleniumLibrary&lt;/p&gt;
+&lt;p&gt;Locator strategy is specified with a prefix using either syntax &lt;code&gt;strategy:value&lt;/code&gt; or &lt;code&gt;strategy=value&lt;/code&gt;.&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;th&gt;Strategy&lt;/th&gt;
+&lt;th&gt;Match based on&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;id&lt;/td&gt;
+&lt;td&gt;Element &lt;code&gt;id&lt;/code&gt;.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;id:example&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;xpath&lt;/td&gt;
+&lt;td&gt;XPath expression.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;xpath://div[@id="example"]&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;css&lt;/td&gt;
+&lt;td&gt;CSS selector.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;css:div#example&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;link&lt;/td&gt;
+&lt;td&gt;Exact text a link has.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;link:Home page&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;partial link&lt;/td&gt;
+&lt;td&gt;Partial link text&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;partial link:Home&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3&gt;Chain Locator only for Playwright&lt;/h3&gt;
+&lt;p&gt;Playwright support &lt;code&gt;Chaining selectors&lt;/code&gt; strategy. This allow us to chain following support locator. Selectors can be combined with the &lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt; token, e.g. selector1 &amp;gt;&amp;gt; selector2 &amp;gt;&amp;gt; selectors3. When selectors are chained, next one is queried relative to the previous one's result.&lt;/p&gt;
+&lt;p&gt;Support chaining locator strategy: css and xpath&lt;/p&gt;
+&lt;p&gt;More detail [Chaining selectors](https://playwright.dev/docs/selectors#chaining-selectors)&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;chain=css=article &amp;gt;&amp;gt; css=.bar &amp;gt; css=.baz &amp;gt;&amp;gt; css=span[attr=value]&lt;/p&gt;
+&lt;h3&gt;Timeout&lt;/h3&gt;
+&lt;p&gt;Timeout will use for Wait.. keywords. By default Puppeteer will use default timeout value if you didn't specific in keywords argument. Default Timeout is &lt;code&gt;30 seconds&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;User can set new default timeout using &lt;code&gt;Set Timeout&lt;/code&gt; keyword&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Time format&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;All timeouts and waits can be given as numbers considered seconds (e.g. 0.5 or 42) or in Robot Framework's time syntax(e.g. 1.5 seconds or 1 min 30 s).&lt;/p&gt;
+&lt;p&gt;For more information about the time syntax see the Robot Framework User Guide.&lt;/p&gt;</doc>
+<init lineno="118">
+<arguments>
+<arg>disable_python_logging=True</arg>
+</arguments>
+<doc>&lt;p&gt;Initialize self.  See help(type(self)) for accurate signature.&lt;/p&gt;</doc>
+</init>
+<kw name="Add Cookie">
+<arguments>
+<arg>name</arg>
+<arg>value</arg>
+</arguments>
+<doc>&lt;p&gt;Add cookie&lt;/p&gt;</doc>
+</kw>
+<kw name="Capture Page Screenshot">
+<arguments>
+<arg>filename=puppeteer-screenshot-{index}.png</arg>
+<arg>fullPage=False</arg>
+</arguments>
+<doc>&lt;p&gt;Capture current web page as image png file.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;filename&lt;/code&gt; argument specifies filename and path to save the file. Default valid is 'puppeteer-screenshot-{index}.png'.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;fullPage&lt;/code&gt; argument specifieds capture screenshot as full page.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Capture page screenshot&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Capture page screenshot&lt;/td&gt;
+&lt;td&gt;custom-{index}.png&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Checkbox Should Be Selected">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Valicate checkbox should selected&lt;/p&gt;</doc>
+</kw>
+<kw name="Checkbox Should Not Be Selected">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Valicate checkbox should not be selected&lt;/p&gt;</doc>
+</kw>
+<kw name="Clear Element Text">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Clears value of text field identified by &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Clear Element Text`&lt;/td&gt;
+&lt;td&gt;id:name&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Click Button">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Clicks button identified by &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Click Button`&lt;/td&gt;
+&lt;td&gt;id:submit&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Click Element">
+<arguments>
+<arg>locator</arg>
+<arg>noWaitAfter=False</arg>
+</arguments>
+<doc>&lt;p&gt;Clicks element identified by &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;noWaitAfter&lt;/code&gt; argument specifies skip wait for animation after click. Only support for webkit and safari (Puppeteer)&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Click Element`&lt;/td&gt;
+&lt;td&gt;id:register&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Click Element`&lt;/td&gt;
+&lt;td&gt;id:register&lt;/td&gt;
+&lt;td&gt;${True}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Click Element At Coordinate">
+<arguments>
+<arg>locator</arg>
+<arg>xoffset</arg>
+<arg>yoffset</arg>
+</arguments>
+<doc>&lt;p&gt;Click element at specifict coordiate x and y offset&lt;/p&gt;</doc>
+</kw>
+<kw name="Click Image">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Clicks image identified by &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Click Image`&lt;/td&gt;
+&lt;td&gt;id:cat_image&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Click Link">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Clicks link identified by &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Click Link`&lt;/td&gt;
+&lt;td&gt;id:view_more&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Close All Browser">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Close all browser&lt;/p&gt;</doc>
+</kw>
+<kw name="Close Browser">
+<arguments>
+<arg>alias=None</arg>
+</arguments>
+<doc>&lt;p&gt;Closes the current browser&lt;/p&gt;</doc>
+</kw>
+<kw name="Close Puppeteer">
+<arguments>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Close Window">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Close current browser tab/page&lt;/p&gt;</doc>
+</kw>
+<kw name="Delete All Browser Storage States">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Delete all browser storage state&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Limitation&lt;/b&gt; only support Playwright browser&lt;/p&gt;</doc>
+</kw>
+<kw name="Delete All Cookies">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Deletes all cookies.&lt;/p&gt;</doc>
+</kw>
+<kw name="Delete Browser Storage State">
+<arguments>
+<arg>ref</arg>
+</arguments>
+<doc>&lt;p&gt;Delete browser storage state&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;ref&lt;/b&gt; : reference state name&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Limitation&lt;/b&gt; only support Playwright browser&lt;/p&gt;</doc>
+</kw>
+<kw name="Disable Debug Mode">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Disable debug mode. This keyword will close all browser and reset debug mode to False.&lt;/p&gt;</doc>
+</kw>
+<kw name="Download File">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Drag And Drop">
+<arguments>
+<arg>src_locator</arg>
+<arg>desc_locator</arg>
+</arguments>
+<doc>&lt;p&gt;Drag item form sort locator to destination locator&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Limitation&lt;/b&gt; Drag event only support for css / id locator. Not support for xpath locator or chain locator.&lt;/p&gt;</doc>
+</kw>
+<kw name="Element Should Be Disabled">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Verifies that element identified by locator is disabled.&lt;/p&gt;</doc>
+</kw>
+<kw name="Element Should Be Enabled">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Verifies that element identified by locator is enabled.&lt;/p&gt;</doc>
+</kw>
+<kw name="Element Should Be Visible">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Verifies that element identified by locator is visible.&lt;/p&gt;</doc>
+</kw>
+<kw name="Element Should Contain">
+<arguments>
+<arg>locator</arg>
+<arg>expected</arg>
+<arg>ignore_case=False</arg>
+</arguments>
+<doc>&lt;p&gt;Verifies that element locator contains text `expected`.&lt;/p&gt;</doc>
+</kw>
+<kw name="Element Should Not Be Visible">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Verifies that element identified by locator is not be visible.&lt;/p&gt;</doc>
+</kw>
+<kw name="Element Should Not Contain">
+<arguments>
+<arg>locator</arg>
+<arg>expected</arg>
+<arg>ignore_case=False</arg>
+</arguments>
+<doc>&lt;p&gt;Verifies that element locator should not contains text `expected`.&lt;/p&gt;</doc>
+</kw>
+<kw name="Element Text Should Be">
+<arguments>
+<arg>locator</arg>
+<arg>expected</arg>
+<arg>ignore_case=False</arg>
+</arguments>
+<doc>&lt;p&gt;Verifies that element locator contains exact the text `expected`.&lt;/p&gt;</doc>
+</kw>
+<kw name="Element Text Should Not Be">
+<arguments>
+<arg>locator</arg>
+<arg>expected</arg>
+<arg>ignore_case=False</arg>
+</arguments>
+<doc>&lt;p&gt;Verifies that element locator not contains exact the text `expected`.&lt;/p&gt;</doc>
+</kw>
+<kw name="Enable Debug Mode">
+<arguments>
+<arg>slowMo=150</arg>
+<arg>devtools=True</arg>
+</arguments>
+<doc>&lt;p&gt;Enable debug mode.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;slowMo&lt;/code&gt; argument specifies delay for each test step. The &lt;code&gt;devtools&lt;/code&gt; argument specifies enable devtools or not.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Enable Debug Mode&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Open browser&lt;/td&gt;
+&lt;td&gt;&lt;a href="http://127.0.0.1:7272"&gt;http://127.0.0.1:7272&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input text&lt;/td&gt;
+&lt;td&gt;id:username_field&lt;/td&gt;
+&lt;td&gt;demo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input text&lt;/td&gt;
+&lt;td&gt;id:password_field&lt;/td&gt;
+&lt;td&gt;mode&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Enable Emulate Mode">
+<arguments>
+<arg>emulate_name</arg>
+</arguments>
+<doc>&lt;p&gt;Emulate specific mobile or tablet&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;emulate_name&lt;/code&gt; argument specifies which emulator to use. Only support for chrome (Puppeteer)&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;th&gt;Example Options&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;iPhone X&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Pixel 2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;More emulate_name please visit [device_descriptors.py](https://github.com/qahive/robotframework-puppeteer/tree/master/PuppeteerLibrary/utils/device_descriptors.py)&lt;/p&gt;</doc>
+</kw>
+<kw name="Execute Javascript">
+<arguments>
+<arg>code</arg>
+</arguments>
+<doc>&lt;p&gt;Executes the given JavaScript code&lt;/p&gt;
+&lt;p&gt;Examples:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Handle Alert`&lt;/td&gt;
+&lt;td&gt;ACCEPT&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Execute Javascript`&lt;/td&gt;
+&lt;td&gt;alert('Hello world');&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;Examples:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Execute Javascript`&lt;/td&gt;
+&lt;td&gt;console.log('Hi 5');&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Get Cookie">
+<arguments>
+<arg>name</arg>
+</arguments>
+<doc>&lt;p&gt;Get cookie by name&lt;/p&gt;
+&lt;p&gt;Returns Cookie value&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Cookies">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Get all cookies&lt;/p&gt;
+&lt;p&gt;Returns Dictionary for all cookies of the current page.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Element Attribute">
+<arguments>
+<arg>locator</arg>
+<arg>attribute</arg>
+</arguments>
+<doc>&lt;p&gt;Return the value of &lt;code&gt;attribute&lt;/code&gt; from the element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Element Count">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Returns the number of elements matching &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get List Labels">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Return the label list of options from element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get List Values">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Return the value list of options from element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Location">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Get page location&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Screenshot Directory">
+<arguments>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Get Selected List Label">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Return the label of selected option from element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Selected List Labels">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Return the label list of selected options from element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Selected List Value">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Return the value of selected option from element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Selected List Values">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Return the value list of selected options from element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Text">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Returns text value of element identified by &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;${text}&lt;/td&gt;
+&lt;td&gt;`Get Text`&lt;/td&gt;
+&lt;td&gt;id:username&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Get Title">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Get page title&lt;/p&gt;</doc>
+</kw>
+<kw name="Get Value">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Returns specific attribute value of element identified by &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;${value}&lt;/td&gt;
+&lt;td&gt;`Get Value`&lt;/td&gt;
+&lt;td&gt;id:comment&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Get Window Count">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Get windows count&lt;/p&gt;</doc>
+</kw>
+<kw name="Go Back">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Simulate browser go back&lt;/p&gt;</doc>
+</kw>
+<kw name="Go To">
+<arguments>
+<arg>url</arg>
+</arguments>
+<doc>&lt;p&gt;Navigates the current page to the &lt;code&gt;url&lt;/code&gt;&lt;/p&gt;</doc>
+</kw>
+<kw name="Handle Alert">
+<arguments>
+<arg>action</arg>
+<arg>prompt_text=</arg>
+</arguments>
+<doc>&lt;p&gt;Handles the current alert and returns its message.&lt;/p&gt;
+&lt;p&gt;action:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ACCEPT: Accept the alert i.e. press Ok. Default.&lt;/li&gt;
+&lt;li&gt;DISMISS: Dismiss the alert i.e. press Cancel.`.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Run Async Keywords`&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...    Handle Alert&lt;/td&gt;
+&lt;td&gt;ACCEPT&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...    Click Button&lt;/td&gt;
+&lt;td&gt;id=alert_confirm&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;Limitation: Not support for webkit&lt;/p&gt;</doc>
+</kw>
+<kw name="Input Password">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+<arg>clear=True</arg>
+</arguments>
+<doc>&lt;p&gt;Types the given text into text field same as &lt;code&gt;Input Text&lt;/code&gt; Keyword.&lt;/p&gt;
+&lt;p&gt;Differentiate is only not log the input value into log file.&lt;/p&gt;</doc>
+</kw>
+<kw name="Input Text">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+<arg>clear=True</arg>
+</arguments>
+<doc>&lt;p&gt;Types the given text into text field identified by &lt;code&gt;locator&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;If clear is true, the input element will be cleared before the text is typed into the element. On the other hand clear is false, the previous text will not be cleared from the element.&lt;/p&gt;
+&lt;p&gt;Examples:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Input Text`&lt;/td&gt;
+&lt;td&gt;id:name&lt;/td&gt;
+&lt;td&gt;John Doe&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Input Text`&lt;/td&gt;
+&lt;td&gt;id:username&lt;/td&gt;
+&lt;td&gt;john&lt;/td&gt;
+&lt;td&gt;True&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Mock Current Page Api Response">
+<arguments>
+<arg>url</arg>
+<arg>mock_response</arg>
+<arg>method=GET</arg>
+<arg>body=None</arg>
+</arguments>
+<doc>&lt;p&gt;Mock current page api response.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;mock_response&lt;/code&gt; is a dictionary which can have the following fields:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;status&lt;/code&gt; (int): Response status code, defaults to 200.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;headers&lt;/code&gt; (dict): Optional response headers.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;contentType&lt;/code&gt; (str): If set, equals to setting &lt;code&gt;Content-Type&lt;/code&gt; response header.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;body&lt;/code&gt; (str|bytes): Optional response body.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;code&gt;url&lt;/code&gt; is request url. url can be partial url match using regexp Match Options:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Options&lt;/td&gt;
+&lt;td&gt;Url value&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Exact match&lt;/td&gt;
+&lt;td&gt;^http://127.0.0.1:7272/ajax_info.json\?count=3$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Partial match&lt;/td&gt;
+&lt;td&gt;/ajax_info.json\?count=3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Regular expression&lt;/td&gt;
+&lt;td&gt;.*?/ajax_info.json\?count=3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;The &lt;code&gt;method&lt;/code&gt; is HTTP Request Methods:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GET (default)&lt;/li&gt;
+&lt;li&gt;POST&lt;/li&gt;
+&lt;li&gt;PUT&lt;/li&gt;
+&lt;li&gt;HEAD&lt;/li&gt;
+&lt;li&gt;DELETE&lt;/li&gt;
+&lt;li&gt;PATCH&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;code&gt;body&lt;/code&gt; is request body message. body can match using regexp&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;amp;{response}&lt;/td&gt;
+&lt;td&gt;Create Dictionary&lt;/td&gt;
+&lt;td&gt;body=I'm a mock response&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Mock Current Page Api Response&lt;/td&gt;
+&lt;td&gt;/ajax_info.json\?count=3&lt;/td&gt;
+&lt;td&gt;${response}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Mouse Down">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Mouse down on the element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Mouse Move">
+<arguments>
+<arg>x</arg>
+<arg>y</arg>
+</arguments>
+<doc>&lt;p&gt;Move mouse to position x, y.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Limitation&lt;/b&gt; Drag event only support for css / id locator. Not support for xpath locator or chain locator.&lt;/p&gt;</doc>
+</kw>
+<kw name="Mouse Over">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Mouse over the element.&lt;/p&gt;</doc>
+</kw>
+<kw name="Mouse Up">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Mouse up.&lt;/p&gt;</doc>
+</kw>
+<kw name="Open Browser">
+<arguments>
+<arg>url</arg>
+<arg>browser=chrome</arg>
+<arg>alias=None</arg>
+<arg>options={}</arg>
+</arguments>
+<doc>&lt;p&gt;Opens a new browser instance to the specific &lt;code&gt;url&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;browser&lt;/code&gt; argument specifies which browser to use.&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;th&gt;Browser&lt;/th&gt;
+&lt;th&gt;Name(s)&lt;/th&gt;
+&lt;th&gt;Engine&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Google Chrome Default&lt;/td&gt;
+&lt;td&gt;chrome&lt;/td&gt;
+&lt;td&gt;Playwright&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Google Chrome Playwright&lt;/td&gt;
+&lt;td&gt;pwchrome&lt;/td&gt;
+&lt;td&gt;Playwright&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Google Chrome Puppeteer&lt;/td&gt;
+&lt;td&gt;ptchrome&lt;/td&gt;
+&lt;td&gt;Puppeteer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Webkit (Safari engine)&lt;/td&gt;
+&lt;td&gt;webkit&lt;/td&gt;
+&lt;td&gt;Playwright&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Firefox&lt;/td&gt;
+&lt;td&gt;firefox&lt;/td&gt;
+&lt;td&gt;Playwright&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;The &lt;code&gt;options&lt;/code&gt; argument as a dictionary&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;th&gt;Property&lt;/th&gt;
+&lt;th&gt;Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;headless&lt;/td&gt;
+&lt;td&gt;default True&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;width&lt;/td&gt;
+&lt;td&gt;default 1366&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;height&lt;/td&gt;
+&lt;td&gt;default 768&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;emulate&lt;/td&gt;
+&lt;td&gt;iPhone 11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;state_ref&lt;/td&gt;
+&lt;td&gt;State Reference&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;b&gt;*Other options*&lt;/b&gt; pwchrome, webkit and firefox please visit: &lt;a href="https://playwright.dev/python/docs/api/class-browser?_highlight=new_page#browsernew_pagekwargs"&gt;https://playwright.dev/python/docs/api/class-browser?_highlight=new_page#browsernew_pagekwargs&lt;/a&gt; chrome please visit: &lt;a href="https://pptr.dev/#?product=Puppeteer&amp;amp;version=v8.0.0&amp;amp;show=api-puppeteerlaunchoptions"&gt;https://pptr.dev/#?product=Puppeteer&amp;amp;version=v8.0.0&amp;amp;show=api-puppeteerlaunchoptions&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;amp;{options} =&lt;/td&gt;
+&lt;td&gt;create dictionary&lt;/td&gt;
+&lt;td&gt;headless=${False}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Open browser`&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://www.w3schools.com/html/html_forms.asp"&gt;https://www.w3schools.com/html/html_forms.asp&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;options=${options}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Press Keys">
+<arguments>
+<arg>locator</arg>
+<arg>*keys</arg>
+</arguments>
+<doc>&lt;p&gt;Press Keys&lt;/p&gt;
+&lt;p&gt;Simulates the user pressing key(s) to an element or on the active page. A superset of the `key` values can be found here. Examples of the keys are: `F1` - `F12`, `Digit0`- `Digit9`, `KeyA`- `KeyZ`, `Backquote`, `Minus`, `Equal`, `Backslash`, `Backspace`, `Tab`, `Delete`, `Escape`, `ArrowDown`, `End`, `Enter`, `Home`, `Insert`, `PageDown`, `PageUp`, `ArrowRight`, `ArrowUp`, etc. Please refer to a key &lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values"&gt;https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;keys arguments can contain one or many strings&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Press Keys`&lt;/td&gt;
+&lt;td&gt;None&lt;/td&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Press Keys`&lt;/td&gt;
+&lt;td&gt;id=password&lt;/td&gt;
+&lt;td&gt;Enter&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Press Keys`&lt;/td&gt;
+&lt;td&gt;id=password&lt;/td&gt;
+&lt;td&gt;A&lt;/td&gt;
+&lt;td&gt;Enter&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Print As Pdf">
+<arguments>
+<arg>filename=pdf-{index}.pdf</arg>
+</arguments>
+<doc>&lt;p&gt;Print current web page as pdf file. This keyword only support with &lt;code&gt;HEADLESS&lt;/code&gt; mode enable.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;filename&lt;/code&gt; argument specifies filename and path to save the file. Default valid is 'pdf-{index}.pdf'.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;amp;{options} =&lt;/td&gt;
+&lt;td&gt;create dictionary&lt;/td&gt;
+&lt;td&gt;headless=${False}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Open browser&lt;/td&gt;
+&lt;td&gt;&lt;a href="https://www.w3schools.com/html/html_forms.asp"&gt;https://www.w3schools.com/html/html_forms.asp&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;options=${options}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Print as PDF&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Print as PDF&lt;/td&gt;
+&lt;td&gt;custom-pdf-{index}.pdf&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Reload Page">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Reload the current page&lt;/p&gt;</doc>
+</kw>
+<kw name="Run Async Keywords">
+<arguments>
+<arg>*keywords</arg>
+</arguments>
+<doc>&lt;p&gt;Executes all the given keywords in a asynchronous and wait until all keyword is completed&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Return&lt;/code&gt; Array of result for each keywords based on index&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Open browser&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}&lt;/td&gt;
+&lt;td&gt;options=${options}&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Run Async Keywords`&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;Wait for response url&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}/home.html&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Run Async Keywords And Return First Completed">
+<arguments>
+<arg>*keywords</arg>
+</arguments>
+<doc>&lt;p&gt;Executes all the given keywords in a asynchronous and wait until first keyword is completed&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Return&lt;/code&gt; Array of result for each keywords based on index&lt;/p&gt;
+&lt;p&gt;Example&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;`Run Async Keywords And Return First Completed`&lt;/td&gt;
+&lt;td&gt;Wait for response url&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}/login.html&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;Wait for response url&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}/home.html&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Save Browser Storage State">
+<arguments>
+<arg>ref=user</arg>
+</arguments>
+<doc>&lt;p&gt;Save browser storage state that can resue Authentication state&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;ref&lt;/b&gt; : reference state name&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Limitation&lt;/b&gt; only support Playwright browser&lt;/p&gt;</doc>
+</kw>
+<kw name="Scroll Element Into View">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Scroll element into view&lt;/p&gt;</doc>
+</kw>
+<kw name="Select Checkbox">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Select checkbox based on locator&lt;/p&gt;</doc>
+</kw>
+<kw name="Select Frame">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Select From List By Label">
+<arguments>
+<arg>locator</arg>
+<arg>labels</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Select From List By Value">
+<arguments>
+<arg>locator</arg>
+<arg>values</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Set Screenshot Directory">
+<arguments>
+<arg>path</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Set Timeout">
+<arguments>
+<arg>timeout</arg>
+</arguments>
+<doc>&lt;p&gt;Sets the timeout that is used by various keywords. The value can be given as a number that is considered to be seconds or as a human-readable string like 1 second. The previous value is returned and can be used to restore the original value later if needed. See the Timeout section above for more information.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Open page that loads slowly&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Set Timeout&lt;/td&gt;
+&lt;td&gt;${orig timeout}&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Set View Port Size">
+<arguments>
+<arg>width</arg>
+<arg>height</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Start Tracing">
+<arguments>
+</arguments>
+<doc>&lt;p&gt;Create trace log file&lt;/p&gt;
+&lt;p&gt;# View the trace by running following command&lt;/p&gt;
+&lt;p&gt;playwright show-trace trace.zip&lt;/p&gt;</doc>
+</kw>
+<kw name="Stop Tracing">
+<arguments>
+<arg>path=None</arg>
+</arguments>
+<doc>&lt;p&gt;Stop trace and generate the trace file.&lt;/p&gt;
+&lt;p&gt;Default will be &lt;code&gt;traces/&amp;lt;testcasename&amp;gt;.zip&lt;/code&gt;&lt;/p&gt;</doc>
+</kw>
+<kw name="Switch Browser">
+<arguments>
+<arg>alias</arg>
+</arguments>
+<doc>&lt;p&gt;Switch browser context based on alias name&lt;/p&gt;</doc>
+</kw>
+<kw name="Switch Window">
+<arguments>
+<arg>locator=MAIN</arg>
+</arguments>
+<doc>&lt;p&gt;Switches to tabs matching locator locator support options NEW, MAIN and query using name, title and url&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NEW: latest opened window&lt;/li&gt;
+&lt;li&gt;MAIN: main window&lt;/li&gt;
+&lt;li&gt;title="QAHive": window title. Page title will have have error if new tab have auto redirection&lt;/li&gt;
+&lt;li&gt;url="https://qahive.com": url support regex Example: url=.*qahive.com&lt;/li&gt;
+&lt;/ul&gt;</doc>
+</kw>
+<kw name="Unselect Checkbox">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>&lt;p&gt;Unselect checkbox based on locator&lt;/p&gt;</doc>
+</kw>
+<kw name="Unselect Frame">
+<arguments>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Upload File">
+<arguments>
+<arg>locator</arg>
+<arg>file_path</arg>
+</arguments>
+<doc></doc>
+</kw>
+<kw name="Wait For Navigation">
+<arguments>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until web page navigates to new url or reloads.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Open browser&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}&lt;/td&gt;
+&lt;td&gt;options=${options}&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input Text&lt;/td&gt;
+&lt;td&gt;id:username&lt;/td&gt;
+&lt;td&gt;foo&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input Text&lt;/td&gt;
+&lt;td&gt;id:password&lt;/td&gt;
+&lt;td&gt;bar&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;`Wait For Navigation`&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait For Network Idle">
+<arguments>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Wait until there are no network connections for at least 500 ms.&lt;/p&gt;</doc>
+</kw>
+<kw name="Wait For New Window Open">
+<arguments>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until new page or tab opens.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:view_conditions&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;`Wait For New Window Open`&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait For Request Url">
+<arguments>
+<arg>url</arg>
+<arg>method=GET</arg>
+<arg>body=None</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Wait until web application sent request to &lt;code&gt;url&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;url&lt;/code&gt; is request url. url can be partial url match using regexp Match Options:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Options&lt;/td&gt;
+&lt;td&gt;Url value&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Exact match&lt;/td&gt;
+&lt;td&gt;^http://127.0.0.1:7272/ajax_info.json$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Partial match&lt;/td&gt;
+&lt;td&gt;/ajax_info.json&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Regular expression&lt;/td&gt;
+&lt;td&gt;.*?/ajax_info.json&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;The &lt;code&gt;method&lt;/code&gt; is HTTP Request Methods:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GET (default)&lt;/li&gt;
+&lt;li&gt;POST&lt;/li&gt;
+&lt;li&gt;PUT&lt;/li&gt;
+&lt;li&gt;HEAD&lt;/li&gt;
+&lt;li&gt;DELETE&lt;/li&gt;
+&lt;li&gt;PATCH&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;code&gt;body&lt;/code&gt; is request body message. body can match using regexp&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Return&lt;/code&gt; request msg  with properties {url, method, body}&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Open browser&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}&lt;/td&gt;
+&lt;td&gt;options=${options}&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input Text&lt;/td&gt;
+&lt;td&gt;id:username&lt;/td&gt;
+&lt;td&gt;foo&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input Text&lt;/td&gt;
+&lt;td&gt;id:password&lt;/td&gt;
+&lt;td&gt;bar&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;`Wait For Request Url`&lt;/td&gt;
+&lt;td&gt;${URL_API}/login&lt;/td&gt;
+&lt;td&gt;POST&lt;/td&gt;
+&lt;td&gt;username=demo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait For Response Url">
+<arguments>
+<arg>url</arg>
+<arg>status=200</arg>
+<arg>body=None</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Wait until web application received response from &lt;code&gt;url&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;url&lt;/code&gt; is response url.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;status&lt;/code&gt; is HTTP Status Codes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;200 (default)&lt;/li&gt;
+&lt;li&gt;201&lt;/li&gt;
+&lt;li&gt;204&lt;/li&gt;
+&lt;li&gt;400&lt;/li&gt;
+&lt;li&gt;401&lt;/li&gt;
+&lt;li&gt;404&lt;/li&gt;
+&lt;li&gt;500&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Reference:&lt;a href="https://restfulapi.net/http-status-codes/"&gt;https://restfulapi.net/http-status-codes/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Return&lt;/code&gt; request msg  with properties {url, status, body}&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Open browser&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}&lt;/td&gt;
+&lt;td&gt;options=${options}&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input Text&lt;/td&gt;
+&lt;td&gt;id:username&lt;/td&gt;
+&lt;td&gt;foo&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Input Text&lt;/td&gt;
+&lt;td&gt;id:password&lt;/td&gt;
+&lt;td&gt;bar&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;`Wait For Response Url`&lt;/td&gt;
+&lt;td&gt;${URL_API}/login&lt;/td&gt;
+&lt;td&gt;200&lt;/td&gt;
+&lt;td&gt;username=demo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait Until Element Contains">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until &lt;code&gt;locator&lt;/code&gt; element contains &lt;code&gt;text&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Open browser&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}&lt;/td&gt;
+&lt;td&gt;options=${options}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Wait Until Element Contains`&lt;/td&gt;
+&lt;td&gt;css:#container p&lt;/td&gt;
+&lt;td&gt;Please input your user name&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait Until Element Does Not Contains">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until &lt;code&gt;locator&lt;/code&gt; element does not contains &lt;code&gt;text&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;Wait For Navigation&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Wait Until Element Does Not Contains`&lt;/td&gt;
+&lt;td&gt;css:#container p&lt;/td&gt;
+&lt;td&gt;Please input your user name&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait Until Element Finished Animating">
+<arguments>
+<arg>selenium_locator</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until the specific element is finished animating. Check by check element position.&lt;/p&gt;</doc>
+</kw>
+<kw name="Wait Until Element Is Enabled">
+<arguments>
+<arg>selenium_locator</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until the specific element is Enabled.&lt;/p&gt;</doc>
+</kw>
+<kw name="Wait Until Element Is Hidden">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until &lt;code&gt;locator&lt;/code&gt; element is hide or removed from web page.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;Wait For Navigation&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Wait Until Element Is Hidden`&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait Until Element Is Visible">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until &lt;code&gt;locator&lt;/code&gt; element is displayed on web page.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;Wait For Navigation&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Wait Until Element Is Visible`&lt;/td&gt;
+&lt;td&gt;id:welcome&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait Until Location Contains">
+<arguments>
+<arg>expected</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until the current URL contains `expected`.&lt;/p&gt;
+&lt;p&gt;The `expected` argument contains the expected value in url.&lt;/p&gt;</doc>
+</kw>
+<kw name="Wait Until Location Does Not Contains">
+<arguments>
+<arg>expected</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until the current URL does not contains `expected`.&lt;/p&gt;
+&lt;p&gt;The `expected` argument contains the expected value must not in url.&lt;/p&gt;</doc>
+</kw>
+<kw name="Wait Until Page Contains">
+<arguments>
+<arg>text</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until &lt;code&gt;text&lt;/code&gt; appears on current page.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;Wait For Navigation&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Wait Until Page Contains`&lt;/td&gt;
+&lt;td&gt;Invalid user name or password&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait Until Page Contains Element">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until &lt;code&gt;locator&lt;/code&gt; element appears on current page.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Open browser&lt;/td&gt;
+&lt;td&gt;${HOME_PAGE_URL}&lt;/td&gt;
+&lt;td&gt;options=${options}&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Wait Until Page Contains Element`&lt;/td&gt;
+&lt;td&gt;id:username&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+<kw name="Wait Until Page Does Not Contains">
+<arguments>
+<arg>text</arg>
+<arg>timeout=None</arg>
+</arguments>
+<doc>&lt;p&gt;Waits until &lt;code&gt;text&lt;/code&gt; disappears on current page.&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;table border="1"&gt;
+&lt;tr&gt;
+&lt;td&gt;Run Async Keywords&lt;/td&gt;
+&lt;td&gt;Click Element&lt;/td&gt;
+&lt;td&gt;id:login_button&lt;/td&gt;
+&lt;td&gt;AND&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;...&lt;/td&gt;
+&lt;td&gt;Wait For Navigation&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;`Wait Until Page Does Not Contains`&lt;/td&gt;
+&lt;td&gt;Please input your user name&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</doc>
+</kw>
+</keywordspec>
