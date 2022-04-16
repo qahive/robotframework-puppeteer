@@ -86,7 +86,7 @@ class PlaywrightContext(iLibraryContext):
 
     async def stop_server(self):
         try:
-            await asyncio.wait_for(self.playwright.stop(), timeout=3.0)
+            await asyncio.wait_for(self.playwright.stop(), timeout=5.0)
         except Exception:
             logger.warn('Can\'t stop server properly...')
         self._reset_server_context()
