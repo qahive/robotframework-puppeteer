@@ -34,8 +34,11 @@ class PlaywrightFormElement(iFormElementAsync):
 
     async def upload_file(self, locator: str, file_path: str):
         file_path = str2str(file_path)
-        handle = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
-        await handle.set_input_files(file_path)
+        element = await self.library_ctx.get_current_page().querySelector_with_selenium_locator(locator)
+        async with self.library_ctx.get_current_page().get_page().expect_file_chooser() as fc_info:
+            await element.click()
+        file_chooser = await fc_info.value
+        await file_chooser.set_files(file_path)
 
     async def _clear_input_text(self, selenium_locator):
         await self.library_ctx.get_current_page().click_with_selenium_locator(selenium_locator, {'click_count': 3})
